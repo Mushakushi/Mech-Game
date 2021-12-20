@@ -14,25 +14,19 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private PlayerCombat player;
     [SerializeField] private BossCombat boss;
     public FIGHT_STAGE fightStage;
+    public bool playerCanAttack;
 
     // Start is called before the first frame update
     void Start()
     {
         fightStage = FIGHT_STAGE.PlayerAttack;
+        playerCanAttack = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public void TryPlayerAttack(float damage)
-    {
-        if (!boss.isReturning && !(boss.stunStage > 2))
-        {
-            player.DoAttack();
-        }
     }
 
     public void DoBossDamage(float damage)

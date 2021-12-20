@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
 
-    [SerializeField] float health = 100.0f;
-    [SerializeField] float speed = 1.0f;
-    [SerializeField] float damage = 5f;
-    [SerializeField] CombatManager combatManager;
+    [SerializeField] private float health = 100.0f;
+    [SerializeField] private float speed = 1.0f;
+    [SerializeField] private float damage = 5.0f;
+    [SerializeField] private CombatManager cm;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private bool isAttacking = false;
     private bool isReturning = false;
     private Vector3 startPos;
@@ -33,18 +34,22 @@ public class PlayerCombat : MonoBehaviour
                 {
                     isAttacking = false;
                     isReturning = false;
+                    //spriteRenderer.color = Color.green; //stand-in for animation
                 }
                 else
                 {
-                    combatManager.DoBossDamage(damage);
+                    cm.DoBossDamage(damage);
                     moveTarget = startPos;
                     isReturning = true;
                 }
             }
         }
-        else if (!isReturning && Input.GetKeyDown(KeyCode.W) && combatManager.fightStage == CombatManager.FIGHT_STAGE.PlayerAttack)
+        else if (!isReturning && cm.playerCanAttack)
         {
-            combatManager.TryPlayerAttack(5.0f);
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                DoAttack();
+            }
         }
         
     }
@@ -57,6 +62,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void DoAttack()
     {
+        //spriteRenderer.color = Color.cyan; //stand-in for animation
         moveTarget = startPos + Vector3.up * 1.2f;
         isAttacking = true;
     }
