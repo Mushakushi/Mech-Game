@@ -12,13 +12,14 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private bool isAttacking = false;
     private bool isReturning = false;
-    private Vector3 startPos;
     private Vector3 moveTarget;
+    private MovementManager mm;
 
     // Start is called before the first frame update
     void Start()
     {
-        startPos = this.transform.position;
+        mm = (MovementManager) GetComponent("MovementManager");
+        mm.startPos = this.transform.position;
     }
 
     // Update is called once per frame
@@ -26,9 +27,8 @@ public class PlayerCombat : MonoBehaviour
     {
         if (isAttacking)
         {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(this.transform.position, moveTarget, step);
-            if (Vector3.Distance(this.transform.position, moveTarget) < 0.001f)
+            transform.position = mm.SmoothMove(this.transform.position, moveTarget, speed);
+            if (mm.PosRoughlyEqual(this.transform.position, moveTarget))
             {
                 if (isReturning)
                 {
@@ -39,7 +39,7 @@ public class PlayerCombat : MonoBehaviour
                 else
                 {
                     cm.DoBossDamage(damage);
-                    moveTarget = startPos;
+                    moveTarget = mm.startPos;
                     isReturning = true;
                 }
             }
@@ -63,7 +63,7 @@ public class PlayerCombat : MonoBehaviour
     public void DoAttack()
     {
         //spriteRenderer.color = Color.cyan; //stand-in for animation
-        moveTarget = startPos + Vector3.up * 1.2f;
+        moveTarget = mm.GetPosFromStart(1.2f, 0f);
         isAttacking = true;
     }
 }
