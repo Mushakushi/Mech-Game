@@ -12,8 +12,8 @@ public abstract class BossCombat : MonoBehaviour
     [SerializeField] private int specialAttacks = 0;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private CombatManager cm;
-    [SerializeField] private MovementManager mm;
     private List<BossSpecial> SpecialScripts = new List<BossSpecial>();
+    private Vector3 startPos;
     private bool isHit = false;
     private bool isReturning = false;
     Coroutine stunTimer;
@@ -21,8 +21,7 @@ public abstract class BossCombat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mm = (MovementManager) GetComponent("MovementManager");
-        mm.startPos = this.transform.position;
+        startPos = this.transform.position;
         stunTimer = null;
         InitSpecials();
     }
@@ -42,8 +41,8 @@ public abstract class BossCombat : MonoBehaviour
     {
         if (isHit && isReturning)
         {
-            transform.position = mm.SmoothMove(this.transform.position, mm.startPos, speed);
-            if (mm.PosRoughlyEqual(this.transform.position, mm.startPos))
+            transform.position = MoveUtil.SmoothMove(this.transform.position, startPos, speed);
+            if (MoveUtil.PosRoughlyEqual(this.transform.position, startPos))
             {
                 isHit = false;
                 isReturning = false;
@@ -71,15 +70,15 @@ public abstract class BossCombat : MonoBehaviour
         {
             case 0:
                 //spriteRenderer.color = Color.red; //stand-in for animation
-                transform.position = mm.GetPosFromStart(.15f, .15f);
+                transform.position = MoveUtil.GetPosFromPos(startPos, .15f, .15f);
                 break;
             case 1:
                 //spriteRenderer.color = Color.yellow; //stand-in for animation
-                transform.position = mm.GetPosFromStart(.25f, -.2f);
+                transform.position = MoveUtil.GetPosFromPos(startPos, .25f, -.2f);
                 break;
             case 2:
                 //spriteRenderer.color = Color.blue; //stand-in for animation
-                transform.position = mm.GetPosFromStart(.35f, 0f);
+                transform.position = MoveUtil.GetPosFromPos(startPos, .35f, 0f);
                 cm.playerCanAttack = false;
                 break;
         }

@@ -13,13 +13,12 @@ public class PlayerCombat : MonoBehaviour
     private bool isAttacking = false;
     private bool isReturning = false;
     private Vector3 moveTarget;
-    private MovementManager mm;
+    private Vector3 startPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        mm = (MovementManager) GetComponent("MovementManager");
-        mm.startPos = this.transform.position;
+        startPos = this.transform.position;
     }
 
     // Update is called once per frame
@@ -27,8 +26,8 @@ public class PlayerCombat : MonoBehaviour
     {
         if (isAttacking)
         {
-            transform.position = mm.SmoothMove(this.transform.position, moveTarget, speed);
-            if (mm.PosRoughlyEqual(this.transform.position, moveTarget))
+            transform.position = MoveUtil.SmoothMove(this.transform.position, moveTarget, speed);
+            if (MoveUtil.PosRoughlyEqual(this.transform.position, moveTarget))
             {
                 if (isReturning)
                 {
@@ -39,7 +38,7 @@ public class PlayerCombat : MonoBehaviour
                 else
                 {
                     cm.DoBossDamage(damage);
-                    moveTarget = mm.startPos;
+                    moveTarget = startPos;
                     isReturning = true;
                 }
             }
@@ -63,7 +62,7 @@ public class PlayerCombat : MonoBehaviour
     public void DoAttack()
     {
         //spriteRenderer.color = Color.cyan; //stand-in for animation
-        moveTarget = mm.GetPosFromStart(1.2f, 0f);
+        moveTarget = MoveUtil.GetPosFromPos(startPos, 1.2f, 0f);
         isAttacking = true;
     }
 }
