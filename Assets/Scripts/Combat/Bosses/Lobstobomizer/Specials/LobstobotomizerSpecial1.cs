@@ -19,7 +19,7 @@ public class LobstobotomizerSpecial1 : BossSpecial
 
     override public void RunAttackAnimation()
     {
-        //transform.position = startPos + Vector3.up * 1.0f;
+        boss.SetPosRelStart(0, -.5f);
         attackDelayCoroutine = StartCoroutine(DelayForSeconds(AttackDelay));
     }
 

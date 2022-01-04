@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class MoveUtil
 {
-    public static Vector3 GetPosFromPos(Vector3 pos, float vertical, float horizontal)
+    public static Vector3 GetPosFromPos(Vector3 pos, float horizontal, float vertical)
     {
         return pos + (Vector3.up * vertical) + (Vector3.left * horizontal);
     }
