@@ -5,11 +5,11 @@ using UnityEngine;
 public abstract class Boss : Character
 {
     [SerializeField] private int specialAttacks = 0;
-    private List<BossSpecial> SpecialScripts = new List<BossSpecial>();
+    public List<BossSpecial> SpecialScripts = new List<BossSpecial>();
 
     private Coroutine stunTimer;
     [SerializeField] private int currentStunStage;
-    private (float x, float y)[] StunStages = { (.15f, .15f), (-.2f, .25f), (0f, .35f) };
+    private readonly (float x, float y, float duration)[] StunStages = { (.15f, .15f, 2.5f), (-.2f, .25f, 1.5f), (0f, .35f, 0.5f) };
 
     private void InitSpecials()
     {
@@ -17,8 +17,8 @@ public abstract class Boss : Character
         {
             string typeString = name + "Special" + (i + 1);
             gameObject.AddComponent(System.Type.GetType(typeString));
-            SpecialScripts.Add((BossSpecial) this.gameObject.GetComponent(typeString));
-            SpecialScripts[i].boss = this;
+            SpecialScripts.Add((BossSpecial) gameObject.GetComponent(typeString));
+            SpecialScripts[i].Boss = this;
         }
     }
 
@@ -26,11 +26,10 @@ public abstract class Boss : Character
     void Start()
     {
         health = 250.0f;
-        speed = 5.0f;
         damage = 0f;
         resistance = 1.0f;
 
-        startPos = this.transform.position;
+        startPos = transform.position;
         stunTimer = null;
         InitSpecials();
     }
@@ -38,15 +37,22 @@ public abstract class Boss : Character
     // Update is called once per frame
     void Update()
     {
-        if (TrySmoothMove())
+        if (TrySmoothMove(5.0f))
         {
-            currentStunStage = 0;
-            combat.playerCanAttack = true;
-            // animation
+            if (combat.fightStage == Combat.FIGHT_STAGE.PlayerAttack)
+            {
+                currentStunStage = 0;
+                combat.playerCanAttack = true;
+                // animation
+            }
+            if (combat.fightStage == Combat.FIGHT_STAGE.BossSpecial)
+            {
+                combat.currentBossSpecial.AttackStage += 1;
+            }
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            SpecialScripts[0].RunAttackAnimation();
+            combat.DoBossSpecial();
         }
     }
 
@@ -54,8 +60,9 @@ public abstract class Boss : Character
     {
         if (stunTimer != null)
             StopCoroutine(stunTimer);
-        stunTimer = StartCoroutine(StunForSeconds(2.5f - currentStunStage));
+        stunTimer = StartCoroutine(StunForSeconds(StunStages[currentStunStage].duration));
         SetPosRelStart(StunStages[currentStunStage].x, StunStages[currentStunStage].y);
+        // animation
         if (currentStunStage == 2)
         {
             combat.playerCanAttack = false;

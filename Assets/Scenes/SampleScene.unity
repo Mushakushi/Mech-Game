@@ -568,6 +568,9 @@ MonoBehaviour:
   damage: 1
   resistance: 0
   combat: {fileID: 0}
+  isSmoothMoving: 0
+  smoothMoveTarget: {x: 0, y: 0, z: 0}
+  startPos: {x: 0, y: 0, z: 0}
 --- !u!1001 &2637289910550695569
 PrefabInstance:
   m_ObjectHideFlags: 0

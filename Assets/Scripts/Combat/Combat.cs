@@ -15,7 +15,7 @@ public class Combat : MonoBehaviour
     [SerializeField] private Boss boss;
     public FIGHT_STAGE fightStage;
     public bool playerCanAttack;
-    private Coroutine queuedBossAttack;
+    public BossSpecial currentBossSpecial;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +30,14 @@ public class Combat : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void DoBossSpecial()
+    {
+        fightStage = FIGHT_STAGE.BossSpecial;
+        // choose based on weight/list/whatever (tbd)
+        currentBossSpecial = boss.SpecialScripts[0];
+        currentBossSpecial.RunSpecial();
     }
 
     public void DoBossDamage(float damage)

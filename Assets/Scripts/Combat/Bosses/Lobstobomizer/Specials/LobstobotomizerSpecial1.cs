@@ -9,6 +9,8 @@ public class LobstobotomizerSpecial1 : BossSpecial
     {
         AttackType = BossAttackType.WATER;
         Damage = 5.0f;
+        WindUpDuration = 1.0f;
+        LingerDuration = 2.0f;
     }
 
     // Update is called once per frame
@@ -17,15 +19,23 @@ public class LobstobotomizerSpecial1 : BossSpecial
 
     }
 
-    override public void RunAttackAnimation()
+    override public void RunWindUpAnimation()
     {
-        boss.SetPosRelStart(0, -.5f);
-        attackDelayCoroutine = StartCoroutine(DelayForSeconds(AttackDelay));
+        Boss.SetPosRelStart(.7f, .7f);
     }
 
-    override public IEnumerator DelayForSeconds(float seconds)
+    override public IEnumerator RunAttackAnimation()
     {
-        yield return new WaitForSecondsRealtime(seconds);
-        //isAttacking = true;
+        Boss.smoothMoveTarget = Boss.GetPosRelStart(0, -.5f);
+        Boss.isSmoothMoving = true;
+
+        new WaitUntil(() => AttackStage == 1);
+
+        yield return null;
+    }
+
+    override public void RunReturnAnimation()
+    {
+        Boss.BeginSmoothMoveToStart();
     }
 }
