@@ -544,7 +544,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636053831}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.69, z: 0}
+  m_LocalPosition: {x: -0.25, y: -2.69, z: 0}
   m_LocalScale: {x: 1.7772, y: 3.4644, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -570,8 +570,15 @@ MonoBehaviour:
   resistance: 0
   combat: {fileID: 0}
   isSmoothMoving: 0
+  isShaking: 0
   smoothMoveTarget: {x: 0, y: 0, z: 0}
   startPos: {x: 0, y: 0, z: 0}
+  currentActionType: 0
+  currentActionStage: 0
+  actionDelay: 0
+  attackDuration: 0
+  dodgeDuration: 0
+  inActionDelay: 0
 --- !u!1 &1776184664
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,11 +702,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2637289910188876222, guid: b1d4c79da6c4e2245bfa700496c9eca2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 2637289910188876222, guid: b1d4c79da6c4e2245bfa700496c9eca2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2637289910188876222, guid: b1d4c79da6c4e2245bfa700496c9eca2, type: 3}
       propertyPath: m_LocalPosition.z

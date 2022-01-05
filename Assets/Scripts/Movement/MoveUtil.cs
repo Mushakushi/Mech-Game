@@ -6,7 +6,7 @@ public static class MoveUtil
 {
     public static Vector3 GetPosFromPos(Vector3 pos, float horizontal, float vertical)
     {
-        return pos + (Vector3.up * vertical) + (Vector3.left * horizontal);
+        return pos + (Vector3.up * vertical) + (Vector3.right * horizontal);
     }
 
     public static Vector3 SmoothMove(Vector3 currentPos, Vector3 targetPos, float speed)

@@ -12,6 +12,11 @@ public abstract class Character : MonoBehaviour
     [SerializeField] public float resistance;
     [SerializeField] public Combat combat;
     public bool isSmoothMoving = false;
+    public bool isShaking = false;
+    private Vector3 shakingStartPos;
+    private float shakingSeconds;
+    private float shakingRange;
+    private Coroutine shakingCoroutine;
     public Vector3 smoothMoveTarget;
     public Vector3 startPos;
 
@@ -37,6 +42,47 @@ public abstract class Character : MonoBehaviour
             }
         }
         return false;
+    }
+
+    /// <summary>
+    /// Moves character slightly around current position.
+    /// </summary>
+    /// <returns>true when shake has completed (time has elapsed), and false if otherwise.</returns>
+    public void TryShake()
+    {
+        if (isShaking)
+        {
+            if (shakingCoroutine == null)
+                shakingCoroutine = StartCoroutine(ShakeUntilElapsed());
+            transform.position = MoveUtil.GetPosFromPos(shakingStartPos, Random.Range(-shakingRange, shakingRange), Random.Range(-shakingRange, shakingRange));
+        }
+        else
+        {
+            shakingCoroutine = null;
+        }
+    }
+
+    public void StartShake(float seconds, float range)
+    {
+        if (shakingCoroutine != null)
+        {
+            StopCoroutine(shakingCoroutine);
+            shakingCoroutine = null;
+        }
+        shakingSeconds = seconds;
+        shakingRange = range;
+        isShaking = true;
+    }
+
+    /// <summary>
+    /// Waits for shakingSeconds to pass, then sets isShaking to false.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ShakeUntilElapsed()
+    {
+        shakingStartPos = transform.position;
+        yield return new WaitForSecondsRealtime(shakingSeconds);
+        isShaking = false;
     }
 
     /// <summary>

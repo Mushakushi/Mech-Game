@@ -7,7 +7,6 @@ public class Combat : MonoBehaviour
     public enum FIGHT_STAGE
     {
         PlayerAttack,
-        BossStun,
         BossAttack,
         BossSpecial
     }
@@ -21,10 +20,9 @@ public class Combat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fightStage = FIGHT_STAGE.PlayerAttack;
-        playerCanAttack = true;
         player.combat = this;
         boss.combat = this;
+        EnablePlayerAttack();
     }
 
     // Update is called once per frame
@@ -36,6 +34,7 @@ public class Combat : MonoBehaviour
     public void DoBossSpecial()
     {
         fightStage = FIGHT_STAGE.BossSpecial;
+        boss.currentState = Boss.BOSS_STATE.AttackSpecial;
         // choose based on weight/list/whatever (tbd)
         currentBossSpecial = boss.SpecialScripts[0];
         currentBossSpecial.RunSpecial();
@@ -44,12 +43,12 @@ public class Combat : MonoBehaviour
     public void DoBossDamage(float damage)
     {
         currentBossSpecial?.Cancel(); // runs if not null
+        currentBossSpecial = null;
         boss.OnGetHit(damage);
     }
 
-    public void DisablePlayerAttack(FIGHT_STAGE newStage)
+    public void DisablePlayerAttack()
     {
-        fightStage = newStage;
         playerCanAttack = false;
     }
     public void EnablePlayerAttack()

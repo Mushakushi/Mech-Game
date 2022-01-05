@@ -9,7 +9,10 @@ public abstract class Boss : Character
 
     private Coroutine stunTimer;
     [SerializeField] private int currentStunStage;
-    private readonly (float x, float y, float duration)[] StunStages = { (.15f, .15f, 2.5f), (-.2f, .25f, 1.5f), (0f, .35f, 0.5f) };
+    public (float x, float y, float duration)[] StunStages { get; set; }
+    
+    public enum BOSS_STATE { AttackNormal, AttackSpecial, Stun, Default }
+    public BOSS_STATE currentState;
 
     private void InitSpecials()
     {
@@ -25,14 +28,11 @@ public abstract class Boss : Character
     // Start is called before the first frame update
    override public void OnStart()
     {
-        health = 250.0f;
-        damage = 0f;
-        resistance = 1.0f;
-        defaultSpeed = 5.0f;
-
+        currentState = BOSS_STATE.Default;
         startPos = transform.position;
         stunTimer = null;
         InitSpecials();
+        SetBossValues();
     }
 
     // Update is called once per frame
@@ -40,17 +40,21 @@ public abstract class Boss : Character
     {
         if (TrySmoothMove())
         {
-            if (combat.fightStage == Combat.FIGHT_STAGE.BossStun)
+            switch (currentState)
             {
-                currentStunStage = 0;
-                combat.EnablePlayerAttack();
-                // animation
-            }
-            if (combat.fightStage == Combat.FIGHT_STAGE.BossSpecial)
-            {
-                combat.currentBossSpecial.AttackStage += 1;
+                case BOSS_STATE.AttackSpecial:
+                    combat.currentBossSpecial.AttackStage += 1;
+                    break;
+                case BOSS_STATE.Stun:
+                    StopStun();
+                    combat.EnablePlayerAttack();
+                    // animation
+                    break;
             }
         }
+
+        TryShake();
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             combat.DoBossSpecial();
@@ -59,6 +63,7 @@ public abstract class Boss : Character
 
     override public void RunHitAnimation()
     {
+        currentState = BOSS_STATE.Stun;
         if (stunTimer != null)
             StopCoroutine(stunTimer);
         stunTimer = StartCoroutine(StunForSeconds(StunStages[currentStunStage].duration));
@@ -66,7 +71,7 @@ public abstract class Boss : Character
         // animation
         if (currentStunStage == 2)
         {
-            combat.DisablePlayerAttack(Combat.FIGHT_STAGE.BossStun);
+            combat.DisablePlayerAttack();
         }
     }
 
@@ -74,6 +79,7 @@ public abstract class Boss : Character
     {
         TakeDamage(damage);
         RunHitAnimation();
+        StartShake(0.05f, 0.03f);
         currentStunStage++;
     }
 
@@ -89,12 +95,27 @@ public abstract class Boss : Character
         isSmoothMoving = true;
     }
 
-    public void CancelStun()
+    public void StopStun()
     {
         if (stunTimer != null)
             StopCoroutine(stunTimer);
         currentStunStage = 0;
+        currentState = BOSS_STATE.Default;
+    }
+
+    public void StopStun(BOSS_STATE newState)
+    {
+        if (stunTimer != null)
+            StopCoroutine(stunTimer);
+        currentStunStage = 0;
+        currentState = newState;
+    }
+
+    public void HitShake()
+    {
+
     }
 
     public abstract void DoNormalAttack();
+    public abstract void SetBossValues();
 }
