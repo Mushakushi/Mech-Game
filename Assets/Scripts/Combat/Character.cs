@@ -6,7 +6,8 @@ public abstract class Character : MonoBehaviour
 {
     [SerializeField] public string characterName;
     [SerializeField] public float health;
-    [SerializeField] public float currentSpeed;
+    [SerializeField] private float currentSpeed;
+    [SerializeField] public float defaultSpeed;
     [SerializeField] public float damage;
     [SerializeField] public float resistance;
     [SerializeField] public Combat combat;
@@ -14,11 +15,17 @@ public abstract class Character : MonoBehaviour
     public Vector3 smoothMoveTarget;
     public Vector3 startPos;
 
+    private void Start()
+    {
+        OnStart();
+        currentSpeed = defaultSpeed;
+    }
+
     /// <summary>
     /// Moves character smoothly between current position and smoothMoveTarget.
     /// </summary>
     /// <returns>true when SmoothMove has completed (positions are roughly equal), and false if otherwise.</returns>
-    public bool TrySmoothMove(float speed)
+    public bool TrySmoothMove()
     {
         if (isSmoothMoving)
         {
@@ -72,13 +79,36 @@ public abstract class Character : MonoBehaviour
         return MoveUtil.GetPosFromPos(transform.position, x, y);
     }
 
+    public void BeginSmoothMoveToStart(float speed)
+    {
+        currentSpeed = speed;
+        smoothMoveTarget = startPos;
+        isSmoothMoving = true;
+    }
+
     public void BeginSmoothMoveToStart()
     {
+        currentSpeed = defaultSpeed;
         smoothMoveTarget = startPos;
+        isSmoothMoving = true;
+    }
+
+    public void BeginSmoothMoveToPos(Vector3 pos, float speed)
+    {
+        currentSpeed = speed;
+        smoothMoveTarget = pos;
+        isSmoothMoving = true;
+    }
+
+    public void BeginSmoothMoveToPos(Vector3 pos)
+    {
+        currentSpeed = defaultSpeed;
+        smoothMoveTarget = pos;
         isSmoothMoving = true;
     }
 
     public abstract void OnGetHit(float damage);
     public abstract void TakeDamage(float damage);
     public abstract void RunHitAnimation();
+    public abstract void OnStart();
 }

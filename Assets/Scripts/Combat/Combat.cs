@@ -7,6 +7,7 @@ public class Combat : MonoBehaviour
     public enum FIGHT_STAGE
     {
         PlayerAttack,
+        BossStun,
         BossAttack,
         BossSpecial
     }
@@ -14,8 +15,8 @@ public class Combat : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Boss boss;
     public FIGHT_STAGE fightStage;
-    public bool playerCanAttack;
-    public BossSpecial currentBossSpecial;
+    private bool playerCanAttack;
+    public BossSpecial currentBossSpecial = null;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,23 @@ public class Combat : MonoBehaviour
 
     public void DoBossDamage(float damage)
     {
+        currentBossSpecial?.Cancel(); // runs if not null
         boss.OnGetHit(damage);
+    }
+
+    public void DisablePlayerAttack(FIGHT_STAGE newStage)
+    {
+        fightStage = newStage;
+        playerCanAttack = false;
+    }
+    public void EnablePlayerAttack()
+    {
+        fightStage = FIGHT_STAGE.PlayerAttack;
+        playerCanAttack = true;
+    }
+
+    public bool PlayerCanAttack()
+    {
+       return (fightStage == FIGHT_STAGE.PlayerAttack && playerCanAttack);
     }
 }

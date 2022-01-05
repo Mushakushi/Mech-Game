@@ -23,11 +23,12 @@ public abstract class Boss : Character
     }
 
     // Start is called before the first frame update
-    void Start()
+   override public void OnStart()
     {
         health = 250.0f;
         damage = 0f;
         resistance = 1.0f;
+        defaultSpeed = 5.0f;
 
         startPos = transform.position;
         stunTimer = null;
@@ -37,12 +38,12 @@ public abstract class Boss : Character
     // Update is called once per frame
     void Update()
     {
-        if (TrySmoothMove(5.0f))
+        if (TrySmoothMove())
         {
-            if (combat.fightStage == Combat.FIGHT_STAGE.PlayerAttack)
+            if (combat.fightStage == Combat.FIGHT_STAGE.BossStun)
             {
                 currentStunStage = 0;
-                combat.playerCanAttack = true;
+                combat.EnablePlayerAttack();
                 // animation
             }
             if (combat.fightStage == Combat.FIGHT_STAGE.BossSpecial)
@@ -65,7 +66,7 @@ public abstract class Boss : Character
         // animation
         if (currentStunStage == 2)
         {
-            combat.playerCanAttack = false;
+            combat.DisablePlayerAttack(Combat.FIGHT_STAGE.BossStun);
         }
     }
 
@@ -86,6 +87,13 @@ public abstract class Boss : Character
         yield return new WaitForSecondsRealtime(seconds);
         smoothMoveTarget = startPos;
         isSmoothMoving = true;
+    }
+
+    public void CancelStun()
+    {
+        if (stunTimer != null)
+            StopCoroutine(stunTimer);
+        currentStunStage = 0;
     }
 
     public abstract void DoNormalAttack();

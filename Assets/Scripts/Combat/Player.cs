@@ -7,13 +7,14 @@ public class Player : Character
     private bool isAttacking = false;
 
     // Start is called before the first frame update
-    void Start()
+    override public void OnStart()
     {
-        startPos = this.transform.position;
+        startPos = transform.position;
         health = 100.0f;
-        speed = 15.0f;
+        defaultSpeed = 15.0f;
         damage = 5.0f;
         resistance = 0f;
+        isSmoothMoving = false;
     }
 
     // Update is called once per frame
@@ -24,9 +25,9 @@ public class Player : Character
             if (isAttacking)
             {
                 combat.DoBossDamage(damage);
-                smoothMoveTarget = startPos;
                 isAttacking = false;
-                isSmoothMoving = true;
+                BeginSmoothMoveToStart();
+                
                 // animation
             }
             else
@@ -34,7 +35,7 @@ public class Player : Character
                 // runs when done returning
             }
         }
-        else if (!isSmoothMoving && combat.playerCanAttack)
+        else if (combat.PlayerCanAttack() && !isSmoothMoving)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -46,10 +47,9 @@ public class Player : Character
 
     public void DoAttack()
     {
+        BeginSmoothMoveToPos(GetPosRelStart(0f, 1.2f));
         // animation
-        smoothMoveTarget = MoveUtil.GetPosFromPos(startPos, 0f, 1.2f);
         isAttacking = true;
-        isSmoothMoving = true;
     }
 
     override public void RunHitAnimation()

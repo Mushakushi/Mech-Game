@@ -39,25 +39,49 @@ public abstract class BossSpecial : MonoBehaviour
 
     public void RunSpecial()
     {
+        Boss.CancelStun();
         AttackStage = 0;
-        RunWindUpAnimation();
         attackCoroutine = StartCoroutine(AttackAfterSeconds(WindUpDuration));
     }
 
     public IEnumerator AttackAfterSeconds(float seconds)
     {
+        yield return StartCoroutine(RunWindUpAnimation());
         yield return new WaitForSecondsRealtime(seconds);
+        Boss.combat.DisablePlayerAttack(Combat.FIGHT_STAGE.BossSpecial);
         yield return StartCoroutine(RunAttackAnimation());
         returnCoroutine = StartCoroutine(ReturnAfterSeconds(LingerDuration));
     }
 
     public IEnumerator ReturnAfterSeconds(float seconds)
     {
-        yield return new WaitForSecondsRealtime(seconds);
+        yield return new WaitForSecondsRealtime(seconds / 2);
+        Boss.combat.EnablePlayerAttack();
+        yield return new WaitForSecondsRealtime(seconds / 2);
         RunReturnAnimation();
     }
 
-    public abstract void RunWindUpAnimation();
+    public void CancelAttackIfExists()
+    {
+        if (attackCoroutine != null)
+            StopCoroutine(attackCoroutine);
+        Boss.combat.EnablePlayerAttack();
+    }
+
+    public void CancelReturnIfExists()
+    {
+        if (returnCoroutine != null)
+            StopCoroutine(returnCoroutine);
+        Boss.combat.EnablePlayerAttack();
+    }
+
+    public void Cancel()
+    {
+        CancelAttackIfExists();
+        CancelReturnIfExists();
+    }
+
+    public abstract IEnumerator RunWindUpAnimation();
 
     public abstract IEnumerator RunAttackAnimation();
 
