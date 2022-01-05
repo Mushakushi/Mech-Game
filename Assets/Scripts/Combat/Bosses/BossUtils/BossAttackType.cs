@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum BossAttackType
 {
-    WATER,
-    ACID
+    Physical,
+    Water,
+    Acid
 }

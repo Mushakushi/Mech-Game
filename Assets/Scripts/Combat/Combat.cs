@@ -14,16 +14,15 @@ public class Combat : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Boss boss;
     public FIGHT_STAGE fightStage;
-    public bool playerCanAttack;
-    public BossSpecial currentBossSpecial;
+    private bool playerCanAttack;
+    public BossSpecial currentBossSpecial = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        fightStage = FIGHT_STAGE.PlayerAttack;
-        playerCanAttack = true;
         player.combat = this;
         boss.combat = this;
+        EnablePlayerAttack();
     }
 
     // Update is called once per frame
@@ -35,6 +34,7 @@ public class Combat : MonoBehaviour
     public void DoBossSpecial()
     {
         fightStage = FIGHT_STAGE.BossSpecial;
+        boss.currentState = Boss.BOSS_STATE.AttackSpecial;
         // choose based on weight/list/whatever (tbd)
         currentBossSpecial = boss.SpecialScripts[0];
         currentBossSpecial.RunSpecial();
@@ -42,6 +42,23 @@ public class Combat : MonoBehaviour
 
     public void DoBossDamage(float damage)
     {
+        currentBossSpecial?.Cancel(); // runs if not null
+        currentBossSpecial = null;
         boss.OnGetHit(damage);
+    }
+
+    public void DisablePlayerAttack()
+    {
+        playerCanAttack = false;
+    }
+    public void EnablePlayerAttack()
+    {
+        fightStage = FIGHT_STAGE.PlayerAttack;
+        playerCanAttack = true;
+    }
+
+    public bool PlayerCanAttack()
+    {
+       return (fightStage == FIGHT_STAGE.PlayerAttack && playerCanAttack);
     }
 }

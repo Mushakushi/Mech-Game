@@ -7,10 +7,10 @@ public class LobstobotomizerSpecial1 : BossSpecial
 
     void Start()
     {
-        AttackType = BossAttackType.WATER;
+        AttackType = BossAttackType.Physical;
         Damage = 5.0f;
         WindUpDuration = 1.0f;
-        LingerDuration = 2.0f;
+        LingerDuration = 1.5f;
     }
 
     // Update is called once per frame
@@ -19,23 +19,38 @@ public class LobstobotomizerSpecial1 : BossSpecial
 
     }
 
-    override public void RunWindUpAnimation()
+    override public IEnumerator RunWindUpAnimation()
     {
-        Boss.SetPosRelStart(.7f, .7f);
-    }
-
-    override public IEnumerator RunAttackAnimation()
-    {
-        Boss.smoothMoveTarget = Boss.GetPosRelStart(0, -.5f);
-        Boss.isSmoothMoving = true;
-
-        new WaitUntil(() => AttackStage == 1);
+        Boss.BeginSmoothMoveToPos(Boss.GetPosRelStart(0f, 1f), 10f);
 
         yield return null;
     }
 
-    override public void RunReturnAnimation()
+    /// <summary>
+    /// Runs completely after WindUpDelay. Used for whole attack animation, including anything before/during LingerDelay.
+    /// </summary>
+    /// <returns></returns>
+    override public IEnumerator RunAttackAnimation()
+    {
+        Boss.StartShake(.5f, .1f);
+        yield return new WaitForSecondsRealtime(.5f);
+
+        Boss.BeginSmoothMoveToPos(Boss.GetPosRelStart(0, -1.5f), 15.0f);
+        yield return new WaitUntil(() => AttackStage == 2); // increases by one when smooth move finishes
+
+        Boss.StartShake(.2f, .03f);
+
+        yield return null;
+    }
+
+    /// <summary>
+    /// Runs completely after LingerDelay. Used only for returning to the start position.
+    /// </summary>
+    /// <returns></returns>
+    override public IEnumerator RunReturnAnimation()
     {
         Boss.BeginSmoothMoveToStart();
+
+        yield return null;
     }
 }

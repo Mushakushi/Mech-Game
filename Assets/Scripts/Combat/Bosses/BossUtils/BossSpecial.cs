@@ -7,23 +7,23 @@ public abstract class BossSpecial : MonoBehaviour
     /// <summary>
     /// Elemental type of the attack.
     /// </summary>
-    public BossAttackType AttackType { get; set; }
+    [SerializeField] public BossAttackType AttackType { get; set; }
     /// <summary>
     /// Damage done by the attack.
     /// </summary>
-    public float Damage { get; set; }
+    [SerializeField] public float Damage { get; set; }
     /// <summary>
     /// Duration of the attack wind-up in seconds.
     /// </summary>
-    public float WindUpDuration { get; set; }
+    [SerializeField] public float WindUpDuration { get; set; }
     /// <summary>
     /// Duration of linger after attack has completed.
     /// </summary>
-    public float LingerDuration { get; set; }
+    [SerializeField] public float LingerDuration { get; set; }
     /// <summary>
     /// Int value for the current stage of the attack.
     /// </summary>
-    public int AttackStage { get; set; }
+    [SerializeField] public int AttackStage { get; set; }
     /// <summary>
     /// Coroutine containing delay and attack animation. Can be cancelled to stop the attack.
     /// </summary>
@@ -39,27 +39,46 @@ public abstract class BossSpecial : MonoBehaviour
 
     public void RunSpecial()
     {
+        Boss.StopStun(Boss.BOSS_STATE.AttackSpecial);
         AttackStage = 0;
-        RunWindUpAnimation();
-        attackCoroutine = StartCoroutine(AttackAfterSeconds(WindUpDuration));
+        attackCoroutine = StartCoroutine(DoAttack());
     }
 
-    public IEnumerator AttackAfterSeconds(float seconds)
+    public IEnumerator DoAttack()
     {
-        yield return new WaitForSecondsRealtime(seconds);
+        yield return StartCoroutine(RunWindUpAnimation());
+        yield return new WaitForSecondsRealtime(WindUpDuration);
+        Boss.combat.DisablePlayerAttack();
         yield return StartCoroutine(RunAttackAnimation());
-        returnCoroutine = StartCoroutine(ReturnAfterSeconds(LingerDuration));
+        yield return new WaitForSecondsRealtime(0.4f);
+        Boss.combat.EnablePlayerAttack();
+        yield return new WaitForSecondsRealtime((LingerDuration - 0.4f <= 0) ? 0 : LingerDuration - 0.4f);
+        returnCoroutine = StartCoroutine(RunReturnAnimation());
     }
 
-    public IEnumerator ReturnAfterSeconds(float seconds)
+    public void CancelAttackIfExists()
     {
-        yield return new WaitForSecondsRealtime(seconds);
-        RunReturnAnimation();
+        if (attackCoroutine != null)
+            StopCoroutine(attackCoroutine);
+        Boss.combat.EnablePlayerAttack();
     }
 
-    public abstract void RunWindUpAnimation();
+    public void CancelReturnIfExists()
+    {
+        if (returnCoroutine != null)
+            StopCoroutine(returnCoroutine);
+        Boss.combat.EnablePlayerAttack();
+    }
+
+    public void Cancel()
+    {
+        CancelAttackIfExists();
+        CancelReturnIfExists();
+    }
+
+    public abstract IEnumerator RunWindUpAnimation();
 
     public abstract IEnumerator RunAttackAnimation();
 
-    public abstract void RunReturnAnimation();
+    public abstract IEnumerator RunReturnAnimation();
 }
