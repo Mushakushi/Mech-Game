@@ -32,7 +32,7 @@ public class Player : Character
     }
 
     // Update is called once per frame
-    void Update()
+    override public void OnUpdate()
     {
         if (TrySmoothMove())
         {
@@ -116,10 +116,6 @@ public class Player : Character
         currentActionType = ACTION_TYPE.None;
         yield return new WaitForSecondsRealtime(actionDelay);
         inActionDelay = false;
-    }
-
-    override public void RunHitAnimation()
-    {
     }
 
     override public void OnGetHit(float damage)

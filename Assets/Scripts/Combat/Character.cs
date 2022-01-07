@@ -11,14 +11,14 @@ public abstract class Character : MonoBehaviour
     [SerializeField] public float damage;
     [SerializeField] public float resistance;
     [SerializeField] public Combat combat;
+    [SerializeField] public Animator animator;
     public bool isSmoothMoving = false;
     public bool isShaking = false;
-    private Vector3 shakingStartPos;
-    private float shakingSeconds;
-    private float shakingRange;
-    private Coroutine shakingCoroutine;
+    public Vector3 shakePos;
+    public float shakingRange;
     public Vector3 smoothMoveTarget;
     public Vector3 startPos;
+    public bool returnToStart = false;
 
     private void Start()
     {
@@ -26,11 +26,22 @@ public abstract class Character : MonoBehaviour
         currentSpeed = defaultSpeed;
     }
 
-    /// <summary>
-    /// Moves character smoothly between current position and smoothMoveTarget.
-    /// </summary>
-    /// <returns>true when SmoothMove has completed (positions are roughly equal), and false if otherwise.</returns>
-    public bool TrySmoothMove()
+    void Update()
+    {
+        if (returnToStart)
+        {
+            transform.position = startPos;
+            returnToStart = false;
+            animator.ResetTrigger("GetHit");
+        }
+        OnUpdate();
+    }
+
+        /// <summary>
+        /// Moves character smoothly between current position and smoothMoveTarget.
+        /// </summary>
+        /// <returns>true when SmoothMove has completed (positions are roughly equal), and false if otherwise.</returns>
+        public bool TrySmoothMove()
     {
         if (isSmoothMoving)
         {
@@ -52,37 +63,17 @@ public abstract class Character : MonoBehaviour
     {
         if (isShaking)
         {
-            if (shakingCoroutine == null)
-                shakingCoroutine = StartCoroutine(ShakeUntilElapsed());
-            transform.position = MoveUtil.GetPosFromPos(shakingStartPos, Random.Range(-shakingRange, shakingRange), Random.Range(-shakingRange, shakingRange));
+            animator.applyRootMotion = true;
+            transform.position = MoveUtil.GetPosFromPos(shakePos, Random.Range(-shakingRange, shakingRange), Random.Range(-shakingRange, shakingRange));
         }
         else
         {
-            shakingCoroutine = null;
+            if (MoveUtil.PosWithinRange(transform.position, shakePos, shakingRange) && !transform.position.Equals(shakePos))
+            {
+                transform.position = shakePos;
+                animator.applyRootMotion = false;
+            }
         }
-    }
-
-    public void StartShake(float seconds, float range)
-    {
-        if (shakingCoroutine != null)
-        {
-            StopCoroutine(shakingCoroutine);
-            shakingCoroutine = null;
-        }
-        shakingSeconds = seconds;
-        shakingRange = range;
-        isShaking = true;
-    }
-
-    /// <summary>
-    /// Waits for shakingSeconds to pass, then sets isShaking to false.
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator ShakeUntilElapsed()
-    {
-        shakingStartPos = transform.position;
-        yield return new WaitForSecondsRealtime(shakingSeconds);
-        isShaking = false;
     }
 
     /// <summary>
@@ -125,13 +116,6 @@ public abstract class Character : MonoBehaviour
         return MoveUtil.GetPosFromPos(transform.position, x, y);
     }
 
-    public void BeginSmoothMoveToStart(float speed)
-    {
-        currentSpeed = speed;
-        smoothMoveTarget = startPos;
-        isSmoothMoving = true;
-    }
-
     public void BeginSmoothMoveToStart()
     {
         currentSpeed = defaultSpeed;
@@ -155,6 +139,6 @@ public abstract class Character : MonoBehaviour
 
     public abstract void OnGetHit(float damage);
     public abstract void TakeDamage(float damage);
-    public abstract void RunHitAnimation();
     public abstract void OnStart();
+    public abstract void OnUpdate();
 }

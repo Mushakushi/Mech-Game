@@ -38,8 +38,7 @@ public abstract class BossSpecial : MonoBehaviour
     public Boss Boss { get; set; }
 
     public void RunSpecial()
-    {
-        Boss.StopStun(Boss.BOSS_STATE.AttackSpecial);
+    { 
         AttackStage = 0;
         attackCoroutine = StartCoroutine(DoAttack());
     }

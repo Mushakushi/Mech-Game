@@ -32,13 +32,13 @@ public class LobstobotomizerSpecial1 : BossSpecial
     /// <returns></returns>
     override public IEnumerator RunAttackAnimation()
     {
-        Boss.StartShake(.5f, .1f);
+        //Boss.StartShake(.5f, .1f);
         yield return new WaitForSecondsRealtime(.5f);
 
         Boss.BeginSmoothMoveToPos(Boss.GetPosRelStart(0, -1.5f), 15.0f);
         yield return new WaitUntil(() => AttackStage == 2); // increases by one when smooth move finishes
 
-        Boss.StartShake(.2f, .03f);
+        //Boss.StartShake(.2f, .03f);
 
         yield return null;
     }
