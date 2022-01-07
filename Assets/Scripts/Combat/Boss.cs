@@ -4,13 +4,10 @@ using UnityEngine;
 
 public abstract class Boss : Character
 {
-    [SerializeField] private int specialAttacks = 0;
-    public List<BossSpecial> SpecialScripts = new List<BossSpecial>();
-
-    private Coroutine stunTimer;
-    [SerializeField] private int currentStunStage;
-    public (float x, float y, float duration)[] StunStages { get; set; }
-    
+    /// <summary>
+    /// List of weights for Special Attacks. Count should not exceed number of special attacks.
+    /// </summary>
+    public List<int> SpecialAttackWeights { get; set; }
     public enum BOSS_STATE { AttackNormal, AttackSpecial, Stun, Default }
     public BOSS_STATE currentState;
 
@@ -18,20 +15,13 @@ public abstract class Boss : Character
 
     private void InitSpecials()
     {
-        for (int i = 0; i < specialAttacks; i++)
-        {
-            string typeString = name + "Special" + (i + 1);
-            gameObject.AddComponent(System.Type.GetType(typeString));
-            SpecialScripts.Add((BossSpecial) gameObject.GetComponent(typeString));
-            SpecialScripts[i].Boss = this;
-        }
+
     }
 
     // Start is called before the first frame update
    override public void OnStart()
     {
         startPos = transform.position;
-        stunTimer = null;
         InitSpecials();
         SetBossValues();
     }
@@ -58,6 +48,10 @@ public abstract class Boss : Character
         health -= damage * (1 / resistance);
     }
 
-    public abstract void DoNormalAttack();
+    public void DoNormalAttack()
+    {
+
+        return;
+    }
     public abstract void SetBossValues();
 }

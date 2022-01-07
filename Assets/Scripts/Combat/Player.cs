@@ -89,13 +89,15 @@ public class Player : Character
 
     public IEnumerator DoAttack()
     {
-        currentActionType = ACTION_TYPE.Attack;
+        animator.SetTrigger("Attack");
+        yield return null;
+        /*currentActionType = ACTION_TYPE.Attack;
         currentActionStage = 1;
         // animation
         BeginSmoothMoveToPos(GetPosRelStart(0.25f, 2f), 30f);
         yield return new WaitUntil(() => currentActionStage == 2);
         yield return new WaitForSecondsRealtime(attackDuration);
-        BeginSmoothMoveToStart();
+        BeginSmoothMoveToStart();*/
     }
 
     public IEnumerator DoDodge(string direction) // TODO: make this not use string (it is yucky)

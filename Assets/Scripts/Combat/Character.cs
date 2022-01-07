@@ -30,9 +30,11 @@ public abstract class Character : MonoBehaviour
     {
         if (returnToStart)
         {
+            animator.applyRootMotion = false;
             transform.position = startPos;
             returnToStart = false;
             animator.ResetTrigger("GetHit");
+            animator.ResetTrigger("RunSpecial");
         }
         OnUpdate();
     }
