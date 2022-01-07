@@ -16,6 +16,11 @@ public static class MoveUtil
 
     public static bool PosRoughlyEqual(Vector3 currentPos, Vector3 targetPos)
     {
-        return Vector3.Distance(currentPos, targetPos) < 0.001f;
+        return Vector3.Distance(currentPos, targetPos) < 0.1f;
+    }
+
+    public static bool PosWithinRange(Vector3 currentPos, Vector3 targetPos, float range)
+    {
+        return Vector3.Distance(currentPos, targetPos) <= range;
     }
 }
