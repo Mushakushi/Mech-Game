@@ -569,7 +569,7 @@ MonoBehaviour:
   damage: 1
   resistance: 0
   combat: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 1636053835}
   isSmoothMoving: 0
   isShaking: 0
   shakePos: {x: 0, y: 0, z: 0}
