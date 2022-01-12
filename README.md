@@ -2,19 +2,17 @@
 
 ## Current TODO:
 - Normal Attack Demo
-- Hitbox Creation/Storage/etc.
+- Hitboxes
 - Hit Detection
 - Lob. Specials
 - Title Untitled Mech Game
 
 ## Looking Foward:
 
-Sprites Needed:
-- Lob. Stun (3 stages? 2?)
-- Lob. Normal Attack
-- Lob. Special Attacks
-
 Systems Needed:
+- Music
 - Dialogue
 - Voice Lines
 - Menus
+
+Create Shoto and John
