@@ -2,7 +2,6 @@
 
 ## Current TODO:
 - Normal Attack Demo
-- Hitboxes
 - Hit Detection
 - Lob. Specials
 - Title Untitled Mech Game
