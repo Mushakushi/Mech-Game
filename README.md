@@ -17,4 +17,4 @@ Systems Needed:
 
 Create Shoto and John
 
-Now with mirroring!
+Now with full mirroring!
