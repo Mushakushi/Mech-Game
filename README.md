@@ -17,4 +17,4 @@ Systems Needed:
 
 Create Shoto and John
 
-test push for gitlab mirror
+Now with mirroring!
