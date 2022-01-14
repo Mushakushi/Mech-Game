@@ -43,7 +43,7 @@ public abstract class Character : MonoBehaviour
     {
         if (!beingHit)
         {
-            if (Physics2D.OverlapCollider(hitbox, attackLayerFilter, new List<Collider2D>()) > 0)
+            if (Physics2D.OverlapCollider(hurtbox, attackLayerFilter, new List<Collider2D>()) > 0)
             {
                 beingHit = true;
                 animator.SetTrigger("GetHit");
@@ -51,7 +51,7 @@ public abstract class Character : MonoBehaviour
         }
         else
         {
-            if (Physics2D.OverlapCollider(hitbox, attackLayerFilter, new List<Collider2D>()) == 0)
+            if (Physics2D.OverlapCollider(hurtbox, attackLayerFilter, new List<Collider2D>()) == 0)
             {
                 beingHit = false;
             }

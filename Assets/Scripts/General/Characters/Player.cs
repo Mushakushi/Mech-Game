@@ -18,7 +18,7 @@ public class Player : Character
         damage = 5.0f;
         resistance = 0f;
 
-        actionDelay = 0.15f;
+        actionDelay = 0.35f;
         currentActionType = ACTION_TYPE.None;
         allowQueueAction = true;
         queuedAction = null;

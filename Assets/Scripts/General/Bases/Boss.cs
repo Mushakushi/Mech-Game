@@ -27,6 +27,7 @@ public abstract class Boss : Character
             returnToIdle = false;
             animator.ResetTrigger("GetHit");
             animator.ResetTrigger("RunSpecial");
+            combat.fightStage = Combat.FIGHT_STAGE.PlayerAttack;
         }
 
         TryShake();
