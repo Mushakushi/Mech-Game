@@ -50,6 +50,10 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Event that happens when Hitbox enters Character Hurtbox
+    /// </summary>
+    /// <param name="damage">Damage taken on entrance</param>
     public void OnHitboxEnter(float damage)
     {
         print("ow");
@@ -59,6 +63,9 @@ public abstract class Character : MonoBehaviour
         isHit = true; 
     }
 
+    /// <summary>
+    /// Event that happens when Hitbox exits Character Hurtbox
+    /// </summary>
     public void OnHitboxExit()
     {
         isHit = false; 
