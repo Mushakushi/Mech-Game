@@ -143,24 +143,11 @@ MonoBehaviour:
   animator: {fileID: 2637289910550695571}
   hitbox: {fileID: 1846042408}
   hurtbox: {fileID: 1930626935}
+  isHit: 0
   isShaking: 0
   shakePos: {x: 0, y: 0, z: 0}
   shakingRange: 0
   returnToIdle: 0
-  attackLayerFilter:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 0
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
   currentState: 0
   lastPos: {x: 0, y: 0, z: 0}
 --- !u!1 &31313605
@@ -253,6 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182910709}
   - component: {fileID: 182910710}
+  - component: {fileID: 182910711}
   m_Layer: 6
   m_Name: Hitbox
   m_TagString: Untagged
@@ -300,6 +288,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &182910711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182910708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b1287f6ec6c2d04cbddb2555009a0d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  damage: 1
 --- !u!1 &414895632
 GameObject:
   m_ObjectHideFlags: 3
@@ -646,7 +650,7 @@ GameObject:
   - component: {fileID: 1636053835}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -738,24 +742,11 @@ MonoBehaviour:
   animator: {fileID: 1636053835}
   hitbox: {fileID: 182910710}
   hurtbox: {fileID: 876223407}
+  isHit: 0
   isShaking: 0
   shakePos: {x: 0, y: 0, z: 0}
   shakingRange: 0
   returnToIdle: 0
-  attackLayerFilter:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 0
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
   currentActionType: 0
   actionDelay: 0
   inActionDelay: 0
@@ -789,6 +780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1846042407}
   - component: {fileID: 1846042408}
+  - component: {fileID: 1846042409}
   m_Layer: 7
   m_Name: Hitbox
   m_TagString: Untagged
@@ -836,6 +828,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1846042409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846042406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b1287f6ec6c2d04cbddb2555009a0d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  damage: 1
 --- !u!1 &1930626933
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +854,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1930626934}
   - component: {fileID: 1930626935}
-  - component: {fileID: 1930626936}
   - component: {fileID: 1930626937}
   m_Layer: 6
   m_Name: Hurtbox
@@ -895,18 +902,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1930626936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1930626933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 225773c564294d847aad121cb58a972e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &1930626937
 Rigidbody2D:
   serializedVersion: 4

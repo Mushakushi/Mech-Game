@@ -14,7 +14,7 @@ public abstract class Boss : Character
     // Start is called before the first frame update
     void Start()
     {
-        attackLayerFilter.SetLayerMask(LayerMask.GetMask("Boss Attack"));
+        //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Boss Attack"));
         SetBossValues();
     }
 
@@ -31,7 +31,6 @@ public abstract class Boss : Character
         }
 
         TryShake();
-        CheckBeingHit();
 
         if (Input.GetKeyDown(KeyCode.P))
         {

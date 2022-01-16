@@ -3,20 +3,22 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] public string characterName;
-    [SerializeField] public float health;
-    [SerializeField] public float damage;
-    [SerializeField] public float resistance;
+    [SerializeField] protected string characterName;
+    [SerializeField] protected float health;
+    [SerializeField] protected float damage;
+    [SerializeField] protected float resistance;
+
     [SerializeField] public Combat combat;
     [SerializeField] public Animator animator;
-    [SerializeField] public BoxCollider2D hitbox;
-    [SerializeField] public BoxCollider2D hurtbox;
+
+    [SerializeField] protected BoxCollider2D hitbox;
+    [SerializeField] protected BoxCollider2D hurtbox;
+
+    public bool isHit;
     public bool isShaking = false;
     public Vector3 shakePos;
     public float shakingRange;
     public bool returnToIdle = false;
-    private bool beingHit;
-    public ContactFilter2D attackLayerFilter = new ContactFilter2D();
 
     /// <summary>
     /// Moves character slightly around current position.
@@ -39,33 +41,9 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public void CheckBeingHit()
-    {
-        if (!beingHit)
-        {
-            if (Physics2D.OverlapCollider(hurtbox, attackLayerFilter, new List<Collider2D>()) > 0)
-            {
-                beingHit = true;
-                animator.SetTrigger("GetHit");
-            }
-        }
-        else
-        {
-            if (Physics2D.OverlapCollider(hurtbox, attackLayerFilter, new List<Collider2D>()) == 0)
-            {
-                beingHit = false;
-            }
-        }
-    }
-
     public void OnGetHit(float damage)
     {
         animator.SetTrigger("GetHit");
-        TakeDamage(damage);
-    }
-
-    public void TakeDamage(float damage)
-    {
         health -= damage * (1 / resistance);
     }
 }
