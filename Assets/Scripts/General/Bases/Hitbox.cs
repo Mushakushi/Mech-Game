@@ -12,43 +12,28 @@ public class Hitbox : MonoBehaviour
     /// <summary>
     /// Damage given to hurtboxes
     /// </summary>
-    [SerializeField] private float damage; 
+    [SerializeField] private float damage;
 
     /// <summary>
-    /// Wrapper class for CheckTriggerEnter
+    /// Notifies entering GameObject other (that has a Character contained within the trigger layermask) of entrance
     /// </summary>
-    /// <param name="other">GameObject the Collider2D is attached to</param>
-    private void OnTriggerEnter2D(Collider2D other) => CheckTriggerEnter(other.gameObject);
-
-    /// <summary>
-    /// Checks if entering GameObject other has a Character contained within the trigger layermask and damages it
-    /// </summary>
-    /// <param name="other">Collider2D collision</param>
-    private void CheckTriggerEnter(GameObject other)
+    /// <param name="other">Collider2D the GameObject is attached to</param>
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Character c = GetCharacterInOther(other);
-        if (c) c.OnGetHit(damage);
+        Character c = GetCharacterInOther(other.gameObject);
+        if (c) c.OnHitboxEnter(damage);
         else print($"failed to get character script from {other.name}");
+
     }
 
     /// <summary>
-    /// Wrapper class for CheckTrigerExit
+    /// Notifies exiting GameObject other (that has a Character contained within the trigger layermask) of exit
     /// </summary>
-    /// <param name="other">GameObject the Collider2D is attached to</param>
-    private void OnTriggerExit2D(Collider2D other) => CheckTriggerExit(other.gameObject);
-
-    /// <summary>
-    /// Checks if exiting GameObject other has a Character contained within the trigger layermask and disables damaging
-    /// </summary>
-    /// <param name="other"></param>
-    private void CheckTriggerExit(GameObject other)
+    /// <param name="other">Collider2D the GameObject is attached too</param>
+    private void OnTriggerExit2D(Collider2D other)
     {
-        Character c = GetCharacterInOther(other); 
-        if (c)
-        {
-            // TODO: Possibly add onGetHitExit?
-            c.isHit = false; 
-        }
+        Character c = GetCharacterInOther(other.gameObject);
+        if (c) c.OnHitboxExit(); 
     }
 
     /// <summary>

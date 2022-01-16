@@ -50,11 +50,17 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public void OnGetHit(float damage)
+    public void OnHitboxEnter(float damage)
     {
         print("ow");
         animator.SetTrigger("GetHit");
         health -= damage * (1 / resistance);
         healthSlider.value = health / maxHealth;
+        isHit = true; 
+    }
+
+    public void OnHitboxExit()
+    {
+        isHit = false; 
     }
 }
