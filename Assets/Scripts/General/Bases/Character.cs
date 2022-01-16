@@ -1,19 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Character : MonoBehaviour
 {
+    [Header("Stats")]
     [SerializeField] protected string characterName;
+    [SerializeField] protected float maxHealth; 
     [SerializeField] protected float health;
     [SerializeField] protected float damage;
     [SerializeField] protected float resistance;
 
-    [SerializeField] public Combat combat;
-    [SerializeField] public Animator animator;
+    [Header("UI and Animation")]
+    [SerializeField] private Slider healthSlider; 
 
+    [Space()]
+    public Combat combat;
+    public Animator animator;
+
+    [Space()]
     [SerializeField] protected BoxCollider2D hitbox;
     [SerializeField] protected BoxCollider2D hurtbox;
-
+    
+    [Space()]
     public bool isHit;
     public bool isShaking = false;
     public Vector3 shakePos;
@@ -43,7 +52,9 @@ public abstract class Character : MonoBehaviour
 
     public void OnGetHit(float damage)
     {
+        print("ow");
         animator.SetTrigger("GetHit");
         health -= damage * (1 / resistance);
+        healthSlider.value = health / maxHealth;
     }
 }

@@ -16,6 +16,7 @@ public abstract class Boss : Character
     {
         //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Boss Attack"));
         SetBossValues();
+        maxHealth = health;
     }
 
     // Update is called once per frame
