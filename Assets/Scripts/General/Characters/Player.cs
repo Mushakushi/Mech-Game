@@ -5,8 +5,8 @@ public class Player : Character
 {
     [SerializeField] private ACTION_TYPE currentActionType;
     [SerializeField] private float actionDelay;
-    [SerializeField] private bool inActionDelay = false;
     private IEnumerator queuedAction;
+    private Coroutine delayCoroutine = null;
     public bool allowQueueAction;
     public bool canAttack; 
     private enum ACTION_TYPE { Attack, Dodge, Block, None }
@@ -19,7 +19,7 @@ public class Player : Character
         damage = 5.0f;
         resistance = 0f;
 
-        actionDelay = 0.35f;
+        actionDelay = 0.25f;
         currentActionType = ACTION_TYPE.None;
         allowQueueAction = true;
         queuedAction = null;
@@ -35,7 +35,8 @@ public class Player : Character
         if (returnToIdle)
         {
             animator.applyRootMotion = false;
-            StartCoroutine(WaitActionDelay());
+            currentActionType = ACTION_TYPE.None;
+            delayCoroutine = StartCoroutine(WaitActionDelay());
             returnToIdle = false;
         }
 
@@ -60,9 +61,8 @@ public class Player : Character
         }
 
         // run queue
-        if (!inActionDelay && queuedAction != null)
+        if (delayCoroutine == null && queuedAction != null)
         {
-            inActionDelay = true;
             StartCoroutine(queuedAction);
             allowQueueAction = false;
             queuedAction = null;
@@ -84,9 +84,7 @@ public class Player : Character
 
     public IEnumerator WaitActionDelay()
     {
-        inActionDelay = true;
-        currentActionType = ACTION_TYPE.None;
         yield return new WaitForSecondsRealtime(actionDelay);
-        inActionDelay = false;
+        delayCoroutine = null;
     }
 }
