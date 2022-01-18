@@ -18,12 +18,12 @@ public class Player : Character
         damage = 5.0f;
         resistance = 0f;
 
-        actionDelay = 0.15f;
+        actionDelay = 0.35f;
         currentActionType = ACTION_TYPE.None;
         allowQueueAction = true;
         queuedAction = null;
 
-        attackLayerFilter.SetLayerMask(LayerMask.GetMask("Player Attack"));
+        //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Player Attack"));
     }
 
     // Update is called once per frame
@@ -35,8 +35,6 @@ public class Player : Character
             StartCoroutine(WaitActionDelay());
             returnToIdle = false;
         }
-
-        CheckBeingHit();
 
         // input queueing
         if (allowQueueAction)

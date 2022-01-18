@@ -53,7 +53,7 @@ public class Combat : MonoBehaviour
 
     public void DoBossDamage(float damage)
     {
-        boss.OnGetHit(damage);
+        boss.OnHitboxEnter(damage);
     }
 
     public void DisablePlayerAttack()

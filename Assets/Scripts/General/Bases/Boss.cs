@@ -14,8 +14,9 @@ public abstract class Boss : Character
     // Start is called before the first frame update
     void Start()
     {
-        attackLayerFilter.SetLayerMask(LayerMask.GetMask("Boss Attack"));
+        //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Boss Attack"));
         SetBossValues();
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -27,10 +28,10 @@ public abstract class Boss : Character
             returnToIdle = false;
             animator.ResetTrigger("GetHit");
             animator.ResetTrigger("RunSpecial");
+            combat.fightStage = Combat.FIGHT_STAGE.PlayerAttack;
         }
 
         TryShake();
-        CheckBeingHit();
 
         if (Input.GetKeyDown(KeyCode.P))
         {

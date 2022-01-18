@@ -4,7 +4,7 @@ public class Lobstobotomizer : Boss
 {
     public override void SetBossValues()
     {
-        health = 250.0f;
+        maxHealth = 100f; 
         damage = 0f;
         resistance = 1.0f;
         SpecialAttackWeights = new List<int> { 100 };

@@ -1,22 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] public string characterName;
-    [SerializeField] public float health;
-    [SerializeField] public float damage;
-    [SerializeField] public float resistance;
-    [SerializeField] public Combat combat;
-    [SerializeField] public Animator animator;
-    [SerializeField] public BoxCollider2D hitbox;
-    [SerializeField] public BoxCollider2D hurtbox;
+    [Header("Stats")]
+    [SerializeField] protected string characterName;
+    [SerializeField] protected float maxHealth; 
+    [SerializeField] protected float health;
+    [SerializeField] protected float damage;
+    [SerializeField] protected float resistance;
+
+    [Header("UI and Animation")]
+    [SerializeField] private Slider healthSlider; 
+
+    [Space()]
+    public Combat combat;
+    public Animator animator;
+
+    [Space()]
+    [SerializeField] protected BoxCollider2D hitbox;
+    [SerializeField] protected BoxCollider2D hurtbox;
+    
+    [Space()]
+    public bool isHit;
     public bool isShaking = false;
     public Vector3 shakePos;
     public float shakingRange;
     public bool returnToIdle = false;
-    private bool beingHit;
-    public ContactFilter2D attackLayerFilter = new ContactFilter2D();
 
     /// <summary>
     /// Moves character slightly around current position.
@@ -39,33 +50,24 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public void CheckBeingHit()
+    /// <summary>
+    /// Event that happens when Hitbox enters Character Hurtbox
+    /// </summary>
+    /// <param name="damage">Damage taken on entrance</param>
+    public void OnHitboxEnter(float damage)
     {
-        if (!beingHit)
-        {
-            if (Physics2D.OverlapCollider(hitbox, attackLayerFilter, new List<Collider2D>()) > 0)
-            {
-                beingHit = true;
-                animator.SetTrigger("GetHit");
-            }
-        }
-        else
-        {
-            if (Physics2D.OverlapCollider(hitbox, attackLayerFilter, new List<Collider2D>()) == 0)
-            {
-                beingHit = false;
-            }
-        }
-    }
-
-    public void OnGetHit(float damage)
-    {
+        print("ow");
         animator.SetTrigger("GetHit");
-        TakeDamage(damage);
+        health -= damage * (1 / resistance);
+        healthSlider.value = health / maxHealth;
+        isHit = true; 
     }
 
-    public void TakeDamage(float damage)
+    /// <summary>
+    /// Event that happens when Hitbox exits Character Hurtbox
+    /// </summary>
+    public void OnHitboxExit()
     {
-        health -= damage * (1 / resistance);
+        isHit = false; 
     }
 }
