@@ -141,7 +141,6 @@ MonoBehaviour:
   damage: 0
   resistance: 0
   healthSlider: {fileID: 424446405}
-  combat: {fileID: 0}
   animator: {fileID: 2637289910550695571}
   hitbox: {fileID: 1846042408}
   hurtbox: {fileID: 0}
@@ -152,6 +151,7 @@ MonoBehaviour:
   returnToIdle: 0
   currentState: 0
   lastPos: {x: 0, y: 0, z: 0}
+  combat: {fileID: 0}
 --- !u!1 &31313605
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +277,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.15}
+  m_Offset: {x: -0.34, y: -0.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -288,7 +288,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.4}
+  m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0
 --- !u!114 &182910711
 MonoBehaviour:
@@ -429,7 +429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 85, y: 201.7}
+  m_AnchoredPosition: {x: 85, y: 244.2}
   m_SizeDelta: {x: 276.25, y: -73.3964}
   m_Pivot: {x: 0.60512835, y: 0.19885638}
 --- !u!114 &424446405
@@ -672,7 +672,6 @@ MonoBehaviour:
   player: {fileID: 1636053834}
   boss: {fileID: 12054448}
   fightStage: 0
-  playerCanAttack: 0
 --- !u!4 &906411760
 Transform:
   m_ObjectHideFlags: 0
@@ -745,7 +744,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1034637570
 Canvas:
   m_ObjectHideFlags: 0
@@ -755,8 +754,8 @@ Canvas:
   m_GameObject: {fileID: 1034637567}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 2
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -765,7 +764,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &1034637571
 RectTransform:
@@ -775,8 +774,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034637567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 0.01980198, y: 0.01980198, z: 0.01980198}
   m_Children:
   - {fileID: 1159406486}
   m_Father: {fileID: 0}
@@ -785,8 +784,8 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_SizeDelta: {x: 897.99994, y: 505}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1159406485
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +927,6 @@ MonoBehaviour:
   damage: 0
   resistance: 0
   healthSlider: {fileID: 424446405}
-  combat: {fileID: 0}
   animator: {fileID: 1636053835}
   hitbox: {fileID: 182910710}
   hurtbox: {fileID: 0}
@@ -941,6 +939,7 @@ MonoBehaviour:
   actionDelay: 0
   inActionDelay: 0
   allowQueueAction: 1
+  canAttack: 0
 --- !u!95 &1636053835
 Animator:
   serializedVersion: 3
@@ -994,7 +993,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1005,7 +1004,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.25, y: 1}
+  m_Size: {x: 1, y: 0.4}
   m_EdgeRadius: 0
 --- !u!1 &1730457687
 GameObject:

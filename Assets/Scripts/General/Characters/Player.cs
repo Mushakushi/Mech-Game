@@ -46,7 +46,7 @@ public class Player : Character
             {
                 queuedAction = DoAttack();
             }
-            else if ((currentActionType == ACTION_TYPE.Dodge || currentActionType == ACTION_TYPE.None))
+            else if (currentActionType == ACTION_TYPE.Dodge || currentActionType == ACTION_TYPE.None)
             {
                 if (Input.GetKeyDown(KeyCode.A))
                 {
@@ -84,6 +84,7 @@ public class Player : Character
 
     public IEnumerator WaitActionDelay()
     {
+        inActionDelay = true;
         currentActionType = ACTION_TYPE.None;
         yield return new WaitForSecondsRealtime(actionDelay);
         inActionDelay = false;

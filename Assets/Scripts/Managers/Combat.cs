@@ -12,7 +12,6 @@ public class Combat : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Boss boss;
     public FIGHT_STAGE fightStage;
-    [SerializeField] private bool playerCanAttack;
 
 
     // Start is called before the first frame update
@@ -52,7 +51,7 @@ public class Combat : MonoBehaviour
 
     public void DisablePlayerAttack()
     {
-        playerCanAttack = false;
+        player.canAttack = false;
     }
 
     public void EnablePlayerAttack()
