@@ -10,6 +10,7 @@ public abstract class Boss : Character
     public enum BOSS_STATE { AttackNormal, AttackSpecial, Stun, Default }
     public BOSS_STATE currentState;
     public Vector3 lastPos;
+    public Combat combat; 
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public abstract class Boss : Character
             returnToIdle = false;
             animator.ResetTrigger("GetHit");
             animator.ResetTrigger("RunSpecial");
-            combat.fightStage = Combat.FIGHT_STAGE.PlayerAttack;
+            //combat.fightStage = Combat.FIGHT_STAGE.PlayerAttack;
         }
 
         TryShake();

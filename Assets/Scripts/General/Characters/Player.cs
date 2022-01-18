@@ -8,6 +8,7 @@ public class Player : Character
     [SerializeField] private bool inActionDelay = false;
     private IEnumerator queuedAction;
     public bool allowQueueAction;
+    public bool canAttack; 
     private enum ACTION_TYPE { Attack, Dodge, Block, None }
     private enum DODGE_DIRECTION { Left, Right }
 
@@ -22,6 +23,8 @@ public class Player : Character
         currentActionType = ACTION_TYPE.None;
         allowQueueAction = true;
         queuedAction = null;
+
+        canAttack = true;
 
         //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Player Attack"));
     }
@@ -39,7 +42,7 @@ public class Player : Character
         // input queueing
         if (allowQueueAction)
         {
-            if (combat.PlayerCanAttack() && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None) && Input.GetKeyDown(KeyCode.W))
+            if (canAttack && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None) && Input.GetKeyDown(KeyCode.W))
             {
                 queuedAction = DoAttack();
             }

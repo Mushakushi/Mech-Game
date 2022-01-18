@@ -15,7 +15,6 @@ public abstract class Character : MonoBehaviour
     [SerializeField] private Slider healthSlider; 
 
     [Space()]
-    public Combat combat;
     public Animator animator;
 
     [Space()]

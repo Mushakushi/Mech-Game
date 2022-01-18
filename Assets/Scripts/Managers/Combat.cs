@@ -18,9 +18,8 @@ public class Combat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player.combat = this;
-        boss.combat = this;
         EnablePlayerAttack();
+        boss.combat = this;
     }
 
     // Update is called once per frame
@@ -51,11 +50,6 @@ public class Combat : MonoBehaviour
         }
     }
 
-    public void DoBossDamage(float damage)
-    {
-        boss.OnHitboxEnter(damage);
-    }
-
     public void DisablePlayerAttack()
     {
         playerCanAttack = false;
@@ -64,11 +58,6 @@ public class Combat : MonoBehaviour
     public void EnablePlayerAttack()
     {
         fightStage = FIGHT_STAGE.PlayerAttack;
-        playerCanAttack = true;
-    }
-
-    public bool PlayerCanAttack()
-    {
-        return (fightStage == FIGHT_STAGE.PlayerAttack && playerCanAttack);
+        player.canAttack = true;
     }
 }
