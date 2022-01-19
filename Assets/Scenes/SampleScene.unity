@@ -380,7 +380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -323, y: 54}
+  m_AnchoredPosition: {x: -317, y: 54}
   m_SizeDelta: {x: 1.25, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &221564015
@@ -1002,7 +1002,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -44.676395, y: -17.492298, z: -12}
+  m_LocalPosition: {x: -44.676384, y: -17.492298, z: -12}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 31313608}
@@ -1149,7 +1149,7 @@ GameObject:
   - component: {fileID: 906411760}
   - component: {fileID: 906411759}
   m_Layer: 0
-  m_Name: Combat Manager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1333,7 +1333,7 @@ GameObject:
   - component: {fileID: 1475207541}
   - component: {fileID: 1475207540}
   m_Layer: 0
-  m_Name: Protrait
+  m_Name: Portrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

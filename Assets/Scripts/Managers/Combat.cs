@@ -30,7 +30,7 @@ public class Combat : MonoBehaviour
     {
         fightStage = FIGHT_STAGE.BossSpecial;
         boss.currentState = Boss.BOSS_STATE.AttackSpecial;
-        // choose based on weight/list/whatever (tbd)
+        // choose a special based on weights
         int weightSum = 0;
         for (int i = 0; i < boss.SpecialAttackWeights.Count; i++)
         {
