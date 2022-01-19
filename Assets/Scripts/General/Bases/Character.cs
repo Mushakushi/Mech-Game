@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public abstract class Character : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] protected string characterName;
+    [SerializeField] public string characterName;
     [SerializeField] protected float maxHealth; 
     [SerializeField] protected float health;
     [SerializeField] protected float damage;
