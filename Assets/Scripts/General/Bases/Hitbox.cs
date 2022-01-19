@@ -23,7 +23,6 @@ public class Hitbox : MonoBehaviour
         Character c = GetCharacterInOther(other.gameObject);
         if (c) c.OnHitboxEnter(damage);
         else print($"failed to get character script from {other.name}");
-
     }
 
     /// <summary>
@@ -44,7 +43,6 @@ public class Hitbox : MonoBehaviour
     private Character GetCharacterInOther(GameObject other)
     {
         if (layerMask != (layerMask | 1 << other.layer)) return null;
-
         foreach (MonoBehaviour script in other.GetComponents<MonoBehaviour>())
         {
             if (script is Character c) return c; 

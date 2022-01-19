@@ -47,6 +47,9 @@ public abstract class Character : MonoBehaviour
         hitbox = GetComponentInChildren<BoxCollider2D>();
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = Resources.Load($"Animation/Animators/{GetType().Name}") as RuntimeAnimatorController;
+
+        EnableHurtbox();
+        DisableHitbox(); 
         OnStart();
     }
 
@@ -92,5 +95,41 @@ public abstract class Character : MonoBehaviour
         isHit = false; 
     }
 
+    /// <summary>
+    /// Enables hitbox
+    /// </summary>
+    public void EnableHitbox()
+    {
+        hitbox.enabled = true; 
+    }
+
+    /// <summary>
+    /// Disables hitbox
+    /// </summary>
+    public void DisableHitbox()
+    {
+        hitbox.enabled = false; 
+    }
+
+    /// <summary>
+    /// Enables hurtbox
+    /// </summary>
+    public void EnableHurtbox()
+    { 
+        hurtbox.enabled = true; 
+    }
+
+
+    /// <summary>
+    /// Disables hurtbox
+    /// </summary>
+    public void DisableHurtbox()
+    {
+        hurtbox.enabled = false; 
+    }
+
+    /// <summary>
+    /// Child initialization event, Start should not be used as it hides start in this class
+    /// </summary>
     public abstract void OnStart();
 }
