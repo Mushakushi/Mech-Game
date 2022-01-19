@@ -12,13 +12,26 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected float resistance;
 
     [Header("UI and Animation")]
+    /// <summary>
+    /// Slider UI Component in scene that this object controls
+    /// </summary>
     [SerializeField] private Slider healthSlider; 
 
     [Space()]
+    /// <summary> 
+    /// First animator attached to any child object
+    /// </summary>
     public Animator animator;
 
     [Space()]
+    /// <summary>
+    /// First Box2D Hitbox attached to any child object (should be hitbox)
+    /// </summary>
     [SerializeField] protected BoxCollider2D hitbox;
+
+    /// <summary>
+    /// Box2D Hurtbox attached to this object
+    /// </summary>
     [SerializeField] protected BoxCollider2D hurtbox;
     
     [Space()]
@@ -27,6 +40,13 @@ public abstract class Character : MonoBehaviour
     public Vector3 shakePos;
     public float shakingRange;
     public bool returnToIdle = false;
+
+    private void Start()
+    {
+        hurtbox = GetComponent<BoxCollider2D>(); 
+        hitbox = GetComponentInChildren<BoxCollider2D>();
+        animator = GetComponentInChildren<Animator>(); 
+    }
 
     /// <summary>
     /// Moves character slightly around current position.

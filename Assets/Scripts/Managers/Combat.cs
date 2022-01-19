@@ -18,6 +18,8 @@ public class Combat : MonoBehaviour
     void Start()
     {
         EnablePlayerAttack();
+
+        // TODO: Make a static class for this
         boss.combat = this;
     }
 
