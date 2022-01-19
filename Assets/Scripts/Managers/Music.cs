@@ -5,9 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Music : MonoBehaviour
 {
-
+    /// <summary>
+    /// AudioSource component in gameObject
+    /// </summary>
     [SerializeField] private AudioSource source; 
+
+    /// <summary>
+    /// Optional one-shot clip at start of loop
+    /// </summary>
     [SerializeField] private AudioClip intro;
+
+    /// <summary>
+    /// Clip to be looped 
+    /// </summary>
     [SerializeField] private AudioClip loop; 
 
     /// <summary>
