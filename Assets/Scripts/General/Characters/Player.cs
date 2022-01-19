@@ -75,7 +75,7 @@ public class Player : Character
         yield return null;
     }
 
-    private IEnumerator DoDodge(DODGE_DIRECTION direction) // TODO: make this not use string (it is yucky)
+    private IEnumerator DoDodge(DODGE_DIRECTION direction)
     {
         animator.SetInteger("Dodge Direction", (int) direction);
         animator.SetTrigger("Dodge");
