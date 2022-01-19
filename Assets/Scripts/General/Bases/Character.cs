@@ -45,7 +45,9 @@ public abstract class Character : MonoBehaviour
     {
         hurtbox = GetComponent<BoxCollider2D>(); 
         hitbox = GetComponentInChildren<BoxCollider2D>();
-        animator = GetComponentInChildren<Animator>(); 
+        animator = GetComponentInChildren<Animator>();
+        animator.runtimeAnimatorController = Resources.Load($"Animation/Animators/{GetType().Name}") as RuntimeAnimatorController;
+        OnStart();
     }
 
     /// <summary>
@@ -89,4 +91,6 @@ public abstract class Character : MonoBehaviour
     {
         isHit = false; 
     }
+
+    public abstract void OnStart();
 }

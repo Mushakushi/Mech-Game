@@ -792,7 +792,7 @@ PrefabInstance:
     - target: {fileID: 4328651738195777212, guid: c01142199c20bd64295434348c544ae0, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: e034453711374544aa553e199081690f, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c01142199c20bd64295434348c544ae0, type: 3}
 --- !u!1001 &1627410708
@@ -870,6 +870,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4328651738195777212, guid: c01142199c20bd64295434348c544ae0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e810fa086c95830419dc25ba60a332d2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c01142199c20bd64295434348c544ae0, type: 3}
 --- !u!1 &1826256703
@@ -1080,7 +1084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0288d702068bc40bd194b103257fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
+  characterName: Player
   maxHealth: 0
   health: 0
   damage: 0

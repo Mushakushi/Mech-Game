@@ -12,7 +12,7 @@ public abstract class Boss : Character
     public Combat combat;
 
     // Start is called before the first frame update
-    void Start()
+    public override void OnStart()
     {
         //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Boss Attack"));
         SetBossValues();

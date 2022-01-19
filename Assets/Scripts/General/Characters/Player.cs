@@ -13,7 +13,7 @@ public class Player : Character
     private enum DODGE_DIRECTION { Left, Right }
 
     // Start is called before the first frame update
-    void Start()
+    public override void OnStart()
     {
         health = 100.0f;
         damage = 5.0f;
