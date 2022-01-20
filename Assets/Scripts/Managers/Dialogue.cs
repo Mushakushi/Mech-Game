@@ -24,10 +24,20 @@ public static class Dialogue
     }
 
     /// <summary>
+    /// Reset dialogue stage and load <paramref name="boss"/> dialogue.
+    /// </summary>
+    /// <param name="boss"></param>
+    public static void InitializeBossDialogue(Boss boss)
+    {
+        dialogueStage = 0;
+        LoadBossDialogue(boss);
+    }
+
+    /// <summary>
     /// Load the dialogue of <paramref name="boss"/> from file.
     /// </summary>
     /// <param name="boss">Boss to load dialogue from.</param>
-    public static void LoadDialogue(Boss boss)
+    public static void LoadBossDialogue(Boss boss)
     {
         using (StreamReader sr = new StreamReader($"Assets/Resources/Dialogue/{boss.characterName}/{language}.txt")) 
         {
@@ -38,14 +48,32 @@ public static class Dialogue
         }
     }
 
-    public static string[] ParseText(string text)
+    /// <summary>
+    /// Get the next line of dialogue.
+    /// </summary>
+    /// <returns>Next line of dialogue.</returns>
+    public static string GetNextLine()
     {
-        return text.Split('\n');
+        string nextLine = dialogueStrings[dialogueStage];
+        dialogueStage++;
+        return nextLine;
     }
 
-    public static List<string> GetCurrentDialogue()
+    /// <summary>
+    /// Get all currently loaded lines of dialogue.
+    /// </summary>
+    /// <returns>List of lines of dialogue.</returns>
+    public static List<string> GetAllCurrentDialogue()
     {
         return dialogueStrings;
+    }
+
+    /// <summary>
+    /// Display the next line of dialogue on-screen.
+    /// </summary>
+    public static void DisplayNextDialogue()
+    {
+
     }
 
 }
