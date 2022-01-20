@@ -8,9 +8,6 @@ public abstract class Boss : Character
     /// List of weights for Special Attacks. Count should not exceed number of special attacks.
     /// </summary>
     public List<int> SpecialAttackWeights { get; set; }
-    public enum BOSS_STATE { Default, AttackNormal, AttackSpecial, FullStun }
-    public BOSS_STATE currentState; // cannot be property to access in animator
-    public Combat combat;
 
     [Header("UI")]
     /// <summary>
@@ -28,7 +25,7 @@ public abstract class Boss : Character
     // Update is called once per frame
     void Update()
     {
-        if (returnToIdle)
+        /*if (returnToIdle)
         {
             animator.applyRootMotion = false;
             returnToIdle = false;
@@ -47,6 +44,27 @@ public abstract class Boss : Character
         if (Input.GetKeyDown(KeyCode.P))
         {
             combat.DoBossSpecial();
+        }*/
+    }
+
+    public void DoBossSpecial()
+    {
+        // choose a special based on weights
+        int weightSum = 0;
+        for (int i = 0; i < SpecialAttackWeights.Count; i++)
+        {
+            weightSum += SpecialAttackWeights[i];
+        }
+        int rand = Random.Range(0, weightSum);
+        for (int i = 0; i < SpecialAttackWeights.Count; i++)
+        {
+            if (rand < SpecialAttackWeights[i])
+            {
+                animator.SetInteger("SpecialIndex", i + 1);
+                animator.SetTrigger("RunSpecial");
+            }
+
+            rand -= SpecialAttackWeights[i];
         }
     }
 
