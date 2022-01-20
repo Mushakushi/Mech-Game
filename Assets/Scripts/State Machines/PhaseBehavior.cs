@@ -16,6 +16,9 @@ public class PhaseBehavior : StateMachineBehaviour
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         if (animator.gameObject.GetComponent<Character>() is Character c)
+        {
+
+        }
     }
 
     /// <summary>

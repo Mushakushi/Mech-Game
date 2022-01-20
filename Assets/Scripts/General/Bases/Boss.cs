@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI; 
 
@@ -14,6 +15,7 @@ public abstract class Boss : Character
     /// Slider UI Component in scene that this object controls
     /// </summary>
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private TextMeshProUGUI textMeshPro;
 
     // Start is called before the first frame update //TODO: We also have SetBossValues() below, is there a better way of initializing the classes?
     public override void OnStart()
