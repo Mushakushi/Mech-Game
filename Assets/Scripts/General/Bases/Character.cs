@@ -10,6 +10,11 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float resistance;
 
+    /// <summary>
+    /// Character's active phase, may have restricted functionality in other phases
+    /// </summary>
+    [SerializeField] Phase activePhase; 
+
     [Header("UI and Animation")]
     /// <summary> 
     /// First animator attached to any child object
@@ -44,11 +49,14 @@ public abstract class Character : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = Resources.Load($"Animation/Animators/{GetType().Name}") as RuntimeAnimatorController;
-
-        DisableHitbox();
-        EnableHurtbox(); 
+        
         OnStart();
     }
+
+    /// <summary>
+    /// Child initialization event, Start should not be used as it hides start in this class
+    /// </summary>
+    public abstract void OnStart();
 
     /*
     /// <summary>
@@ -91,6 +99,32 @@ public abstract class Character : MonoBehaviour
         isHit = false; 
     }
 
+    #region ANIMATOR FUNCTIONS
+    /// <summary>
+    /// Describes what happens when Character's phase is entered
+    /// </summary>
+    public virtual void OnPhaseEnter()
+    {
+
+    }
+
+    /// <summary>
+    /// Describes what happens when Character's phase is exited
+    /// </summary>
+    public virtual void OnPhaseExit()
+    {
+
+    }
+
+    /// <summary>
+    /// Event that will be called on entering idle animation
+    /// </summary>
+    public virtual void OnIdleAnimationEnter()
+    {
+        DisableHitbox();
+        EnableHurtbox();
+    }
+
     /// <summary>
     /// Enables hitbox
     /// </summary>
@@ -115,7 +149,6 @@ public abstract class Character : MonoBehaviour
         hurtbox.enabled = true; 
     }
 
-
     /// <summary>
     /// Disables hurtbox
     /// </summary>
@@ -123,9 +156,5 @@ public abstract class Character : MonoBehaviour
     {
         hurtbox.enabled = false; 
     }
-
-    /// <summary>
-    /// Child initialization event, Start should not be used as it hides start in this class
-    /// </summary>
-    public abstract void OnStart();
+    #endregion
 }
