@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class Character : MonoBehaviour
 {
@@ -12,12 +11,6 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected float resistance;
 
     [Header("UI and Animation")]
-    /// <summary>
-    /// Slider UI Component in scene that this object controls
-    /// </summary>
-    [SerializeField] private Slider healthSlider; 
-
-    [Space()]
     /// <summary> 
     /// First animator attached to any child object
     /// </summary>
@@ -43,20 +36,24 @@ public abstract class Character : MonoBehaviour
 
     private void Start()
     {
-        hurtbox = GetComponent<BoxCollider2D>(); 
-        hitbox = GetComponentInChildren<BoxCollider2D>();
+        hurtbox = GetComponent<BoxCollider2D>();
+        // GetComponentInChildren (wierdly) searches parent, search through array instead
+        foreach (BoxCollider2D c in GetComponentsInChildren<BoxCollider2D>())
+            if (c.gameObject.transform.parent)
+                hitbox = c; 
+
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = Resources.Load($"Animation/Animators/{GetType().Name}") as RuntimeAnimatorController;
 
-        EnableHurtbox();
-        DisableHitbox(); 
+        DisableHitbox();
+        EnableHurtbox(); 
         OnStart();
     }
 
+    /*
     /// <summary>
     /// Moves character slightly around current position.
     /// </summary>
-    /// <returns>true when shake has completed (time has elapsed), and false if otherwise.</returns>
     public void TryShake()
     {
         if (isShaking)
@@ -72,25 +69,24 @@ public abstract class Character : MonoBehaviour
                 animator.applyRootMotion = false;
             }
         }
-    }
+    }*/
+    // Note: Idk how this works and it's messing up the animations so I'll comment it out for now...
 
     /// <summary>
-    /// Event that happens when Hitbox enters Character Hurtbox
+    /// Event that happens when a Hitbox enters this Character's Hurtbox
     /// </summary>
     /// <param name="damage">Damage taken on entrance</param>
-    public void OnHitboxEnter(float damage)
+    public virtual void OnHitboxEnter(float damage)
     {
-        print("ow");
         animator.SetTrigger("GetHit");
         health -= damage * (1 / resistance);
-        healthSlider.value = health / maxHealth;
         isHit = true; 
     }
 
     /// <summary>
-    /// Event that happens when Hitbox exits Character Hurtbox
+    /// Event that happens when a Hitbox exits this Character's Hurtbox
     /// </summary>
-    public void OnHitboxExit()
+    public virtual void OnHitboxExit()
     {
         isHit = false; 
     }
@@ -100,7 +96,7 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public void EnableHitbox()
     {
-        hitbox.enabled = true; 
+        hitbox.enabled = true;
     }
 
     /// <summary>
@@ -108,7 +104,7 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public void DisableHitbox()
     {
-        hitbox.enabled = false; 
+        hitbox.enabled = false;
     }
 
     /// <summary>

@@ -32,7 +32,7 @@ public class Hitbox : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         Character c = GetCharacterInOther(other.gameObject);
-        if (c) c.OnHitboxExit(); 
+        if (c) c.OnHitboxExit();
     }
 
     /// <summary>
@@ -43,10 +43,6 @@ public class Hitbox : MonoBehaviour
     private Character GetCharacterInOther(GameObject other)
     {
         if (layerMask != (layerMask | 1 << other.layer)) return null;
-        foreach (MonoBehaviour script in other.GetComponents<MonoBehaviour>())
-        {
-            if (script is Character c) return c; 
-        }
-        return null; 
+        return other.GetComponent<Character>(); 
     }
 }

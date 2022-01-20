@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public abstract class Boss : Character
 {
@@ -11,10 +12,15 @@ public abstract class Boss : Character
     public BOSS_STATE currentState; // cannot be property to access in animator
     public Combat combat;
 
-    // Start is called before the first frame update
+    [Header("UI")]
+    /// <summary>
+    /// Slider UI Component in scene that this object controls
+    /// </summary>
+    [SerializeField] private Slider healthSlider;
+
+    // Start is called before the first frame update //TODO: We also have SetBossValues() below, is there a better way of initializing the classes?
     public override void OnStart()
     {
-        //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Boss Attack"));
         SetBossValues();
         health = maxHealth;
     }
@@ -36,7 +42,7 @@ public abstract class Boss : Character
             combat.DisablePlayerAttack();
         }
 
-        TryShake();
+        //TryShake();
 
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -44,5 +50,18 @@ public abstract class Boss : Character
         }
     }
 
+    /// <summary>
+    /// Allows children to initialize data without hiding parent's Start
+    /// </summary>
     public abstract void SetBossValues();
+
+    /// <summary>
+    /// Event that happens when Hitbox enters boss Hurtbox
+    /// </summary>
+    /// <param name="damage">Damage taken on entry</param>
+    public override void OnHitboxEnter(float damage)
+    {
+        base.OnHitboxEnter(damage);
+        healthSlider.value = health / maxHealth;
+    }
 }
