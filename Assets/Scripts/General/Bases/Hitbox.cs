@@ -22,7 +22,7 @@ public class Hitbox : MonoBehaviour
     {
         Character c = GetCharacterInOther(other.gameObject);
         if (c) c.OnHitboxEnter(damage);
-        else print($"failed to get character script from {other.name}");
+        else print($"{transform.parent.name} failed to get character script from {other.name}");
     }
 
     /// <summary>

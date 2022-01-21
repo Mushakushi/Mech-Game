@@ -8,7 +8,7 @@ public class Player : Character
     private IEnumerator queuedAction;
     private Coroutine delayCoroutine = null;
     public bool allowQueueAction;
-    public bool canAttack; 
+    public bool canAttack;
     private enum ACTION_TYPE { Attack, Dodge, Block, None }
     private enum DODGE_DIRECTION { Left, Right }
 
@@ -77,7 +77,7 @@ public class Player : Character
 
     private IEnumerator DoDodge(DODGE_DIRECTION direction)
     {
-        animator.SetInteger("Dodge Direction", (int) direction);
+        animator.SetInteger("Dodge Direction", (int)direction);
         animator.SetTrigger("Dodge");
         yield return null;
     }
@@ -86,5 +86,15 @@ public class Player : Character
     {
         yield return new WaitForSecondsRealtime(actionDelay);
         delayCoroutine = null;
+    }
+
+    protected override void PhaseEnterBehavior()
+    {
+        canAttack = true; 
+    }
+    protected override void PhaseUpdateBehavior() { }
+    protected override void PhaseExitBehavior()
+    {
+        canAttack = false; 
     }
 }

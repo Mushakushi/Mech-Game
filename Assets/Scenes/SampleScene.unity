@@ -511,8 +511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e3858820c24cd419dd3eeb56db1313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4785157178790553448}
-  boss: {fileID: 1018656625}
 --- !u!4 &906411760
 Transform:
   m_ObjectHideFlags: 0
@@ -555,7 +553,8 @@ MonoBehaviour:
   damage: 0
   resistance: 0
   activePhase: 0
-  animator: {fileID: 0}
+  targetPhase: 0
+  animator: {fileID: 4785157178790553451}
   hitbox: {fileID: 0}
   hurtbox: {fileID: 0}
   isHit: 0
@@ -927,6 +926,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 917929200565609346, guid: c01142199c20bd64295434348c544ae0, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3104693260767926359, guid: c01142199c20bd64295434348c544ae0, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1223,6 +1226,7 @@ MonoBehaviour:
   damage: 0
   resistance: 0
   activePhase: 0
+  targetPhase: 0
   animator: {fileID: 0}
   hitbox: {fileID: 0}
   hurtbox: {fileID: 0}
@@ -1235,6 +1239,11 @@ MonoBehaviour:
   actionDelay: 0
   allowQueueAction: 1
   canAttack: 1
+--- !u!95 &4785157178790553451 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8140190950533661014, guid: c01142199c20bd64295434348c544ae0, type: 3}
+  m_PrefabInstance: {fileID: 1627410708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8622870751041011857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4143311538791679092, guid: c01142199c20bd64295434348c544ae0, type: 3}

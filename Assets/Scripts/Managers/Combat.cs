@@ -6,42 +6,50 @@ using UnityEngine;
 public enum Phase { Boss, Player }
 public class Combat : MonoBehaviour
 {
-    [SerializeField] private Player player;
-    [SerializeField] private Boss boss;
+    /// <summary>
+    /// Player in battle 
+    /// </summary>
+    [SerializeField] private static Player player;
+
+    /// <summary>
+    /// Boss in battle
+    /// </summary>
+    [SerializeField] private static Boss boss; 
 
     /// <summary>
     /// Current phase of battle 
     /// </summary>
     public static Phase phase { get; private set; }
 
-    /// <summary>
-    /// Updates current phase of battle 
-    /// </summary>
-    public static void ChangePhase(Phase phase)
-    {
-        Combat.phase = phase; 
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-       
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        if (!player) Debug.LogError("Could not find GameObject tagged \"Player\" with a Player component!");
+        else player.Start(); 
+
+        boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
+        if (!boss) Debug.LogError("Could not find GameObject tagged \"Boss\" with a Boss component!");
+        else boss.Start(); 
+
+        ChangePhase(Phase.Player); 
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Updates current phase of battle, determines which phase belong to which objects
+    /// </summary>
+    public static void ChangePhase(Phase phase)
     {
-    }
+        Combat.phase = phase;
 
-    
-
-    public void DisablePlayerAttack()
-    {
-        player.canAttack = false;
-    }
-
-    public void EnablePlayerAttack()
-    {
-        player.canAttack = true;
+        switch (phase)
+        {
+            case Phase.Boss:
+                boss.OnPhaseEnter(); 
+                break;
+            case Phase.Player:
+                player.OnPhaseEnter(); 
+                break; 
+        }
     }
 }

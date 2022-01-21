@@ -3,30 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Attach to SUBSTATE machine to control phase behavior
+/// Attach to SUBSTATE machine to control phase behavior AFTER state entrance (that's in Combat)
 /// </summary>
 public class PhaseBehavior : StateMachineBehaviour
 {
     /// <summary>
-    /// Phase that follows this phase
+    /// Notifies Character of state update
     /// </summary>
-    Phase targetPhase;
-
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        base.OnStateEnter(animator, stateInfo, layerIndex);
-        if (animator.gameObject.GetComponent<Character>() is Character c)
-        {
-
-        }
+        base.OnStateUpdate(animator, stateInfo, layerIndex);
+        if (animator.GetComponent<Character>() is Character c) c.OnPhaseUpdate(); 
     }
 
     /// <summary>
-    /// Triggers combat's change phase to target phase
+    /// Notifies Character of state exit
     /// </summary>
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
-        Combat.ChangePhase(targetPhase);
+        if (animator.gameObject.GetComponent<Character>() is Character c) c.OnPhaseExit(); 
     }
 }

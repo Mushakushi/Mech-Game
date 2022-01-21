@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator), typeof(BoxCollider2D))]
 public abstract class Character : MonoBehaviour
 {
     [Header("Stats")]
@@ -13,7 +14,12 @@ public abstract class Character : MonoBehaviour
     /// <summary>
     /// Character's active phase, may have restricted functionality in other phases
     /// </summary>
-    [SerializeField] Phase activePhase; 
+    [SerializeField] Phase activePhase;
+
+    /// <summary>
+    /// Phase that directly follows this phase
+    /// </summary>
+    [SerializeField] protected Phase targetPhase; 
 
     [Header("UI and Animation")]
     /// <summary> 
@@ -39,13 +45,21 @@ public abstract class Character : MonoBehaviour
     public float shakingRange;
     public bool returnToIdle = false;
 
-    private void Start()
+    public void Start()
     {
         hurtbox = GetComponent<BoxCollider2D>();
+        EnableHurtbox(); 
+
         // GetComponentInChildren (wierdly) searches parent, search through array instead
         foreach (BoxCollider2D c in GetComponentsInChildren<BoxCollider2D>())
+        {
             if (c.gameObject.transform.parent)
-                hitbox = c; 
+            {
+                hitbox = c;
+                DisableHitbox(); 
+            }
+        }
+        if (!hitbox) Debug.LogError("Script requires hitbox in child!"); 
 
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = Resources.Load($"Animation/Animators/{GetType().Name}") as RuntimeAnimatorController;
@@ -58,6 +72,7 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public abstract void OnStart();
 
+    #region keep this?
     /*
     /// <summary>
     /// Moves character slightly around current position.
@@ -79,6 +94,7 @@ public abstract class Character : MonoBehaviour
         }
     }*/
     // Note: Idk how this works and it's messing up the animations so I'll comment it out for now...
+    #endregion
 
     /// <summary>
     /// Event that happens when a Hitbox enters this Character's Hurtbox
@@ -87,6 +103,7 @@ public abstract class Character : MonoBehaviour
     public virtual void OnHitboxEnter(float damage)
     {
         animator.SetTrigger("GetHit");
+        print("ow"); 
         health -= damage * (1 / resistance);
         isHit = true; 
     }
@@ -101,29 +118,44 @@ public abstract class Character : MonoBehaviour
 
     #region ANIMATOR FUNCTIONS
     /// <summary>
-    /// Describes what happens when Character's phase is entered
+    /// Describes what should happen when Character's phase is entered
     /// </summary>
-    public virtual void OnPhaseEnter()
+    public void OnPhaseEnter()
     {
-
+        animator.SetTrigger("EnterPhase"); 
+        PhaseEnterBehavior(); 
     }
+    /// <summary>
+    /// Describes what can happen when Character's phase is entered 
+    /// </summary>
+    protected abstract void PhaseEnterBehavior(); 
 
     /// <summary>
-    /// Describes what happens when Character's phase is exited
+    /// Describes what should happen when Character's phase is running
     /// </summary>
-    public virtual void OnPhaseExit()
+    public void OnPhaseUpdate()
     {
-
+        PhaseUpdateBehavior(); 
     }
+    /// <summary>
+    /// Describes what can happen when Character's phase is running
+    /// </summary>
+    protected abstract void PhaseUpdateBehavior(); 
 
     /// <summary>
-    /// Event that will be called on entering idle animation
+    /// Describes what should happen when Character's phase is exited
     /// </summary>
-    public virtual void OnIdleAnimationEnter()
+    public void OnPhaseExit()
     {
+        Combat.ChangePhase(targetPhase);
         DisableHitbox();
         EnableHurtbox();
+        PhaseExitBehavior(); 
     }
+    /// <summary>
+    /// Describes what can happen when Character's phase is exited 
+    /// </summary>
+    protected abstract void PhaseExitBehavior(); 
 
     /// <summary>
     /// Enables hitbox
@@ -154,7 +186,7 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public void DisableHurtbox()
     {
-        hurtbox.enabled = false; 
+        //hurtbox.enabled = false; 
     }
     #endregion
 }

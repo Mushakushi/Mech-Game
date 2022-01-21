@@ -49,27 +49,6 @@ public abstract class Boss : Character
         }*/
     }
 
-    public void DoBossSpecial()
-    {
-        // choose a special based on weights
-        int weightSum = 0;
-        for (int i = 0; i < SpecialAttackWeights.Count; i++)
-        {
-            weightSum += SpecialAttackWeights[i];
-        }
-        int rand = Random.Range(0, weightSum);
-        for (int i = 0; i < SpecialAttackWeights.Count; i++)
-        {
-            if (rand < SpecialAttackWeights[i])
-            {
-                animator.SetInteger("SpecialIndex", i + 1);
-                animator.SetTrigger("RunSpecial");
-            }
-
-            rand -= SpecialAttackWeights[i];
-        }
-    }
-
     /// <summary>
     /// Allows children to initialize data without hiding parent's Start
     /// </summary>
@@ -84,4 +63,30 @@ public abstract class Boss : Character
         base.OnHitboxEnter(damage);
         healthSlider.value = health / maxHealth;
     }
+
+    /// <summary>
+    /// Selects special for current phase based on weights
+    /// </summary>
+    protected override void PhaseEnterBehavior()
+    {
+        int weightSum = 0;
+        for (int i = 0; i < SpecialAttackWeights.Count; i++)
+        {
+            weightSum += SpecialAttackWeights[i];
+        }
+        int rand = Random.Range(0, weightSum);
+        for (int i = 0; i < SpecialAttackWeights.Count; i++)
+        {
+            if (rand < SpecialAttackWeights[i])
+            {
+                animator.SetFloat("SpecialIndex", i + 1);
+                //animator.SetTrigger("RunSpecial");
+            }
+
+            rand -= SpecialAttackWeights[i];
+        }
+    }
+
+    protected override void PhaseUpdateBehavior() { }
+    protected override void PhaseExitBehavior() { }
 }
