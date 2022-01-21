@@ -56,7 +56,7 @@ public abstract class Character : MonoBehaviour
             if (c.gameObject.transform.parent)
             {
                 hitbox = c;
-                DisableHitbox(); 
+                //DisableHitbox(); 
             }
         }
         if (!hitbox) Debug.LogError("Script requires hitbox in child!"); 
