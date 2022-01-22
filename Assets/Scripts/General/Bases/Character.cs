@@ -72,7 +72,9 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public abstract void OnStart();
 
-    #region keep this?
+    // shouldnt be too hard to implement with statemachines i think
+    // really adds to game polish imo
+    #region keep this?  
     /*
     /// <summary>
     /// Moves character slightly around current position.

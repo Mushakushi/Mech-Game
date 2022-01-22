@@ -40,7 +40,7 @@ public class Player : Character
             returnToIdle = false;
         }
 
-        // input queueing
+        // input queueing - appears to be broken (animation issue - currently uses returnToIdle ^)
         if (allowQueueAction)
         {
             if (canAttack && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None) && Input.GetKeyDown(KeyCode.W))

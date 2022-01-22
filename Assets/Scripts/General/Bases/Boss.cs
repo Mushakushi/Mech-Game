@@ -16,12 +16,16 @@ public abstract class Boss : Character
     /// </summary>
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TextMeshProUGUI textMeshPro;
+    [SerializeField] private Dialogue dialogue;
 
     // Start is called before the first frame update //TODO: We also have SetBossValues() below, is there a better way of initializing the classes?
     public override void OnStart()
     {
         SetBossValues();
         health = maxHealth;
+        dialogue.SetLanguage(DialogueUtil.LANGUAGE.TokiPona);
+        dialogue.InitializeBossDialogue(this);
+        dialogue.DisplayNextLine();
     }
 
     // Update is called once per frame
@@ -39,14 +43,15 @@ public abstract class Boss : Character
         if (currentState == BOSS_STATE.FullStun)
         {
             combat.DisablePlayerAttack();
-        }
+        }*/
 
         //TryShake();
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            combat.DoBossSpecial();
-        }*/
+            //combat.DoBossSpecial();
+            dialogue.DisplayNextLine();
+        }
     }
 
     /// <summary>

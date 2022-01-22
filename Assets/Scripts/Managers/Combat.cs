@@ -26,11 +26,11 @@ public class Combat : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (!player) Debug.LogError("Could not find GameObject tagged \"Player\" with a Player component!");
-        else player.Start(); 
+        //else player.Start(); 
 
         boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
         if (!boss) Debug.LogError("Could not find GameObject tagged \"Boss\" with a Boss component!");
-        else boss.Start(); 
+        //else boss.Start(); 
 
         ChangePhase(Phase.Player); 
     }

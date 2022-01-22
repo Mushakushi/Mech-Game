@@ -7,9 +7,8 @@ using static DialogueUtil;
 public class Dialogue : MonoBehaviour
 {
     private int dialogueStage = 0;
-    private List<string> dialogueStrings = new List<string>();
     private LANGUAGE language = LANGUAGE.English;
-    private TextMeshProUGUI textMeshPro;
+    [SerializeField] private TextMeshProUGUI textMeshPro;
 
     // Start is called before the first frame update
     void Start()
@@ -39,39 +38,46 @@ public class Dialogue : MonoBehaviour
     public void InitializeBossDialogue(Boss boss)
     {
         dialogueStage = 0;
-        dialogueStrings = LoadBossDialogue(boss, language);
-        ;
-    }
-
-    public void DisplayNextLine()
-    {
-        string line = GetNextLine();
-        StartCoroutine(DisplayNextLineCoroutine(line));
+        LoadBossDialogue(boss, language);
     }
 
     /// <summary>
     /// Display the next line of dialogue on-screen.
     /// </summary>
-    /// <param name="line">Line to display.</param>
-    /// <returns></returns>
-    private IEnumerator DisplayNextLineCoroutine(string line) // TODO: lots of customization options. Need params - parse first?
+    public void DisplayNextLine()
     {
-        textMeshPro.text = "";
-        foreach (char letter in line)
-        {
-            yield return new WaitForSecondsRealtime(0.05f);
-            textMeshPro.text += letter;
-        }
+        DialogueLine line = GetDialogueLine(dialogueStage);
+        dialogueStage++;
+        StartCoroutine(DisplayNextLineCoroutine(line));
     }
 
     /// <summary>
-    /// Get the next line of dialogue.
+    /// Asynchronously display the next line of dialogue on-screen.
     /// </summary>
-    /// <returns>Next line of dialogue.</returns>
-    private string GetNextLine()
+    /// <param name="line">Line to display.</param>
+    /// <returns></returns>
+    private IEnumerator DisplayNextLineCoroutine(DialogueLine line) // TODO: Set portrait using line.Portrait
     {
-        string nextLine = dialogueStrings[dialogueStage];
-        dialogueStage++;
-        return nextLine;
+        textMeshPro.text = "";
+
+        if (line.Overflow)
+        {
+            textMeshPro.overflowMode = TextOverflowModes.Overflow;
+            textMeshPro.enableWordWrapping = false;
+        }
+        else
+        {
+            textMeshPro.overflowMode = TextOverflowModes.Truncate;
+            textMeshPro.enableWordWrapping = true;
+        }
+
+        foreach (DialogueSection section in line.Sections)
+        {
+            foreach (char letter in section.Text)
+            {
+                if (section.CharacterDelay > 0) yield return new WaitForSecondsRealtime(section.CharacterDelay);
+                textMeshPro.text += letter;
+            }
+        }
     }
 }
