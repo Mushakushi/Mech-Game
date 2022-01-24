@@ -13,7 +13,7 @@ public class PhaseBehavior : StateMachineBehaviour
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
-        if (animator.GetComponent<Character>() is Character c) c.OnPhaseUpdate(); 
+        if (animator.GetComponent<IPhaseController>() is IPhaseController c) c.OnPhaseUpdate(); 
     }
 
     /// <summary>
@@ -22,6 +22,7 @@ public class PhaseBehavior : StateMachineBehaviour
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
-        if (animator.gameObject.GetComponent<Character>() is Character c) c.OnPhaseExit(); 
+        if (animator.gameObject.GetComponent<IPhaseController>() is IPhaseController c) c.OnPhaseExit();
+        Combat.PhaseExit(); 
     }
 }

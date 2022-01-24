@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class Music : MonoBehaviour
+public class MusicPlayer : MonoBehaviour
 {
     /// <summary>
     /// AudioSource component in gameObject
     /// </summary>
-    [SerializeField] private AudioSource source; 
+    [SerializeField] private static AudioSource source; 
 
     /// <summary>
     /// Optional one-shot clip at start of loop
@@ -25,10 +25,24 @@ public class Music : MonoBehaviour
     /// </summary>
     void Start()
     {
+        source = GetComponent<AudioSource>(); 
+        Play(loop, intro); 
+    }
+
+    /// <summary>
+    /// Plays looping audio with optional intro
+    /// </summary>
+    public static void Play(AudioClip loop, AudioClip intro = null)
+    {
+        // If there is no intro, use the loop as one
+        if (!intro) intro = loop;
+
+        // Play intro once
+        source.PlayOneShot(intro);
+
+        // Schedule loop to be played indefinitely
         source.loop = true;
         source.clip = loop;
-        if (!intro) intro = loop;
-        source.PlayOneShot(intro);
-        source.PlayScheduled(AudioSettings.dspTime + intro.length); 
+        source.PlayScheduled(AudioSettings.dspTime + intro.length);
     }
 }

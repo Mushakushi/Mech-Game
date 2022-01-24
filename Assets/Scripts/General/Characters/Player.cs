@@ -30,6 +30,7 @@ public class Player : Character
     }
 
     // Update is called once per frame
+    // try updating this with the newer functions if you can I moved a lot around
     void Update()
     {
         if (returnToIdle)
@@ -64,7 +65,7 @@ public class Player : Character
         if (delayCoroutine == null && queuedAction != null)
         {
             StartCoroutine(queuedAction);
-            allowQueueAction = false;
+            //allowQueueAction = false; (case in point)
             queuedAction = null;
         }
     }
@@ -90,11 +91,21 @@ public class Player : Character
 
     protected override void PhaseEnterBehavior()
     {
-        canAttack = true; 
+        canAttack = true;
+        EnableHitbox();
+
+        // set a coroutine that counts down to end of player phase
+        // InitializePhase(player.targetPhase); 
     }
     protected override void PhaseUpdateBehavior() { }
     protected override void PhaseExitBehavior()
     {
-        canAttack = false; 
+        canAttack = false;
+        DisableHitbox(); 
+    }
+
+    protected override void OnHealthDeplete()
+    {
+        print("player defeated"); 
     }
 }

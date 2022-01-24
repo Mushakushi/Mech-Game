@@ -2,11 +2,16 @@ using System.Collections.Generic;
 
 public class Lobstobotomizer : Boss
 {
-    public override void SetBossValues()
+    protected override BossData SetBossData()
     {
-        maxHealth = 100f; 
-        damage = 0f;
-        resistance = 1.0f;
-        SpecialAttackWeights = new List<int> { 100 };
+        return new BossData(
+            "Lobstobotomizer",
+            100f,
+            1,
+            1f,
+            Phase.Player,
+            3,
+            new List<int> { 100 }
+            ); 
     }
 }

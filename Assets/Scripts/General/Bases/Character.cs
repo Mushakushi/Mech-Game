@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(BoxCollider2D))]
-public abstract class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour, IPhaseController
 {
     [Header("Stats")]
     [SerializeField] public string characterName;
@@ -11,21 +11,11 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float resistance;
 
-    /// <summary>
-    /// Character's active phase, may have restricted functionality in other phases
-    /// </summary>
-    [SerializeField] Phase activePhase;
-
-    /// <summary>
-    /// Phase that directly follows this phase
-    /// </summary>
-    [SerializeField] protected Phase targetPhase; 
-
     [Header("UI and Animation")]
     /// <summary> 
     /// First animator attached to any child object
     /// </summary>
-    public Animator animator;
+    public Animator animator; 
 
     [Space()]
     /// <summary>
@@ -45,7 +35,7 @@ public abstract class Character : MonoBehaviour
     public float shakingRange;
     public bool returnToIdle = false;
 
-    public void Start()
+    public void InitializeCharacter()
     {
         hurtbox = GetComponent<BoxCollider2D>();
         EnableHurtbox(); 
@@ -53,10 +43,11 @@ public abstract class Character : MonoBehaviour
         // GetComponentInChildren (wierdly) searches parent, search through array instead
         foreach (BoxCollider2D c in GetComponentsInChildren<BoxCollider2D>())
         {
-            if (c.gameObject.transform.parent)
+            if (c != hurtbox)
             {
                 hitbox = c;
-                //DisableHitbox(); 
+                DisableHitbox();
+                break;
             }
         }
         if (!hitbox) Debug.LogError("Script requires hitbox in child!"); 
@@ -68,35 +59,9 @@ public abstract class Character : MonoBehaviour
     }
 
     /// <summary>
-    /// Child initialization event, Start should not be used as it hides start in this class
+    /// Child initialization event, Start should not be used as it may superceed the correct initialization order
     /// </summary>
     public abstract void OnStart();
-
-    // shouldnt be too hard to implement with statemachines i think
-    // really adds to game polish imo
-    #region keep this?  
-    /*
-    /// <summary>
-    /// Moves character slightly around current position.
-    /// </summary>
-    public void TryShake()
-    {
-        if (isShaking)
-        {
-            animator.applyRootMotion = true;
-            transform.position = MoveUtil.GetPosFromPos(shakePos, Random.Range(-shakingRange, shakingRange), Random.Range(-shakingRange, shakingRange));
-        }
-        else
-        {
-            if (MoveUtil.PosWithinRange(transform.position, shakePos, shakingRange) && !transform.position.Equals(shakePos))
-            {
-                transform.position = shakePos;
-                animator.applyRootMotion = false;
-            }
-        }
-    }*/
-    // Note: Idk how this works and it's messing up the animations so I'll comment it out for now...
-    #endregion
 
     /// <summary>
     /// Event that happens when a Hitbox enters this Character's Hurtbox
@@ -105,9 +70,29 @@ public abstract class Character : MonoBehaviour
     public virtual void OnHitboxEnter(float damage)
     {
         animator.SetTrigger("GetHit");
-        print("ow"); 
-        health -= damage * (1 / resistance);
-        isHit = true; 
+
+        /*if (isShaking)
+        {
+            animator.applyRootMotion = true;
+            //transform.position = MoveUtil.GetPosFromPos(shakePos, Random.Range(-shakingRange, shakingRange), Random.Range(-shakingRange, shakingRange));
+        }
+        else
+        {
+           // if (MoveUtil.PosWithinRange(transform.position, shakePos, shakingRange) && !transform.position.Equals(shakePos))
+            {
+                transform.position = shakePos;
+                animator.applyRootMotion = false;
+            }
+        }*/
+
+        health -= damage * (1 / resistance); // we could just adjust hp if player doesn't have a way to level up stats
+        isHit = true;
+
+        if (health <= 0)
+        {
+            // put anything that should happen here
+            OnHealthDeplete(); 
+        }
     }
 
     /// <summary>
@@ -117,6 +102,11 @@ public abstract class Character : MonoBehaviour
     {
         isHit = false; 
     }
+
+    /// <summary>
+    /// What should happen when Character's health depletes to 0?
+    /// </summary>
+    protected abstract void OnHealthDeplete(); 
 
     #region ANIMATOR FUNCTIONS
     /// <summary>
@@ -149,7 +139,6 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public void OnPhaseExit()
     {
-        Combat.ChangePhase(targetPhase);
         DisableHitbox();
         EnableHurtbox();
         PhaseExitBehavior(); 
@@ -188,7 +177,7 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public void DisableHurtbox()
     {
-        //hurtbox.enabled = false; 
+        hurtbox.enabled = false; 
     }
     #endregion
 }

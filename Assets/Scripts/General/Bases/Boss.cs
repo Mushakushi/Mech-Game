@@ -5,10 +5,15 @@ using UnityEngine.UI;
 
 public abstract class Boss : Character
 {
+    /// <summary> 
+    /// Amount of times hp must be depleted for defeat
+    /// </summary>
+    [SerializeField] public int healthBars; 
+
     /// <summary>
     /// List of weights for Special Attacks. Count should not exceed number of special attacks.
     /// </summary>
-    public List<int> SpecialAttackWeights { get; set; }
+    [SerializeField] private List<int> SpecialAttackWeights { get; set; }
 
     [Header("UI")]
     /// <summary>
@@ -21,8 +26,15 @@ public abstract class Boss : Character
     // Start is called before the first frame update //TODO: We also have SetBossValues() below, is there a better way of initializing the classes?
     public override void OnStart()
     {
-        SetBossValues();
+        BossData data = SetBossData();
+        name = data.name;
+        maxHealth = data.maxHealth;
         health = maxHealth;
+        damage = data.damage;
+        resistance = data.resistance;
+        healthBars = data.healthBars;
+        SpecialAttackWeights = data.SpecialAttackWeights; 
+
         dialogue.SetLanguage(DialogueUtil.LANGUAGE.TokiPona);
         dialogue.InitializeBossDialogue(this);
         dialogue.DisplayNextLine();
@@ -55,9 +67,9 @@ public abstract class Boss : Character
     }
 
     /// <summary>
-    /// Allows children to initialize data without hiding parent's Start
+    /// Allows children to initialize data without hiding parent's Start, uses struct to ensure proper data is supplied
     /// </summary>
-    public abstract void SetBossValues();
+    protected abstract BossData SetBossData();
 
     /// <summary>
     /// Event that happens when Hitbox enters boss Hurtbox
@@ -67,6 +79,14 @@ public abstract class Boss : Character
     {
         base.OnHitboxEnter(damage);
         healthSlider.value = health / maxHealth;
+    }
+
+    /// <summary>
+    /// Take away one hp bar on health deplete
+    /// </summary>
+    protected override void OnHealthDeplete()
+    {
+        throw new System.NotImplementedException();
     }
 
     /// <summary>
@@ -84,7 +104,7 @@ public abstract class Boss : Character
         {
             if (rand < SpecialAttackWeights[i])
             {
-                animator.SetFloat("SpecialIndex", i + 1);
+                animator.SetInteger("SpecialIndex", i + 1);
                 //animator.SetTrigger("RunSpecial");
             }
 
