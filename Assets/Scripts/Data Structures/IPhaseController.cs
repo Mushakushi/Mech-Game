@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Interface for notifying phase events in PhaseBehavior state machine. 
-/// Every IPhaseController must have PhaseBehavior in a substate machine to function properly.
+/// Every IPhaseController must have PhaseUpdateBehvaior and PhaseExitBehavior to function properly
 /// </summary>
 public interface IPhaseController
 {
@@ -12,6 +12,11 @@ public interface IPhaseController
     /// What phase the controller belongs to
     /// </summary>
     Phase activePhase { get; }
+
+    /// <summary>
+    /// What happens when controller is added to Combat
+    /// </summary>
+    void OnStart(); 
 
     /// <summary>
     /// What happens when the phase ends 

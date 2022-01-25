@@ -40,7 +40,7 @@ public abstract class Character : MonoBehaviour, IPhaseController
     public float shakingRange;
     public bool returnToIdle = false;
 
-    public void InitializeCharacter()
+    public void OnStart()
     {
         hurtbox = GetComponent<BoxCollider2D>();
         EnableHurtbox(); 
@@ -60,13 +60,13 @@ public abstract class Character : MonoBehaviour, IPhaseController
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = Resources.Load($"Animation/Animators/{GetType().Name}") as RuntimeAnimatorController;
         
-        activePhase = OnStart();
+        activePhase = InitializeCharacter();
     }
 
     /// <summary>
     /// Child initialization event, Start should not be used as it may superceed the correct initialization order
     /// </summary>
-    public abstract Phase OnStart();
+    public abstract Phase InitializeCharacter();
 
     /// <summary>
     /// Event that happens when a Hitbox enters this Character's Hurtbox

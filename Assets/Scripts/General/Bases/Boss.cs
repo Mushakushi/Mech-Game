@@ -24,7 +24,7 @@ public abstract class Boss : Character
     [SerializeField] private Dialogue dialogue;
 
     // Start is called before the first frame update 
-    public override Phase OnStart()
+    public override Phase InitializeCharacter()
     {
         BossData data = SetBossData();
         name = data.name;
@@ -51,7 +51,8 @@ public abstract class Boss : Character
             returnToIdle = false;
             animator.ResetTrigger("GetHit");
             animator.ResetTrigger("RunSpecial");
-            //combat.fightStage = Combat.FIGHT_STAGE.PlayerAttack;
+            //combat.fightS
+        e = Combat.FIGHT_STAGE.PlayerAttack;
         }
 
         if (currentState == BOSS_STATE.FullStun)

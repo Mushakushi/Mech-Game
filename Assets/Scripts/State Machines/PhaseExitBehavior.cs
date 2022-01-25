@@ -15,6 +15,6 @@ public class PhaseExitBehavior : StateMachineBehaviour
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
         if (animator.gameObject.GetComponent<IPhaseController>() is IPhaseController c) c.OnPhaseExit();
-        Combat.PhaseExit();
+        Combat.ExitPhase();
     }
 }
