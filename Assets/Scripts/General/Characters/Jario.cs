@@ -18,7 +18,7 @@ public class Jario : MonoBehaviour, IPhaseController
         activePhase = Phase.Intro; 
     }
 
-    private void Start()
+    public void OnStart()
     {
         animator = GetComponent<Animator>();
     }

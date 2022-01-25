@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq; 
 
 /// <summary>
 /// Possible phases of battle 
@@ -22,7 +23,10 @@ public class Combat : MonoBehaviour
     /// </summary>
     [SerializeField] public static Jario jario;
 
-    //List<IPhaseController> miscControllers; 
+    /// <summary>
+    /// Every phase controller in the scene
+    /// </summary>
+    [SerializeField] private static List<IPhaseController> controllers; 
 
     /// <summary>
     /// Current phase of battle 
@@ -30,63 +34,43 @@ public class Combat : MonoBehaviour
     public static Phase phase { get; private set; }
 
     /// <summary>
-    /// Gets references to player and boss in battle, then initializes the phase
+    /// Updates references in scene
     /// </summary>
     void Start()
     {
-        boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
-        if (!boss) Debug.LogError("Could not find GameObject tagged \"Boss\" with a Boss component!");
-        else boss.InitializeCharacter(); 
+        // Get every phase controller 
+        foreach (GameObject g in (GameObject[])FindObjectsOfType(typeof(GameObject)))
+            if (g.GetComponent<IPhaseController>() is IPhaseController c)
+                AddPhaseController(c); 
 
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        if (!player) Debug.LogError("Could not find GameObject tagged \"Player\" with a Player component!");
-        else player.InitializeCharacter();
+        // Check for required controllers in scene
+        if (!GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>()) Debug.LogError("Could not find GameObject tagged \"Boss\" with a Boss component!");
+        if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>()) Debug.LogError("Could not find GameObject tagged \"Player\" with a Player component!");
+        if (!GameObject.FindGameObjectWithTag("Jario").GetComponent<Jario>()) Debug.LogError("You cannot escape Jario. Please add him to the scene!");
 
-        jario = GameObject.FindGameObjectWithTag("Jario").GetComponent<Jario>();
-        if (!jario) Debug.LogError("You cannot escape Jario. Please add him to the scene!");
-
-        // reason why I removed the default start() is so that OnPhaseEnter() could be called after initialization ended
+        // Start phase
         InitializePhase(Phase.Intro); 
     }
 
-    /// <summary>
-    /// Updates current phase of battle, determines which phase belong to which objects
-    /// </summary>
-    private static void InitializePhase(Phase phase)
+    public static void AddPhaseController(IPhaseController controller)
     {
-        Debug.Log($"Phase switched to {phase}"); 
-        Combat.phase = phase;
-
-        IPhaseController controller; 
-        switch (phase)
-        {
-            case Phase.Intro:
-                controller = jario; 
-                break;
-            case Phase.Boss:
-                controller = boss;  
-                break;
-            case Phase.Player:
-                controller = player; 
-                break;
-            default:
-                controller = null;
-                break; 
-        }
-        if (controller != null) controller.OnPhaseEnter(); 
+        controllers.Add(controller);
+        controller.OnStart(); 
     }
 
     /// <summary>
-    /// Determines which phase follows the current phase 
+    /// Exits the current phase
     /// </summary>
-    public static void PhaseExit()
+    public static void ExitPhase()
     {
-        // definitiely want some checks here for having dialogue or no, I'm just assuming there's always
-        // post dialogue for now
+        //determines which phase to transition to
         switch (phase)
         {
             case Phase.Intro:
                 InitializePhase(Phase.Player);
+                break;
+            case Phase.Dialogue_Pre:
+                InitializePhase(Phase.Boss);
                 break;
             case Phase.Player:
             case Phase.Boss:
@@ -97,4 +81,20 @@ public class Combat : MonoBehaviour
                 break;
         }
     }
+
+    /// <summary>
+    /// Updates current phase of battle, determines which phase belong to which objects
+    /// </summary>
+    private static void InitializePhase(Phase phase)
+    {
+        Debug.Log($"Phase switched to {phase}"); 
+        Combat.phase = phase;
+
+        foreach (IPhaseController c in controllers.Select(x => x.activePhase).ToList().Where(x => x == phase).)
+        {
+            
+        }
+    }
+
+    
 }
