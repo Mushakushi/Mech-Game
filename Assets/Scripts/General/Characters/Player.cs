@@ -13,7 +13,7 @@ public class Player : Character
     private enum DODGE_DIRECTION { Left, Right }
 
     // Start is called before the first frame update
-    public override void OnStart()
+    public override Phase OnStart()
     {
         health = 100.0f;
         damage = 5.0f;
@@ -27,6 +27,8 @@ public class Player : Character
         canAttack = true;
 
         //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Player Attack"));
+
+        return Phase.Player; 
     }
 
     // Update is called once per frame

@@ -10,6 +10,14 @@ public class Jario : MonoBehaviour, IPhaseController
     /// </summary>
     [SerializeField] private Animator animator;
 
+
+    public Phase activePhase { get; }
+
+    public Jario()
+    {
+        activePhase = Phase.Intro; 
+    }
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -18,6 +26,11 @@ public class Jario : MonoBehaviour, IPhaseController
     public void OnPhaseEnter()
     {
         animator.SetTrigger("Count");
+        int count;
+        if (Combat.phase == Phase.Intro) count = 3;
+        else count = 10;
+
+        animator.SetInteger("CountLeft", count);
     }
 
     public void OnPhaseUpdate() { }

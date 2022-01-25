@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// Possible phases of battle 
@@ -19,7 +20,9 @@ public class Combat : MonoBehaviour
     /// <summary>
     /// THE ref
     /// </summary>
-    [SerializeField] public static Jario jario; 
+    [SerializeField] public static Jario jario;
+
+    //List<IPhaseController> miscControllers; 
 
     /// <summary>
     /// Current phase of battle 

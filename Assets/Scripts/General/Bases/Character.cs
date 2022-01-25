@@ -11,6 +11,11 @@ public abstract class Character : MonoBehaviour, IPhaseController
     [SerializeField] protected float damage;
     [SerializeField] protected float resistance;
 
+    /// <summary>
+    /// The phase this character belong to
+    /// </summary>
+    public Phase activePhase { get; set; }
+
     [Header("UI and Animation")]
     /// <summary> 
     /// First animator attached to any child object
@@ -55,13 +60,13 @@ public abstract class Character : MonoBehaviour, IPhaseController
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = Resources.Load($"Animation/Animators/{GetType().Name}") as RuntimeAnimatorController;
         
-        OnStart();
+        activePhase = OnStart();
     }
 
     /// <summary>
     /// Child initialization event, Start should not be used as it may superceed the correct initialization order
     /// </summary>
-    public abstract void OnStart();
+    public abstract Phase OnStart();
 
     /// <summary>
     /// Event that happens when a Hitbox enters this Character's Hurtbox

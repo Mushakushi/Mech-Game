@@ -9,6 +9,11 @@ using UnityEngine;
 public interface IPhaseController
 {
     /// <summary>
+    /// What phase the controller belongs to
+    /// </summary>
+    Phase activePhase { get; }
+
+    /// <summary>
     /// What happens when the phase ends 
     /// </summary>
     void OnPhaseEnter();

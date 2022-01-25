@@ -23,8 +23,8 @@ public abstract class Boss : Character
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private Dialogue dialogue;
 
-    // Start is called before the first frame update //TODO: We also have SetBossValues() below, is there a better way of initializing the classes?
-    public override void OnStart()
+    // Start is called before the first frame update 
+    public override Phase OnStart()
     {
         BossData data = SetBossData();
         name = data.name;
@@ -38,6 +38,8 @@ public abstract class Boss : Character
         dialogue.SetLanguage(DialogueUtil.LANGUAGE.TokiPona);
         dialogue.InitializeBossDialogue(this);
         dialogue.DisplayNextLine();
+
+        return Phase.Boss; 
     }
 
     // Update is called once per frame
