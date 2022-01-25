@@ -12,20 +12,12 @@ public class Jario : MonoBehaviour, IPhaseController
 
     private void Start()
     {
-        animator = GetComponent<Animator>(); 
-    }
-
-    /// <summary>
-    /// Animates jario counting
-    /// </summary>
-    public void Count()
-    {
-        animator.SetTrigger("Count"); 
+        animator = GetComponent<Animator>();
     }
 
     public void OnPhaseEnter()
     {
-        throw new System.NotImplementedException();
+        animator.SetTrigger("Count");
     }
 
     public void OnPhaseUpdate() { }

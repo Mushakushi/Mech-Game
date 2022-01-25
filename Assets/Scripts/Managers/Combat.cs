@@ -54,18 +54,23 @@ public class Combat : MonoBehaviour
         Debug.Log($"Phase switched to {phase}"); 
         Combat.phase = phase;
 
+        IPhaseController controller; 
         switch (phase)
         {
             case Phase.Intro:
-                jario.Count();
+                controller = jario; 
                 break;
             case Phase.Boss:
-                boss.OnPhaseEnter(); 
+                controller = boss;  
                 break;
             case Phase.Player:
-                player.OnPhaseEnter(); 
+                controller = player; 
+                break;
+            default:
+                controller = null;
                 break; 
         }
+        if (controller != null) controller.OnPhaseEnter(); 
     }
 
     /// <summary>

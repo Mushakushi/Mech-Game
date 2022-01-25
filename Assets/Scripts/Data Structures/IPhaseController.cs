@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Interface for notifying phase events in PhaseBehavior state machine. 
+/// Every IPhaseController must have PhaseBehavior in a substate machine to function properly.
+/// </summary>
 public interface IPhaseController
 {
     /// <summary>

@@ -33,40 +33,43 @@ public class Player : Character
     // try updating this with the newer functions if you can I moved a lot around
     void Update()
     {
-        if (returnToIdle)
+        if (Combat.phase != Phase.Intro)
         {
-            animator.applyRootMotion = false;
-            currentActionType = ACTION_TYPE.None;
-            delayCoroutine = StartCoroutine(WaitActionDelay());
-            returnToIdle = false;
-        }
-
-        // input queueing - appears to be broken (animation issue - currently uses returnToIdle ^)
-        if (allowQueueAction)
-        {
-            if (canAttack && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None) && Input.GetKeyDown(KeyCode.W))
+            if (returnToIdle)
             {
-                queuedAction = DoAttack();
+                animator.applyRootMotion = false;
+                currentActionType = ACTION_TYPE.None;
+                delayCoroutine = StartCoroutine(WaitActionDelay());
+                returnToIdle = false;
             }
-            else if (currentActionType == ACTION_TYPE.Dodge || currentActionType == ACTION_TYPE.None)
-            {
-                if (Input.GetKeyDown(KeyCode.A))
-                {
-                    queuedAction = DoDodge(DODGE_DIRECTION.Left);
-                }
-                else if (Input.GetKeyDown(KeyCode.D))
-                {
-                    queuedAction = DoDodge(DODGE_DIRECTION.Right);
-                }
-            }
-        }
 
-        // run queue
-        if (delayCoroutine == null && queuedAction != null)
-        {
-            StartCoroutine(queuedAction);
-            //allowQueueAction = false; (case in point)
-            queuedAction = null;
+            // input queueing - appears to be broken (animation issue - currently uses returnToIdle ^)
+            if (allowQueueAction)
+            {
+                if (canAttack && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None) && Input.GetKeyDown(KeyCode.W))
+                {
+                    queuedAction = DoAttack();
+                }
+                else if (currentActionType == ACTION_TYPE.Dodge || currentActionType == ACTION_TYPE.None)
+                {
+                    if (Input.GetKeyDown(KeyCode.A))
+                    {
+                        queuedAction = DoDodge(DODGE_DIRECTION.Left);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.D))
+                    {
+                        queuedAction = DoDodge(DODGE_DIRECTION.Right);
+                    }
+                }
+            }
+
+            // run queue
+            if (delayCoroutine == null && queuedAction != null)
+            {
+                StartCoroutine(queuedAction);
+                //allowQueueAction = false; (case in point)
+                queuedAction = null;
+            }
         }
     }
 
