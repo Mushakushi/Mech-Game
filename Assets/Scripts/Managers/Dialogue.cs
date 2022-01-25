@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static DialogueUtil;
 
 public class Dialogue : MonoBehaviour
@@ -9,6 +10,7 @@ public class Dialogue : MonoBehaviour
     private int dialogueStage = 0;
     private LANGUAGE language = LANGUAGE.English;
     [SerializeField] private TextMeshProUGUI textMeshPro;
+    [SerializeField] private RawImage portrait;
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +62,7 @@ public class Dialogue : MonoBehaviour
     {
         textMeshPro.text = "";
 
-        if (line.Overflow)
+        if (line.Overflow) // simplify?
         {
             textMeshPro.overflowMode = TextOverflowModes.Overflow;
             textMeshPro.enableWordWrapping = false;
@@ -70,6 +72,8 @@ public class Dialogue : MonoBehaviour
             textMeshPro.overflowMode = TextOverflowModes.Truncate;
             textMeshPro.enableWordWrapping = true;
         }
+
+        portrait.texture = line.Portrait;
 
         foreach (DialogueSection section in line.Sections)
         {

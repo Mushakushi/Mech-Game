@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class DialogueLine
 {
@@ -13,7 +14,7 @@ public class DialogueLine
     /// <summary>
     /// Name of Character portrait shown when this line is displayed.
     /// </summary>
-    public string Portrait { get; set; }
+    public Texture2D Portrait { get; set; }
     /// <summary>
     /// Have the line overflow the text box?
     /// </summary>

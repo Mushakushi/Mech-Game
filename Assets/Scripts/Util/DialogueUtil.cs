@@ -24,12 +24,21 @@ public static class DialogueUtil
     {
         currentBossLoaded = boss;
         loadedDialogue = new List<DialogueLine>();
-        using (StreamReader sr = new StreamReader($"Assets/Resources/Dialogue/{boss.characterName}/{language}.txt"))
+        string filePath = $"Assets/Resources/Dialogue/{boss.characterName}/{language}.txt";
+
+        if (Directory.Exists(filePath))
         {
-            while (!sr.EndOfStream)
+            using (StreamReader sr = new StreamReader(filePath))
             {
-                loadedDialogue.Add(ParseLine(sr.ReadLine()));
+                while (!sr.EndOfStream)
+                {
+                    loadedDialogue.Add(ParseLine(sr.ReadLine()));
+                }
             }
+        }
+        else
+        {
+            Debug.LogError($"Missing file {filePath}! File load failed.");
         }
     }
 
@@ -43,10 +52,11 @@ public static class DialogueUtil
         DialogueLine parsedLine = new DialogueLine();
 
         string[] lineWithArgs = line.Split('|'); // a line with a specified portrait looks like portraitName|<sections>|args
-                                              // a line without looks like |<sections>|args
+                                                 // a line without looks like |<sections>|args
 
-        if (lineWithArgs[0] != "") parsedLine.Portrait = lineWithArgs[0]; // if a portrait is specified use that
-        else parsedLine.Portrait = currentBossLoaded.characterName; // otherwise use default loaded character portrait
+        string portraitFile = (lineWithArgs[0] != "") ? lineWithArgs[0] : currentBossLoaded.characterName; // use specified portrait or use default if not specified
+        parsedLine.Portrait = (Texture2D) Resources.Load($"Art/UI/Portraits/{portraitFile}", typeof(Texture2D));
+
 
         string[] sections = lineWithArgs[1].Split('['); // a text section looks like [delay]text
 
