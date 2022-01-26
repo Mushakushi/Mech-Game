@@ -51,8 +51,7 @@ public abstract class Boss : Character
             returnToIdle = false;
             animator.ResetTrigger("GetHit");
             animator.ResetTrigger("RunSpecial");
-            //combat.fightS
-        e = Combat.FIGHT_STAGE.PlayerAttack;
+            //combat.fightStage = Combat.FIGHT_STAGE.PlayerAttack;
         }
 
         if (currentState == BOSS_STATE.FullStun)

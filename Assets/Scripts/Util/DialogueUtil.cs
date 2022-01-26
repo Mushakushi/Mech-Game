@@ -24,9 +24,9 @@ public static class DialogueUtil
     {
         currentBossLoaded = boss;
         loadedDialogue = new List<DialogueLine>();
-        string filePath = $"Assets/Resources/Dialogue/{boss.characterName}/{language}.txt";
+        string filePath = $"Assets/Resources/Dialogue/{boss.characterName}/{language.ToString().ToLower()}.txt";
 
-        if (Directory.Exists(filePath))
+        try
         {
             using (StreamReader sr = new StreamReader(filePath))
             {
@@ -36,7 +36,7 @@ public static class DialogueUtil
                 }
             }
         }
-        else
+        catch
         {
             Debug.LogError($"Missing file {filePath}! File load failed.");
         }

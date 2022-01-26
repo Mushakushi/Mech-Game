@@ -26,7 +26,7 @@ public class Combat : MonoBehaviour
     /// <summary>
     /// Every phase controller in the scene
     /// </summary>
-    [SerializeField] private static List<IPhaseController> controllers; 
+    [SerializeField] private static List<IPhaseController> controllers = new List<IPhaseController>(); 
 
     /// <summary>
     /// Current phase of battle 
@@ -90,10 +90,11 @@ public class Combat : MonoBehaviour
         Debug.Log($"Phase switched to {phase}"); 
         Combat.phase = phase;
 
-        foreach (IPhaseController c in controllers.Select(x => x.activePhase).ToList().Where(x => x == phase).)
+
+        /*foreach (IPhaseController c in controllers.Select(x => x.activePhase).ToList().Where(x => x == phase).)
         {
             
-        }
+        }*/
     }
 
     

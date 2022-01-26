@@ -58,7 +58,7 @@ public class Dialogue : MonoBehaviour
     /// </summary>
     /// <param name="line">Line to display.</param>
     /// <returns></returns>
-    private IEnumerator DisplayNextLineCoroutine(DialogueLine line) // TODO: Set portrait using line.Portrait
+    private IEnumerator DisplayNextLineCoroutine(DialogueLine line)
     {
         textMeshPro.text = "";
 
@@ -73,7 +73,7 @@ public class Dialogue : MonoBehaviour
             textMeshPro.enableWordWrapping = true;
         }
 
-        portrait.texture = line.Portrait;
+        portrait.texture = line.Portrait; // not sure if easier to fix images or make a class containing manual offsets (first one definitely sounds better...)
 
         foreach (DialogueSection section in line.Sections)
         {
