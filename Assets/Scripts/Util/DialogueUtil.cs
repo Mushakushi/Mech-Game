@@ -12,7 +12,7 @@ public static class DialogueUtil
 
     public enum LANGUAGE
     {
-        English, TokiPona
+        English, TokiPona, Debug
     }
 
     /// <summary>

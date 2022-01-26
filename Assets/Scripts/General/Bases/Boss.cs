@@ -33,11 +33,13 @@ public abstract class Boss : Character
         damage = data.damage;
         resistance = data.resistance;
         healthBars = data.healthBars;
-        SpecialAttackWeights = data.SpecialAttackWeights; 
+        SpecialAttackWeights = data.SpecialAttackWeights;
 
-        dialogue.SetLanguage(DialogueUtil.LANGUAGE.TokiPona);
+        // TEMP SECTION FOR DIALOGUE TESTING
+        dialogue.SetLanguage(DialogueUtil.LANGUAGE.Debug);
         dialogue.InitializeBossDialogue(this);
         dialogue.DisplayNextLine();
+        // TEMP SECTION FOR DIALOGUE TESTING
 
         return Phase.Boss; 
     }
@@ -61,7 +63,7 @@ public abstract class Boss : Character
 
         //TryShake();
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P)) // TEMP FOR DIALOGUE TESTING
         {
             //combat.DoBossSpecial();
             dialogue.DisplayNextLine();
