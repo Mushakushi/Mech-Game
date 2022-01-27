@@ -375,7 +375,6 @@ GameObject:
   - component: {fileID: 256369246}
   - component: {fileID: 256369245}
   - component: {fileID: 256369244}
-  - component: {fileID: 256369243}
   m_Layer: 5
   m_Name: Stun Slider
   m_TagString: Untagged
@@ -403,49 +402,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -32.8}
   m_SizeDelta: {x: 300, y: 6}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &256369243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 256369241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c68c36bb9e990ce439a08074a076cd30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider: {fileID: 0}
-  image: {fileID: 0}
-  gradient:
-    serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 0.9670751, g: 1, b: 0, a: 1}
-    key2: {r: 1, g: 0.9813727, b: 0, a: 1}
-    key3: {r: 0.10573363, g: 1, b: 0, a: 1}
-    key4: {r: 0.9670751, g: 1, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 15806
-    ctime2: 35852
-    ctime3: 54356
-    ctime4: 57247
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 65535
-    atime3: 65535
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 4
-    m_NumAlphaKeys: 2
 --- !u!114 &256369244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,19 +452,7 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 256369243}
-        m_TargetAssemblyTypeName: HealthSlider, Assembly-CSharp
-        m_MethodName: Color
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &256369245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2477,6 +2421,7 @@ MonoBehaviour:
   actionDelay: 0
   allowQueueAction: 1
   canAttack: 1
+  stunSlider: {fileID: 256369244}
 --- !u!114 &4807353076405162954
 MonoBehaviour:
   m_ObjectHideFlags: 0

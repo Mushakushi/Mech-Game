@@ -22,3 +22,4 @@ public class PhaseExitBehavior : StateMachineBehaviour
 
     }
 }
+// TODO - Only phasecontrollers should be able to exit phase probably want an extension method for this

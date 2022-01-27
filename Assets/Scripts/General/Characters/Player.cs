@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Character
 {
@@ -11,6 +12,9 @@ public class Player : Character
     public bool canAttack;
     private enum ACTION_TYPE { Attack, Dodge, Block, None }
     private enum DODGE_DIRECTION { Left, Right }
+
+    [Header("UI")]
+    [SerializeField] private Slider stunSlider;
 
     // Start is called before the first frame update
     public override Phase InitializeCharacter()
@@ -98,11 +102,14 @@ public class Player : Character
     {
         canAttack = true;
         EnableHitbox();
-
+        stunSlider.value = 1; 
         // set a coroutine that counts down to end of player phase
-        // InitializePhase(player.targetPhase); 
+        
     }
-    protected override void PhaseUpdateBehavior() { }
+    protected override void PhaseUpdateBehavior() 
+    {
+        stunSlider.value -= .05f; 
+    }
     protected override void PhaseExitBehavior()
     {
         canAttack = false;

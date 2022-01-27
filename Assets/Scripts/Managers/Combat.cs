@@ -33,7 +33,12 @@ public class Combat : MonoBehaviour
     /// <summary>
     /// Every phase observer in the scene
     /// </summary>
-    private static List<IPhaseObserver> observers = new List<IPhaseObserver>(); 
+    private static List<IPhaseObserver> observers = new List<IPhaseObserver>();
+
+    /// <summary>
+    /// Active phase observers. Will recieve calls to start, update, and (TODO) exit
+    /// </summary>
+    private static List<IPhaseObserver> activeObservers = new List<IPhaseObserver>(); 
 
     /// <summary>
     /// Current phase of battle 
@@ -52,21 +57,22 @@ public class Combat : MonoBehaviour
         // TODO - Optomize searching
         foreach (GameObject g in (GameObject[])FindObjectsOfType(typeof(GameObject)))
         {
-            if (g.GetComponent<IPhaseObserver>() is IPhaseObserver c)
+            if (g.GetComponent<IPhaseObserver>() is IPhaseObserver o)
             {
-                AddPhaseController(c);
+                observers.Add(o);
+                o.OnStart();
 
                 // Save required controllers
                 switch (g.tag)
                 {
                     case "Boss":
-                        boss = (Boss)c; 
+                        boss = (Boss)o; 
                         break;
                     case "Player":
-                        player = (Player)c;
+                        player = (Player)o;
                         break;
                     case "Jario":
-                        jario = (Jario)c;
+                        jario = (Jario)o;
                         break; 
                 }
             }
@@ -81,10 +87,43 @@ public class Combat : MonoBehaviour
         InitializePhase(Phase.Intro); 
     }
 
-    public static void AddPhaseController(IPhaseObserver controller)
+    /// <summary>
+    /// Add phase observers to Combat during runtime
+    /// </summary>
+    /// <param name="observer">Observer to add</param>
+    public static void AddPhaseObserver(IPhaseObserver observer)
     {
-        observers.Add(controller);
-        controller.OnStart(); 
+        observers.Add(observer);
+        observer.OnStart();
+        if (observer.activePhase == phase) SubscribePhaseObserver(observer); 
+    }
+
+    /// <summary>
+    /// Updates current phase of battle, determines which phase belong to which objects
+    /// </summary>
+    private static void InitializePhase(Phase phase)
+    {
+        Debug.Log($"Phase switched to {phase}"); 
+        Combat.phase = phase;
+
+        // could also be achieved with linq, I just think this is easier
+        foreach (IPhaseObserver observer in observers)
+        {
+            if (observer.activePhase == phase)
+            {
+                observer.OnPhaseEnter();
+                SubscribePhaseObserver(observer); 
+            }
+        }
+                
+    }
+
+    /// <summary>
+    /// Adds phase controller to list of active controllers
+    /// </summary>
+    private static void SubscribePhaseObserver(IPhaseObserver observer)
+    {
+        activeObservers.Add(observer); 
     }
 
     /// <summary>
@@ -118,18 +157,10 @@ public class Combat : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates current phase of battle, determines which phase belong to which objects
+    /// Updates current Phase observers
     /// </summary>
-    private static void InitializePhase(Phase phase)
+    private void Update()
     {
-        Debug.Log($"Phase switched to {phase}"); 
-        Combat.phase = phase;
-
-        // could also be achieved with linq, I just think this is easier
-        foreach (IPhaseObserver c in observers)
-            if (c.activePhase == phase) 
-                c.OnPhaseEnter(); 
+        foreach (IPhaseObserver o in activeObservers) o.OnPhaseUpdate();    
     }
-
-    
 }
