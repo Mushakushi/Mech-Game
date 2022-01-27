@@ -7,7 +7,7 @@ using System.Linq;
 /// </summary>
 public enum Phase { Intro, Boss, Player, Dialogue_Pre, Dialogue_Post, Invalid }
 
-[RequireComponent(typeof(Dialogue))]
+[RequireComponent(typeof(DialogueController))]
 public class Combat : MonoBehaviour
 {
 

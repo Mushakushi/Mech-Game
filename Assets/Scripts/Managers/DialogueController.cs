@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static DialogueUtil;
 
-public class Dialogue : MonoBehaviour, IPhaseController
+public class DialogueController : MonoBehaviour, IPhaseController
 {
     private int dialogueStage = 0;
     private LANGUAGE language = LANGUAGE.English;
@@ -31,7 +31,7 @@ public class Dialogue : MonoBehaviour, IPhaseController
     /// </summary>
     public void OnStart()
     {
-        SetLanguage(LANGUAGE.Debug);
+        SetLanguage(LANGUAGE.TokiPona);
         InitializeBossDialogue(Combat.level.name);
     }
 

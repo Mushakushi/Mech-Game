@@ -20,8 +20,7 @@ public abstract class Boss : Character
     /// Slider UI Component in scene that this object controls
     /// </summary>
     [SerializeField] private Slider healthSlider;
-    [SerializeField] private TextMeshProUGUI textMeshPro;
-    [SerializeField] private Dialogue dialogue;
+    [SerializeField] private DialogueController dialogue;
 
     // Start is called before the first frame update 
     public override Phase InitializeCharacter()

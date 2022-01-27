@@ -41,33 +41,29 @@ public static class DialogueUtil
     }
 
     /// <summary>
-    /// Parse the <paramref name="line"/> and return a DialogueLine.
+    /// Parse the <paramref name="lineFromFile"/> and return a DialogueLine.
     /// </summary>
-    /// <param name="line">Line to parse.</param>
+    /// <param name="lineFromFile">Line to parse.</param>
     /// <returns>Parsed DialogueLine.</returns>
-    private static DialogueLine ParseLine(string line)
+    private static DialogueLine ParseLine(string lineFromFile)
     {
         DialogueLine parsedLine = new DialogueLine();
 
-        string[] lineWithArgs = line.Split('|'); // a line with a specified portrait looks like portraitName|<sections>|args
+        string[] splitLineFromFile = lineFromFile.Split('|'); // a line with a specified portrait looks like portraitName|<sections>|args
                                                  // a line without looks like |<sections>|args
+        string portraitFileName = (splitLineFromFile[0] != "") ? splitLineFromFile[0] : Combat.level.name; // use specified portrait or use default if not specified
+        parsedLine.Portrait = (Texture2D) Resources.Load($"Art/UI/Portraits/{portraitFileName}", typeof(Texture2D));
 
-        string portraitFile = (lineWithArgs[0] != "") ? lineWithArgs[0] : Combat.level.name; // use specified portrait or use default if not specified
-        parsedLine.Portrait = (Texture2D) Resources.Load($"Art/UI/Portraits/{portraitFile}", typeof(Texture2D));
-
-
-        string[] sections = lineWithArgs[1].Split('['); // a text section looks like [delay]text
-
-        for (int i = 1; i < sections.Length; i++) // ignore first index - will always be '' (if formatted correctly)
+        string[] dialogueSections = splitLineFromFile[1].Split('['); // a text section looks like [delay]text
+        for (int i = 1; i < dialogueSections.Length; i++) // ignore first index - will always be '' (if formatted correctly)
         {
-            parsedLine.Sections.Add(ParseSection(sections[i]));
+            parsedLine.Sections.Add(ParseSection(dialogueSections[i]));
         }
 
-        string[] lineArgs = lineWithArgs[2].Split(',');
-
+        string[] lineArgs = splitLineFromFile[2].Split(',');
         foreach (string arg in lineArgs)
         {
-            switch (arg) // can add more - currently only overflow
+            switch (arg) // switch so we can add more if required - currently only overflow
             {
                 case "overflow":
                     parsedLine.Overflow = true;

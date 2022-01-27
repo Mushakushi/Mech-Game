@@ -33,7 +33,7 @@ public class Jario : MonoBehaviour, IPhaseController
         if (Combat.phase == Phase.Intro) count = 3;
         else count = 10;
 
-        animator.SetInteger("CountLeft", count);
+        animator.SetInteger("CountLeft", count-1); // count-1 or he'll count one more time than you want him to
     }
 
     public void OnPhaseUpdate() { }
