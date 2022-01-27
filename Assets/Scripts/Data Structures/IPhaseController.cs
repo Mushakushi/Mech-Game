@@ -3,33 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Interface for notifying phase events in PhaseBehavior state machine. 
-/// Every IPhaseController must have PhaseUpdateBehvaior and PhaseExitBehavior to function properly
+/// Interface for recieving Phase notifcation calls. Will change Phase on complete
 /// </summary>
-public interface IPhaseController
+// TODO - require PhaseExitBehavior component
+public interface IPhaseController : IPhaseObserver
 {
     /// <summary>
-    /// What phase the controller belongs to
+    /// What happens when the phase ends. Exits Phase on complete
     /// </summary>
-    Phase activePhase { get; }
-
-    /// <summary>
-    /// What happens when controller is added to Combat
-    /// </summary>
-    void OnStart(); 
-
-    /// <summary>
-    /// What happens when the phase ends 
-    /// </summary>
-    void OnPhaseEnter();
-    
-    /// <summary>
-    /// What happens when the phase is running 
-    /// </summary>
-    void OnPhaseUpdate();
-
-    /// <summary>
-    /// What happens when the phase ends
-    /// </summary>
-    void OnPhaseExit(); 
+    new void OnPhaseExit(); 
 }

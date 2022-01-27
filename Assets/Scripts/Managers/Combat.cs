@@ -5,28 +5,36 @@ using System.Linq;
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { Intro, Boss, Player, Dialogue_Pre, Dialogue_Post }
+public enum Phase { Intro, Boss, Player, Dialogue_Pre, Dialogue_Post, Invalid }
+
+[RequireComponent(typeof(Dialogue))]
 public class Combat : MonoBehaviour
 {
+
+    /// <summary>
+    /// The current level
+    /// </summary>
+    public static Level level; 
+
     /// <summary>
     /// Boss in battle
     /// </summary>
-    [SerializeField] public static Boss boss;
+    public static Boss boss;
 
     /// <summary>
     /// Player in battle 
     /// </summary>
-    [SerializeField] public static Player player;
+    public static Player player;
 
     /// <summary>
     /// THE ref
     /// </summary>
-    [SerializeField] public static Jario jario;
+    public static Jario jario;
 
     /// <summary>
-    /// Every phase controller in the scene
+    /// Every phase observer in the scene
     /// </summary>
-    [SerializeField] private static List<IPhaseController> controllers = new List<IPhaseController>(); 
+    private static List<IPhaseObserver> observers = new List<IPhaseObserver>(); 
 
     /// <summary>
     /// Current phase of battle 
@@ -38,23 +46,46 @@ public class Combat : MonoBehaviour
     /// </summary>
     void Start()
     {
+        // TODO - update this when we have more than one level
+        level = new Level();
+        level.name = "Lobstobotomizer"; 
+
         // Get every phase controller 
+        // TODO - Optomize searching
         foreach (GameObject g in (GameObject[])FindObjectsOfType(typeof(GameObject)))
-            if (g.GetComponent<IPhaseController>() is IPhaseController c)
-                AddPhaseController(c); 
+        {
+            if (g.GetComponent<IPhaseObserver>() is IPhaseObserver c)
+            {
+                AddPhaseController(c);
+
+                // Save required controllers
+                switch (g.tag)
+                {
+                    case "Boss":
+                        boss = (Boss)c; 
+                        break;
+                    case "Player":
+                        player = (Player)c;
+                        break;
+                    case "Jario":
+                        jario = (Jario)c;
+                        break; 
+                }
+            }
+        }
 
         // Check for required controllers in scene
-        if (!GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>()) Debug.LogError("Could not find GameObject tagged \"Boss\" with a Boss component!");
-        if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>()) Debug.LogError("Could not find GameObject tagged \"Player\" with a Player component!");
-        if (!GameObject.FindGameObjectWithTag("Jario").GetComponent<Jario>()) Debug.LogError("You cannot escape Jario. Please add him to the scene!");
+        if (!boss) Debug.LogError("Could not find GameObject tagged \"Boss\" with a Boss component!");
+        if (!player) Debug.LogError("Could not find GameObject tagged \"Player\" with a Player component!");
+        if (!jario) Debug.LogError("You cannot escape Jario. Please add him to the scene!");
 
         // Start phase
         InitializePhase(Phase.Intro); 
     }
 
-    public static void AddPhaseController(IPhaseController controller)
+    public static void AddPhaseController(IPhaseObserver controller)
     {
-        controllers.Add(controller);
+        observers.Add(controller);
         controller.OnStart(); 
     }
 
@@ -67,18 +98,24 @@ public class Combat : MonoBehaviour
         switch (phase)
         {
             case Phase.Intro:
-                InitializePhase(Phase.Player);
+                InitializePhase(Phase.Dialogue_Post);
+                break;
+            case Phase.Player:
+                InitializePhase(Phase.Dialogue_Pre);
+                break; 
+            case Phase.Boss:
+                InitializePhase(Phase.Dialogue_Post);
                 break;
             case Phase.Dialogue_Pre:
                 InitializePhase(Phase.Boss);
                 break;
-            case Phase.Player:
-            case Phase.Boss:
-                InitializePhase(Phase.Dialogue_Post);
-                break;
             case Phase.Dialogue_Post:
                 InitializePhase(Phase.Player);
                 break;
+            case Phase.Invalid:
+            default:
+                Debug.LogError("Phase switch is invalid!");
+                break; 
         }
     }
 
@@ -90,11 +127,10 @@ public class Combat : MonoBehaviour
         Debug.Log($"Phase switched to {phase}"); 
         Combat.phase = phase;
 
-
-        /*foreach (IPhaseController c in controllers.Select(x => x.activePhase).ToList().Where(x => x == phase).)
-        {
-            
-        }*/
+        // could also be achieved with linq, I just think this is easier
+        foreach (IPhaseController c in observers)
+            if (c.activePhase == phase) 
+                c.OnPhaseEnter(); 
     }
 
     

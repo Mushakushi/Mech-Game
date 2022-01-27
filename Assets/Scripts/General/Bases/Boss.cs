@@ -35,12 +35,6 @@ public abstract class Boss : Character
         healthBars = data.healthBars;
         SpecialAttackWeights = data.SpecialAttackWeights;
 
-        // TEMP SECTION FOR DIALOGUE TESTING
-        dialogue.SetLanguage(DialogueUtil.LANGUAGE.Debug);
-        dialogue.InitializeBossDialogue(this);
-        dialogue.DisplayNextLine();
-        // TEMP SECTION FOR DIALOGUE TESTING
-
         return Phase.Boss; 
     }
 

@@ -23,6 +23,9 @@ public class Jario : MonoBehaviour, IPhaseController
         animator = GetComponent<Animator>();
     }
 
+    /// <summary>
+    /// Jario counts a variable amount of times
+    /// </summary>
     public void OnPhaseEnter()
     {
         animator.SetTrigger("Count");

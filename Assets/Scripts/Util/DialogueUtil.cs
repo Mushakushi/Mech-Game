@@ -8,7 +8,6 @@ using UnityEngine;
 public static class DialogueUtil
 {
     private static List<DialogueLine> loadedDialogue = new List<DialogueLine>();
-    private static Boss currentBossLoaded;
 
     public enum LANGUAGE
     {
@@ -18,13 +17,12 @@ public static class DialogueUtil
     /// <summary>
     /// Load the dialogue of <paramref name="boss"/> from file.
     /// </summary>
-    /// <param name="boss">Boss to load dialogue from.</param>
+    /// <param name="fileName">Name of file to load dialogue from.</param>
     /// <param name="language">Language to use.</param>
-    public static void LoadBossDialogue(Boss boss, LANGUAGE language)
+    public static void LoadDialogue(string fileName, LANGUAGE language)
     {
-        currentBossLoaded = boss;
         loadedDialogue = new List<DialogueLine>();
-        string filePath = $"Assets/Resources/Dialogue/{boss.characterName}/{language.ToString().ToLower()}.txt";
+        string filePath = $"Assets/Resources/Dialogue/{fileName}/{language.ToString().ToLower()}.txt";
 
         try
         {
@@ -54,7 +52,7 @@ public static class DialogueUtil
         string[] lineWithArgs = line.Split('|'); // a line with a specified portrait looks like portraitName|<sections>|args
                                                  // a line without looks like |<sections>|args
 
-        string portraitFile = (lineWithArgs[0] != "") ? lineWithArgs[0] : currentBossLoaded.characterName; // use specified portrait or use default if not specified
+        string portraitFile = (lineWithArgs[0] != "") ? lineWithArgs[0] : Combat.level.name; // use specified portrait or use default if not specified
         parsedLine.Portrait = (Texture2D) Resources.Load($"Art/UI/Portraits/{portraitFile}", typeof(Texture2D));
 
 

@@ -35,7 +35,7 @@ public class Player : Character
     // try updating this with the newer functions if you can I moved a lot around
     void Update()
     {
-        if (Combat.phase != Phase.Intro)
+        if (Combat.phase == Phase.Player || Combat.phase == Phase.Boss)
         {
             if (returnToIdle)
             {

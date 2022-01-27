@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static DialogueUtil;
 
-public class Dialogue : MonoBehaviour
+public class Dialogue : MonoBehaviour, IPhaseController
 {
     private int dialogueStage = 0;
     private LANGUAGE language = LANGUAGE.English;
@@ -13,17 +13,39 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private RawImage portrait;
     [SerializeField] private Animator animator;
 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Returns Phase.Dialogue_Pre or Phase.Dialogue_Post depending on Combat.phase
+    /// </summary>
+    public Phase activePhase
     {
-        
+        get
+        {
+            if (Combat.phase == Phase.Dialogue_Pre) return Phase.Dialogue_Pre;
+            if (Combat.phase == Phase.Dialogue_Post) return Phase.Dialogue_Post;
+            else return Phase.Invalid; 
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Set the language 
+    /// </summary>
+    public void OnStart()
     {
-        
+        SetLanguage(LANGUAGE.Debug);
+        InitializeBossDialogue(Combat.level.name);
     }
+
+    /// <summary>
+    /// Displays the next line of dialogue
+    /// </summary>
+    public void OnPhaseEnter()
+    {
+        DisplayNextLine();
+    }
+
+    public void OnPhaseUpdate() { }
+
+    public void OnPhaseExit() { }
 
     /// <summary>
     /// Set all in-game dialogue to use the language <paramref name="lang"/>.
@@ -35,13 +57,12 @@ public class Dialogue : MonoBehaviour
     }
 
     /// <summary>
-    /// Reset dialogue stage and load <paramref name="boss"/> dialogue.
+    /// Reset dialogue stage and load <paramref name="fileName"/> dialogue.
     /// </summary>
-    /// <param name="boss"></param>
-    public void InitializeBossDialogue(Boss boss)
+    public void InitializeBossDialogue(string fileName)
     {
         dialogueStage = 0;
-        LoadBossDialogue(boss, language);
+        LoadDialogue(fileName, language);
     }
 
     /// <summary>
