@@ -20,7 +20,6 @@ public abstract class Boss : Character
     /// Slider UI Component in scene that this object controls
     /// </summary>
     [SerializeField] private Slider healthSlider;
-    [SerializeField] private DialogueController dialogue;
 
     // Start is called before the first frame update 
     public override Phase InitializeCharacter()
@@ -59,7 +58,7 @@ public abstract class Boss : Character
         if (Input.GetKeyDown(KeyCode.P)) // TEMP FOR DIALOGUE TESTING
         {
             //combat.DoBossSpecial();
-            dialogue.DisplayNextLine();
+            //dialogue.DisplayNextLine();
         }
     }
 

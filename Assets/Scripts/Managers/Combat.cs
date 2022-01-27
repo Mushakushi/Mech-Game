@@ -10,7 +10,6 @@ public enum Phase { Intro, Boss, Player, Dialogue_Pre, Dialogue_Post, Invalid }
 [RequireComponent(typeof(DialogueController))]
 public class Combat : MonoBehaviour
 {
-
     /// <summary>
     /// The current level
     /// </summary>
@@ -47,8 +46,7 @@ public class Combat : MonoBehaviour
     void Start()
     {
         // TODO - update this when we have more than one level
-        level = new Level();
-        level.name = "Lobstobotomizer"; 
+        level = new Level() { name = "Lobstobotomizer" }; 
 
         // Get every phase controller 
         // TODO - Optomize searching
@@ -128,7 +126,7 @@ public class Combat : MonoBehaviour
         Combat.phase = phase;
 
         // could also be achieved with linq, I just think this is easier
-        foreach (IPhaseController c in observers)
+        foreach (IPhaseObserver c in observers)
             if (c.activePhase == phase) 
                 c.OnPhaseEnter(); 
     }
