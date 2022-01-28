@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Interface for recieving Phase notifcation calls
 /// </summary>
-public interface IPhaseObserver
+public interface IPhaseController
 {
     /// <summary>
     /// What phase the controller belongs to. 

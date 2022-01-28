@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 
 /// <summary>
 /// Possible phases of battle 
@@ -31,14 +31,14 @@ public class Combat : MonoBehaviour
     public static Jario jario;
 
     /// <summary>
-    /// Every phase observer in the scene
+    /// Every phase controller in the scene
     /// </summary>
-    private static List<IPhaseObserver> observers = new List<IPhaseObserver>();
+    private static List<IPhaseController> controllers = new List<IPhaseController>();
 
     /// <summary>
-    /// Active phase observers. Will recieve calls to start, update, and (TODO) exit
+    /// Active phase controllers. Will recieve calls to start, update, and (TODO) exit
     /// </summary>
-    private static List<IPhaseObserver> activeObservers = new List<IPhaseObserver>(); 
+    private static List<IPhaseController> activeControllers = new List<IPhaseController>();
 
     /// <summary>
     /// Current phase of battle 
@@ -57,9 +57,9 @@ public class Combat : MonoBehaviour
         // TODO - Optomize searching
         foreach (GameObject g in (GameObject[])FindObjectsOfType(typeof(GameObject)))
         {
-            if (g.GetComponent<IPhaseObserver>() is IPhaseObserver o)
+            if (g.GetComponent<IPhaseController>() is IPhaseController o)
             {
-                observers.Add(o);
+                controllers.Add(o);
                 o.OnStart();
 
                 // Save required controllers
@@ -84,83 +84,92 @@ public class Combat : MonoBehaviour
         if (!jario) Debug.LogError("You cannot escape Jario. Please add him to the scene!");
 
         // Start phase
-        InitializePhase(Phase.Intro); 
+        EnterPhase(Phase.Intro); 
     }
 
     /// <summary>
-    /// Add phase observers to Combat during runtime
+    /// Add phase controller to Combat during runtime
     /// </summary>
-    /// <param name="observer">Observer to add</param>
-    public static void AddPhaseObserver(IPhaseObserver observer)
+    /// <param name="controller">Controller to add</param>
+    public static void AddPhaseController(IPhaseController controller)
     {
-        observers.Add(observer);
-        observer.OnStart();
-        if (observer.activePhase == phase) SubscribePhaseObserver(observer); 
+        controllers.Add(controller);
+        controller.OnStart();
+        TrySubscribePhaseController(controller); 
     }
 
     /// <summary>
-    /// Updates current phase of battle, determines which phase belong to which objects
+    /// Enters phase and tries to subscribe each controller to current phase
     /// </summary>
-    private static void InitializePhase(Phase phase)
+    /// <param name="phase">Phase to enter</param>
+    private static void EnterPhase(Phase phase)
     {
         Debug.Log($"Phase switched to {phase}"); 
         Combat.phase = phase;
 
         // could also be achieved with linq, I just think this is easier
-        foreach (IPhaseObserver observer in observers)
+        foreach (IPhaseController controller in controllers)
         {
-            if (observer.activePhase == phase)
-            {
-                observer.OnPhaseEnter();
-                SubscribePhaseObserver(observer); 
-            }
+            TrySubscribePhaseController(controller);
         }
-                
     }
 
     /// <summary>
-    /// Adds phase controller to list of active controllers
+    /// Adds phase controller to list of active phase controllers if its active phase is equal to the current phase
     /// </summary>
-    private static void SubscribePhaseObserver(IPhaseObserver observer)
+    /// <param name="controller">Controller to try to add</param>
+    /// More intuitive than using delegates imo, especially if more information is needed about the controller
+    private static bool TrySubscribePhaseController(IPhaseController controller)
     {
-        activeObservers.Add(observer); 
+        if (controller.activePhase == phase)
+        {
+            activeControllers.Add(controller);
+            controller.OnPhaseEnter();
+            return true; 
+        }
+        return false; 
     }
 
     /// <summary>
-    /// Exits the current phase
+    /// Updates subscribed Phase controllers
     /// </summary>
+    private void Update()
+    {
+        foreach (IPhaseController o in activeControllers) o.OnPhaseUpdate();
+    }
+
+    /// <summary>
+    /// Exits the current phase and switches to the next phase according to a predefined map
+    /// </summary>
+    // Note - phases only change when this function is called in an IPhaseController
     public static void ExitPhase()
     {
+        // unsubscribe all active controllers
+        foreach (IPhaseController controller in controllers) controller.OnPhaseExit(); 
+        activeControllers.Clear(); 
+
         //determines which phase to transition to
         switch (phase)
         {
             case Phase.Intro:
-                InitializePhase(Phase.Dialogue_Post);
+                EnterPhase(Phase.Dialogue_Post);
                 break;
             case Phase.Player:
-                InitializePhase(Phase.Dialogue_Pre);
+                EnterPhase(Phase.Dialogue_Pre);
                 break; 
             case Phase.Boss:
-                InitializePhase(Phase.Dialogue_Post);
+                EnterPhase(Phase.Dialogue_Post);
                 break;
             case Phase.Dialogue_Pre:
-                InitializePhase(Phase.Boss);
+                EnterPhase(Phase.Boss);
                 break;
             case Phase.Dialogue_Post:
-                InitializePhase(Phase.Player);
+                EnterPhase(Phase.Player);
                 break;
             case Phase.Invalid:
             default:
                 Debug.LogError("Phase switch is invalid!");
                 break; 
         }
-    }
-
-    /// <summary>
-    /// Updates current Phase observers
-    /// </summary>
-    private void Update()
-    {
-        foreach (IPhaseObserver o in activeObservers) o.OnPhaseUpdate();    
     }
 }

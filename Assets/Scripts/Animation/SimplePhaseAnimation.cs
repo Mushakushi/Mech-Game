@@ -8,7 +8,7 @@ using UnityEngine;
 /// <summary>
 /// Animates gameObject based on Phase calls without changing the current Phase
 /// </summary>
-public sealed class SimplePhaseAnimation : MonoBehaviour, IPhaseObserver
+public sealed class SimplePhaseAnimation : MonoBehaviour, IPhaseController
 {
     /// <summary>
     /// Animator attached to this gameObject
