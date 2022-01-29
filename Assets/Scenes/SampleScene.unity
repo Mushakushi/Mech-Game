@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 415645952}
   - component: {fileID: 415645954}
   m_Layer: 0
-  m_Name: Battle Scene
+  m_Name: Game Display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -593,11 +593,7 @@ Transform:
   m_LocalPosition: {x: -54, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1552986219}
-  - {fileID: 1038914607}
-  - {fileID: 4143311537164309856}
-  - {fileID: 502846191}
-  - {fileID: 1826256705}
+  - {fileID: 654822043}
   - {fileID: 1034637571}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -986,7 +982,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -2.8730001, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children: []
-  m_Father: {fileID: 415645951}
+  m_Father: {fileID: 654822043}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
@@ -1220,6 +1216,41 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!1 &654822042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 654822043}
+  m_Layer: 0
+  m_Name: Battle Scene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &654822043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654822042}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1552986219}
+  - {fileID: 1038914607}
+  - {fileID: 4143311537164309856}
+  - {fileID: 502846191}
+  - {fileID: 1826256705}
+  m_Father: {fileID: 415645951}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &703340327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,7 +1446,7 @@ RectTransform:
   - {fileID: 1159406486}
   - {fileID: 84504021}
   m_Father: {fileID: 415645951}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1450,7 +1481,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4143311537915570899}
-  m_Father: {fileID: 415645951}
+  m_Father: {fileID: 654822043}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1159406485
@@ -1678,7 +1709,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 147390479}
-  m_Father: {fileID: 415645951}
+  m_Father: {fileID: 654822043}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!331 &1552986220
@@ -2099,7 +2130,7 @@ Transform:
   m_LocalPosition: {x: -0.34000015, y: -3.6240005, z: -1}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
-  m_Father: {fileID: 415645951}
+  m_Father: {fileID: 654822043}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &734644153421988199
@@ -2374,7 +2405,7 @@ Transform:
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children:
   - {fileID: 3017564197789083276}
-  m_Father: {fileID: 415645951}
+  m_Father: {fileID: 654822043}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4143311537915570899
