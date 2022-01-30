@@ -11,18 +11,17 @@ public class DialogueController : MonoBehaviour, IPhaseController
     private LANGUAGE language = LANGUAGE.English;
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private RawImage portrait;
-    [SerializeField] private Animator animator;
 
     /// <summary>
-    /// Returns Phase.Dialogue_Pre or Phase.Dialogue_Post depending on Combat.phase
+    /// Returns Phase.Dialogue_Pre or Phase.Dialogue_Post depending on PhaseManager.phase
     /// </summary>
     public Phase activePhase
     {
         get
         {
-            if (Combat.phase == Phase.Dialogue_Pre) return Phase.Dialogue_Pre;
-            if (Combat.phase == Phase.Dialogue_Post) return Phase.Dialogue_Post;
-            else return Phase.Invalid; 
+            if (PhaseManager.phase == Phase.Dialogue_Pre) return Phase.Dialogue_Pre;
+            if (PhaseManager.phase == Phase.Dialogue_Post) return Phase.Dialogue_Post;
+            else return Phase.Mutiple; 
         }
     }
 
@@ -32,7 +31,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void OnStart()
     {
         SetLanguage(LANGUAGE.TokiPona);
-        InitializeBossDialogue(Combat.level.name);
+        InitializeBossDialogue(PhaseManager.level.name);
     }
 
     /// <summary>
@@ -97,8 +96,6 @@ public class DialogueController : MonoBehaviour, IPhaseController
 
         portrait.texture = line.Portrait; // not sure if easier to fix images or make a class containing manual offsets (first one definitely sounds better...)
 
-        animator.SetTrigger("ToggleDialogueShow"); // show dialogue boxes on screen
-
         yield return new WaitForSecondsRealtime(0.4f); // 0.2s transition to showing dialogue boxes on screen
 
         foreach (DialogueSection section in line.Sections)
@@ -112,6 +109,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
 
         yield return new WaitForSecondsRealtime(1.5f); // give time to read text
 
-        animator.SetTrigger("ToggleDialogueShow"); // hide dialogue boxes on screen
+        // Exit phase here? Animator open/close is one of the default phase events
+        PhaseManager.ExitPhase();
     }
 }

@@ -22,7 +22,7 @@ public abstract class Boss : Character
     [SerializeField] private Slider healthSlider;
 
     // Start is called before the first frame update 
-    public override Phase InitializeCharacter()
+    public override IList<Phase> InitializeCharacter()
     {
         BossData data = SetBossData();
         name = data.name;
@@ -33,7 +33,7 @@ public abstract class Boss : Character
         healthBars = data.healthBars;
         SpecialAttackWeights = data.SpecialAttackWeights;
 
-        return Phase.Boss; 
+        return new Phase[] { Phase.Boss }; 
     }
 
     // Update is called once per frame
@@ -45,7 +45,7 @@ public abstract class Boss : Character
             returnToIdle = false;
             animator.ResetTrigger("GetHit");
             animator.ResetTrigger("RunSpecial");
-            //combat.fightStage = Combat.FIGHT_STAGE.PlayerAttack;
+            //combat.fightStage = PhaseManager.FIGHT_STAGE.PlayerAttack;
         }
 
         if (currentState == BOSS_STATE.FullStun)
@@ -106,6 +106,7 @@ public abstract class Boss : Character
 
             rand -= SpecialAttackWeights[i];
         }
+        animator.SetTrigger("EnterPhase");
     }
 
     protected override void PhaseUpdateBehavior() { }

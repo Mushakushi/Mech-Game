@@ -5,16 +5,41 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour, IPhaseController
 {
     [Header("Stats")]
+    /// <summary>
+    /// Name of this Character
+    /// </summary>
     [SerializeField] public string characterName;
-    [SerializeField] protected float maxHealth; 
-    [SerializeField] protected float health;
-    [SerializeField] protected float damage;
-    [SerializeField] protected float resistance;
 
     /// <summary>
-    /// The phase this character belong to
+    /// Damage required to defeat Character
     /// </summary>
-    public Phase activePhase { get; set; }
+    [SerializeField] protected float maxHealth; 
+
+    /// <summary>
+    /// Current health of Character
+    /// </summary>
+    public float health;
+
+    /// <summary>
+    /// Damage this Character deals
+    /// </summary>
+    [SerializeField] protected float damage;
+
+    /// <summary>
+    /// Multiplier that reduces damage taken 
+    /// </summary>
+    /// Can't we just increase health?
+    [SerializeField] protected float resistance;
+    
+    /// <summary>
+    /// Phase(s) this Character belongs to
+    /// </summary>
+    [HideInInspector] protected IList<Phase> activePhases { get; set; }
+
+    /// <summary>
+    /// Tells PhaseManager whether the current phase is equal to one in activePhase
+    /// </summary>
+    [HideInInspector] public Phase activePhase => activePhases.GetPhase();
 
     [Header("UI and Animation")]
     /// <summary> 
@@ -32,9 +57,13 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// Box2D Hurtbox attached to this object
     /// </summary>
     [SerializeField] protected BoxCollider2D hurtbox;
-    
-    [Space()]
+
+    /// <summary>
+    /// Is a hitbox colliding with this hurtbox?
+    /// </summary>
     public bool isHit;
+
+    [Space()]
     public bool isShaking = false;
     public Vector3 shakePos;
     public float shakingRange;
@@ -60,13 +89,13 @@ public abstract class Character : MonoBehaviour, IPhaseController
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = Resources.Load($"Animation/Animators/{GetType().Name}") as RuntimeAnimatorController;
         
-        activePhase = InitializeCharacter();
+        activePhases = InitializeCharacter();
     }
 
     /// <summary>
     /// Child initialization event, Start should not be used as it may superceed the correct initialization order
     /// </summary>
-    public abstract Phase InitializeCharacter();
+    public abstract IList<Phase> InitializeCharacter();
 
     /// <summary>
     /// Event that happens when a Hitbox enters this Character's Hurtbox
@@ -109,17 +138,48 @@ public abstract class Character : MonoBehaviour, IPhaseController
     }
 
     /// <summary>
+    /// Enables hitbox
+    /// </summary>
+    public void EnableHitbox()
+    {
+        hitbox.enabled = true;
+    }
+
+    /// <summary>
+    /// Disables hitbox
+    /// </summary>
+    public void DisableHitbox()
+    {
+        hitbox.enabled = false;
+    }
+
+    /// <summary>
+    /// Enables hurtbox
+    /// </summary>
+    public void EnableHurtbox()
+    {
+        hurtbox.enabled = true;
+    }
+
+    /// <summary>
+    /// Disables hurtbox
+    /// </summary>
+    public void DisableHurtbox()
+    {
+        hurtbox.enabled = false;
+    }
+
+    /// <summary>
     /// What should happen when Character's health depletes to 0?
     /// </summary>
     protected abstract void OnHealthDeplete(); 
 
-    #region ANIMATOR FUNCTIONS
+    #region PHASE BEHAVIOR
     /// <summary>
     /// Describes what should happen when Character's phase is entered
     /// </summary>
     public void OnPhaseEnter()
     {
-        animator.SetTrigger("EnterPhase"); 
         PhaseEnterBehavior(); 
     }
     /// <summary>
@@ -151,38 +211,6 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// <summary>
     /// Describes what can happen when Character's phase is exited 
     /// </summary>
-    protected abstract void PhaseExitBehavior(); 
-
-    /// <summary>
-    /// Enables hitbox
-    /// </summary>
-    public void EnableHitbox()
-    {
-        hitbox.enabled = true;
-    }
-
-    /// <summary>
-    /// Disables hitbox
-    /// </summary>
-    public void DisableHitbox()
-    {
-        hitbox.enabled = false;
-    }
-
-    /// <summary>
-    /// Enables hurtbox
-    /// </summary>
-    public void EnableHurtbox()
-    { 
-        hurtbox.enabled = true; 
-    }
-
-    /// <summary>
-    /// Disables hurtbox
-    /// </summary>
-    public void DisableHurtbox()
-    {
-        hurtbox.enabled = false; 
-    }
+    protected abstract void PhaseExitBehavior();
     #endregion
 }

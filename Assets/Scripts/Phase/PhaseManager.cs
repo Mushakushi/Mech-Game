@@ -1,15 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System; 
 
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { Intro, Boss, Player, Dialogue_Pre, Dialogue_Post, Invalid }
+public enum Phase { Intro, Boss, Player, Dialogue_Pre, Dialogue_Post, Mutiple }
 
 [RequireComponent(typeof(DialogueController))]
-public class Combat : MonoBehaviour
+public class PhaseManager : MonoBehaviour
 {
+    [Header("Required References")]
     /// <summary>
     /// The current level
     /// </summary>
@@ -31,19 +33,25 @@ public class Combat : MonoBehaviour
     public static Jario jario;
 
     /// <summary>
+    /// Current phase of battle 
+    /// </summary>
+    public static Phase phase { get; private set; }
+
+    [Header("Phase")]
+    /// <summary>
     /// Every phase controller in the scene
     /// </summary>
-    private static List<IPhaseController> controllers = new List<IPhaseController>();
+    [SerializeField] private static List<IPhaseController> controllers = new List<IPhaseController>();
 
     /// <summary>
     /// Active phase controllers. Will recieve calls to start, update, and (TODO) exit
     /// </summary>
-    private static List<IPhaseController> activeControllers = new List<IPhaseController>();
+    [SerializeField] private static List<IPhaseController> activeControllers = new List<IPhaseController>();
 
     /// <summary>
-    /// Current phase of battle 
+    /// List of default phase events
     /// </summary>
-    public static Phase phase { get; private set; }
+    [SerializeField] List<DefaultPhaseEvent> defaultPhaseEvents = new List<DefaultPhaseEvent>(); 
 
     /// <summary>
     /// Updates references in scene
@@ -83,12 +91,15 @@ public class Combat : MonoBehaviour
         if (!player) Debug.LogError("Could not find GameObject tagged \"Player\" with a Player component!");
         if (!jario) Debug.LogError("You cannot escape Jario. Please add him to the scene!");
 
+        // Add default phase events
+        foreach (DefaultPhaseEvent e in defaultPhaseEvents) controllers.Add(e); 
+
         // Start phase
         EnterPhase(Phase.Intro); 
     }
 
     /// <summary>
-    /// Add phase controller to Combat during runtime
+    /// Add phase controller to PhaseManager during runtime
     /// </summary>
     /// <param name="controller">Controller to add</param>
     public static void AddPhaseController(IPhaseController controller)
@@ -105,7 +116,7 @@ public class Combat : MonoBehaviour
     private static void EnterPhase(Phase phase)
     {
         Debug.Log($"Phase switched to {phase}"); 
-        Combat.phase = phase;
+        PhaseManager.phase = phase;
 
         // could also be achieved with linq, I just think this is easier
         foreach (IPhaseController controller in controllers)
@@ -118,7 +129,7 @@ public class Combat : MonoBehaviour
     /// Adds phase controller to list of active phase controllers if its active phase is equal to the current phase
     /// </summary>
     /// <param name="controller">Controller to try to add</param>
-    /// More intuitive than using delegates imo, especially if more information is needed about the controller
+    /// think of this as a private delegate
     private static bool TrySubscribePhaseController(IPhaseController controller)
     {
         if (controller.activePhase == phase)
@@ -166,7 +177,7 @@ public class Combat : MonoBehaviour
             case Phase.Dialogue_Post:
                 EnterPhase(Phase.Player);
                 break;
-            case Phase.Invalid:
+            case Phase.Mutiple:
             default:
                 Debug.LogError("Phase switch is invalid!");
                 break; 

@@ -14,7 +14,7 @@ public interface IPhaseController
     Phase activePhase { get; }
 
     /// <summary>
-    /// What happens when controller is added to Combat
+    /// What happens when controller is added to PhaseManager
     /// </summary>
     void OnStart();
 

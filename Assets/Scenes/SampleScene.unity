@@ -132,8 +132,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 84504021}
+  - component: {fileID: 84504022}
   m_Layer: 5
-  m_Name: Boss Dialogue
+  m_Name: Dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,6 +161,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -180}
   m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &84504022
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84504020}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a3926c8ec9c57744dbd27fedd77041da, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &147390477
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +594,6 @@ GameObject:
   - component: {fileID: 415645951}
   - component: {fileID: 415645953}
   - component: {fileID: 415645952}
-  - component: {fileID: 415645954}
   m_Layer: 0
   m_Name: Battle Scene
   m_TagString: Untagged
@@ -616,7 +635,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 1720533476}
   portrait: {fileID: 1475207540}
-  animator: {fileID: 415645954}
 --- !u!114 &415645953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,25 +647,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e3858820c24cd419dd3eeb56db1313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &415645954
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415645950}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a3926c8ec9c57744dbd27fedd77041da, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  defaultPhaseEvents:
+  - activePhases: 0300000004000000
+    phaseEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1622007416}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ToggleDialogueShow
+            m_BoolArgument: 0
+          m_CallState: 2
+    phaseUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    phaseExit:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1622007416}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ToggleDialogueShow
+            m_BoolArgument: 0
+          m_CallState: 2
+  - activePhases: 02000000
+    phaseEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1622007416}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ToggleDialogueShow
+            m_BoolArgument: 0
+          m_CallState: 2
+    phaseUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    phaseExit:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &424446403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,6 +1798,7 @@ GameObject:
   - component: {fileID: 1622007414}
   - component: {fileID: 1622007413}
   - component: {fileID: 1622007415}
+  - component: {fileID: 1622007416}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -1811,6 +1868,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1622007416
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622007412}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a3926c8ec9c57744dbd27fedd77041da, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1720533474
 GameObject:
   m_ObjectHideFlags: 0
