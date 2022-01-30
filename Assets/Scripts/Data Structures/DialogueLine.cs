@@ -1,29 +1,32 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-public class DialogueLine
+public struct DialogueLine
 {
     /// <summary>
-    /// Sections of this line.
+    /// Sections in this line.
     /// </summary>
-    public List<DialogueSection> Sections { get; set; }
+    public List<DialogueSection> sections;
     /// <summary>
     /// Name of Character portrait shown when this line is displayed.
     /// </summary>
-    public Texture2D Portrait { get; set; }
+    public Texture2D portrait;
     /// <summary>
-    /// Have the line overflow the text box?
+    /// Should the line overflow the text box?
     /// </summary>
-    public bool Overflow { get; set; }
+    public bool overflow;
 
-
-    public DialogueLine()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sections">Sections in this line.</param>
+    /// <param name="portrait">Name of Character portrait shown when this line is displayed.</param>
+    /// <param name="overflow">Should the line overflow the text box?</param>
+    public DialogueLine(List<DialogueSection> sections, Texture2D portrait, bool overflow = false)
     {
-        Sections = new List<DialogueSection>();
-        Overflow = false;
+        this.sections = sections;
+        this.portrait = portrait;
+        this.overflow = overflow;
     }
 }

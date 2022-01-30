@@ -22,21 +22,19 @@ public static class DialogueUtil
     public static void LoadDialogue(string fileName, LANGUAGE language)
     {
         loadedDialogue = new List<DialogueLine>();
-        string filePath = $"Assets/Resources/Dialogue/{fileName}/{language.ToString().ToLower()}.txt";
+        string filePath = $"Dialogue/{fileName}/{language.ToString().ToLower()}";
 
         try
         {
-            using (StreamReader sr = new StreamReader(filePath))
+            TextAsset dialogueFile = (TextAsset) Resources.Load(filePath, typeof(TextAsset));
+            foreach (string line in dialogueFile.text.Split('\n'))
             {
-                while (!sr.EndOfStream)
-                {
-                    loadedDialogue.Add(ParseLine(sr.ReadLine()));
-                }
+                loadedDialogue.Add(ParseLine(line));
             }
         }
         catch
         {
-            Debug.LogError($"Missing file {filePath}! File load failed.");
+            Debug.LogError($"Missing file Assets/Resources/{filePath}.txt or file is malformed! File load failed.");
         }
     }
 
@@ -47,18 +45,21 @@ public static class DialogueUtil
     /// <returns>Parsed DialogueLine.</returns>
     private static DialogueLine ParseLine(string lineFromFile)
     {
-        DialogueLine parsedLine = new DialogueLine();
-
         string[] splitLineFromFile = lineFromFile.Split('|'); // a line with a specified portrait looks like portraitName|<sections>|args
-                                                 // a line without looks like |<sections>|args
+                                                              // a line without looks like |<sections>|args
+
         string portraitFileName = (splitLineFromFile[0] != "") ? splitLineFromFile[0] : PhaseManager.level.name; // use specified portrait or use default if not specified
-        parsedLine.Portrait = (Texture2D) Resources.Load($"Art/UI/Portraits/{portraitFileName}", typeof(Texture2D));
+        Texture2D portrait = (Texture2D) Resources.Load($"Art/UI/Portraits/{portraitFileName}", typeof(Texture2D));
+
+        List<DialogueSection> sections = new List<DialogueSection>();
 
         string[] dialogueSections = splitLineFromFile[1].Split('['); // a text section looks like [delay]text
         for (int i = 1; i < dialogueSections.Length; i++) // ignore first index - will always be '' (if formatted correctly)
         {
-            parsedLine.Sections.Add(ParseSection(dialogueSections[i]));
+            sections.Add(ParseSection(dialogueSections[i]));
         }
+
+        DialogueLine dialogueLine = new DialogueLine(sections, portrait);
 
         string[] lineArgs = splitLineFromFile[2].Split(',');
         foreach (string arg in lineArgs)
@@ -66,12 +67,12 @@ public static class DialogueUtil
             switch (arg) // switch so we can add more if required - currently only overflow
             {
                 case "overflow":
-                    parsedLine.Overflow = true;
+                    dialogueLine.overflow = true;
                     break;
             }
         }
 
-        return parsedLine;
+        return dialogueLine;
     }
 
     /// <summary>
@@ -81,13 +82,12 @@ public static class DialogueUtil
     /// <returns>Parsed DialogueSection.</returns>
     private static DialogueSection ParseSection(string section)
     {
-        DialogueSection parsedSection = new DialogueSection();
-
         string[] textWithDelay = section.Split(']'); // array looks like ["delay", "text"]
 
-        parsedSection.CharacterDelay = (float) Convert.ToDouble(textWithDelay[0]); // don't know how to directly convert to float. this works?
-        parsedSection.Text = textWithDelay[1];
-        return parsedSection;
+        float delay = (float) Convert.ToDouble(textWithDelay[0]); // don't know how to directly convert to float. this works?
+        string text = textWithDelay[1];
+
+        return new DialogueSection(text, delay);
     }
 
     /// <summary>
