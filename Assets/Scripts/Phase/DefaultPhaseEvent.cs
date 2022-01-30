@@ -3,12 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events; 
 
+
+// IMPORTANT - make sure you save to version control when REFACTORING because changing Unity's
+// reserialization can actually delete all of the events without undo! 
+// Please don't be like me :) (really be careful...)
+
+
 /// <summary>
 /// Phase Controller that publishes events
 /// </summary>
 [System.Serializable]
 public sealed class DefaultPhaseEvent : IPhaseController
 {
+    /// <summary>
+    /// DefaultPhaseEvent is not a component
+    /// </summary>
+    [HideInInspector] public GameObject gameObject => null; 
+
     /// <summary>
     /// Phase(s) in which this gameObject belongs to
     /// </summary>
@@ -58,5 +69,5 @@ public sealed class DefaultPhaseEvent : IPhaseController
     /// <summary>
     /// Sets exit trigger
     /// </summary>
-    public void OnPhaseExit() => phaseUpdate.Invoke(); 
+    public void OnPhaseExit() => phaseExit.Invoke(); 
 }

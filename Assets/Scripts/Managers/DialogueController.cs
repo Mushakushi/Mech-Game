@@ -15,15 +15,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     /// <summary>
     /// Returns Phase.Dialogue_Pre or Phase.Dialogue_Post depending on PhaseManager.phase
     /// </summary>
-    public Phase activePhase
-    {
-        get
-        {
-            if (PhaseManager.phase == Phase.Dialogue_Pre) return Phase.Dialogue_Pre;
-            if (PhaseManager.phase == Phase.Dialogue_Post) return Phase.Dialogue_Post;
-            else return Phase.Mutiple; 
-        }
-    }
+    public Phase activePhase => new List<Phase> { Phase.Dialogue_Pre, Phase.Dialogue_Post }.GetPhase();
 
     /// <summary>
     /// Set the language 

@@ -97,6 +97,7 @@ public static class DialogueUtil
     /// <returns>DialogueLine at <paramref name="index"/>.</returns>
     public static DialogueLine GetDialogueLine(int index)
     {
+        // needs some error checking for out of bounds, also might want to add support for repeating phrases
         return loadedDialogue[index];
     }
 }

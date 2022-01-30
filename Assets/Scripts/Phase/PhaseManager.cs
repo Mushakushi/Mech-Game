@@ -37,16 +37,26 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     public static Phase phase { get; private set; }
 
-    [Header("Phase")]
     /// <summary>
     /// Every phase controller in the scene
     /// </summary>
-    [SerializeField] private static List<IPhaseController> controllers = new List<IPhaseController>();
+    private static List<IPhaseController> controllers = new List<IPhaseController>();
 
     /// <summary>
     /// Active phase controllers. Will recieve calls to start, update, and (TODO) exit
     /// </summary>
-    [SerializeField] private static List<IPhaseController> activeControllers = new List<IPhaseController>();
+    public static List<IPhaseController> activeControllers = new List<IPhaseController>();
+
+    /// <summary>
+    /// This snippet allows for the static activeControllers to be serialized in Unity
+    /// </summary>
+    #if UNITY_EDITOR
+    [Header("Phase")]
+    [ReadOnly] [InspectorName("Current Phase")] public Phase _phase;
+
+    [Space(15f)]
+    [ReadOnly] [SerializeField] [InspectorName("Active Controllers")] private List<GameObject> _activeControllers;
+    #endif
 
     /// <summary>
     /// List of default phase events
@@ -115,7 +125,6 @@ public class PhaseManager : MonoBehaviour
     /// <param name="phase">Phase to enter</param>
     private static void EnterPhase(Phase phase)
     {
-        Debug.Log($"Phase switched to {phase}"); 
         PhaseManager.phase = phase;
 
         // could also be achieved with linq, I just think this is easier
@@ -146,7 +155,11 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        foreach (IPhaseController o in activeControllers) o.OnPhaseUpdate();
+        foreach (IPhaseController o in activeControllers.ToList()) o.OnPhaseUpdate();
+
+        // Serialization helper, TODO - better way to serialize this data
+        _phase = phase;
+        _activeControllers = activeControllers.Select(x => x.gameObject).Where(x => x != null).ToList(); 
     }
 
     /// <summary>

@@ -8,6 +8,4 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Lobstobotomizer
   m_Controller: {fileID: 9100000, guid: e034453711374544aa553e199081690f, type: 2}
-  m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 717b116b55ccb23429ace7363ba14fbd, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 717b116b55ccb23429ace7363ba14fbd, type: 2}
+  m_Clips: []

@@ -8,6 +8,12 @@ using UnityEngine;
 public interface IPhaseController
 {
     /// <summary>
+    /// GameObject this IPhaseController Component is attached to. 
+    /// Implemented in MonoBehavior
+    /// </summary>
+    GameObject gameObject { get; }
+
+    /// <summary>
     /// What phase the controller belongs to. 
     /// Interfaces can change return value to allow for multiple active Phases
     /// </summary>

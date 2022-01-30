@@ -14,9 +14,6 @@ public class Player : Character
     private enum ACTION_TYPE { Attack, Dodge, Block, None }
     private enum DODGE_DIRECTION { Left, Right }
 
-    [Header("UI")]
-    [SerializeField] private Slider stunSlider;
-
     // Start is called before the first frame update
     public override IList<Phase> InitializeCharacter()
     {
@@ -48,12 +45,10 @@ public class Player : Character
         {
             canAttack = true;
             EnableHitbox();
-            stunSlider.value = 1;
         }
     }
     protected override void PhaseUpdateBehavior() 
     {
-        if (PhaseManager.phase == Phase.Player) stunSlider.value -= .001f;
         if (returnToIdle)
         {
             animator.applyRootMotion = false;
