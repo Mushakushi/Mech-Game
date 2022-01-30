@@ -75,7 +75,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     {
         textMeshPro.text = "";
 
-        if (line.Overflow) // simplify?
+        if (line.overflow) // simplify?
         {
             textMeshPro.overflowMode = TextOverflowModes.Overflow;
             textMeshPro.enableWordWrapping = false;
@@ -86,15 +86,15 @@ public class DialogueController : MonoBehaviour, IPhaseController
             textMeshPro.enableWordWrapping = true;
         }
 
-        portrait.texture = line.Portrait; // not sure if easier to fix images or make a class containing manual offsets (first one definitely sounds better...)
+        portrait.texture = line.portrait; // not sure if easier to fix images or make a class containing manual offsets (first one definitely sounds better...)
 
         yield return new WaitForSecondsRealtime(0.4f); // 0.2s transition to showing dialogue boxes on screen
 
-        foreach (DialogueSection section in line.Sections)
+        foreach (DialogueSection section in line.sections)
         {
-            foreach (char letter in section.Text)
+            foreach (char letter in section.text)
             {
-                if (section.CharacterDelay > 0) yield return new WaitForSecondsRealtime(section.CharacterDelay);
+                if (section.characterDelay > 0) yield return new WaitForSecondsRealtime(section.characterDelay);
                 textMeshPro.text += letter;
             }
         }

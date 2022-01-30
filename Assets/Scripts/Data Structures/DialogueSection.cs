@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueSection
+public struct DialogueSection
 {
     /// <summary>
-    /// Text of the section.
+    /// Text in the section.
     /// </summary>
-    public string Text { get; set; }
+    public string text;
     /// <summary>
     /// Seconds to wait between displaying each character. Set to 0 to instantly display.
     /// </summary>
-    public float CharacterDelay { get; set; }
-    /// <summary>
-    /// Overflow the text?
-    /// </summary>
-    public bool Overflow { get; set; }
+    public float characterDelay;
 
-    public DialogueSection()
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="text">Text in the section.</param>
+    /// <param name="characterDelay">Seconds to wait between displaying each character. Set to 0 to instantly display.</param>
+    /// <param name="overflow">Overflow the text?</param>
+    public DialogueSection(string text, float characterDelay)
     {
-        Overflow = false;
+        this.text = text;
+        this.characterDelay = characterDelay;
     }
 }

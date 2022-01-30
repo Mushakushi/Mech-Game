@@ -13,5 +13,11 @@ public struct Level
     /// <summary>
     /// Name of this level
     /// </summary>
-    public string name; 
+    public string name;
+
+    public Level(int number, string name)
+    {
+        this.number = number;
+        this.name = name;
+    }
 }
