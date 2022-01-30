@@ -1,7 +1,6 @@
 # Untitled Mech Game
 
 ## Current TODO:
-- Fix Phase Behaviors
 - Re-animate Lobstobotomizer and Player
 - Title Untitled Mech Game
 - Start a draft of instructions screen ..?
