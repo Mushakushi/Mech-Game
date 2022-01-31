@@ -15,7 +15,12 @@ public class DialogueController : MonoBehaviour, IPhaseController
     /// <summary>
     /// Returns Phase.Dialogue_Pre or Phase.Dialogue_Post depending on PhaseManager.phase
     /// </summary>
-    public Phase activePhase => new List<Phase> { Phase.Dialogue_Pre, Phase.Dialogue_Post }.GetPhase();
+    public Phase activePhase => this.GetPhaseFromCollection(new List<Phase> { Phase.Dialogue_Pre, Phase.Dialogue_Post });
+
+    /// <summary>
+    /// The group this controller belongs to
+    /// </summary>
+    public int group { get; set; }
 
     /// <summary>
     /// Set the language 
@@ -23,7 +28,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void OnStart()
     {
         SetLanguage(LANGUAGE.TokiPona);
-        InitializeBossDialogue(PhaseManager.level.name);
+        InitializeBossDialogue(BattleGroupManager.level.name);
     }
 
     /// <summary>
@@ -102,6 +107,6 @@ public class DialogueController : MonoBehaviour, IPhaseController
         yield return new WaitForSecondsRealtime(1.5f); // give time to read text
 
         // Exit phase here? Animator open/close is one of the default phase events
-        PhaseManager.ExitPhase();
+        this.ExitPhase();
     }
 }

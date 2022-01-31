@@ -6,15 +6,17 @@ using System.Collections.Generic;
 public static class PhaseGroup
 {
     /// <summary>
-    /// Returns PhaseManager.phase if <paramref name="activePhases"/> includes it, 
+    /// Returns the controller's manager's phase if <paramref name="activePhases"/> includes it, 
     /// Phase.Multiple otherwise
     /// </summary>
     /// <param name="activePhases">The IList (e.g. List or Array) of active Phases</param>
-    public static Phase GetPhase(this IList<Phase> activePhases)
+    public static Phase GetPhaseFromCollection(this IPhaseController controller, IList<Phase> activePhases)
     {
         foreach (Phase p in activePhases)
-            if (p == PhaseManager.phase)
-                return PhaseManager.phase;
+        {
+            Phase m = controller.GetManagerPhase();
+            if (p == m) return m;
+        }
         return Phase.Mutiple;
     }
 }

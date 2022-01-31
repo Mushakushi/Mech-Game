@@ -48,7 +48,7 @@ public static class DialogueUtil
         string[] splitLineFromFile = lineFromFile.Split('|'); // a line with a specified portrait looks like portraitName|<sections>|args
                                                               // a line without looks like |<sections>|args
 
-        string portraitFileName = (splitLineFromFile[0] != "") ? splitLineFromFile[0] : PhaseManager.level.name; // use specified portrait or use default if not specified
+        string portraitFileName = (splitLineFromFile[0] != "") ? splitLineFromFile[0] : BattleGroupManager.level.name; // use specified portrait or use default if not specified
         Texture2D portrait = (Texture2D) Resources.Load($"Art/UI/Portraits/{portraitFileName}", typeof(Texture2D));
 
         List<DialogueSection> sections = new List<DialogueSection>();

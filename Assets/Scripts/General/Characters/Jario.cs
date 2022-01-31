@@ -10,13 +10,13 @@ public class Jario : MonoBehaviour, IPhaseController
     /// </summary>
     [SerializeField] private Animator animator;
 
+    /// <summary>
+    /// The group this controller belongs to
+    /// </summary>
+    public int group { get; set; }
 
-    public Phase activePhase { get; }
 
-    public Jario()
-    {
-        activePhase = Phase.Intro; 
-    }
+    public Phase activePhase => Phase.Intro;
 
     public void OnStart()
     {
@@ -30,7 +30,7 @@ public class Jario : MonoBehaviour, IPhaseController
     {
         animator.SetTrigger("Count");
         int count;
-        if (PhaseManager.phase == Phase.Intro) count = 3;
+        if (this.GetManagerPhase() == Phase.Intro) count = 3;
         else count = 10;
 
         animator.SetInteger("CountLeft", count-1); // count-1 or he'll count one more time than you want him to

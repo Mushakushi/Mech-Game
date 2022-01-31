@@ -21,6 +21,11 @@ public sealed class DefaultPhaseEvent : IPhaseController
     [HideInInspector] public GameObject gameObject => null; 
 
     /// <summary>
+    /// The group this controller belongs to
+    /// </summary>
+    public int group { get; set; }
+
+    /// <summary>
     /// Phase(s) in which this gameObject belongs to
     /// </summary>
     [SerializeField] public List<Phase> activePhases;
@@ -28,7 +33,7 @@ public sealed class DefaultPhaseEvent : IPhaseController
     /// <summary>
     /// Returns PhaseManager.Phase if activePhases contains PhaseManager.Phase. Phase.Invalid otherwise
     /// </summary>
-    [HideInInspector] public Phase activePhase { get => activePhases.GetPhase(); }
+    [HideInInspector] public Phase activePhase { get => this.GetPhaseFromCollection(activePhases); }
 
     [Header("OnPhaseEnter()")]
     /// <summary>
@@ -59,15 +64,24 @@ public sealed class DefaultPhaseEvent : IPhaseController
     /// <summary>
     /// Sets enter trigger
     /// </summary>
-    public void OnPhaseEnter() => phaseEnter.Invoke();
+    public void OnPhaseEnter()
+    {
+        phaseEnter.Invoke();
+    } 
 
     /// <summary>
     /// Sets update trigger
     /// </summary>
-    public void OnPhaseUpdate() => phaseUpdate.Invoke();
+    public void OnPhaseUpdate()
+    {
+        phaseUpdate.Invoke();
+    }
 
     /// <summary>
     /// Sets exit trigger
     /// </summary>
-    public void OnPhaseExit() => phaseExit.Invoke(); 
+    public void OnPhaseExit()
+    {
+        phaseExit.Invoke();
+    }
 }

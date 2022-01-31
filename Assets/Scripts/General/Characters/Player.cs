@@ -41,7 +41,7 @@ public class Player : Character
 
     protected override void PhaseEnterBehavior()
     {
-        if (PhaseManager.phase == Phase.Player)
+        if (this.GetManagerPhase() == Phase.Player)
         {
             canAttack = true;
             EnableHitbox();
@@ -60,7 +60,7 @@ public class Player : Character
         // input queueing - appears to be broken (animation issue - currently uses returnToIdle ^)
         if (allowQueueAction)
         {
-            if (PhaseManager.phase == Phase.Player && canAttack && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None) && Input.GetKeyDown(KeyCode.W))
+            if (this.GetManagerPhase() == Phase.Player && canAttack && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None) && Input.GetKeyDown(KeyCode.W))
             {
                 queuedAction = DoAttack();
             }

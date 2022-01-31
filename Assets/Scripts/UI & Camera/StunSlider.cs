@@ -7,6 +7,11 @@ using UnityEngine.UI;
 public class StunSlider : MonoBehaviour, IPhaseController
 {
     /// <summary>
+    /// The group this controller belongs to
+    /// </summary>
+    public int group { get; set; }
+
+    /// <summary>
     /// Slider this gameObject is attached to
     /// </summary>
     private Slider slider;
@@ -46,7 +51,7 @@ public class StunSlider : MonoBehaviour, IPhaseController
     public void OnPhaseUpdate()
     {
         slider.value -= speed * Time.deltaTime;
-        if (slider.value <= 0) PhaseManager.ExitPhase(); 
+        if (slider.value <= 0) this.ExitPhase(); 
     }
 
     /// <summary>

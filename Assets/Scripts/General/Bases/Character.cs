@@ -39,7 +39,12 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// <summary>
     /// Tells PhaseManager whether the current phase is equal to one in activePhase
     /// </summary>
-    [HideInInspector] public Phase activePhase => activePhases.GetPhase();
+    [HideInInspector] public Phase activePhase => this.GetPhaseFromCollection(activePhases);
+
+    /// <summary>
+    /// The group this controller belongs to
+    /// </summary>
+    public int group { get; set; }
 
     [Header("UI and Animation")]
     /// <summary> 

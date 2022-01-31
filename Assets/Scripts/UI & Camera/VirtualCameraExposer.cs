@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine; 
 
 /// <summary>
-/// Utility that exposes functions to other classes
+/// Utility that exposes functions to other classes (i.e. DefaultPhaseEvent)
 /// </summary>
 [RequireComponent(typeof(CinemachineVirtualCamera))]
 public class VirtualCameraExposer : MonoBehaviour
@@ -20,7 +20,7 @@ public class VirtualCameraExposer : MonoBehaviour
     [SerializeField] [ReadOnly] private CinemachineFramingTransposer framingTransposer; 
 
 
-    private void Start()
+    private void Awake()
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
         framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>(); 
@@ -31,6 +31,10 @@ public class VirtualCameraExposer : MonoBehaviour
     /// </summary>
     /// <param name="target">Follow target transform</param>
     public void SetFollowTarget(Transform target) => virtualCamera.m_Follow = target; 
+
+    /// <summary>
+    /// Sets follow target to the battle group's boss
+    /// </summary>
 
     /// <summary>
     /// Sets follow target offset to <paramref name="offset"/>

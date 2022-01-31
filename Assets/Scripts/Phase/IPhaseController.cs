@@ -14,6 +14,11 @@ public interface IPhaseController
     GameObject gameObject { get; }
 
     /// <summary>
+    /// Index of the battle group the controller belongs to
+    /// </summary>
+    int group { get; set;}
+
+    /// <summary>
     /// What phase the controller belongs to. 
     /// Interfaces can change return value to allow for multiple active Phases
     /// </summary>
