@@ -38,6 +38,51 @@ TextureImporter:
   - first:
       213: -5102038148299506799
     second: lobstobotomizer-special1
+  - first:
+      213: -3265472795598615820
+    second: lobstobotomizer-spritesheet_0
+  - first:
+      213: -456654038670731076
+    second: lobstobotomizer-spritesheet_1
+  - first:
+      213: 8637831639505068044
+    second: lobstobotomizer-spritesheet_2
+  - first:
+      213: 4338507439385668228
+    second: lobstobotomizer-spritesheet_3
+  - first:
+      213: 6158178497244815597
+    second: lobstobotomizer-spritesheet_4
+  - first:
+      213: 537980586309687904
+    second: lobstobotomizer-spritesheet_5
+  - first:
+      213: 8039544591042241022
+    second: lobstobotomizer-spritesheet_6
+  - first:
+      213: -7288163971016153681
+    second: lobstobotomizer-spritesheet_7
+  - first:
+      213: 7395500367441735279
+    second: lobstobotomizer-spritesheet_8
+  - first:
+      213: -702030905675903309
+    second: lobstobotomizer-spritesheet_9
+  - first:
+      213: -7272225692312216833
+    second: lobstobotomizer-spritesheet_10
+  - first:
+      213: -5939780023212052959
+    second: lobstobotomizer-spritesheet_11
+  - first:
+      213: 1049267423303680347
+    second: lobstobotomizer-spritesheet_12
+  - first:
+      213: 8316147607823393269
+    second: lobstobotomizer-spritesheet_13
+  - first:
+      213: 2358613885762089833
+    second: lobstobotomizer-spritesheet_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -127,7 +172,91 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lobstobotomizer-idle1
+      name: lobstobotomizer-spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fa84aa2bc5bea2d0800000000000000
+      internalID: -3265472795598615820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lobstobotomizer-spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb898cf3293a9a9f0800000000000000
+      internalID: -456654038670731076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lobstobotomizer-spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0064566c1ebfd770800000000000000
+      internalID: 8637831639505068044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lobstobotomizer-spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ae8fb9789753c30800000000000000
+      internalID: 4338507439385668228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lobstobotomizer-spritesheet_4
       rect:
         serializedVersion: 2
         x: 0
@@ -135,20 +264,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69f92aeaf03423730800000000000000
-      internalID: 3977315155555032982
+      spriteID: de0e9bf37be367550800000000000000
+      internalID: 6158178497244815597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-idle2
+      name: lobstobotomizer-spritesheet_5
       rect:
         serializedVersion: 2
         x: 64
@@ -156,41 +285,41 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 668a13584b6caccf0800000000000000
-      internalID: -231153952225122202
+      spriteID: 06a9b0f2e7a477700800000000000000
+      internalID: 537980586309687904
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-idle3
+      name: lobstobotomizer-spritesheet_6
       rect:
         serializedVersion: 2
-        x: 130
+        x: 128
         y: 128
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcfd75695506bcdc0800000000000000
-      internalID: -3617691954951233585
+      spriteID: ef16cf0d533329f60800000000000000
+      internalID: 8039544591042241022
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-idle4
+      name: lobstobotomizer-spritesheet_7
       rect:
         serializedVersion: 2
         x: 192
@@ -198,20 +327,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b899ca609663b59b0800000000000000
-      internalID: -5090415129100772981
+      spriteID: fa528c29b7d3bda90800000000000000
+      internalID: -7288163971016153681
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-hurt1
+      name: lobstobotomizer-spritesheet_8
       rect:
         serializedVersion: 2
         x: 0
@@ -219,20 +348,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0d0403405ca022f0800000000000000
-      internalID: -999609656554550003
+      spriteID: f6ea2a1b66812a660800000000000000
+      internalID: 7395500367441735279
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-hurt2
+      name: lobstobotomizer-spritesheet_9
       rect:
         serializedVersion: 2
         x: 64
@@ -240,20 +369,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a82870dd5b57fcec0800000000000000
-      internalID: -3544484957759503734
+      spriteID: 3be87dd5c92e146f0800000000000000
+      internalID: -702030905675903309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-fall1
+      name: lobstobotomizer-spritesheet_10
       rect:
         serializedVersion: 2
         x: 128
@@ -261,20 +390,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 936109f1898fe91d0800000000000000
-      internalID: -3341960541214075335
+      spriteID: ffad243434dd31b90800000000000000
+      internalID: -7272225692312216833
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-fall2
+      name: lobstobotomizer-spritesheet_11
       rect:
         serializedVersion: 2
         x: 192
@@ -282,20 +411,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a18172486c66be90800000000000000
-      internalID: -7010296574908464734
+      spriteID: 12eeb780a89a19da0800000000000000
+      internalID: -5939780023212052959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-fall3
+      name: lobstobotomizer-spritesheet_12
       rect:
         serializedVersion: 2
         x: 0
@@ -303,20 +432,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 308c0fbb66441c530800000000000000
-      internalID: 3873452362545809411
+      spriteID: b51c768892fbf8e00800000000000000
+      internalID: 1049267423303680347
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-attack1
+      name: lobstobotomizer-spritesheet_13
       rect:
         serializedVersion: 2
         x: 64
@@ -324,20 +453,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6dc5551f793a6e640800000000000000
-      internalID: 5108950700282698966
+      spriteID: 5f127004034e86370800000000000000
+      internalID: 8316147607823393269
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lobstobotomizer-attack2
+      name: lobstobotomizer-spritesheet_14
       rect:
         serializedVersion: 2
         x: 128
@@ -345,35 +474,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae64c505c9ef31ae0800000000000000
-      internalID: -1579639096960334102
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: lobstobotomizer-special1
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 19bbd1cf55be139b0800000000000000
-      internalID: -5102038148299506799
+      spriteID: 963372725da7bb020800000000000000
+      internalID: 2358613885762089833
       vertices: []
       indices: 
       edges: []
