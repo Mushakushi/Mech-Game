@@ -100,4 +100,9 @@ public static class DialogueUtil
         // needs some error checking for out of bounds, also might want to add support for repeating phrases
         return loadedDialogue[index];
     }
+
+    public static void SayHello()
+    {
+        Debug.Log("hello");
+    }
 }
