@@ -100,7 +100,7 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// <summary>
     /// Child initialization event, Start should not be used as it may superceed the correct initialization order
     /// </summary>
-    public abstract IList<Phase> InitializeCharacter();
+    protected abstract IList<Phase> InitializeCharacter();
 
     /// <summary>
     /// Event that happens when a Hitbox enters this Character's Hurtbox

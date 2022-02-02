@@ -22,7 +22,7 @@ public abstract class Boss : Character
     [SerializeField] private Slider healthSlider;
 
     // Start is called before the first frame update 
-    public override IList<Phase> InitializeCharacter()
+    protected override IList<Phase> InitializeCharacter()
     {
         BossData data = SetBossData();
         name = data.name;
@@ -55,7 +55,7 @@ public abstract class Boss : Character
 
         //TryShake();
 
-        if (Input.GetKeyDown(KeyCode.P)) // TEMP FOR DIALOGUE TESTING
+        //if (Input.GetKeyDown(KeyCode.P)) // TEMP FOR DIALOGUE TESTING
         {
             //combat.DoBossSpecial();
             //dialogue.DisplayNextLine();
