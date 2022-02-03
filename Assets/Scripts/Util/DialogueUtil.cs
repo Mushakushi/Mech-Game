@@ -7,12 +7,7 @@ using UnityEngine;
 
 public static class DialogueUtil
 {
-    private static List<DialogueLine> loadedDialogue = new List<DialogueLine>();
-
-    public enum LANGUAGE
-    {
-        English, TokiPona, Debug
-    }
+    public static BossDialogue loadedDialogue;
 
     /// <summary>
     /// Load the dialogue of <paramref name="boss"/> from file.
@@ -21,73 +16,16 @@ public static class DialogueUtil
     /// <param name="language">Language to use.</param>
     public static void LoadDialogue(string fileName, LANGUAGE language)
     {
-        loadedDialogue = new List<DialogueLine>();
         string filePath = $"Dialogue/{fileName}/{language.ToString().ToLower()}";
-
         try
         {
-            TextAsset dialogueFile = (TextAsset) Resources.Load(filePath, typeof(TextAsset));
-            foreach (string line in dialogueFile.text.Split('\n'))
-            {
-                loadedDialogue.Add(ParseLine(line));
-            }
+            loadedDialogue = (BossDialogue) Resources.Load(filePath, typeof(BossDialogue));
         }
         catch
         {
+            loadedDialogue = new BossDialogue();
             Debug.LogError($"Missing file Assets/Resources/{filePath}.txt or file is malformed! File load failed.");
         }
-    }
-
-    /// <summary>
-    /// Parse the <paramref name="lineFromFile"/> and return a DialogueLine.
-    /// </summary>
-    /// <param name="lineFromFile">Line to parse.</param>
-    /// <returns>Parsed DialogueLine.</returns>
-    private static DialogueLine ParseLine(string lineFromFile)
-    {
-        string[] splitLineFromFile = lineFromFile.Split('|'); // a line with a specified portrait looks like portraitName|<sections>|args
-                                                              // a line without looks like |<sections>|args
-
-        string portraitFileName = (splitLineFromFile[0] != "") ? splitLineFromFile[0] : BattleGroupManager.level.name; // use specified portrait or use default if not specified
-        Texture2D portrait = (Texture2D) Resources.Load($"Art/UI/Portraits/{portraitFileName}", typeof(Texture2D));
-
-        List<DialogueSection> sections = new List<DialogueSection>();
-
-        string[] dialogueSections = splitLineFromFile[1].Split('['); // a text section looks like [delay]text
-        for (int i = 1; i < dialogueSections.Length; i++) // ignore first index - will always be '' (if formatted correctly)
-        {
-            sections.Add(ParseSection(dialogueSections[i]));
-        }
-
-        DialogueLine dialogueLine = new DialogueLine(sections, portrait);
-
-        string[] lineArgs = splitLineFromFile[2].Split(',');
-        foreach (string arg in lineArgs)
-        {
-            switch (arg) // switch so we can add more if required - currently only overflow
-            {
-                case "overflow":
-                    dialogueLine.overflow = true;
-                    break;
-            }
-        }
-
-        return dialogueLine;
-    }
-
-    /// <summary>
-    /// Parse the <paramref name="section"/> and return a DialogueSection.
-    /// </summary>
-    /// <param name="section">Section to parse.</param>
-    /// <returns>Parsed DialogueSection.</returns>
-    private static DialogueSection ParseSection(string section)
-    {
-        string[] textWithDelay = section.Split(']'); // array looks like ["delay", "text"]
-
-        float delay = (float) Convert.ToDouble(textWithDelay[0]); // don't know how to directly convert to float. this works?
-        string text = textWithDelay[1];
-
-        return new DialogueSection(text, delay);
     }
 
     /// <summary>
@@ -98,11 +36,78 @@ public static class DialogueUtil
     public static DialogueLine GetDialogueLine(int index)
     {
         // needs some error checking for out of bounds, also might want to add support for repeating phrases
-        return loadedDialogue[index];
+        DialogueLine line = loadedDialogue.dialogueLines[index];
+        if (line.portraitOverride == null)
+        {
+            line.portraitOverride = loadedDialogue.defaultPortrait;
+        }
+
+        return line;
     }
 
-    public static void SayHello()
+    #region SUBCLASSES
+    [System.Serializable]
+    public enum LANGUAGE
     {
-        Debug.Log("hello");
+        English, 
+        [InspectorName("toki pona")]TokiPona, 
+        Debug
     }
+
+    [System.Serializable]
+    public struct DialogueLine
+    {
+        /// <summary>
+        /// Sections in this line.
+        /// </summary>
+        public List<DialogueSection> sections;
+        /// <summary>
+        /// Name of Character portrait shown when this line is displayed.
+        /// </summary>
+        public Texture2D portraitOverride;
+        /// <summary>
+        /// Should the line overflow the text box?
+        /// </summary>
+        public bool overflow;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sections">Sections in this line.</param>
+        /// <param name="portrait">Name of Character portrait shown when this line is displayed.</param>
+        /// <param name="overflow">Should the line overflow the text box?</param>
+        public DialogueLine(List<DialogueSection> sections, Texture2D portrait, bool overflow = false)
+        {
+            this.sections = sections;
+            this.portraitOverride = portrait;
+            this.overflow = overflow;
+        }
+    }
+
+    [System.Serializable]
+    public struct DialogueSection
+    {
+        /// <summary>
+        /// Text in the section.
+        /// </summary>
+        public string text;
+        /// <summary>
+        /// Seconds to wait between displaying each character. Set to 0 to instantly display.
+        /// </summary>
+        public float characterDelay;
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="text">Text in the section.</param>
+        /// <param name="characterDelay">Seconds to wait between displaying each character. Set to 0 to instantly display.</param>
+        /// <param name="overflow">Overflow the text?</param>
+        public DialogueSection(string text, float characterDelay)
+        {
+            this.text = text;
+            this.characterDelay = characterDelay;
+        }
+    }
+
+    #endregion SUBCLASSES
 }

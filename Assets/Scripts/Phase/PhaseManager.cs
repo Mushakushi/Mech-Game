@@ -81,25 +81,32 @@ public class PhaseManager : MonoBehaviour
         // Add default phase events 
         foreach (DefaultPhaseEvent e in defaultPhaseEvents) AddPhaseController(e);
 
+        // Get phase controller attached to this object
+        if (GetComponent<IPhaseController>() is IPhaseController selfController)
+        {
+            controllers.Add(selfController);
+            selfController.OnStart();
+        }
+
         // Get all child phase controllers
         foreach (Transform child in GetAllChildren(transform))
         {
-            if (child.GetComponent<IPhaseController>() is IPhaseController o)
+            if (child.GetComponent<IPhaseController>() is IPhaseController controller)
             {
-                controllers.Add(o);
-                o.OnStart();
+                controllers.Add(controller);
+                controller.OnStart();
 
                 // Save required controllers
                 switch (child.tag)
                 {
                     case "Boss":
-                        boss = (Boss)o; 
+                        boss = (Boss)controller; 
                         break;
                     case "Player":
-                        player = (Player)o;
+                        player = (Player)controller;
                         break;
                     case "Jario":
-                        jario = (Jario)o;
+                        jario = (Jario)controller;
                         break; 
                 }
             }

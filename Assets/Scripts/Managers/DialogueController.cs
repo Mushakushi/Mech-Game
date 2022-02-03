@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static BossDialogue;
 using static DialogueUtil;
 
 public class DialogueController : MonoBehaviour, IPhaseController
@@ -11,6 +12,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     private LANGUAGE language = LANGUAGE.English;
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private RawImage portrait;
+    [SerializeField] private Animator animator;
 
     /// <summary>
     /// Returns Phase.Dialogue_Pre or Phase.Dialogue_Post depending on PhaseManager.phase
@@ -27,7 +29,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     /// </summary>
     public void OnStart()
     {
-        SetLanguage(LANGUAGE.TokiPona);
+        SetLanguage(LANGUAGE.English);
         InitializeBossDialogue(BattleGroupManager.level.name);
     }
 
@@ -91,7 +93,9 @@ public class DialogueController : MonoBehaviour, IPhaseController
             textMeshPro.enableWordWrapping = true;
         }
 
-        portrait.texture = line.portrait; // not sure if easier to fix images or make a class containing manual offsets (first one definitely sounds better...)
+        portrait.texture = line.portraitOverride; // not sure if easier to fix images or make a class containing manual offsets (first one definitely sounds better...)
+
+        animator.SetTrigger("ToggleDialogueShow");
 
         yield return new WaitForSecondsRealtime(0.4f); // 0.2s transition to showing dialogue boxes on screen
 
@@ -99,7 +103,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
         {
             foreach (char letter in section.text)
             {
-                if (section.characterDelay > 0) yield return new WaitForSecondsRealtime(section.characterDelay);
+                if (section.characterDelay > 0) yield return new WaitForSecondsRealtime(section.characterDelay / 100f);
                 textMeshPro.text += letter;
             }
         }
