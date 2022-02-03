@@ -109,9 +109,9 @@ public class Player : Character
 
     private void Update()
     {
-        print(attack.WasPressedThisFrame());
-        print(dodgeLeft.WasPressedThisFrame());
-        print(dodgeRight.WasPressedThisFrame());
+        //print(attack.WasPressedThisFrame());
+        //print(dodgeLeft.WasPressedThisFrame());
+        //print(dodgeRight.WasPressedThisFrame());
     }
 
     protected override void PhaseUpdateBehavior() 
