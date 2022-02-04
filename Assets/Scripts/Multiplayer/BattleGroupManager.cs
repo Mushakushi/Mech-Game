@@ -32,6 +32,11 @@ public class BattleGroupManager : MonoBehaviour
         _phaseManagers = phaseManagers;
     }
 
+    public void AddPhaseManager(PhaseManager pm)
+    {
+        phaseManagers.Add(pm);
+    }
+
     // Wrapper for UnityEvent, allows it to access the static function
     public static Transform GetBossTransform(IPhaseController controller) => controller.GetBossTransform(); 
 }

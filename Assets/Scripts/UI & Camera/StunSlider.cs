@@ -23,16 +23,12 @@ public class StunSlider : MonoBehaviour, IPhaseController
 
     public Phase activePhase => Phase.Player;
 
-    private void Start()
-    {
-        slider = GetComponent<Slider>();
-    }
-
     /// <summary>
     /// Hides the slider
     /// </summary>
     public void OnStart()
     {
+        slider = GetComponent<Slider>();
         gameObject.SetActive(false); 
     }
 
@@ -50,7 +46,7 @@ public class StunSlider : MonoBehaviour, IPhaseController
     /// </summary>
     public void OnPhaseUpdate()
     {
-        slider.value -= speed * Time.deltaTime;
+        slider.value -= speed * Time.deltaTime; 
         if (slider.value <= 0) this.ExitPhase(); 
     }
 

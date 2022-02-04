@@ -38,7 +38,9 @@ public class DialogueController : MonoBehaviour, IPhaseController
     /// </summary>
     public void OnPhaseEnter()
     {
+        Debug.LogError($" line display attempt (stage {dialogueStage})");
         DisplayNextLine();
+        
     }
 
     public void OnPhaseUpdate() { }
@@ -109,6 +111,8 @@ public class DialogueController : MonoBehaviour, IPhaseController
         }
 
         yield return new WaitForSecondsRealtime(1.5f); // give time to read text
+
+        animator.SetTrigger("ToggleDialogueShow");
 
         // Exit phase here? Animator open/close is one of the default phase events
         this.ExitPhase();

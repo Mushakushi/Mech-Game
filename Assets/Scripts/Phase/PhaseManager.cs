@@ -5,7 +5,7 @@ using System.Linq;
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { Intro, Boss, Player, Dialogue_Pre, Dialogue_Post, Mutiple }
+public enum Phase { Intro, Boss, Player, Dialogue_Pre, Dialogue_Post, Multiple }
 
 /// <summary>
 /// Manages the phase behavior of every child phase controller
@@ -229,7 +229,7 @@ public class PhaseManager : MonoBehaviour
             case Phase.Dialogue_Post:
                 EnterPhase(Phase.Player);
                 break;
-            case Phase.Mutiple:
+            case Phase.Multiple:
             default:
                 Debug.LogError("Phase switch is invalid!");
                 break; 

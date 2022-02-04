@@ -17,6 +17,6 @@ public static class PhaseGroup
             Phase m = controller.GetManagerPhase();
             if (p == m) return m;
         }
-        return Phase.Mutiple;
+        return Phase.Multiple;
     }
 }
