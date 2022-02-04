@@ -23,7 +23,7 @@ MonoBehaviour:
       characterDelay: 0
     - text: BRBBLBLBLBRBRBBBB!!!!
       characterDelay: 2
-    - text: <b/>
+    - text: </b>
       characterDelay: 0
     portraitOverride: {fileID: 0}
     overflow: 0
