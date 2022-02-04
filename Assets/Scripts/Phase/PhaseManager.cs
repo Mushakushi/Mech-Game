@@ -164,12 +164,7 @@ public class PhaseManager : MonoBehaviour
     private void EnterPhase(Phase phase)
     {
         this.phase = phase;
-
-        // could also be achieved with linq, I just think this is easier
-        foreach (IPhaseController controller in controllers)
-        {
-            TrySubscribePhaseController(controller);
-        }
+        foreach (IPhaseController controller in controllers) TrySubscribePhaseController(controller);
     }
 
     /// <summary>

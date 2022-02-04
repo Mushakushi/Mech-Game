@@ -10,11 +10,6 @@ public abstract class Boss : Character
     /// </summary>
     [SerializeField] public int healthBars; 
 
-    /// <summary>
-    /// List of weights for Special Attacks. Count should not exceed number of special attacks.
-    /// </summary>
-    [SerializeField] private List<int> SpecialAttackWeights { get; set; }
-
     [Header("UI")]
     /// <summary>
     /// Slider UI Component in scene that this object controls
@@ -31,7 +26,6 @@ public abstract class Boss : Character
         damage = data.damage;
         resistance = data.resistance;
         healthBars = data.healthBars;
-        SpecialAttackWeights = data.SpecialAttackWeights;
 
         return new Phase[] { Phase.Boss }; 
     }
@@ -85,27 +79,9 @@ public abstract class Boss : Character
         throw new System.NotImplementedException();
     }
 
-    /// <summary>
-    /// Selects special for current phase based on weights
-    /// </summary>
+    
     protected override void PhaseEnterBehavior()
     {
-        int weightSum = 0;
-        for (int i = 0; i < SpecialAttackWeights.Count; i++)
-        {
-            weightSum += SpecialAttackWeights[i];
-        }
-        int rand = Random.Range(0, weightSum);
-        for (int i = 0; i < SpecialAttackWeights.Count; i++)
-        {
-            if (rand < SpecialAttackWeights[i])
-            {
-                animator.SetInteger("SpecialIndex", i + 1);
-                //animator.SetTrigger("RunSpecial");
-            }
-
-            rand -= SpecialAttackWeights[i];
-        }
         animator.SetTrigger("EnterPhase");
     }
 

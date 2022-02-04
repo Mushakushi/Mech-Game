@@ -28,7 +28,11 @@ public static class PhaseManagerAccess
     /// Exits the current phase in group
     /// </summary>
     /// <param name="controller">The controller</param>
-    public static void ExitPhase(this IPhaseController controller) => GetManager(controller).ExitPhase(); 
+    public static void ExitPhase(this IPhaseController controller)
+    {
+        Debug.LogError($"{controller.GetManagerPhase()} phase exited by {controller.gameObject.name}"); 
+        GetManager(controller).ExitPhase();
+    }
 
     /// <summary>
     /// Gets the Boss's transform associated with this <paramref name="controller"/>'s group
