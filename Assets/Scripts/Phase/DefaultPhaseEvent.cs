@@ -1,0 +1,87 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events; 
+
+
+// IMPORTANT - make sure you save to version control when REFACTORING because changing Unity's
+// reserialization can actually delete all of the events without undo! 
+// Please don't be like me :) (really be careful...)
+
+
+/// <summary>
+/// Phase Controller that publishes events
+/// </summary>
+[System.Serializable]
+public sealed class DefaultPhaseEvent : IPhaseController
+{
+    /// <summary>
+    /// DefaultPhaseEvent is not a component
+    /// </summary>
+    [HideInInspector] public GameObject gameObject => null; 
+
+    /// <summary>
+    /// The group this controller belongs to
+    /// </summary>
+    public int group { get; set; }
+
+    /// <summary>
+    /// Phase(s) in which this gameObject belongs to
+    /// </summary>
+    [SerializeField] public List<Phase> activePhases;
+
+    /// <summary>
+    /// Returns PhaseManager.Phase if activePhases contains PhaseManager.Phase. Phase.Invalid otherwise
+    /// </summary>
+    [HideInInspector] public Phase activePhase { get => this.GetPhaseFromCollection(activePhases); }
+
+    [Header("OnPhaseEnter()")]
+    /// <summary>
+    /// Event associated with Phase enter
+    /// </summary>
+    [SerializeField] private PhaseEnter phaseEnter = new PhaseEnter { }; 
+    [System.Serializable] private class PhaseEnter : UnityEvent { }
+
+    [Header("OnPhaseUpdate()")]
+    /// <summary>
+    /// Event associated with Phase update
+    /// </summary>
+    [SerializeField] private PhaseUpdate phaseUpdate = new PhaseUpdate { }; 
+    [System.Serializable] private class PhaseUpdate : UnityEvent { }
+
+    [Header("OnPhaseExit()")]
+    /// <summary>
+    /// Event associated with Phase exit
+    /// </summary>
+    [SerializeField] private PhaseExit phaseExit = new PhaseExit { }; 
+    [System.Serializable] private class PhaseExit : UnityEvent { }
+
+    /// <summary>
+    /// What happens when this controller is added as a default Phase event
+    /// </summary>
+    public void OnStart() { }
+
+    /// <summary>
+    /// Sets enter trigger
+    /// </summary>
+    public void OnPhaseEnter()
+    {
+        phaseEnter.Invoke();
+    } 
+
+    /// <summary>
+    /// Sets update trigger
+    /// </summary>
+    public void OnPhaseUpdate()
+    {
+        phaseUpdate.Invoke();
+    }
+
+    /// <summary>
+    /// Sets exit trigger
+    /// </summary>
+    public void OnPhaseExit()
+    {
+        phaseExit.Invoke();
+    }
+}

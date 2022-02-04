@@ -1,0 +1,3 @@
+|[0.02]This is some testing text also it appears weird due to Unity loading - will look fine once we have loading/menus|
+|[0.02]This should overflow so that you cannot read it oh noooooo you can't read the textttttttttttttt|overflow
+John|[0.02]This should wrap around so that you can read all of the text also the portrait is John|

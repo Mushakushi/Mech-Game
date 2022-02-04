@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - DialogueTextDisplay
+  - Boss
+  - Jario
+  - PhaseManager
   layers:
   - Default
   - TransparentFX
@@ -12,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Player Attack
+  - Boss Attack
   - 
   - 
   - 
