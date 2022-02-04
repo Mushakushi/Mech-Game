@@ -10,7 +10,6 @@ public struct BossData
     [SerializeField] public float resistance;
     [SerializeField] public Phase targetPhase;
     [SerializeField] public int healthBars;
-    [SerializeField] public List<int> SpecialAttackWeights { get; set; }
 
     /// <summary>
     /// Initializes boss data
@@ -21,9 +20,8 @@ public struct BossData
     /// <param name="resistance">Damage modifier against Hitboxes</param>
     /// <param name="targetPhase">Phase that follows the boss phase</param>
     /// <param name="healthBars">Amount of times health bar must be depleted to be defeated</param>
-    /// <param name="SpecialAttackWeights">List of weights used to determine attack</param>
     public BossData(string name, float maxHealth, float damage, float resistance, 
-        Phase targetPhase, int healthBars, List<int> SpecialAttackWeights)
+        Phase targetPhase, int healthBars)
     {
         this.name = name;
         this.maxHealth = maxHealth;
@@ -31,6 +29,5 @@ public struct BossData
         this.resistance = resistance;
         this.targetPhase = targetPhase;
         this.healthBars = healthBars;
-        this.SpecialAttackWeights = SpecialAttackWeights; 
     }
 }

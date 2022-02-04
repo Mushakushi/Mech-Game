@@ -71,7 +71,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void DisplayNextLine()
     {
         DialogueLine line = GetDialogueLine(dialogueStage);
-        dialogueStage++;
+        //dialogueStage++;
         StartCoroutine(DisplayNextLineCoroutine(line));
     }
 

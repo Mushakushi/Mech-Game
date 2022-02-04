@@ -10,8 +10,7 @@ public class Lobstobotomizer : Boss
             1,
             1f,
             Phase.Player,
-            3,
-            new List<int> { 100 }
+            3
             ); 
     }
 }
