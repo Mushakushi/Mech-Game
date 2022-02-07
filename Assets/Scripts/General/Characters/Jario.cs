@@ -16,7 +16,7 @@ public class Jario : MonoBehaviour, IPhaseController
     public int group { get; set; }
 
 
-    public Phase activePhase => Phase.Intro;
+    public Phase activePhase => this.GetPhaseFromCollection(new Phase[] { Phase.Intro, Phase.Boss_Collapse }) ;
 
     public void OnStart()
     {

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Boss health slider component
+/// </summary>
 [RequireComponent(typeof(Slider), typeof(Image))]
 public class HealthSlider : MonoBehaviour
 {

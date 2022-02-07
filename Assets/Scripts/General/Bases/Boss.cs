@@ -68,7 +68,15 @@ public abstract class Boss : Character
     public override void OnHitboxEnter(float damage)
     {
         base.OnHitboxEnter(damage);
-        healthSlider.value = health / maxHealth;
+        RefreshSlider(); 
+    }
+
+    /// <summary>
+    /// Sets the health slider to boss health
+    /// </summary>
+    private void RefreshSlider()
+    {
+        healthSlider.value = health / maxHealth; 
     }
 
     /// <summary>
@@ -76,7 +84,20 @@ public abstract class Boss : Character
     /// </summary>
     protected override void OnHealthDeplete()
     {
-        throw new System.NotImplementedException();
+        this.ExitPhase(Phase.Boss_Collapse); 
+        health = maxHealth;
+
+        animator.SetTrigger("Collapse"); 
+    }
+
+    protected virtual void OnHealthRegain()
+    {
+        RefreshSlider();
+    }
+
+    protected virtual void OnHealthDepleteFull()
+    {
+        
     }
 
     

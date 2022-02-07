@@ -6,7 +6,7 @@ public class Lobstobotomizer : Boss
     {
         return new BossData(
             "Lobstobotomizer",
-            100f,
+            10f,
             1,
             1f,
             Phase.Player,

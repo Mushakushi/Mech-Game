@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events; 
 using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { Intro, Boss, Player, Dialogue_Pre, Dialogue_Post, Multiple }
+public enum Phase { Intro, Boss, Boss_Collapse, Player, Dialogue_Pre, Dialogue_Post, Multiple }
 
 /// <summary>
 /// Manages the phase behavior of every child phase controller
@@ -68,7 +69,88 @@ public class PhaseManager : MonoBehaviour
     /// <summary>
     /// List of default phase events
     /// </summary>
-    [SerializeField] private List<DefaultPhaseEvent> defaultPhaseEvents = new List<DefaultPhaseEvent>(); 
+    [SerializeField] private List<DefaultPhaseEvent> defaultPhaseEvents = new List<DefaultPhaseEvent>();
+
+    #region DEFAULT PHASE EVENTS CLASS
+    // IMPORTANT - make sure you save to version control when REFACTORING because changing Unity's
+    // reserialization can actually delete all of the events without undo! 
+    // Please don't be like me :) (really be careful...)
+
+    /// <summary>
+    /// Phase Controller that publishes events
+    /// </summary>
+    [System.Serializable]
+    public sealed class DefaultPhaseEvent : IPhaseController
+    {
+        // only accessible to this class doesn't matter what this is
+        [HideInInspector] public GameObject gameObject => null;
+
+        /// <summary>
+        /// The group this controller belongs to
+        /// </summary>
+        public int group { get; set; }
+
+        /// <summary>
+        /// Phase(s) in which this gameObject belongs to
+        /// </summary>
+        [SerializeField] public List<Phase> activePhases;
+
+        /// <summary>
+        /// Returns PhaseManager.Phase if activePhases contains PhaseManager.Phase. Phase.Invalid otherwise
+        /// </summary>
+        [HideInInspector] public Phase activePhase { get => this.GetPhaseFromCollection(activePhases); }
+
+        [Header("OnPhaseEnter()")]
+        /// <summary>
+        /// Event associated with Phase enter
+        /// </summary>
+        [SerializeField] private PhaseEnter phaseEnter = new PhaseEnter { };
+        [System.Serializable] private class PhaseEnter : UnityEvent { }
+
+        [Header("OnPhaseUpdate()")]
+        /// <summary>
+        /// Event associated with Phase update
+        /// </summary>
+        [SerializeField] private PhaseUpdate phaseUpdate = new PhaseUpdate { };
+        [System.Serializable] private class PhaseUpdate : UnityEvent { }
+
+        [Header("OnPhaseExit()")]
+        /// <summary>
+        /// Event associated with Phase exit
+        /// </summary>
+        [SerializeField] private PhaseExit phaseExit = new PhaseExit { };
+        [System.Serializable] private class PhaseExit : UnityEvent { }
+
+        /// <summary>
+        /// What happens when this controller is added as a default Phase event
+        /// </summary>
+        public void OnStart() { }
+
+        /// <summary>
+        /// Sets enter trigger
+        /// </summary>
+        public void OnPhaseEnter()
+        {
+            phaseEnter.Invoke();
+        }
+
+        /// <summary>
+        /// Sets update trigger
+        /// </summary>
+        public void OnPhaseUpdate()
+        {
+            phaseUpdate.Invoke();
+        }
+
+        /// <summary>
+        /// Sets exit trigger
+        /// </summary>
+        public void OnPhaseExit()
+        {
+            phaseExit.Invoke();
+        }
+    }
+    #endregion
 
     /// <summary>
     /// Initializes this group and gets every phase controller child
@@ -197,14 +279,22 @@ public class PhaseManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Exits the current phase and switches to the next phase according to a predefined map
+    /// Unsubscribes all active controllers
     /// </summary>
-    // Note - phases only change when this function is called in an IPhaseController
-    public void ExitPhase()
+    private void UnsubscribeAll()
     {
         // unsubscribe all active controllers
-        foreach (IPhaseController controller in controllers) controller.OnPhaseExit(); 
-        activeControllers.Clear(); 
+        foreach (IPhaseController controller in controllers) controller.OnPhaseExit();
+        activeControllers.Clear();
+    }
+
+    /// <summary>
+    /// Exits the current phase and switches to the next phase according to a predefined map
+    /// </summary>
+    /// <remarks>Phases only change when this function is called in an IPhaseController</remarks>
+    public void ExitPhase()
+    {
+        UnsubscribeAll(); 
 
         //determines which phase to transition to
         switch (phase)
@@ -230,4 +320,15 @@ public class PhaseManager : MonoBehaviour
                 break; 
         }
     }
+
+    /// <summary>
+    /// Exits the current phase and switches to <paramref name="targetPhase"/> phase, interrupting the current flow
+    /// </summary>
+    /// <remarks>Phases only change when this function is called in an IPhaseController</remarks>
+    public void ExitPhase(Phase targetPhase)
+    {
+        UnsubscribeAll(); 
+        EnterPhase(targetPhase);
+    }
+
 }
