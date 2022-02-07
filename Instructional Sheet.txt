@@ -1,0 +1,38 @@
+Super Battle Machine Boxing 
+- a clash of lean, mean, fighting machines
+
+
+
+Base Keybindings:
+-----------------  
+> W key - Punch
+> A key - Dodge Left
+> D key - Dodge Right
+-----------------
+
+Goals:
+-----------------
+> The goal is to beat the enemy by punching them to zero hitpoints without also hitting zero hitpoints.
+
+> An additional goal that can be added from Battle Settings is the option NoHit where the player is not allowed
+to take damage in order to win the game, thus any hit on the player will result in a game over. This feature 
+is optional.
+
+> A player will receive a score depending on their performance throughout the game.
+-----------------
+
+Boss Attack:
+-----------------
+> Boss will perform an animation showing a preparation to attack.
+
+> Player will be required to dodge if they wish to not take damage.
+-----------------
+
+Multiplayer:
+-----------------
+> In the multiplayer segment, 2 players compete by completing levels in a one by one sequence.
+
+> The players will accumulate scores within these levels and the highest scoring player will be declared the
+victor.  A tie or draw will be declared in the event that both players have a matching score.
+-----------------
+
