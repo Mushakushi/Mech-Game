@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,11 +69,12 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// </summary>
     public bool isHit;
 
-    [Space()]
-    public bool isShaking = false;
-    public Vector3 shakePos;
-    public float shakingRange;
-    public bool returnToIdle = false;
+    /// <summary>
+    /// Coroutine that shakes the character. null if not shaking.
+    /// </summary>
+    private Coroutine shakeCoroutine;
+
+    public bool returnToIdle;
 
     public void OnStart()
     {
@@ -109,20 +111,6 @@ public abstract class Character : MonoBehaviour, IPhaseController
     public virtual void OnHitboxEnter(float damage)
     {
         animator.SetTrigger("GetHit");
-
-        /*if (isShaking)
-        {
-            animator.applyRootMotion = true;
-            //transform.position = MoveUtil.GetPosFromPos(shakePos, Random.Range(-shakingRange, shakingRange), Random.Range(-shakingRange, shakingRange));
-        }
-        else
-        {
-           // if (MoveUtil.PosWithinRange(transform.position, shakePos, shakingRange) && !transform.position.Equals(shakePos))
-            {
-                transform.position = shakePos;
-                animator.applyRootMotion = false;
-            }
-        }*/
 
         health -= damage * (1 / resistance); // we could just adjust hp if player doesn't have a way to level up stats
         isHit = true;
@@ -178,6 +166,34 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// What should happen when Character's health depletes to 0?
     /// </summary>
     protected abstract void OnHealthDeplete(); 
+
+    public void StartShakingAtCurrentPosition(float range)
+    {
+        
+        Vector3 shakePos = transform.position;
+        animator.applyRootMotion = true;
+        shakeCoroutine = StartCoroutine(ShakeCoroutine(range, shakePos));
+    }
+
+    public void StopShaking()
+    {
+        if (shakeCoroutine != null)
+        {
+            StopCoroutine(shakeCoroutine);
+            shakeCoroutine = null;
+            transform.position = new Vector3(0, 0, 0);
+            animator.applyRootMotion = false;
+        }
+    }
+
+    private IEnumerator ShakeCoroutine(float range, Vector3 pos)
+    {
+        while (true)
+        {
+            transform.position = new Vector3(pos.x + Random.Range(0f, range), pos.y + Random.Range(0f, range), pos.z);
+            yield return new WaitForEndOfFrame();
+        }
+    }
 
     #region PHASE BEHAVIOR
     /// <summary>

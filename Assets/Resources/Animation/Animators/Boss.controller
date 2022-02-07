@@ -404,7 +404,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c7e4d1042e72a2846a5fc5fe614461c3, type: 2}
+  m_Motion: {fileID: 7400000, guid: f9eb039aec14c22489bfbaf6583ddeee, type: 2}
   m_Tag: Stun
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -486,25 +486,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: EnterPhase
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: SpecialIndex
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Collapse
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -816,7 +816,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c7e4d1042e72a2846a5fc5fe614461c3, type: 2}
+  m_Motion: {fileID: 7400000, guid: dbaaf5c066d544a409f73e6cab156dd3, type: 2}
   m_Tag: Stun
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -880,7 +880,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 035da34d1b20cad4384d9715a0e3ecdc, type: 2}
+  m_Motion: {fileID: 7400000, guid: a49e390cea4d86c40b2b669580c1fbd4, type: 2}
   m_Tag: Stun
   m_SpeedParameter: 
   m_MirrorParameter: 

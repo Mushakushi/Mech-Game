@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -33,27 +34,7 @@ public abstract class Boss : Character
     // Update is called once per frame
     void Update()
     {
-        /*if (returnToIdle)
-        {
-            animator.applyRootMotion = false;
-            returnToIdle = false;
-            animator.ResetTrigger("GetHit");
-            animator.ResetTrigger("RunSpecial");
-            //combat.fightStage = PhaseManager.FIGHT_STAGE.PlayerAttack;
-        }
 
-        if (currentState == BOSS_STATE.FullStun)
-        {
-            combat.DisablePlayerAttack();
-        }*/
-
-        //TryShake();
-
-        //if (Input.GetKeyDown(KeyCode.P)) // TEMP FOR DIALOGUE TESTING
-        {
-            //combat.DoBossSpecial();
-            //dialogue.DisplayNextLine();
-        }
     }
 
     /// <summary>
