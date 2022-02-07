@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator), typeof(BoxCollider2D))]
 public abstract class Character : MonoBehaviour, IPhaseController
@@ -127,7 +128,14 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// </summary>
     public virtual void OnHitboxExit()
     {
-        isHit = false; 
+        isHit = false;
+        StartCoroutine(DoInvulnFrames(0.05f));
+    }
+    public IEnumerator DoInvulnFrames(float duration)
+    {
+        DisableHurtbox();
+        yield return new WaitForSeconds(duration);
+        EnableHurtbox();
     }
 
     /// <summary>
@@ -165,17 +173,18 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// <summary>
     /// What should happen when Character's health depletes to 0?
     /// </summary>
-    protected abstract void OnHealthDeplete(); 
+    protected abstract void OnHealthDeplete();
 
-    public void StartShakingAtCurrentPosition(float range)
+    #region ANIMATION METHODS
+
+    public void ShakeCharacterStart(float range)
     {
-        
         Vector3 shakePos = transform.position;
         animator.applyRootMotion = true;
         shakeCoroutine = StartCoroutine(ShakeCoroutine(range, shakePos));
     }
 
-    public void StopShaking()
+    public void ShakeCharacterStop()
     {
         if (shakeCoroutine != null)
         {
@@ -194,6 +203,24 @@ public abstract class Character : MonoBehaviour, IPhaseController
             yield return new WaitForEndOfFrame();
         }
     }
+
+    public void ShakeControllerStart(float rumbleSpeed)
+    {
+        if (Gamepad.current != null)
+        {
+            Gamepad.current.SetMotorSpeeds(rumbleSpeed, rumbleSpeed);
+        }
+    }
+
+    public void ShakeControllerStop()
+    {
+        if (Gamepad.current != null)
+        {
+            Gamepad.current.SetMotorSpeeds(0f, 0f);
+        }
+    }
+
+    #endregion
 
     #region PHASE BEHAVIOR
     /// <summary>

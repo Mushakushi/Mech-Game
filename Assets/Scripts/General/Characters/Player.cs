@@ -39,7 +39,7 @@ public class Player : Character
 
     public bool canAttack;
 
-    private enum ACTION_TYPE { Attack, Dodge, Block, None }
+    private enum ACTION_TYPE { Attack, Dodge, None }
     [SerializeField] private ACTION_TYPE currentActionType;
     [SerializeField] private float actionDelay;
 
@@ -67,7 +67,7 @@ public class Player : Character
     }
 
     /// <summary>
-    /// Disablle input actions
+    /// Disable input actions
     /// </summary>
     private void OnDisable()
     {
@@ -86,12 +86,10 @@ public class Player : Character
         damage = 5.0f;
         resistance = 0f;
 
-        actionDelay = 0.25f;
+        actionDelay = 0.4f;
         currentActionType = ACTION_TYPE.None;
         allowQueueAction = true;
         queuedAction = null;
-
-        canAttack = true;
 
         //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Player Attack"));
 
@@ -103,7 +101,7 @@ public class Player : Character
         switch (this.GetManagerPhase())
         {
             case Phase.Player:
-                canAttack = true;
+                attack.Enable();
                 EnableHitbox();
                 break;
             case Phase.Boss_Defeat:
@@ -125,20 +123,12 @@ public class Player : Character
 
     protected override void PhaseUpdateBehavior() 
     {
-        if (returnToIdle)
-        {
-            animator.applyRootMotion = false;
-            currentActionType = ACTION_TYPE.None;
-            delayCoroutine = StartCoroutine(WaitActionDelay());
-            returnToIdle = false;
-        }
-
         if (this.GetManagerPhase() != Phase.Boss_Defeat)
         {
             // input queueing 
             if (allowQueueAction)
             {
-                if (this.GetManagerPhase() == Phase.Player && canAttack && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None)
+                if (this.GetManagerPhase() == Phase.Player && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None)
                     && attack.WasPressedThisFrame())
                 {
                     queuedAction = DoAttack();
@@ -164,13 +154,15 @@ public class Player : Character
             StartCoroutine(queuedAction);
             //allowQueueAction = false; (case in point)
             queuedAction = null;
+            delayCoroutine = StartCoroutine(WaitActionDelay());
         }
     }
 
     protected override void PhaseExitBehavior()
     {
-        canAttack = false;
-        DisableHitbox(); 
+        queuedAction = null;
+        attack.Disable();
+        DisableHitbox();
     }
 
     public IEnumerator WaitActionDelay()

@@ -1395,7 +1395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3974684209642885748}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: -3.1, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children: []
   m_Father: {fileID: 3974684209726931046}
@@ -2277,9 +2277,6 @@ MonoBehaviour:
   hitbox: {fileID: 0}
   hurtbox: {fileID: 0}
   isHit: 0
-  isShaking: 0
-  shakePos: {x: 0, y: 0, z: 0}
-  shakingRange: 0
   returnToIdle: 0
   healthBars: 0
   healthSlider: {fileID: 3974684209719150940}
@@ -2458,9 +2455,6 @@ MonoBehaviour:
   hitbox: {fileID: 0}
   hurtbox: {fileID: 0}
   isHit: 0
-  isShaking: 0
-  shakePos: {x: 0, y: 0, z: 0}
-  shakingRange: 0
   returnToIdle: 0
   allowQueueAction: 1
   canAttack: 1
