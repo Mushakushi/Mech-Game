@@ -1,16 +1,18 @@
-# Untitled Mech Game
+# Super Battle Machine Boxing
 
 ## Current TODO:
-- Re-animate Lobstobotomizer and Player
-- Title Untitled Mech Game
-- Start a draft of instructions screen ..?
+- Finish re-animating Lobstobotomizer and Player
 - Create Shoto and John
+- Add options menu
+- Get title screen assets
 
 ## Looking Foward:
 
+Get people to report bugs
+(how - github issue maybe? something else..?)
+
 Systems Needed:
-- Voice Lines
-- Menus
+- Voice Lines (not hard)
 
 ## Instructions and Rubrics:
 ![Overview Instructions](https://user-images.githubusercontent.com/60948236/151413129-abf6ce12-e1b7-4707-8e89-00be1c25220a.PNG)
