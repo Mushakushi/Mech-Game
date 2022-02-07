@@ -1724,6 +1724,50 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - activePhases: 02000000
+    phaseEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3974684208706822291}
+          m_TargetAssemblyTypeName: MusicPlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: f1ca22dfa3e24dc489a999b7683a3f34, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    phaseUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    phaseExit:
+      m_PersistentCalls:
+        m_Calls: []
+  - activePhases: 03000000
+    phaseEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3974684208706822289}
+          m_TargetAssemblyTypeName: VirtualCameraExposer, Assembly-CSharp
+          m_MethodName: SetFollowTarget
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1033318686163348360}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    phaseUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    phaseExit:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &3974684209669371680
 MonoBehaviour:
   m_ObjectHideFlags: 0

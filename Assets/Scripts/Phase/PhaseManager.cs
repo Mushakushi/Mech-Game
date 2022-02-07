@@ -6,7 +6,7 @@ using System.Linq;
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { Intro, Boss, Boss_Collapse, Player, Dialogue_Pre, Dialogue_Post, Multiple }
+public enum Phase { Intro, Boss, Boss_Collapse, Boss_Defeat, Player, Dialogue_Pre, Dialogue_Post, Multiple }
 
 /// <summary>
 /// Manages the phase behavior of every child phase controller

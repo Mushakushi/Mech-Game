@@ -95,15 +95,24 @@ public class Player : Character
 
         //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Player Attack"));
 
-        return new Phase[]{ Phase.Player, Phase.Boss }; 
+        return new Phase[]{ Phase.Player, Phase.Boss, Phase.Boss_Defeat }; 
     }
 
     protected override void PhaseEnterBehavior()
     {
-        if (this.GetManagerPhase() == Phase.Player)
+        switch (this.GetManagerPhase())
         {
-            canAttack = true;
-            EnableHitbox();
+            case Phase.Player:
+                canAttack = true;
+                EnableHitbox();
+                break;
+            case Phase.Boss_Defeat:
+                animator.SetTrigger("Win"); 
+                break;
+            case Phase.Boss:
+            default:
+                break; 
+
         }
     }
 
@@ -124,26 +133,30 @@ public class Player : Character
             returnToIdle = false;
         }
 
-        // input queueing 
-        if (allowQueueAction)
+        if (this.GetManagerPhase() != Phase.Boss_Defeat)
         {
-            if (this.GetManagerPhase() == Phase.Player && canAttack && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None) 
-                && attack.WasPressedThisFrame())
+            // input queueing 
+            if (allowQueueAction)
             {
-                queuedAction = DoAttack();
-            }
-            else if (currentActionType == ACTION_TYPE.Dodge || currentActionType == ACTION_TYPE.None)
-            {
-                if (dodgeLeft.WasPressedThisFrame())
+                if (this.GetManagerPhase() == Phase.Player && canAttack && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None)
+                    && attack.WasPressedThisFrame())
                 {
-                    queuedAction = DoDodge(DODGE_DIRECTION.Left);
+                    queuedAction = DoAttack();
                 }
-                else if (dodgeRight.WasPressedThisFrame())
+                else if (currentActionType == ACTION_TYPE.Dodge || currentActionType == ACTION_TYPE.None)
                 {
-                    queuedAction = DoDodge(DODGE_DIRECTION.Right);
+                    if (dodgeLeft.WasPressedThisFrame())
+                    {
+                        queuedAction = DoDodge(DODGE_DIRECTION.Left);
+                    }
+                    else if (dodgeRight.WasPressedThisFrame())
+                    {
+                        queuedAction = DoDodge(DODGE_DIRECTION.Right);
+                    }
                 }
             }
         }
+        
 
         // run queue
         if (delayCoroutine == null && queuedAction != null)

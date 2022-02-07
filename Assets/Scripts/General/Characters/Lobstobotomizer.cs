@@ -13,4 +13,10 @@ public class Lobstobotomizer : Boss
             3
             ); 
     }
+
+    protected override void OnHealthDeplete()
+    {
+        base.OnHealthDeplete();
+        base.OnHealthDepleteFull(); 
+    }
 }

@@ -97,7 +97,7 @@ public abstract class Boss : Character
 
     protected virtual void OnHealthDepleteFull()
     {
-        
+        this.ExitPhase(Phase.Boss_Defeat); 
     }
 
     

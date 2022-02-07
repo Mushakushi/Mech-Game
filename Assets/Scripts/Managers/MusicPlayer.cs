@@ -26,14 +26,17 @@ public class MusicPlayer : MonoBehaviour
     void Start()
     {
         source = GetComponent<AudioSource>(); 
-        Play(loop, intro); 
+        PlayBGM(loop, intro); 
     }
 
     /// <summary>
     /// Plays looping audio with optional intro
     /// </summary>
-    public static void Play(AudioClip loop, AudioClip intro = null)
+    public static void PlayBGM(AudioClip loop, AudioClip intro = null)
     {
+        // Stop current audio
+        source.Stop(); 
+
         // If there is no intro, use the loop as one
         if (!intro) intro = loop;
 
@@ -45,4 +48,9 @@ public class MusicPlayer : MonoBehaviour
         source.clip = loop;
         source.PlayScheduled(AudioSettings.dspTime + intro.length);
     }
+
+    /// <summary>
+    /// Plays looping audio
+    /// </summary>
+    public static void Play(AudioClip audio) => PlayBGM(audio); 
 }
