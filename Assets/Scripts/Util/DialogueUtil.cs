@@ -4,27 +4,23 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using static TranslatableTextManager;
 
 public static class DialogueUtil
 {
-    public static BossDialogue loadedDialogue;
+    public static BossDialogueObject loadedDialogue;
 
     /// <summary>
-    /// Load the dialogue of <paramref name="boss"/> from file.
+    /// Load the dialogue of a boss using its name from file.
     /// </summary>
-    /// <param name="fileName">Name of file to load dialogue from.</param>
-    /// <param name="language">Language to use.</param>
-    public static void LoadDialogue(string fileName, LANGUAGE language)
+    /// <param name="bossName">Name of boss to load dialogue for.</param>
+    public static void LoadDialogue(string bossName)
     {
-        string filePath = $"Dialogue/{fileName}/{language.ToString().ToLower()}";
-        try
+        string filePath = $"Dialogue/{bossName}";
+        loadedDialogue = (BossDialogueObject) Resources.Load(filePath, typeof(BossDialogueObject));
+        if (loadedDialogue == null)
         {
-            loadedDialogue = (BossDialogue) Resources.Load(filePath, typeof(BossDialogue));
-        }
-        catch
-        {
-            loadedDialogue = new BossDialogue();
-            Debug.LogError($"Missing file Assets/Resources/{filePath}.txt or file is malformed! File load failed.");
+            throw new Exception($"Missing file Assets/Resources/{filePath}.txt or file is malformed! File load failed.");
         }
     }
 
@@ -36,7 +32,7 @@ public static class DialogueUtil
     public static DialogueLine GetDialogueLine(int index)
     {
         // needs some error checking for out of bounds, also might want to add support for repeating phrases
-        DialogueLine line = loadedDialogue.dialogueLines[index];
+        DialogueLine line = loadedDialogue.GetTranslationIn(GetGameLang())[index];
         if (line.portraitOverride == null)
         {
             line.portraitOverride = loadedDialogue.defaultPortrait;
@@ -46,12 +42,22 @@ public static class DialogueUtil
     }
 
     #region SUBCLASSES
-    [System.Serializable]
-    public enum LANGUAGE
+
+    [Serializable]
+    public struct TranslatableDialogue
     {
-        English, 
-        [InspectorName("toki pona")]TokiPona, 
-        Debug
+        public readonly LANGUAGE language;
+        #if UNITY_EDITOR
+        [SerializeField] [ReadOnly] private string languageName;
+        #endif
+        [SerializeField] public List<DialogueLine> dialogueLines;
+
+        public TranslatableDialogue(LANGUAGE language)
+        {
+            this.language = language;
+            dialogueLines = new List<DialogueLine>();
+            languageName = language.ToString();
+        }
     }
 
     [System.Serializable]

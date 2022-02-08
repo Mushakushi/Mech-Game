@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static BossDialogue;
+using static TranslatableTextManager;
 using static DialogueUtil;
 
 public class DialogueController : MonoBehaviour, IPhaseController
 {
     private int dialogueStage = 0;
-    private LANGUAGE language = LANGUAGE.English;
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private RawImage portrait;
     [SerializeField] private Animator animator;
@@ -29,7 +28,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     /// </summary>
     public void OnStart()
     {
-        SetLanguage(LANGUAGE.English);
+        //SetGameLang(LANGUAGE.English);
         InitializeBossDialogue(BattleGroupManager.level.name);
     }
 
@@ -48,21 +47,12 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void OnPhaseExit() { }
 
     /// <summary>
-    /// Set all in-game dialogue to use the language <paramref name="lang"/>.
-    /// </summary>
-    /// <param name="lang">Language to use.</param>
-    public void SetLanguage(LANGUAGE lang)
-    {
-        language = lang;
-    }
-
-    /// <summary>
     /// Reset dialogue stage and load <paramref name="fileName"/> dialogue.
     /// </summary>
     public void InitializeBossDialogue(string fileName)
     {
         dialogueStage = 0;
-        LoadDialogue(fileName, language);
+        LoadDialogue(fileName);
     }
 
     /// <summary>

@@ -1,7 +1,0 @@
-LobstobotomizerLarge|[0.05]this is a section of dialogue[1] [0]example!|
-
-
-// this line uses the portrait LobstobotomizerLarge, 
-// prints the text "this is a section of dialogue" with 0.05s delay between each character,
-// waits 1 second, then prints "example!" instantly.
-// it has no args.
