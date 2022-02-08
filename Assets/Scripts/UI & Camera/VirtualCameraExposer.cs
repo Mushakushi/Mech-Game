@@ -4,10 +4,10 @@ using UnityEngine;
 using Cinemachine; 
 
 /// <summary>
-/// Utility that exposes functions to other classes (i.e. DefaultPhaseEvent)
+/// Utility IPhaseController that exposes functions to other classes
 /// </summary>
 [RequireComponent(typeof(CinemachineVirtualCamera))]
-public class VirtualCameraExposer : MonoBehaviour
+public class VirtualCameraExposer : MonoBehaviour, IPhaseController
 {
     /// <summary>
     /// Virtual camera attached to this GameObject
@@ -17,8 +17,11 @@ public class VirtualCameraExposer : MonoBehaviour
     /// <summary>
     /// Framing transposer attached to this virtual camera
     /// </summary>
-    [SerializeField] [ReadOnly] private CinemachineFramingTransposer framingTransposer; 
+    [SerializeField] [ReadOnly] private CinemachineFramingTransposer framingTransposer;
 
+    public int group { get; set; }
+
+    public Phase activePhase => Phase.All; 
 
     private void Awake()
     {
@@ -30,7 +33,7 @@ public class VirtualCameraExposer : MonoBehaviour
     /// Sets follow target to <paramref name="target"/>
     /// </summary>
     /// <param name="target">Follow target transform</param>
-    public void SetFollowTarget(Transform target) => virtualCamera.m_Follow = target; 
+    public void SetFollowTarget(Transform target) => virtualCamera.m_Follow = target;
 
     /// <summary>
     /// Sets follow target to the battle group's boss
@@ -57,5 +60,27 @@ public class VirtualCameraExposer : MonoBehaviour
     /// <summary>
     /// Sets follow target offset to Vector3.zero
     /// </summary>
-    public void ResetFollowTargetOffset() => SetFollowTargetOffset(Vector2.zero); 
+    public void ResetFollowTargetOffset() => SetFollowTargetOffset(Vector2.zero);
+
+    public void OnStart()
+    {
+        SetFollowTarget(this.GetManager().boss.transform); 
+    }
+
+    public void OnPhaseEnter()
+    {
+        Phase p = this.GetManagerPhase();
+
+        if (p == Phase.Dialogue_Pre || p == Phase.Dialogue_Post)
+            SetFollowTargetOffsetY(0.125f);
+        else if (p == Phase.Player_Win)
+            SetFollowTarget(this.GetManager().player.transform); 
+    }
+
+    public void OnPhaseUpdate() { }
+
+    public void OnPhaseExit()
+    {
+        ResetFollowTargetOffset(); 
+    }
 }

@@ -6,12 +6,18 @@ using UnityEngine.UI;
 
 public abstract class Boss : Character
 {
+    [Header("Boss Stats")]
     /// <summary> 
     /// Amount of times hp must be depleted for defeat
     /// </summary>
-    [SerializeField] public int healthBars; 
+    public int maxHealthBars;
 
-    [Header("UI")]
+    /// <summary>
+    /// Current count of health bars
+    /// </summary>
+    public int healthBars; 
+
+    [Header("Boss UI")]
     /// <summary>
     /// Slider UI Component in scene that this object controls
     /// </summary>
@@ -26,15 +32,10 @@ public abstract class Boss : Character
         health = maxHealth;
         damage = data.damage;
         resistance = data.resistance;
-        healthBars = data.healthBars;
+        maxHealthBars = data.maxHealthBars;
+        healthBars = maxHealthBars; 
 
         return new Phase[] { Phase.Boss }; 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     /// <summary>
@@ -65,20 +66,30 @@ public abstract class Boss : Character
     /// </summary>
     protected override void OnHealthDeplete()
     {
-        this.ExitPhase(Phase.Boss_Collapse); 
-        health = maxHealth;
+        this.SwitchPhase(Phase.Boss_Collapse);
+        healthBars--;
+        health = maxHealth / (maxHealthBars - healthBars + 1); 
 
-        animator.SetTrigger("Collapse"); 
+        animator.SetTrigger("Collapse");
+
+        animator.ResetTrigger("GetHit");
+        int shakes = HealthConversion.ConvertBarsToCount(healthBars, maxHealthBars);
+        if (shakes == 0)
+        {
+            animator.SetTrigger("KO");
+            OnHealthDepleteFull();
+        }
+        animator.SetInteger("ShakesLeft", shakes);
     }
 
-    protected virtual void OnHealthRegain()
+    public virtual void OnRecover()
     {
         RefreshSlider();
     }
 
-    protected virtual void OnHealthDepleteFull()
+    public virtual void OnHealthDepleteFull()
     {
-        this.ExitPhase(Phase.Boss_Defeat); 
+        this.SwitchPhase(Phase.Player_Win); 
     }
 
     

@@ -8,8 +8,8 @@ public struct BossData
     [SerializeField] public readonly float maxHealth;
     [SerializeField] public float damage;
     [SerializeField] public float resistance;
-    [SerializeField] public Phase targetPhase;
-    [SerializeField] public int healthBars;
+    [SerializeField] public Phase activePhase;
+    [SerializeField] public int maxHealthBars;
 
     /// <summary>
     /// Initializes boss data
@@ -18,16 +18,16 @@ public struct BossData
     /// <param name="maxHealth">Maximum health</param>
     /// <param name="damage">Damage given to other Hurtboxes</param>
     /// <param name="resistance">Damage modifier against Hitboxes</param>
-    /// <param name="targetPhase">Phase that follows the boss phase</param>
-    /// <param name="healthBars">Amount of times health bar must be depleted to be defeated</param>
+    /// <param name="activePhase">Phase (or PhaseGroup) wherein this boss is active</param>
+    /// <param name="maxHealthBars">Amount of times health bar must be depleted to be defeated</param>
     public BossData(string name, float maxHealth, float damage, float resistance, 
-        Phase targetPhase, int healthBars)
+        Phase activePhase, int maxHealthBars)
     {
         this.name = name;
         this.maxHealth = maxHealth;
         this.damage = damage;
         this.resistance = resistance;
-        this.targetPhase = targetPhase;
-        this.healthBars = healthBars;
+        this.activePhase = activePhase;
+        this.maxHealthBars = maxHealthBars;
     }
 }

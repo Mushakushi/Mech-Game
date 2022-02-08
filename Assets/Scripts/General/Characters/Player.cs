@@ -93,7 +93,7 @@ public class Player : Character
 
         //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Player Attack"));
 
-        return new Phase[]{ Phase.Player, Phase.Boss, Phase.Boss_Defeat }; 
+        return new Phase[]{ Phase.Player, Phase.Boss, Phase.Player_Win }; 
     }
 
     protected override void PhaseEnterBehavior()
@@ -104,7 +104,7 @@ public class Player : Character
                 attack.Enable();
                 EnableHitbox();
                 break;
-            case Phase.Boss_Defeat:
+            case Phase.Player_Win:
                 animator.SetTrigger("Win"); 
                 break;
             case Phase.Boss:
@@ -123,7 +123,7 @@ public class Player : Character
 
     protected override void PhaseUpdateBehavior() 
     {
-        if (this.GetManagerPhase() != Phase.Boss_Defeat)
+        if (this.GetManagerPhase() != Phase.Player_Win)
         {
             // input queueing 
             if (allowQueueAction)

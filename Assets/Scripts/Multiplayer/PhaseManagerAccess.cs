@@ -5,17 +5,23 @@ using UnityEngine;
 public static class PhaseManagerAccess
 {
     /// <summary>
+    /// Gets the phase manager associated with <paramref name="group"/>
+    /// </summary>
+    /// <param name="group">The group of the phase manager</param>
+    /// <returns>The PhaseManager associated with this <paramref name="group"/></returns>
+    public static PhaseManager GetManager(int group)
+    {
+        if (group < 0 || group >= BattleGroupManager.phaseManagers.Count)
+                throw new System.Exception($"Group {group} is out of bounds!");
+        return BattleGroupManager.phaseManagers[group];
+    }
+
+    /// <summary>
     /// Gets the phase manager associated with this <paramref name="controller"/>
     /// </summary>
     /// <param name="controller">The controller</param>
     /// <returns>The PhaseManager associated with this <paramref name="controller"/></returns>
-    public static PhaseManager GetManager(this IPhaseController controller)
-    {
-        if (controller.group < 0 || controller.group >= BattleGroupManager.phaseManagers.Count)
-            throw new System.Exception($"Controller {controller.GetType()}'s group, " +
-                $"{controller.group}, is out of bounds!"); 
-        return BattleGroupManager.phaseManagers[controller.group];
-    }
+    public static PhaseManager GetManager(this IPhaseController controller) => GetManager(controller.group);
 
     /// <summary>
     /// Gets the phase associated with this <paramref name="controller"/>'s manager
@@ -38,7 +44,7 @@ public static class PhaseManagerAccess
     /// Exits the current phase in group to <paramref name="targetPhase"/> phase, interrupting the current flow
     /// </summary>
     /// <param name="controller">The controller</param>
-    public static void ExitPhase(this IPhaseController controller, Phase targetPhase)
+    public static void SwitchPhase(this IPhaseController controller, Phase targetPhase)
     {
         Debug.LogError($"{controller.GetManagerPhase()} phase exited to {targetPhase} phase by {controller.gameObject.name}");
         GetManager(controller).ExitPhase(targetPhase);
