@@ -29,11 +29,7 @@ public class Jario : MonoBehaviour, IPhaseController
     public void OnPhaseEnter()
     {
         animator.SetTrigger("Count");
-        int count;
-        if (this.GetManagerPhase() == Phase.Intro) count = 3;
-        else count = 10;
-
-        animator.SetInteger("CountLeft", count-1); // count-1 or he'll count one more time than you want him to
+        animator.SetInteger("CountLeft", HealthConversion.ConvertBarsToCount(this.GetManager().boss.healthBars, this.GetManager().boss.maxHealthBars));
     }
 
     public void OnPhaseUpdate() { }

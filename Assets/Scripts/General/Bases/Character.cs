@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator), typeof(BoxCollider2D))]
 public abstract class Character : MonoBehaviour, IPhaseController
 {
-    [Header("Stats")]
+    [Header("Character Stats")]
     /// <summary>
     /// Name of this Character
     /// </summary>
@@ -48,13 +48,13 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// </summary>
     public int group { get; set; }
 
-    [Header("UI and Animation")]
+    [Header("Animation")]
     /// <summary> 
     /// First animator attached to any child object
     /// </summary>
     public Animator animator; 
 
-    [Space()]
+    [Header("Colliders")]
     /// <summary>
     /// First Box2D Hitbox attached to any child object (should be hitbox)
     /// </summary>
@@ -65,6 +65,7 @@ public abstract class Character : MonoBehaviour, IPhaseController
     /// </summary>
     [SerializeField] protected BoxCollider2D hurtbox;
 
+    [Space]
     /// <summary>
     /// Is a hitbox colliding with this hurtbox?
     /// </summary>
