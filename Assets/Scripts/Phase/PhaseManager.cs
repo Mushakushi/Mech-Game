@@ -6,7 +6,7 @@ using System.Linq;
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { Intro, Boss, Boss_Collapse, Boss_Defeat, Player, Dialogue_Pre, Dialogue_Post, Multiple }
+public enum Phase { All, Intro, Boss, Boss_Collapse, Player, Player_Win, Dialogue_Pre, Dialogue_Post, PhaseGroup }
 
 /// <summary>
 /// Manages the phase behavior of every child phase controller
@@ -21,19 +21,9 @@ public class PhaseManager : MonoBehaviour
     public int group { get; private set; }
 
     [Header("Required References")]
-    /// <summary>
-    /// Boss in battle
-    /// </summary>
+    [ReadOnly] public VirtualCameraExposer cameraExposer; 
     [ReadOnly] public Boss boss;
-
-    /// <summary>
-    /// Player in battle 
-    /// </summary>
     [ReadOnly] public Player player;
-
-    /// <summary>
-    /// THE ref
-    /// </summary>
     [ReadOnly] public Jario jario;
 
     /// <summary>
@@ -71,87 +61,6 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     [SerializeField] private List<DefaultPhaseEvent> defaultPhaseEvents = new List<DefaultPhaseEvent>();
 
-    #region DEFAULT PHASE EVENTS CLASS
-    // IMPORTANT - make sure you save to version control when REFACTORING because changing Unity's
-    // reserialization can actually delete all of the events without undo! 
-    // Please don't be like me :) (really be careful...)
-
-    /// <summary>
-    /// Phase Controller that publishes events
-    /// </summary>
-    [System.Serializable]
-    public sealed class DefaultPhaseEvent : IPhaseController
-    {
-        // only accessible to this class doesn't matter what this is
-        [HideInInspector] public GameObject gameObject => null;
-
-        /// <summary>
-        /// The group this controller belongs to
-        /// </summary>
-        public int group { get; set; }
-
-        /// <summary>
-        /// Phase(s) in which this gameObject belongs to
-        /// </summary>
-        [SerializeField] public List<Phase> activePhases;
-
-        /// <summary>
-        /// Returns PhaseManager.Phase if activePhases contains PhaseManager.Phase. Phase.Invalid otherwise
-        /// </summary>
-        [HideInInspector] public Phase activePhase { get => this.GetPhaseFromCollection(activePhases); }
-
-        [Header("OnPhaseEnter()")]
-        /// <summary>
-        /// Event associated with Phase enter
-        /// </summary>
-        [SerializeField] private PhaseEnter phaseEnter = new PhaseEnter { };
-        [System.Serializable] private class PhaseEnter : UnityEvent { }
-
-        [Header("OnPhaseUpdate()")]
-        /// <summary>
-        /// Event associated with Phase update
-        /// </summary>
-        [SerializeField] private PhaseUpdate phaseUpdate = new PhaseUpdate { };
-        [System.Serializable] private class PhaseUpdate : UnityEvent { }
-
-        [Header("OnPhaseExit()")]
-        /// <summary>
-        /// Event associated with Phase exit
-        /// </summary>
-        [SerializeField] private PhaseExit phaseExit = new PhaseExit { };
-        [System.Serializable] private class PhaseExit : UnityEvent { }
-
-        /// <summary>
-        /// What happens when this controller is added as a default Phase event
-        /// </summary>
-        public void OnStart() { }
-
-        /// <summary>
-        /// Sets enter trigger
-        /// </summary>
-        public void OnPhaseEnter()
-        {
-            phaseEnter.Invoke();
-        }
-
-        /// <summary>
-        /// Sets update trigger
-        /// </summary>
-        public void OnPhaseUpdate()
-        {
-            phaseUpdate.Invoke();
-        }
-
-        /// <summary>
-        /// Sets exit trigger
-        /// </summary>
-        public void OnPhaseExit()
-        {
-            phaseExit.Invoke();
-        }
-    }
-    #endregion
-
     /// <summary>
     /// Initializes this group and gets every phase controller child
     /// </summary>
@@ -160,44 +69,46 @@ public class PhaseManager : MonoBehaviour
         // Set group index 
         group = 0; 
 
-        // Add default phase events 
-        foreach (DefaultPhaseEvent e in defaultPhaseEvents) AddPhaseController(e);
+        // Get phase controller(s) attached to this object
+        foreach (IPhaseController controller in GetComponents<IPhaseController>()) controllers.Add(controller);
 
-        // Get phase controller attached to this object
-        if (GetComponent<IPhaseController>() is IPhaseController selfController)
-        {
-            controllers.Add(selfController);
-            selfController.OnStart();
-        }
-
-        // Get all child phase controllers
+        // Get all child phase controller(s)
         foreach (Transform child in GetAllChildren(transform))
         {
             if (child.GetComponent<IPhaseController>() is IPhaseController controller)
             {
                 controllers.Add(controller);
-                controller.OnStart();
 
                 // Save required controllers
                 switch (child.tag)
                 {
+                    case "MainCamera":
+                        cameraExposer = controller as VirtualCameraExposer;
+                        break; 
                     case "Boss":
-                        boss = (Boss)controller; 
+                        boss = controller as Boss; 
                         break;
                     case "Player":
-                        player = (Player)controller;
+                        player = controller as Player;
                         break;
                     case "Jario":
-                        jario = (Jario)controller;
+                        jario = controller as Jario;
                         break; 
                 }
             }
-        } 
+        }
 
         // Check for required controllers in scene
+        if (!cameraExposer) Debug.LogError("Could not find child virtual camera tagged \"MainCamera\" with a VirtualCameraExposer script!");
         if (!boss) Debug.LogError("Could not find child GameObject tagged \"Boss\" with a Boss component!");
         if (!player) Debug.LogError("Could not find child GameObject tagged \"Player\" with a Player component!");
         if (!jario) Debug.LogError("You cannot escape Jario. Please add him to your list of dependents!");
+
+        // Add default phase events
+        foreach (DefaultPhaseEvent e in defaultPhaseEvents) AddRuntimePhaseController(e);
+
+        // Start all child phase controller(s)
+        foreach (IPhaseController controller in controllers) controller.OnStart();
 
         // Start phase
         EnterPhase(Phase.Intro); 
@@ -231,7 +142,7 @@ public class PhaseManager : MonoBehaviour
     /// Add phase controller to PhaseManager during runtime
     /// </summary>
     /// <param name="controller">Controller to add</param>
-    public void AddPhaseController(IPhaseController controller)
+    public void AddRuntimePhaseController(IPhaseController controller)
     {
         controllers.Add(controller);
         controller.group = group; 
@@ -256,7 +167,7 @@ public class PhaseManager : MonoBehaviour
     /// think of this as a private delegate
     private bool TrySubscribePhaseController(IPhaseController controller)
     {
-        if (controller.activePhase == phase)
+        if (controller.activePhase == phase || controller.activePhase == Phase.All)
         {
             activeControllers.Add(controller);
             controller.OnPhaseEnter();
@@ -314,7 +225,7 @@ public class PhaseManager : MonoBehaviour
             case Phase.Dialogue_Post:
                 EnterPhase(Phase.Player);
                 break;
-            case Phase.Multiple:
+            case Phase.PhaseGroup:
             default:
                 Debug.LogError("Phase switch is invalid!");
                 break; 
