@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class TranslatableTextManager
 {
-    private static LANGUAGE gameLanguage = LANGUAGE.TokiPona;
+    private static LANGUAGE gameLanguage = LANGUAGE.English;
     private static List<TranslatableTextComponent> textComponents = new List<TranslatableTextComponent>();
 
     /// <summary>

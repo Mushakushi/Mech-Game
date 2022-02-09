@@ -12,7 +12,7 @@ public static class HealthConversion
     /// <returns></returns>
     public static int ConvertBarsToCount(int current, int maximum)
     {
-        if (current == 0) return 0; // defeated
+        if (current == 0) return -1; // defeated
         else if (current == 1) return 9; // one left
         else if (current <= maximum / 2) return 8; // less than or equal to half
         else if (current < maximum) return 5; // less than maximum

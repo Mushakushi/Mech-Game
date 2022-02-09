@@ -1663,7 +1663,29 @@ MonoBehaviour:
   _phase: 0
   _controllers: []
   _activeControllers: []
-  defaultPhaseEvents: []
+  defaultPhaseEvents:
+  - activePhases: 05000000
+    phaseEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1822394560}
+          m_TargetAssemblyTypeName: MusicPlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: b02245e3142efbf41aba6894145fff50, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    phaseUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    phaseExit:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &3974684209669371680
 MonoBehaviour:
   m_ObjectHideFlags: 0

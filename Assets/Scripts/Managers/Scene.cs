@@ -11,6 +11,7 @@ public static class Scene
     /// <returns></returns>
     public static IEnumerator Load(string name)
     {
+        Debug.Log($"Start scene {name} load"); 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name);
 
         // Wait until the asynchronous scene fully loads

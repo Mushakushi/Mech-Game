@@ -70,17 +70,16 @@ public abstract class Boss : Character
         this.SwitchPhase(Phase.Boss_Collapse);
         healthBars--;
         health = maxHealth / (maxHealthBars - healthBars + 1); 
-
-        animator.SetTrigger("Collapse");
-
-        animator.ResetTrigger("GetHit");
-        int shakes = HealthConversion.ConvertBarsToCount(healthBars, maxHealthBars);
-        if (shakes == 0)
+        
+        int shakes = HealthConversion.ConvertBarsToCount(healthBars, maxHealthBars) + 1;
+        if (shakes <= 0)
         {
-            animator.SetTrigger("KO");
             OnHealthDepleteFull();
         }
+
         animator.SetInteger("ShakesLeft", shakes);
+        animator.ResetTrigger("GetHit");
+        animator.SetTrigger("Collapse");
     }
 
     public virtual void OnRecover()

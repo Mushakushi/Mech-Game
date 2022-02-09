@@ -47,7 +47,7 @@ public static class PhaseManagerAccess
     public static void SwitchPhase(this IPhaseController controller, Phase targetPhase)
     {
         Debug.LogError($"{controller.GetManagerPhase()} phase exited to {targetPhase} phase by {controller.gameObject.name}");
-        GetManager(controller).ExitPhase(targetPhase);
+        GetManager(controller).SwitchPhase(targetPhase);
     }
 
     /// <summary>

@@ -238,7 +238,7 @@ public class PhaseManager : MonoBehaviour
     /// Exits the current phase and switches to <paramref name="targetPhase"/> phase, interrupting the current flow
     /// </summary>
     /// <remarks>Phases only change when this function is called in an IPhaseController</remarks>
-    public void ExitPhase(Phase targetPhase)
+    public void SwitchPhase(Phase targetPhase)
     {
         UnsubscribeAll(); 
         EnterPhase(targetPhase);
