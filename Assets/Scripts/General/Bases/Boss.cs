@@ -50,6 +50,7 @@ public abstract class Boss : Character
     public override void OnHitboxEnter(float damage)
     {
         base.OnHitboxEnter(damage);
+        new ScoreData(timesBossHit: 1).AddToPlayerScore(group);
         RefreshSlider(); 
     }
 

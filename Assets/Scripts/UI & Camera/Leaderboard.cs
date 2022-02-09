@@ -17,7 +17,7 @@ public class Leaderboard : MonoBehaviour
     {
         for (int i = 0; i < 11; i++)
         {
-            leaderboard.TryAdd(new LeaderboardEntryData("----", new ScoreData(10-i, 1f, 0f)));
+            leaderboard.TryAdd(new LeaderboardEntryData("----", new ScoreData()));
         }
     }
 

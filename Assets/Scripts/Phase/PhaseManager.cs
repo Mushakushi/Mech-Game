@@ -67,7 +67,9 @@ public class PhaseManager : MonoBehaviour
     void Start()
     {
         // Set group index 
-        group = 0; 
+        group = 0;
+
+        ScoreUtil.CreatePlayerScore(group);
 
         // Get phase controller(s) attached to this object
         foreach (IPhaseController controller in GetComponents<IPhaseController>()) controllers.Add(controller);

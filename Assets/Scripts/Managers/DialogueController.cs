@@ -12,6 +12,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private RawImage portrait;
     [SerializeField] private Animator animator;
+    [SerializeField] private BossDialogueObject loadedDialogue;
 
     /// <summary>
     /// Returns Phase.Dialogue_Pre or Phase.Dialogue_Post depending on PhaseManager.phase
@@ -52,7 +53,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void InitializeBossDialogue(string fileName)
     {
         dialogueStage = 0;
-        LoadDialogue(fileName);
+        loadedDialogue = LoadDialogue(fileName);
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     /// </summary>
     public void DisplayNextLine()
     {
-        DialogueLine line = GetDialogueLine(dialogueStage);
+        DialogueLine line = loadedDialogue.GetDialogueLine(dialogueStage);
         //dialogueStage++;
         StartCoroutine(DisplayNextLineCoroutine(line));
     }

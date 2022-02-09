@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+[Serializable]
 public struct ScoreData
 {
     // TODO - what do we want to store for score display?
@@ -18,32 +19,39 @@ public struct ScoreData
     /// </summary>
     public float levelCompleteTime;
     /// <summary>
-    /// How much damage the player took.
+    /// How much damage the player has taken.
     /// </summary>
     public float damageTaken;
-
     /// <summary>
-    ///
+    /// Times the player has hit the boss.
     /// </summary>
-    /// <param name="fullScore">Full score achieved by player.</param>
-    /// <param name="levelCompleteTime">Time that it took the player to beat the level.</param>
-    /// <param name="damageTaken">How much damage the player took.</param>
-    public ScoreData(int fullScore, float levelCompleteTime, float damageTaken)
+    public int timesBossHit;
+
+
+
+    public ScoreData(float levelCompleteTime = 0f, float damageTaken = 0f, int timesBossHit = 0)
     {
-        this.fullScore = fullScore;
         this.levelCompleteTime = levelCompleteTime;
         this.damageTaken = damageTaken;
+        this.timesBossHit = timesBossHit;
+
+
+        fullScore = -1; // TODO - make this actually calculate the full score
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="levelCompleteTime">Time that it took the player to beat the level.</param>
-    /// <param name="damageTaken">How much damage the player took.</param>
-    public ScoreData(float levelCompleteTime, float damageTaken)
+
+    public static ScoreData operator+(ScoreData a, ScoreData b)
     {
-        this.levelCompleteTime = levelCompleteTime;
-        this.damageTaken = damageTaken;
-        this.fullScore = 0; // TODO - make this actually calculate the full score
+        ScoreData data = new ScoreData();
+        data.levelCompleteTime = a.levelCompleteTime > b.levelCompleteTime ? a.levelCompleteTime : b.levelCompleteTime;
+        data.damageTaken = a.damageTaken + b.damageTaken;
+        data.timesBossHit = a.timesBossHit + b.timesBossHit;
+
+        return data;
+    }
+
+    public void CalculateFullScore()
+    {
+        fullScore = 1; // calculation here
     }
 }

@@ -8,20 +8,20 @@ using static TranslatableTextManager;
 
 public static class DialogueUtil
 {
-    public static BossDialogueObject loadedDialogue;
-
     /// <summary>
     /// Load the dialogue of a boss using its name from file.
     /// </summary>
     /// <param name="bossName">Name of boss to load dialogue for.</param>
-    public static void LoadDialogue(string bossName)
+    public static BossDialogueObject LoadDialogue(string bossName)
     {
+        BossDialogueObject loadedDialogue;
         string filePath = $"Dialogue/{bossName}";
         loadedDialogue = (BossDialogueObject) Resources.Load(filePath, typeof(BossDialogueObject));
         if (loadedDialogue == null)
         {
             throw new Exception($"Missing file Assets/Resources/{filePath}.txt or file is malformed! File load failed.");
         }
+        return loadedDialogue;
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public static class DialogueUtil
     /// </summary>
     /// <param name="index">Index of the line.</param>
     /// <returns>DialogueLine at <paramref name="index"/>.</returns>
-    public static DialogueLine GetDialogueLine(int index)
+    public static DialogueLine GetDialogueLine(this BossDialogueObject loadedDialogue, int index)
     {
         // needs some error checking for out of bounds, also might want to add support for repeating phrases
         DialogueLine line = loadedDialogue.GetTranslationIn(GetGameLang())[index];
@@ -84,9 +84,9 @@ public static class DialogueUtil
         /// <param name="overflow">Should the line overflow the text box?</param>
         public DialogueLine(List<DialogueSection> sections, Texture2D portrait, bool overflow = false)
         {
-            this.sections = sections;
-            this.portraitOverride = portrait;
+            portraitOverride = portrait;
             this.overflow = overflow;
+            this.sections = sections;
         }
     }
 

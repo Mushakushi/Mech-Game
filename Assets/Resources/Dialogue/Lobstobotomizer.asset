@@ -16,12 +16,17 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
-      - text: Test
-        characterDelay: 0
+      - text: Brbbbblrbblbllbbb!
+        characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
   - languageName: TokiPona
-    dialogueLines: []
+    dialogueLines:
+    - sections:
+      - text: Brbbbblrbblbllbbb!
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
   - languageName: Debug
     dialogueLines: []
-  defaultPortrait: {fileID: 0}
+  defaultPortrait: {fileID: 2800000, guid: 4b8814b80c91f7441b25fd3b22420e05, type: 3}
