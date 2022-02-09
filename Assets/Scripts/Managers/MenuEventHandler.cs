@@ -5,8 +5,5 @@ using UnityEngine;
 
 public class MenuEventHandler : MonoBehaviour
 {
-    public void StartGame()
-    {
-        StartCoroutine(Scene.Load("Battle Scene"));
-    }
+    public void LoadScene(string scene) => StartCoroutine(Scene.Load(scene)); 
 }

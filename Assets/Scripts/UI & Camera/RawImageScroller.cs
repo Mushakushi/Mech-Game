@@ -24,7 +24,7 @@ public class RawImageScroller : MonoBehaviour
     /// <summary>
     /// Vector has direction and magnitude, wow
     /// </summary>
-    private Vector2 vector => -direction.normalized * magnitude; 
+    private Vector2 vector => -direction.normalized * magnitude;  
 
     private void Start()
     {
