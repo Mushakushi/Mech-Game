@@ -16,6 +16,6 @@ public static class HealthConversion
         else if (current == 1) return 9; // one left
         else if (current <= maximum / 2) return 8; // less than or equal to half
         else if (current < maximum) return 5; // less than maximum
-        else return 0; // current >= maximum
+        else return -1; // current >= maximum
     }
 }
