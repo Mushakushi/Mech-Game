@@ -38,7 +38,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     /// </summary>
     public void OnPhaseEnter()
     {
-        Debug.LogError($" line display attempt (stage {dialogueStage})");
+        //Debug.LogError($" line display attempt (stage {dialogueStage})");
         DisplayNextLine();
         
     }

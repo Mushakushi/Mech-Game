@@ -23,6 +23,10 @@ public abstract class Boss : Character
     /// </summary>
     [SerializeField] private Slider healthSlider;
 
+    [Header("Boss Special Weights")]
+    [SerializeField] public List<float> accumulatedWeights;
+    [SerializeField] public float accumulatedWeightSum;
+
     // Start is called before the first frame update 
     protected override IList<Phase> InitializeCharacter()
     {
@@ -33,7 +37,9 @@ public abstract class Boss : Character
         damage = data.damage;
         resistance = data.resistance;
         maxHealthBars = data.maxHealthBars;
-        healthBars = maxHealthBars; 
+        healthBars = maxHealthBars;
+        accumulatedWeights = data.accumulatedWeights;
+        accumulatedWeightSum = data.accumulatedWeightSum;
 
         return new Phase[] { Phase.Boss }; 
     }

@@ -10,6 +10,8 @@ public struct BossData
     [SerializeField] public float resistance;
     [SerializeField] public Phase activePhase;
     [SerializeField] public int maxHealthBars;
+    [SerializeField] public List<float> accumulatedWeights;
+    [SerializeField] public float accumulatedWeightSum;
 
     /// <summary>
     /// Initializes boss data
@@ -20,8 +22,9 @@ public struct BossData
     /// <param name="resistance">Damage modifier against Hitboxes</param>
     /// <param name="activePhase">Phase (or PhaseGroup) wherein this boss is active</param>
     /// <param name="maxHealthBars">Amount of times health bar must be depleted to be defeated</param>
+    /// <param name="specialWeights">List of weights of the boss's special attacks.</param>
     public BossData(string name, float maxHealth, float damage, float resistance, 
-        Phase activePhase, int maxHealthBars)
+        Phase activePhase, int maxHealthBars, List<float> specialWeights)
     {
         this.name = name;
         this.maxHealth = maxHealth;
@@ -29,5 +32,25 @@ public struct BossData
         this.resistance = resistance;
         this.activePhase = activePhase;
         this.maxHealthBars = maxHealthBars;
+
+        // these are needed to stop the thing from yelling at me. oh well
+        accumulatedWeightSum = 0;
+        accumulatedWeights = null;
+        Accumulate(specialWeights);
+    }
+
+    private void Accumulate(List<float> weights)
+    {
+        List<float> result = new List<float>();
+        float accumulatedWeight = 0;
+
+        for (int i = 0; i < weights.Count; i++)
+        {
+            accumulatedWeight += weights[i];
+            result.Insert(i, accumulatedWeight);
+        }
+
+        accumulatedWeightSum = accumulatedWeight;
+        accumulatedWeights = result;
     }
 }
