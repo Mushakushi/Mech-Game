@@ -50,7 +50,7 @@ public class PhaseManager : MonoBehaviour
     [ReadOnly] [InspectorName("Current Phase")] public Phase _phase;
 
     [Space(15f)]
-    [ReadOnly] [SerializeField] [InspectorName("Active Controllers")] private List<GameObject> _controllers;
+    [ReadOnly] [SerializeField] [InspectorName("Controllers")] private List<GameObject> _controllers;
 
     [Space(15f)]
     [ReadOnly] [SerializeField] [InspectorName("Active Controllers")] private List<GameObject> _activeControllers;

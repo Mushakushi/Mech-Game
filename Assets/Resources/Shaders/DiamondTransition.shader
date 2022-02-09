@@ -5,6 +5,7 @@ Shader "Custom/DiamondTransition"
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Progress("Animation Progress", Range(0.0, 1.0)) = 0.0
+		_DiamondSize("Diamond Size", Int) = 10
     }
     SubShader
     {
@@ -25,53 +26,57 @@ Shader "Custom/DiamondTransition"
             // input for vertex shader 
             struct appdata
             {
-                float4 vertex : POSITION; // vertex position 
-                float2 uv : TEXCOORD0; // texture coordinate 
+				float4 vertex : POSITION; // vertex position input
+				float2 uv : TEXCOORD0; // texture coordinate input
             }; 
 
             // input for vertex shader to fragment shader
-            struct v2f
-            {
-                float4 pos : SV_POSITION;  // clip space position 
-                float2 uv : TEXCOORD0; // texture coordinate 
-                float4 screenPos : TEXCOOR1; // screen position of pixel 
-            }; 
+			struct v2f {
+				float2 uv : TEXCOORD0;
+			};
 
             // vertex shader
-            v2f vert (appdata i)
+            v2f vert (appdata i, out float4 outpos : SV_POSITION /*clip space position output*/)
             {
-                v2f o; // output 
-                o.pos = UnityObjectToClipPos (i.vertex); 
-                o.uv = i.uv; 
-                o.screenPos = ComputeScreenPos(o.pos); 
-                return o; 
+				v2f o;
+				o.uv = i.uv;
+				outpos = UnityObjectToClipPos(i.vertex);
+				return o;
             }
 
             // animate the shader based on progress
-            uniform float progress;  
+            uniform float _Progress;  
 
             // size of diamond in pixels
-            uniform float diamondSize = 10; 
+            uniform float _DiamondSize = 10; 
+
+			// color of texture 
+			uniform fixed4 _Color; 
 
             // fragment shader 
-            float4 frag (v2f i) : SV_TARGET // states that this function returns only one value
+			fixed4 frag(v2f i, UNITY_VPOS_TYPE screenPos : VPOS) : SV_Target
             {
-                float xFraction = frac(i.screenPos.x / diamondSize); // returns fraction of column pixel is in (positive)
-                float yFraction = frac(i.screenPos.y / diamondSize); // returns fraction of row pixel is in (positive)
+                float xFraction = frac(screenPos.x / _DiamondSize); // returns fraction of column pixel is in (positive)
+                float yFraction = frac(screenPos.y / _DiamondSize); // returns fraction of row pixel is in (positive) 
 
-                // 0 <= (xFraction + yFraction) < 2 always
-                // bottom left is 0 top right is the closest you can get to 2
-                // if pixel has reached progress discard it 
-                /*if (xFraction + yFraction > progress * 2)
+				float xDistance = abs(xFraction - 0.5); // manhattan distance of xFraction to the midpoint 
+				float yDistance = abs(yFraction - 0.5); // manhattan distance of yFraction to the midpoint 
+
+                // bottom left sum is 0 top right sum is the closest you can get to 2
+				// 0 <= (xFraction + yFraction) < 2 always, multiply progress by 2
+				// offset total sum by uv.xy for diagonal sweep
+				// 0 <= i.uv.xy <= 2, multiply progress by 2, again 
+                // exclude pixels with sum greater than progress
+                if (xDistance + yDistance + i.uv.x + i.uv.y < _Progress * 4)
                 {
-                    discard; 
-                }*/
+					discard; // don't render this pixel 
+                }
 
-                return 0; // draw if not discarded
+				// TODO - Pixelate result 
+
+                return _Color; // draw pixel
             }
             ENDCG
         }
     }
 }
-
-// read : https://docs.unity3d.com/Manual/SL-ShaderSemantics.html?_ga=2.251543426.541076280.1644425229-537311678.1631294492
