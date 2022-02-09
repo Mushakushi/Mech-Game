@@ -4,35 +4,30 @@ using UnityEngine;
 
 public class BossPhaseEnterBehavior : StateMachineBehaviour
 {
-    /// <summary>
-    /// List of weights for Special Attacks. Count should not exceed number of special attacks.
-    /// </summary>
-    [SerializeField] private List<int> SpecialAttackWeights { get; set; }
+    private Boss boss;
 
     /// <summary>
     /// Selects special for current phase based on weights
     /// </summary>
-    public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
-        /*if (animator.GetBool("EnterPhase"))
+        animator.SetInteger("SpecialIndex", 2);
+        return; // temp
+        if (boss == null)
         {
-            int weightSum = 0;
-            for (int i = 0; i < SpecialAttackWeights.Count; i++)
-            {
-                weightSum += SpecialAttackWeights[i];
-            }
-            int rand = Random.Range(0, weightSum);
-            for (int i = 0; i < SpecialAttackWeights.Count; i++)
-            {
-                if (rand < SpecialAttackWeights[i])
-                {
-                    animator.SetInteger("SpecialIndex", i + 1);
-                }
+            boss = animator.gameObject.GetComponent<Boss>();
+        }
+        List<float> accumulatedWeights = boss.accumulatedWeights;
+        float accumulatedWeightSum = boss.accumulatedWeightSum;
 
-                rand -= SpecialAttackWeights[i];
+        double rand = Random.Range(0, accumulatedWeightSum);
+        for (int i = 0; i < accumulatedWeights.Count; i++)
+        {
+            if (rand <= accumulatedWeights[i])
+            {
+                animator.SetInteger("SpecialIndex", i + 1);
+                return;
             }
-        }*/
-
-        animator.SetInteger("SpecialIndex", 1);
+        }
     }
 }
