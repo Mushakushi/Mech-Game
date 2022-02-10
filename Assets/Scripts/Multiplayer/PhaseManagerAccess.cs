@@ -37,7 +37,7 @@ public static class PhaseManagerAccess
     public static void ExitPhase(this IPhaseController controller)
     {
         Debug.LogError($"{controller.GetManagerPhase()} phase exited by {controller.gameObject.name}"); 
-        GetManager(controller).ExitPhase();
+        GetManager(controller).SwitchPhase();
     }
 
     /// <summary>
@@ -56,4 +56,9 @@ public static class PhaseManagerAccess
     /// <param name="controller">The controller</param>
     /// <returns>Boss's transform</returns>
     public static Transform GetBossTransform(this IPhaseController controller) => GetManager(controller).boss.transform;
+
+    /// <summary>
+    /// Get UIShaderOverlay associated with this <paramref name="controller"/>'s group
+    /// </summary>
+    public static UIShaderOverlay GetUIShaderOverlay(this IPhaseController controller) => GetManager(controller).uiShaderOverlay; 
 }

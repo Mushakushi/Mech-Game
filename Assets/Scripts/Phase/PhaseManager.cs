@@ -6,7 +6,7 @@ using System.Linq;
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { All, Intro, Boss, Boss_Collapse, Player, Player_Win, Dialogue_Pre, Dialogue_Post, PhaseGroup }
+public enum Phase { All, Intro, Boss, Boss_Guard, Boss_Collapse, Player, Player_Win, Dialogue_Pre, Dialogue_Post, PhaseGroup }
 
 /// <summary>
 /// Manages the phase behavior of every child phase controller
@@ -21,7 +21,8 @@ public class PhaseManager : MonoBehaviour
     public int group { get; private set; }
 
     [Header("Required References")]
-    [ReadOnly] public VirtualCameraExposer cameraExposer; 
+    [ReadOnly] public VirtualCameraExposer cameraExposer;
+    [ReadOnly] public UIShaderOverlay uiShaderOverlay; 
     [ReadOnly] public Boss boss;
     [ReadOnly] public Player player;
     [ReadOnly] public Jario jario;
@@ -82,6 +83,7 @@ public class PhaseManager : MonoBehaviour
                 controllers.Add(controller);
 
                 // Save required controllers
+                // note usage of as instead of cast because it is possible to improperly tag a gameObject!
                 switch (child.tag)
                 {
                     case "MainCamera":
@@ -95,6 +97,9 @@ public class PhaseManager : MonoBehaviour
                         break;
                     case "Jario":
                         jario = controller as Jario;
+                        break;
+                    case "UIShaderOverlay":
+                        uiShaderOverlay = controller as UIShaderOverlay;
                         break; 
                 }
             }
@@ -205,7 +210,7 @@ public class PhaseManager : MonoBehaviour
     /// Exits the current phase and switches to the next phase according to a predefined map
     /// </summary>
     /// <remarks>Phases only change when this function is called in an IPhaseController</remarks>
-    public void ExitPhase()
+    public void SwitchPhase()
     {
         UnsubscribeAll(); 
 
@@ -216,13 +221,16 @@ public class PhaseManager : MonoBehaviour
                 EnterPhase(Phase.Dialogue_Post);
                 break;
             case Phase.Player:
+                EnterPhase(Phase.Boss_Guard);
+                break;
+            case Phase.Boss_Guard:
                 EnterPhase(Phase.Dialogue_Pre);
                 break; 
-            case Phase.Boss:
-                EnterPhase(Phase.Dialogue_Post);
-                break;
             case Phase.Dialogue_Pre:
                 EnterPhase(Phase.Boss);
+                break;
+            case Phase.Boss:
+                EnterPhase(Phase.Dialogue_Post);
                 break;
             case Phase.Dialogue_Post:
                 EnterPhase(Phase.Player);

@@ -93,7 +93,7 @@ public class Player : Character
 
         //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Player Attack"));
 
-        return new Phase[]{ Phase.Player, Phase.Boss, Phase.Player_Win }; 
+        return new Phase[]{ Phase.Player, Phase.Boss_Guard, Phase.Boss, Phase.Player_Win }; 
     }
 
     protected override void PhaseEnterBehavior()
@@ -128,11 +128,13 @@ public class Player : Character
             // input queueing 
             if (allowQueueAction)
             {
-                if (this.GetManagerPhase() == Phase.Player && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None)
+                // WHY CAN'T YOU ATTACK DURING BOSS_GUARD PHASE ATTACK.WASPRESSEDTHISFRAME() DOESN'T WORK THEN?
+                if ((this.GetManagerPhase() == Phase.Player || this.GetManagerPhase() == Phase.Boss_Guard)
+                    && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None)
                     && attack.WasPressedThisFrame())
                 {
                     queuedAction = DoAttack();
-                }
+                } 
                 else if (currentActionType == ACTION_TYPE.Dodge || currentActionType == ACTION_TYPE.None)
                 {
                     if (dodgeLeft.WasPressedThisFrame())
@@ -145,16 +147,15 @@ public class Player : Character
                     }
                 }
             }
-        }
-        
 
-        // run queue
-        if (delayCoroutine == null && queuedAction != null)
-        {
-            StartCoroutine(queuedAction);
-            //allowQueueAction = false; (case in point)
-            queuedAction = null;
-            delayCoroutine = StartCoroutine(WaitActionDelay());
+            // run queue
+            if (delayCoroutine == null && queuedAction != null)
+            {
+                StartCoroutine(queuedAction);
+                //allowQueueAction = false; (case in point)
+                queuedAction = null;
+                delayCoroutine = StartCoroutine(WaitActionDelay());
+            }
         }
     }
 

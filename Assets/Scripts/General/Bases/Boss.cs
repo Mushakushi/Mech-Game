@@ -73,6 +73,8 @@ public abstract class Boss : Character
     /// </summary>
     protected override void OnHealthDeplete()
     {
+        this.GetUIShaderOverlay().StartFlash();
+
         this.SwitchPhase(Phase.Boss_Collapse);
         healthBars--;
         health = maxHealth / (maxHealthBars - healthBars + 1); 
