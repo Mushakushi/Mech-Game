@@ -6,12 +6,12 @@ using UnityEngine.UIElements;
 using static DialogueUtil;
 
 [CreateAssetMenu(fileName="[boss name]", menuName="Game Text/BossDialogue")]
-public class BossDialogueObject : ScriptableObject
+public class BossDialogueAsset : ScriptableObject
 {
     [SerializeField] public List<TranslatableDialogue> dialogue;
     [SerializeField] public Texture2D defaultPortrait;
 
-    public BossDialogueObject()
+    public BossDialogueAsset()
     {
         dialogue = new List<TranslatableDialogue>();
         foreach (LANGUAGE lang in Enum.GetValues(typeof(LANGUAGE)))

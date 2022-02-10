@@ -5,11 +5,11 @@ using UnityEngine;
 using static TranslatableTextManager;
 
 [CreateAssetMenu(fileName = "[text field name]", menuName = "Game Text/TranslatableText")]
-public class TranslatableTextObject : ScriptableObject
+public class TranslatableTextAsset : ScriptableObject
 {
     public List<TranslationText> languages;
 
-    public TranslatableTextObject()
+    public TranslatableTextAsset()
     {
         languages = new List<TranslationText>();
         foreach (LANGUAGE lang in Enum.GetValues(typeof(LANGUAGE)))

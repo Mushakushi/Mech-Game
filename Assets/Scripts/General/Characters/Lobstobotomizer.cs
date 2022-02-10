@@ -14,19 +14,4 @@ public class Lobstobotomizer : Boss
             new List<float>{ 33f, 33f, 33f }
             ); 
     }
-
-    public void StartBubbleAttack()
-    {
-
-    }
-
-    private void SpawnBubble()
-    {
-
-    }
-
-    public void StopBubbleAttack()
-    {
-
-    }
 }

@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 public abstract class Boss : Character
 {
@@ -110,7 +111,6 @@ public abstract class Boss : Character
         this.SwitchPhase(Phase.Player_Win); 
     }
 
-    
     protected override void PhaseEnterBehavior()
     {
         EnableHurtbox();
@@ -127,4 +127,19 @@ public abstract class Boss : Character
 
     protected override void PhaseUpdateBehavior() { }
     protected override void PhaseExitBehavior() { }
+
+    public void CreateOneProjectile(Object attackAsset)
+    {
+
+    }
+
+    public void StartCreateProjectiles(Object attackAsset)
+    {
+
+    }
+
+    public void StopCreateProjectiles()
+    {
+
+    }
 }

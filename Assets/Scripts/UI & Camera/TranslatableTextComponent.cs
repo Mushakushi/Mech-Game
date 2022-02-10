@@ -6,7 +6,7 @@ using TMPro;
 public class TranslatableTextComponent : MonoBehaviour
 {
     private TextMeshProUGUI textGUI;
-    [SerializeField] private TranslatableTextObject translatableText;
+    [SerializeField] private TranslatableTextAsset translatableText;
 
     // Start is called before the first frame update
     private void Start()

@@ -12,7 +12,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private RawImage portrait;
     [SerializeField] private Animator animator;
-    [SerializeField] private BossDialogueObject loadedDialogue;
+    [SerializeField] private BossDialogueAsset loadedDialogue;
 
     /// <summary>
     /// Returns Phase.Dialogue_Pre or Phase.Dialogue_Post depending on PhaseManager.phase

@@ -12,11 +12,11 @@ public static class DialogueUtil
     /// Load the dialogue of a boss using its name from file.
     /// </summary>
     /// <param name="bossName">Name of boss to load dialogue for.</param>
-    public static BossDialogueObject LoadDialogue(string bossName)
+    public static BossDialogueAsset LoadDialogue(string bossName)
     {
-        BossDialogueObject loadedDialogue;
+        BossDialogueAsset loadedDialogue;
         string filePath = $"Dialogue/{bossName}";
-        loadedDialogue = (BossDialogueObject) Resources.Load(filePath, typeof(BossDialogueObject));
+        loadedDialogue = (BossDialogueAsset) Resources.Load(filePath, typeof(BossDialogueAsset));
         if (loadedDialogue == null)
         {
             throw new Exception($"Missing file Assets/Resources/{filePath}.txt or file is malformed! File load failed.");
@@ -29,7 +29,7 @@ public static class DialogueUtil
     /// </summary>
     /// <param name="index">Index of the line.</param>
     /// <returns>DialogueLine at <paramref name="index"/>.</returns>
-    public static DialogueLine GetDialogueLine(this BossDialogueObject loadedDialogue, int index)
+    public static DialogueLine GetDialogueLine(this BossDialogueAsset loadedDialogue, int index)
     {
         // needs some error checking for out of bounds, also might want to add support for repeating phrases
         DialogueLine line = loadedDialogue.GetTranslationIn(GetGameLang())[index];
@@ -45,7 +45,7 @@ public static class DialogueUtil
     /// Get all lines of loaded dialogue.
     /// </summary
     /// <returns>List of all DialogueLines.</returns>
-    public static List<DialogueLine> GetAllDialogueLines(this BossDialogueObject loadedDialogue)
+    public static List<DialogueLine> GetAllDialogueLines(this BossDialogueAsset loadedDialogue)
     {
         // needs some error checking for out of bounds, also might want to add support for repeating phrases
         List<DialogueLine> lines = loadedDialogue.GetTranslationIn(GetGameLang());
