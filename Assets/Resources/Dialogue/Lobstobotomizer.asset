@@ -16,14 +16,14 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
-      - text: Brbbbblrbblbllbbb!
+      - text: Unlobstibotted Power!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
   - languageName: TokiPona
     dialogueLines:
     - sections:
-      - text: Brbbbblrbblbllbbb!
+      - text: Unlobstibotted Power!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
