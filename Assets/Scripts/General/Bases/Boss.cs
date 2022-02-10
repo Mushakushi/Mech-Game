@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -118,6 +119,7 @@ public abstract class Boss : Character
                 animator.SetTrigger("EnterPhase"); 
                 break;
             case Phase.Boss_Guard:
+                StartCoroutine(CoroutineUtility.WaitForSeconds(2f, () => this.ExitPhase())); 
                 break; 
         }
     }
