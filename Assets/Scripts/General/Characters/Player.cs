@@ -98,10 +98,10 @@ public class Player : Character
 
     protected override void PhaseEnterBehavior()
     {
+        attack.Enable();
         switch (this.GetManagerPhase())
         {
             case Phase.Player:
-                attack.Enable();
                 EnableHitbox();
                 break;
             case Phase.Player_Win:
@@ -128,7 +128,6 @@ public class Player : Character
             // input queueing 
             if (allowQueueAction)
             {
-                // WHY CAN'T YOU ATTACK DURING BOSS_GUARD PHASE ATTACK.WASPRESSEDTHISFRAME() DOESN'T WORK THEN?
                 if ((this.GetManagerPhase() == Phase.Player || this.GetManagerPhase() == Phase.Boss_Guard)
                     && (currentActionType == ACTION_TYPE.Attack || currentActionType == ACTION_TYPE.None)
                     && attack.WasPressedThisFrame())

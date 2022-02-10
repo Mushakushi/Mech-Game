@@ -41,7 +41,7 @@ public abstract class Boss : Character
         accumulatedWeights = data.accumulatedWeights;
         accumulatedWeightSum = data.accumulatedWeightSum;
 
-        return new Phase[] { Phase.Boss }; 
+        return new Phase[] { Phase.Boss, Phase.Boss_Guard }; 
     }
 
     /// <summary>
@@ -55,6 +55,10 @@ public abstract class Boss : Character
     /// <param name="damage">Damage taken on entry</param>
     public override void OnHitboxEnter(float damage)
     {
+        switch (this.GetManagerPhase())
+        {
+
+        }
         base.OnHitboxEnter(damage);
         new ScoreData(timesBossHit: 1).AddToPlayerScore(group);
         RefreshSlider(); 
@@ -103,7 +107,15 @@ public abstract class Boss : Character
     
     protected override void PhaseEnterBehavior()
     {
-        animator.SetTrigger("EnterPhase");
+        EnableHurtbox();
+        switch (this.GetManagerPhase())
+        {
+            case Phase.Boss:
+                animator.SetTrigger("EnterPhase"); 
+                break;
+            case Phase.Boss_Guard:
+                break; 
+        }
     }
 
     protected override void PhaseUpdateBehavior() { }
