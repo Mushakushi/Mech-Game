@@ -14,7 +14,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - languageName: English
-    dialogueLines: []
+    dialogueLines:
+    - sections:
+      - text: I was desperately searching for those wild Joto herbs since they were
+          the only aid for my ligma-stricken grandmother.
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: "Those wretched raiders returned faster than I \u2014 in their wake,
+          leaving nothing but ashes from my village\u2019s dust. "
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: 'I vowed to take revenge for her sake, for the sake of my home, and
+          for the sake of the loved ones who were lost. Now, this is my journey to
+          becoming the strongest hero.  '
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: "Filler, after filler, after filler, after draining filler, weaker,
+          yet stronger, was I still. It wasn\u2019t until the day of Power came,
+          that my true potential was fully realized.  "
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: 'Has it crossed your feeble mind: why we use these gloves to cover
+          our hands? Is it not because we both have the dearest things to protect?  '
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: "We are the same. You, seeking a triumphant victory; I, a strength
+          for vengeance. Do you not get it? You and I are the same. \u2026? That\u2019s
+          the same THING! "
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: "You\u2019re an idiot. I\u2019ve never met a foe so pitifully eager.
+          Your zeal is built on the empty promise of self-sufficiency, and I, in
+          due course, will shatter it.  "
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: Not even the power of friendship can save you today.
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: "I-impossible! I can\u2019t loose... "
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
   - languageName: TokiPona
     dialogueLines: []
   - languageName: Debug

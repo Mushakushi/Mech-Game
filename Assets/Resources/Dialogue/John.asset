@@ -14,7 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - languageName: English
-    dialogueLines: []
+    dialogueLines:
+    - sections:
+      - text: "You\u2019re on the railway of the pain train!"
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: This is your last stop!
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: No more stops for you!
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: "That\u2019s it, I\u2019m steamin!"
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
   - languageName: TokiPona
     dialogueLines: []
   - languageName: Debug

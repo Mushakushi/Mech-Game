@@ -16,17 +16,27 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
-      - text: Unlobstibotted Power!
+      - text: "You\u2019re on the railway of the pain train!"
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: This is your last stop!
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: No more stops for you!
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: "That\u2019s it, I\u2019m steamin!"
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
   - languageName: TokiPona
-    dialogueLines:
-    - sections:
-      - text: Unlobstibotted Power!
-        characterDelay: 2
-      portraitOverride: {fileID: 0}
-      overflow: 0
+    dialogueLines: []
   - languageName: Debug
     dialogueLines: []
-  defaultPortrait: {fileID: 2800000, guid: 4b8814b80c91f7441b25fd3b22420e05, type: 3}
+  defaultPortrait: {fileID: 0}
