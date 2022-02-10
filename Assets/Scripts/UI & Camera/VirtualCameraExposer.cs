@@ -72,7 +72,7 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
         Phase p = this.GetManagerPhase();
 
         if (p == Phase.Dialogue_Pre || p == Phase.Dialogue_Post)
-            SetFollowTargetOffsetY(0.125f);
+            SetFollowTargetOffsetY(0.25f);
         else if (p == Phase.Player_Win)
             SetFollowTarget(this.GetManager().player.transform); 
     }

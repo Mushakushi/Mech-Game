@@ -57,11 +57,15 @@ public abstract class Boss : Character
     {
         switch (this.GetManagerPhase())
         {
-
+            case Phase.Player:
+                base.OnHitboxEnter(damage);
+                new ScoreData(timesBossHit: 1).AddToPlayerScore(group);
+                RefreshSlider();
+                break;
+            case Phase.Boss_Guard:
+                animator.SetTrigger("Guard");
+                break; 
         }
-        base.OnHitboxEnter(damage);
-        new ScoreData(timesBossHit: 1).AddToPlayerScore(group);
-        RefreshSlider(); 
     }
 
     /// <summary>
