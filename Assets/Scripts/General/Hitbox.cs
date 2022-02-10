@@ -13,6 +13,19 @@ public class Hitbox : MonoBehaviour
     /// Damage given to hurtboxes
     /// </summary>
     [SerializeField] private float damage;
+    
+    /// <summary>
+    /// The Character this Hitbox is attached to.
+    /// </summary>
+    private IHitboxOwner self;
+
+    private void Start()
+    {
+        if (gameObject.GetComponentInParent<IHitboxOwner>() is IHitboxOwner owner)
+            self = owner;
+        else
+            Debug.LogWarning("Hitbox has no owner. Ignore this if intended.");
+    }
 
     /// <summary>
     /// Notifies entering GameObject other (that has a Character contained within the trigger layermask) of entrance
@@ -21,8 +34,12 @@ public class Hitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Character c = GetCharacterInOther(other.gameObject);
-        if (c) c.OnHitboxEnter(damage);
-        else print($"{transform.parent.name} failed to get character script from {other.name}");
+        if (c) 
+            c.OnHitboxEnter(damage);
+        else
+            print($"{transform.parent.name} failed to get character script from {other.name}");
+        if (self != null)
+            self.OnHurtboxEnter();
     }
 
     /// <summary>
@@ -32,7 +49,10 @@ public class Hitbox : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         Character c = GetCharacterInOther(other.gameObject);
-        if (c) c.OnHitboxExit();
+        if (c)
+            c.OnHitboxExit();
+        if (self != null)
+            self.OnHurtboxExit();
     }
 
     /// <summary>

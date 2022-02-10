@@ -10,23 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc15684d003d6c9459faa3d7393d6215, type: 3}
-  m_Name: Lobstobotomizer
+  m_Name: John
   m_EditorClassIdentifier: 
   dialogue:
   - languageName: English
     dialogueLines:
     - sections:
-      - text: Blub blub
+      - text: "You\u2019re on the railway of the pain train!"
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
     - sections:
-      - text: Unlobstibotted Power!
+      - text: This is your last stop!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
     - sections:
-      - text: LOBSTA POWA!
+      - text: No more stops for you!
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+    - sections:
+      - text: "That\u2019s it, I\u2019m steamin!"
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0

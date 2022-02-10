@@ -35,13 +35,13 @@ public class Player : Character
     // TODO - document this 
     public bool allowQueueAction;
     private IEnumerator queuedAction;
-    private Coroutine delayCoroutine = null;
+    private float actionDelay;
 
     public bool canAttack;
 
     private enum ACTION_TYPE { Attack, Dodge, None }
     [SerializeField] private ACTION_TYPE currentActionType;
-    [SerializeField] private float actionDelay;
+    [SerializeField] private bool canRunInput;
 
     private enum DODGE_DIRECTION { Left, Right }
 
@@ -86,12 +86,11 @@ public class Player : Character
         damage = 5.0f;
         resistance = 0f;
 
-        actionDelay = 0.4f;
+        actionDelay = 0.5f;
         currentActionType = ACTION_TYPE.None;
         allowQueueAction = true;
+        canRunInput = true;
         queuedAction = null;
-
-        //triggerLayerMask.SetLayerMask(LayerMask.GetMask("Player Attack"));
 
         return new Phase[]{ Phase.Player, Phase.Boss_Guard, Phase.Boss, Phase.Player_Win }; 
     }
@@ -102,7 +101,6 @@ public class Player : Character
         switch (this.GetManagerPhase())
         {
             case Phase.Player:
-                EnableHitbox();
                 break;
             case Phase.Player_Win:
                 animator.SetTrigger("Win"); 
@@ -148,12 +146,12 @@ public class Player : Character
             }
 
             // run queue
-            if (delayCoroutine == null && queuedAction != null)
+            if (canRunInput && queuedAction != null)
             {
                 StartCoroutine(queuedAction);
-                //allowQueueAction = false; (case in point)
                 queuedAction = null;
-                StartCoroutine(CoroutineUtility.WaitForSeconds(actionDelay, () => delayCoroutine = null)); 
+                canRunInput = false;
+                StartCoroutine(CoroutineUtility.WaitForSeconds(actionDelay, () => canRunInput = true));
             }
         }
     }
@@ -181,5 +179,10 @@ public class Player : Character
         animator.SetInteger("Dodge Direction", (int)direction);
         animator.SetTrigger("Dodge");
         yield return null;
+    }
+
+    public override void OnHurtboxEnter()
+    {
+        DisableHitbox();
     }
 }

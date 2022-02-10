@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator), typeof(BoxCollider2D))]
-public abstract class Character : MonoBehaviour, IPhaseController
+public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
 {
     [Header("Character Stats")]
     /// <summary>
@@ -132,6 +132,23 @@ public abstract class Character : MonoBehaviour, IPhaseController
         isHit = false;
         StartCoroutine(DoInvulnFrames(0.05f));
     }
+
+    /// <summary>
+    /// Event that happens when this Character's Hitbox enters another Character's Hurtbox
+    /// </summary>
+    public virtual void OnHurtboxEnter()
+    {
+
+    }
+
+    /// <summary>
+    /// Event that happens when this Character's Hitbox exits another Character's Hurtbox
+    /// </summary>
+    public virtual void OnHurtboxExit()
+    {
+        
+    }
+
     public IEnumerator DoInvulnFrames(float duration)
     {
         DisableHurtbox();
@@ -200,7 +217,7 @@ public abstract class Character : MonoBehaviour, IPhaseController
     {
         while (true)
         {
-            transform.position = new Vector3(pos.x + Random.Range(0f, range), pos.y + Random.Range(0f, range), pos.z);
+            transform.position = new Vector3(pos.x + Random.Range(-range, range), pos.y + Random.Range(-range, range), pos.z);
             yield return new WaitForEndOfFrame();
         }
     }
