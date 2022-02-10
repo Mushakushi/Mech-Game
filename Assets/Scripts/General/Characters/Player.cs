@@ -180,4 +180,9 @@ public class Player : Character
         animator.SetTrigger("Dodge");
         yield return null;
     }
+
+    public override void OnHurtboxEnter()
+    {
+        DisableHitbox();
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator), typeof(BoxCollider2D))]
-public abstract class Character : MonoBehaviour, IPhaseController
+public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
 {
     [Header("Character Stats")]
     /// <summary>
