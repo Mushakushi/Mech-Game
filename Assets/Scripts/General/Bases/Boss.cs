@@ -62,6 +62,7 @@ public abstract class Boss : Character
                 base.OnHitboxEnter(damage);
                 new ScoreData(timesBossHit: 1).AddToPlayerScore(group);
                 RefreshSlider();
+                //AudioPlayer.Play(AudioClip );
                 break;
             case Phase.Boss_Guard:
                 animator.SetTrigger("Guard");

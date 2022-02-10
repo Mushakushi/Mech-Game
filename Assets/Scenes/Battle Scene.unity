@@ -222,11 +222,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1822394557}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96489c1fa1d04ab43adfbc37e8a4da6c, type: 3}
+  m_Script: {fileID: 11500000, guid: a493ed19c82d0d84a9cbd55659d9a3d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intro: {fileID: 8300000, guid: cdf0fdeef4832db469269af62ad382de, type: 3}
-  loop: {fileID: 8300000, guid: ccdd47bc6d692f5418a38d9931ab879f, type: 3}
+  intro: {fileID: 0}
+  loop: {fileID: 0}
 --- !u!82 &1822394561
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1688,9 +1688,9 @@ MonoBehaviour:
     phaseEnter:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1822394560}
+        - m_Target: {fileID: 1822394557}
           m_TargetAssemblyTypeName: MusicPlayer, Assembly-CSharp
-          m_MethodName: Play
+          m_MethodName: 
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 8300000, guid: b02245e3142efbf41aba6894145fff50, type: 3}
@@ -2772,7 +2772,7 @@ MonoBehaviour:
   allowQueueAction: 1
   canAttack: 1
   currentActionType: 0
-  actionDelay: 0
+  canRunInput: 0
 --- !u!114 &8475717452150091042
 MonoBehaviour:
   m_ObjectHideFlags: 0

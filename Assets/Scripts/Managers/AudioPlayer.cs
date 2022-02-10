@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class MusicPlayer : MonoBehaviour
+public class AudioPlayer : MonoBehaviour
 {
     /// <summary>
     /// AudioSource component in gameObject
@@ -52,5 +52,10 @@ public class MusicPlayer : MonoBehaviour
     /// <summary>
     /// Plays looping audio
     /// </summary>
-    public static void Play(AudioClip audio) => PlayBGM(audio); 
+    public static void PlayBGM(AudioClip loop) => PlayBGM(loop);
+
+    /// <summary>
+    /// Plays audio one shoot
+    /// </summary>
+    public static void Play(AudioClip audio) => source.PlayOneShot(audio); 
 }
