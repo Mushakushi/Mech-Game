@@ -153,7 +153,7 @@ public class Player : Character
                 StartCoroutine(queuedAction);
                 //allowQueueAction = false; (case in point)
                 queuedAction = null;
-                delayCoroutine = StartCoroutine(WaitActionDelay());
+                StartCoroutine(CoroutineUtility.WaitForSeconds(actionDelay, () => delayCoroutine = null)); 
             }
         }
     }
@@ -163,12 +163,6 @@ public class Player : Character
         queuedAction = null;
         attack.Disable();
         DisableHitbox();
-    }
-
-    public IEnumerator WaitActionDelay()
-    {
-        yield return new WaitForSecondsRealtime(actionDelay);
-        delayCoroutine = null;
     }
 
     protected override void OnHealthDeplete()
