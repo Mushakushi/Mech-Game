@@ -14,6 +14,8 @@ public class Hitbox : MonoBehaviour
     /// </summary>
     [SerializeField] private float damage;
 
+    
+
     /// <summary>
     /// Notifies entering GameObject other (that has a Character contained within the trigger layermask) of entrance
     /// </summary>

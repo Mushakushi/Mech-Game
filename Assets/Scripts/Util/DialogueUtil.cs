@@ -41,6 +41,18 @@ public static class DialogueUtil
         return line;
     }
 
+    /// <summary>
+    /// Get all lines of loaded dialogue.
+    /// </summary
+    /// <returns>List of all DialogueLines.</returns>
+    public static List<DialogueLine> GetAllDialogueLines(this BossDialogueObject loadedDialogue)
+    {
+        // needs some error checking for out of bounds, also might want to add support for repeating phrases
+        List<DialogueLine> lines = loadedDialogue.GetTranslationIn(GetGameLang());
+
+        return lines;
+    }
+
     #region SUBCLASSES
 
     [Serializable]

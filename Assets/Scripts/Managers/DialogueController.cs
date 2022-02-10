@@ -62,7 +62,8 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void DisplayNextLine()
     {
         DialogueLine line = loadedDialogue.GetDialogueLine(dialogueStage);
-        //dialogueStage++;
+        if (dialogueStage < loadedDialogue.GetAllDialogueLines().Count-1)
+            dialogueStage++;
         StartCoroutine(DisplayNextLineCoroutine(line));
     }
 
