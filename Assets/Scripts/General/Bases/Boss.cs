@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
+   // [CreateAssetMenu(fileName="[boss name]", menuName="Game Text/BossDialogue")]
 public abstract class Boss : Character
 {
     [Header("Boss Stats")]
