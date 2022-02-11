@@ -64,7 +64,8 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
 
     public void OnStart()
     {
-        SetFollowTarget(this.GetManager().boss.transform); 
+        SetFollowTarget(this.GetManager().boss.transform);
+        ResetFollowTargetOffset(); 
     }
 
     public void OnPhaseEnter()

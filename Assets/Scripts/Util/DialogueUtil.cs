@@ -14,14 +14,7 @@ public static class DialogueUtil
     /// <param name="bossName">Name of boss to load dialogue for.</param>
     public static BossDialogueAsset LoadDialogue(string bossName)
     {
-        BossDialogueAsset loadedDialogue;
-        string filePath = $"Dialogue/{bossName}";
-        loadedDialogue = (BossDialogueAsset) Resources.Load(filePath, typeof(BossDialogueAsset));
-        if (loadedDialogue == null)
-        {
-            throw new Exception($"Missing file Assets/Resources/{filePath}.txt or file is malformed! File load failed.");
-        }
-        return loadedDialogue;
+        return FileUtility.LoadFile<BossDialogueAsset>($"Dialogue/{BattleGroupManager.level.name}");
     }
 
     /// <summary>

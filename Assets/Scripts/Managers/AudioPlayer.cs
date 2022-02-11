@@ -50,9 +50,9 @@ public class AudioPlayer : MonoBehaviour
     }
 
     /// <summary>
-    /// Plays looping audio
+    /// One parameter PlayBGM()
     /// </summary>
-    public static void PlayBGM(AudioClip loop) => PlayBGM(loop);
+    public static void PlayBGM(AudioClip loop) => PlayBGM(loop, null);
 
     /// <summary>
     /// Plays audio one shoot

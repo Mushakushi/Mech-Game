@@ -23,7 +23,7 @@ public abstract class Boss : Character
     /// <summary>
     /// Slider UI Component in scene that this object controls
     /// </summary>
-    [SerializeField] private Slider healthSlider;
+    [SerializeField] private HealthSlider healthSlider;
 
     [Header("Boss Special Weights")]
     [SerializeField] public List<float> accumulatedWeights;
@@ -42,6 +42,8 @@ public abstract class Boss : Character
         healthBars = maxHealthBars;
         accumulatedWeights = data.accumulatedWeights;
         accumulatedWeightSum = data.accumulatedWeightSum;
+
+        RefreshSlider();
 
         return new Phase[] { Phase.Boss, Phase.Boss_Guard }; 
     }
@@ -76,7 +78,7 @@ public abstract class Boss : Character
     /// </summary>
     private void RefreshSlider()
     {
-        healthSlider.value = health / maxHealth; 
+        healthSlider.SetValue(health / maxHealth); 
     }
 
     /// <summary>
@@ -120,7 +122,7 @@ public abstract class Boss : Character
                 animator.SetTrigger("EnterPhase"); 
                 break;
             case Phase.Boss_Guard:
-                StartCoroutine(CoroutineUtility.WaitForSeconds(2f, () => this.ExitPhase())); 
+                StartCoroutine(CoroutineUtility.WaitForSeconds(1.25f, () => this.ExitPhase())); 
                 break; 
         }
     }

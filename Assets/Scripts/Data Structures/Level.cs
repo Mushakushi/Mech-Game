@@ -2,22 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO - probably do much more complicated things with this when we have multiple scenes
-public struct Level
+[CreateAssetMenu(fileName = "Boss Level Data", menuName = "Create New Boss Level Data")]
+public class Level : ScriptableObject
 {
     /// <summary>
-    /// Index of this level
+    /// Name of the boss in this level
     /// </summary>
-    public int number;
+    /// <remarks>Used to identify file names</remarks>
+    public new string name;
 
-    /// <summary>
-    /// Name of this level
-    /// </summary>
-    public string name;
-
-    public Level(int number, string name)
+    public Level(string name)
     {
-        this.number = number;
-        this.name = name;
+        this.name = base.name;
     }
 }
