@@ -21,7 +21,10 @@ public class FileUtility : MonoBehaviour
         else file = Resources.Load(filePath) as T;
 
         // null check 
-        if (file == null) throw new Exception($"Missing file Assets/Resources/{filePath} or file is malformed! File load failed.");
+        if (file == null)
+        {
+            throw new Exception($"The file at Assets/Resources/{filePath} is either missing or malformed! File load failed.");
+        }
 
         // return file 
         return file; 
