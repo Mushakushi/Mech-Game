@@ -5,13 +5,11 @@
 - Add options menu
 - Get title screen assets
 
-- Return to idle on Boss_Guard
-- bi-directional dodging
 - load different levels from menu
 - multiplayer input and camera control
-- lobstobotomizer background
 - player health bar
-- player hurt animation
+- leaderboard end screen (actually end battle)
+- sync jario counts with boss shakes
 
 ## Looking Foward:
 
