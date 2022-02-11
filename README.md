@@ -1,10 +1,17 @@
 # Super Battle Machine Boxing
 
 ## Current TODO:
-- Finish re-animating Lobstobotomizer and Player
 - Create Shoto and John
 - Add options menu
 - Get title screen assets
+
+- Return to idle on Boss_Guard
+- bi-directional dodging
+- load different levels from menu
+- multiplayer input and camera control
+- lobstobotomizer background
+- player health bar
+- player hurt animation
 
 ## Looking Foward:
 
