@@ -34,8 +34,11 @@ public class Hitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Character c = GetCharacterInOther(other.gameObject);
-        if (c) 
+        if (c)
+        {
             c.OnHitboxEnter(damage);
+            //Debug.LogError($"{transform.parent.gameObject} hit {other.name}"); 
+        }   
         else
             print($"{transform.parent.name} failed to get character script from {other.name}");
         if (self != null)

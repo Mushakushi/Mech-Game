@@ -123,6 +123,7 @@ public abstract class Boss : Character
                 animator.SetTrigger("EnterPhase"); 
                 break;
             case Phase.Boss_Guard:
+                animator.SetTrigger("ReturnToIdle"); 
                 StartCoroutine(CoroutineUtility.WaitForSeconds(1.25f, () => this.ExitPhase())); 
                 break; 
         }

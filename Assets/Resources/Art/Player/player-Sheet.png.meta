@@ -71,6 +71,12 @@ TextureImporter:
   - first:
       213: 1711051962210584602
     second: player-Sheet_22
+  - first:
+      213: -5498748953553307652
+    second: player-Sheet_23
+  - first:
+      213: -2506917188696854892
+    second: player-Sheet_24
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -638,6 +644,48 @@ TextureImporter:
       bones: []
       spriteID: a180ccfa1b0eeb710800000000000000
       internalID: 1711051962210584602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 0
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf7776ad5f480b3b0800000000000000
+      internalID: -5498748953553307652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 0
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49e276e5914a53dd0800000000000000
+      internalID: -2506917188696854892
       vertices: []
       indices: 
       edges: []

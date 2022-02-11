@@ -176,7 +176,7 @@ public class Player : Character
 
     private IEnumerator DoDodge(DODGE_DIRECTION direction)
     {
-        animator.SetInteger("Dodge Direction", (int)direction);
+        animator.SetInteger("DodgeDirection", (int)direction);
         animator.SetTrigger("Dodge");
         yield return null;
     }

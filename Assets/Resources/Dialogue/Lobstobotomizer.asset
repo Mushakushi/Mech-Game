@@ -34,4 +34,4 @@ MonoBehaviour:
     dialogueLines: []
   - languageName: Debug
     dialogueLines: []
-  defaultPortrait: {fileID: 0}
+  defaultPortrait: {fileID: 2800000, guid: 4b8814b80c91f7441b25fd3b22420e05, type: 3}
