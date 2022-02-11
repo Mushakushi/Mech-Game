@@ -20,16 +20,13 @@ public class BattleGroupManager : MonoBehaviour
     /// </summary>
     public static Level level;
 
-    public Level asset; 
-
     void Awake()
     {
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("PhaseManager"))
             phaseManagers.Add(g.GetComponent<PhaseManager>());
 
         // call from menu later
-        LoadLevelData("Lobstobotomizer");
-        level = asset; 
+        LoadLevelData("Lobstobotomizer"); 
 
         // unity serialization
         _phaseManagers = phaseManagers;
@@ -46,7 +43,7 @@ public class BattleGroupManager : MonoBehaviour
     /// <param name="name">Name of level data field</param>
     public void LoadLevelData(string name)
     {
-        //level = FileUtility.LoadFile<Level>($"Scriptable Objects/Level Data/{name}.asset"); 
+        level = FileUtility.LoadFile<Level>($"Scriptable Objects/Level Data/{name}"); 
     }
 
     // Wrapper for UnityEvent, allows it to access the static function
