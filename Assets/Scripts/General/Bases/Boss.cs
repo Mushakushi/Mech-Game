@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-   // [CreateAssetMenu(fileName="[boss name]", menuName="Game Text/BossDialogue")]
 public abstract class Boss : Character
 {
     [Header("Boss Stats")]
@@ -30,6 +29,8 @@ public abstract class Boss : Character
     [SerializeField] public List<float> accumulatedWeights;
     [SerializeField] public float accumulatedWeightSum;
 
+    [SerializeField] public AudioClip hurt;
+
     // Start is called before the first frame update 
     protected override IList<Phase> InitializeCharacter()
     {
@@ -41,6 +42,7 @@ public abstract class Boss : Character
         resistance = data.resistance;
         maxHealthBars = data.maxHealthBars;
         healthBars = maxHealthBars;
+        hurt = data.hurt;
         accumulatedWeights = data.accumulatedWeights;
         accumulatedWeightSum = data.accumulatedWeightSum;
 
@@ -53,20 +55,21 @@ public abstract class Boss : Character
     /// Allows children to initialize data without hiding parent's Start, uses struct to ensure proper data is supplied
     /// </summary>
     protected abstract BossData SetBossData();
-
+    
     /// <summary>
     /// Event that happens when Hitbox enters boss Hurtbox
     /// </summary>
     /// <param name="damage">Damage taken on entry</param>
     public override void OnHitboxEnter(float damage)
     {
+        
         switch (this.GetManagerPhase())
         {
             case Phase.Player:
                 base.OnHitboxEnter(damage);
                 new ScoreData(timesBossHit: 1).AddToPlayerScore(group);
                 RefreshSlider();
-                //AudioPlayer.Play(AudioClip );
+                AudioPlayer.Play(hurt);
                 break;
             case Phase.Boss_Guard:
                 animator.SetTrigger("Guard");

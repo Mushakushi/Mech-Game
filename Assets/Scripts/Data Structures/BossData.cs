@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public struct BossData
 {
     [SerializeField] public string name;
@@ -12,6 +14,7 @@ public struct BossData
     [SerializeField] public int maxHealthBars;
     [SerializeField] public List<float> accumulatedWeights;
     [SerializeField] public float accumulatedWeightSum;
+    [SerializeField] public AudioClip hurt;
 
     /// <summary>
     /// Initializes boss data
@@ -24,7 +27,7 @@ public struct BossData
     /// <param name="maxHealthBars">Amount of times health bar must be depleted to be defeated</param>
     /// <param name="specialWeights">List of weights of the boss's special attacks.</param>
     public BossData(string name, float maxHealth, float damage, float resistance, 
-        Phase activePhase, int maxHealthBars, List<float> specialWeights)
+        Phase activePhase, int maxHealthBars, AudioClip hurt, List<float> specialWeights)
     {
         this.name = name;
         this.maxHealth = maxHealth;
@@ -32,6 +35,7 @@ public struct BossData
         this.resistance = resistance;
         this.activePhase = activePhase;
         this.maxHealthBars = maxHealthBars;
+        this.hurt = hurt;
 
         // these are needed to stop the thing from yelling at me. oh well
         accumulatedWeightSum = 0;
