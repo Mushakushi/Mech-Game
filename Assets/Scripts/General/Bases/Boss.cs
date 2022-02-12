@@ -30,6 +30,8 @@ public abstract class Boss : Character
     [SerializeField] public float accumulatedWeightSum;
 
     [SerializeField] public AudioClip hurt;
+    [SerializeField] public AudioClip knock;
+    [SerializeField] public List<AudioClip> dialogue;
 
     // Start is called before the first frame update 
     protected override IList<Phase> InitializeCharacter()
@@ -43,6 +45,8 @@ public abstract class Boss : Character
         maxHealthBars = data.maxHealthBars;
         healthBars = maxHealthBars;
         hurt = data.hurt;
+        knock = data.knock;
+        dialogue = data.dialogue;
         accumulatedWeights = data.accumulatedWeights;
         accumulatedWeightSum = data.accumulatedWeightSum;
 
@@ -93,6 +97,7 @@ public abstract class Boss : Character
         this.GetUIShaderOverlay().StartFlash();
 
         this.SwitchPhase(Phase.Boss_Collapse);
+        AudioPlayer.Play(knock);
         healthBars--;
         health = maxHealth / (maxHealthBars - healthBars + 1); 
         

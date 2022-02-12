@@ -2171,7 +2171,9 @@ MonoBehaviour:
   healthSlider: {fileID: 3974684209669371680}
   accumulatedWeights: []
   accumulatedWeightSum: 0
-  hurt: {fileID: 8300000, guid: 491b361b76e42f34f883bf02e1332085, type: 3}
+  hurt: {fileID: 8300000, guid: 75c46379ae5dd5743a96c913bab40b0a, type: 3}
+  knock: {fileID: 0}
+  dialogue: []
 --- !u!1 &3974684210262862534
 GameObject:
   m_ObjectHideFlags: 0

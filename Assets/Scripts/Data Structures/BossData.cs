@@ -15,6 +15,8 @@ public struct BossData
     [SerializeField] public List<float> accumulatedWeights;
     [SerializeField] public float accumulatedWeightSum;
     [SerializeField] public AudioClip hurt;
+    [SerializeField] public AudioClip knock;
+    [SerializeField] public List<AudioClip> dialogue;
 
     /// <summary>
     /// Initializes boss data
@@ -27,7 +29,7 @@ public struct BossData
     /// <param name="maxHealthBars">Amount of times health bar must be depleted to be defeated</param>
     /// <param name="specialWeights">List of weights of the boss's special attacks.</param>
     public BossData(string name, float maxHealth, float damage, float resistance, 
-        Phase activePhase, int maxHealthBars, AudioClip hurt, List<float> specialWeights)
+        Phase activePhase, int maxHealthBars, AudioClip hurt, AudioClip knock, List<AudioClip> dialogue, List<float> specialWeights)
     {
         this.name = name;
         this.maxHealth = maxHealth;
@@ -36,6 +38,8 @@ public struct BossData
         this.activePhase = activePhase;
         this.maxHealthBars = maxHealthBars;
         this.hurt = hurt;
+        this.knock = knock;
+        this.dialogue = dialogue;
 
         // these are needed to stop the thing from yelling at me. oh well
         accumulatedWeightSum = 0;
