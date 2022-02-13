@@ -20,6 +20,6 @@ public static class Scene
             yield return null;
         }
 
-        Debug.Log("Scene loaded :)"); 
+        Debug.LogError("Scene loaded :)"); 
     }
 }

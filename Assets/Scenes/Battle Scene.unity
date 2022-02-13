@@ -2968,6 +2968,7 @@ MonoBehaviour:
   canAttack: 1
   currentActionType: 0
   canRunInput: 0
+  slider: {fileID: 1017062832}
 --- !u!114 &8475717452150091042
 MonoBehaviour:
   m_ObjectHideFlags: 0
