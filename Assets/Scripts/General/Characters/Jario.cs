@@ -29,7 +29,8 @@ public class Jario : MonoBehaviour, IPhaseController
     public void OnPhaseEnter()
     {
         animator.SetTrigger("Count");
-        animator.SetInteger("CountLeft", HealthConversion.ConvertBarsToCount(this.GetManager().boss.healthBars, this.GetManager().boss.maxHealthBars));
+        animator.SetInteger("CountLeft", 
+            HealthConversion.ConvertBarsToCount(this.GetManager().boss.healthBars, this.GetManager().boss.maxHealthBars));
     }
 
     public void OnPhaseUpdate() { }

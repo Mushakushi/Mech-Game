@@ -4,44 +4,46 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator), typeof(BoxCollider2D))]
-public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
+public abstract class Character : MonoBehaviour, IPhaseController, IHurtable
 {
-    [Header("Character Stats")]
-    /// <summary>
-    /// Name of this Character
-    /// </summary>
-    [SerializeField] public string characterName;
+    //[Header("Character Stats")]
+    // TODO - There is a convoluted way to serialized properties in unity using custom inspector!
 
     /// <summary>
-    /// Damage required to defeat Character
+    /// Name of this character
     /// </summary>
-    [SerializeField] protected float maxHealth; 
+    [SerializeField] public abstract string characterName { get; }
 
     /// <summary>
-    /// Current health of Character
+    /// Maximum health
     /// </summary>
-    public float health;
+    [SerializeField] public abstract float maxHealth { get; }
 
     /// <summary>
-    /// Damage this Character deals
+    /// Current health
     /// </summary>
-    [SerializeField] protected float damage;
+    [SerializeField] public float health; 
+
+    /// <summary>
+    /// Damage given to hurtboxes
+    /// </summary>
+    /// <remarks>Everybody does 1 damage rn</remarks>
+    [SerializeField] public const float damage = 1; 
 
     /// <summary>
     /// Multiplier that reduces damage taken 
     /// </summary>
-    /// Can't we just increase health?
-    [SerializeField] protected float resistance;
-    
+    [SerializeField] public abstract float resistance { get; }
+
+    /// <summary>
+    /// Phase wherein this character is active
+    /// </summary>
+    [SerializeField] public abstract Phase[] activePhases { get; }
+
     /// <summary>
     /// Phase(s) this Character belongs to
     /// </summary>
-    [HideInInspector] protected IList<Phase> activePhases { get; set; }
-
-    /// <summary>
-    /// Tells PhaseManager whether the current phase is equal to one in activePhase
-    /// </summary>
-    [HideInInspector] public Phase activePhase => this.GetPhaseFromCollection(activePhases);
+    public Phase activePhase => this.GetPhaseFromCollection(activePhases); 
 
     /// <summary>
     /// The group this controller belongs to
@@ -58,7 +60,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
     /// <summary>
     /// First Box2D Hitbox attached to any child object (should be hitbox)
     /// </summary>
-    [SerializeField] protected BoxCollider2D hitbox;
+    [SerializeField] protected Hitbox hitbox;
 
     /// <summary>
     /// Box2D Hurtbox attached to this object
@@ -81,72 +83,52 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
     public void OnStart()
     {
         hurtbox = GetComponent<BoxCollider2D>();
-        EnableHurtbox(); 
+        if (!hurtbox) Debug.LogError("Script requires a Box Collider component!"); 
+        EnableHurtbox();
 
-        // GetComponentInChildren (wierdly) searches parent, search through array instead
-        foreach (BoxCollider2D c in GetComponentsInChildren<BoxCollider2D>())
-        {
-            if (c != hurtbox)
-            {
-                hitbox = c;
-                DisableHitbox();
-                break;
-            }
-        }
+        hitbox = GetComponentInChildren<Hitbox>(); 
         if (!hitbox) Debug.LogError("Script requires hitbox in child!"); 
+        // disable hitbox?
 
         animator = GetComponentInChildren<Animator>();
-        animator.runtimeAnimatorController = Resources.Load($"Animation/Animators/{GetType().Name}") as RuntimeAnimatorController;
+        animator.runtimeAnimatorController = FileUtility.LoadFile<RuntimeAnimatorController>($"Animation/Animators/{GetType().Name}"); 
         
-        activePhases = InitializeCharacter();
+        OnInitialize();
+        health = maxHealth;
+        hitbox.damage = damage; 
     }
 
     /// <summary>
     /// Child initialization event, Start should not be used as it may superceed the correct initialization order
     /// </summary>
-    protected abstract IList<Phase> InitializeCharacter();
+    protected abstract void OnInitialize();
 
     /// <summary>
     /// Event that happens when a Hitbox enters this Character's Hurtbox
     /// </summary>
     /// <param name="damage">Damage taken on entrance</param>
-    public virtual void OnHitboxEnter(float damage)
+    /// aside: should technically be named OnHitboxEnter, but improves readability
+    public virtual void OnHurtboxEnter(float damage)
     {
         animator.SetTrigger("GetHit");
 
-        health -= damage * (1 / resistance); // we could just adjust hp if player doesn't have a way to level up stats
+        health -= damage;
         isHit = true;
 
         if (health <= 0)
         {
             // put anything that should happen here
             OnHealthDeplete(); 
-        }
+        } 
     }
 
     /// <summary>
     /// Event that happens when a Hitbox exits this Character's Hurtbox
     /// </summary>
-    public virtual void OnHitboxExit()
+    public virtual void OnHurtboxExit()
     {
         isHit = false;
         StartCoroutine(DoInvulnFrames(0.05f));
-    }
-
-    /// <summary>
-    /// Event that happens when this Character's Hitbox enters another Character's Hurtbox
-    /// </summary>
-    public virtual void OnHurtboxEnter()
-    {
-
-    }
-
-    /// <summary>
-    /// Event that happens when this Character's Hitbox exits another Character's Hurtbox
-    /// </summary>
-    public virtual void OnHurtboxExit()
-    {
-        
     }
 
     public IEnumerator DoInvulnFrames(float duration)

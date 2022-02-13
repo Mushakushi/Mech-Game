@@ -11,7 +11,7 @@ public class FileUtility : MonoBehaviour
     /// <typeparam name="T">The type of file to load</typeparam>
     /// <param name="filePath">Path of file</param>
     /// <param name="filter">Type of file filter</param>
-    /// <returns>The file as type T</returns>
+    /// <returns>The file as type <typeparamref name="T"/></returns>
     public static T LoadFile<T>(string filePath, Type filter = null) where T : class
     {
         T file; 

@@ -1,45 +1,29 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public struct BossData
+[System.Serializable]
+public struct BossData 
 {
-    [SerializeField] public string name;
-    [SerializeField] public readonly float maxHealth;
-    [SerializeField] public float damage;
-    [SerializeField] public float resistance;
-    [SerializeField] public Phase activePhase;
-    [SerializeField] public int maxHealthBars;
-    [SerializeField] public List<float> accumulatedWeights;
-    [SerializeField] public float accumulatedWeightSum;
-    [SerializeField] public AudioClip hurt;
-    [SerializeField] public AudioClip knock;
-    [SerializeField] public List<AudioClip> dialogue;
+    public int maxHealthBars;
+    public int healthBars;
+    public List<float> accumulatedWeights;
+    public float accumulatedWeightSum;
+    public AudioClip hurtClip;
+    public AudioClip knockClip;
+    public List<AudioClip> dialogueClips;
 
-    /// <summary>
-    /// Initializes boss data
-    /// </summary>
-    /// <param name="name">Boss's name</param>
-    /// <param name="maxHealth">Maximum health</param>
-    /// <param name="damage">Damage given to other Hurtboxes</param>
-    /// <param name="resistance">Damage modifier against Hitboxes</param>
-    /// <param name="activePhase">Phase (or PhaseGroup) wherein this boss is active</param>
+
     /// <param name="maxHealthBars">Amount of times health bar must be depleted to be defeated</param>
     /// <param name="specialWeights">List of weights of the boss's special attacks.</param>
-    public BossData(string name, float maxHealth, float damage, float resistance, 
-        Phase activePhase, int maxHealthBars, AudioClip hurt, AudioClip knock, List<AudioClip> dialogue, List<float> specialWeights)
+    public BossData(int maxHealthBars, List<float> specialWeights)
     {
-        this.name = name;
-        this.maxHealth = maxHealth;
-        this.damage = damage;
-        this.resistance = resistance;
-        this.activePhase = activePhase;
         this.maxHealthBars = maxHealthBars;
-        this.hurt = hurt;
-        this.knock = knock;
-        this.dialogue = dialogue;
+        this.healthBars = maxHealthBars;
+
+        // TODO - standardize naming these so we can add variables 
+        hurtClip = FileUtility.LoadFile<AudioClip>($"Audio/Voicelines/Lobstobotomizer/snd_ugh");
+        knockClip = FileUtility.LoadFile<AudioClip>($"Audio/Voicelines/Lobstobotomizer/snd_khan");
+        dialogueClips = new List<AudioClip>() { hurtClip, knockClip };
 
         // these are needed to stop the thing from yelling at me. oh well
         accumulatedWeightSum = 0;
@@ -47,6 +31,10 @@ public struct BossData
         Accumulate(specialWeights);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="weights"></param>
     private void Accumulate(List<float> weights)
     {
         List<float> result = new List<float>();

@@ -8,7 +8,7 @@ using System;
 /// Boss health slider component
 /// </summary>
 [RequireComponent(typeof(Slider), typeof(Image))]
-public class HealthSlider : MonoBehaviour
+public class BossHealthSlider : MonoBehaviour
 {
     /// <summary>
     /// Slider this gameObject is attached to

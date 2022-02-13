@@ -8,72 +8,106 @@ using Object = UnityEngine.Object;
 
 public abstract class Boss : Character
 {
-    [Header("Boss Stats")]
-    /// <summary> 
-    /// Amount of times hp must be depleted for defeat
-    /// </summary>
-    public int maxHealthBars;
-
     /// <summary>
-    /// Current count of health bars
+    /// Active phases of boss
     /// </summary>
-    public int healthBars; 
+    public override Phase[] activePhases => new Phase[] { Phase.Boss_Guard, Phase.Boss }; 
 
+    // TODO - There is a convoluted way to serialized properties in unity using custom inspector!
     [Header("Boss UI")]
     /// <summary>
     /// Slider UI Component in scene that this object controls
     /// </summary>
-    [SerializeField] private HealthSlider healthSlider;
+    [SerializeField] private BossHealthSlider healthSlider;
 
-    [Header("Boss Special Weights")]
-    [SerializeField] public List<float> accumulatedWeights;
-    [SerializeField] public float accumulatedWeightSum;
+    //[Header("Boss Data")]
+    /// <summary>
+    /// Amount of times health bar must be depleted to be defeated
+    /// </summary>
+    public abstract int maxHealthBars { get; }
 
-    [SerializeField] public AudioClip hurt;
-    [SerializeField] public AudioClip knock;
-    [SerializeField] public List<AudioClip> dialogue;
+    /// <summary>
+    /// Current health bars 
+    /// </summary>
+    public int healthBars { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public abstract List<float> specialWeights { get; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public List<float> accumulatedWeights { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public float accumulatedWeightSum { get; set; }
+
+    //[Header("Boss Audio")]
+    protected AudioClip hurtClip { get; private set; }
+    protected AudioClip knockClip { get; private set; }
+    protected List<AudioClip> dialogueClips { get; private set; }
 
     // Start is called before the first frame update 
-    protected override IList<Phase> InitializeCharacter()
+    protected sealed override void OnInitialize()
     {
-        BossData data = SetBossData();
-        name = data.name;
-        maxHealth = data.maxHealth;
-        health = maxHealth;
-        damage = data.damage;
-        resistance = data.resistance;
-        maxHealthBars = data.maxHealthBars;
+        OnInitializeBoss();
         healthBars = maxHealthBars;
-        hurt = data.hurt;
-        knock = data.knock;
-        dialogue = data.dialogue;
-        accumulatedWeights = data.accumulatedWeights;
-        accumulatedWeightSum = data.accumulatedWeightSum;
+        health = maxHealth; // TODO - i'm repeatiing this code to get the refresh working first time
 
         RefreshSlider();
 
-        return new Phase[] { Phase.Boss, Phase.Boss_Guard }; 
+        // TODO - standardize naming these so we can add variables 
+        hurtClip = FileUtility.LoadFile<AudioClip>($"Audio/Voicelines/{characterName}/snd_ugh");
+        knockClip = FileUtility.LoadFile<AudioClip>($"Audio/Voicelines/{characterName}/snd_khan");
+        dialogueClips = new List<AudioClip>() { hurtClip, knockClip };
+
+        // these are needed to stop the thing from yelling at me. oh well
+        accumulatedWeightSum = 0;
+        accumulatedWeights = null;
+        Accumulate(specialWeights);
     }
 
     /// <summary>
-    /// Allows children to initialize data without hiding parent's Start, uses struct to ensure proper data is supplied
+    /// 
     /// </summary>
-    protected abstract BossData SetBossData();
+    /// <param name="weights"></param>
+    private void Accumulate(List<float> weights)
+    {
+        List<float> result = new List<float>();
+        float accumulatedWeight = 0;
+
+        for (int i = 0; i < weights.Count; i++)
+        {
+            accumulatedWeight += weights[i];
+            result.Insert(i, accumulatedWeight);
+        }
+
+        accumulatedWeightSum = accumulatedWeight;
+        accumulatedWeights = result;
+    }
+
+    /// <summary>
+    /// Allows children to initialize data without hiding parent's Start
+    /// </summary>
+    protected abstract void OnInitializeBoss();
     
     /// <summary>
     /// Event that happens when Hitbox enters boss Hurtbox
     /// </summary>
     /// <param name="damage">Damage taken on entry</param>
-    public override void OnHitboxEnter(float damage)
+    public override void OnHurtboxEnter(float damage)
     {
-        
         switch (this.GetManagerPhase())
         {
             case Phase.Player:
-                base.OnHitboxEnter(damage);
+                base.OnHurtboxEnter(damage);
                 new ScoreData(timesBossHit: 1).AddToPlayerScore(group);
                 RefreshSlider();
-                AudioPlayer.Play(hurt);
+                AudioPlayer.Play(hurtClip);
                 break;
             case Phase.Boss_Guard:
                 animator.SetTrigger("Guard");
@@ -86,7 +120,7 @@ public abstract class Boss : Character
     /// </summary>
     private void RefreshSlider()
     {
-        healthSlider.SetValue(health / maxHealth); 
+        healthSlider.SetValue(health / maxHealth);
     }
 
     /// <summary>
@@ -97,7 +131,7 @@ public abstract class Boss : Character
         this.GetUIShaderOverlay().StartFlash();
 
         this.SwitchPhase(Phase.Boss_Collapse);
-        AudioPlayer.Play(knock);
+        AudioPlayer.Play(knockClip);
         healthBars--;
         health = maxHealth / (maxHealthBars - healthBars + 1); 
         
@@ -112,11 +146,17 @@ public abstract class Boss : Character
         animator.SetTrigger("Collapse");
     }
 
+    /// <summary>
+    /// What happens when the boss recovers from being down
+    /// </summary>
     public virtual void OnRecover()
     {
         RefreshSlider();
     }
 
+    /// <summary>
+    /// What happens when health and healthBars are depleted
+    /// </summary>
     public virtual void OnHealthDepleteFull()
     {
         this.SwitchPhase(Phase.Player_Win); 
