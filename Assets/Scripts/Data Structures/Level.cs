@@ -9,10 +9,10 @@ public class Level : ScriptableObject
     /// Name of the boss in this level
     /// </summary>
     /// <remarks>Used to identify file names</remarks>
-    public new string name;
+    public new string bossName;
 
     public Level(string name)
     {
-        this.name = base.name;
+        this.bossName = base.name;
     }
 }

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a7a7d563a46c6b4094606e421b4ac66, type: 3}
   m_Name: Lobstobotomizer
   m_EditorClassIdentifier: 
-  name: Lobstobotomizer
+  bossName: Lobstobotomizer

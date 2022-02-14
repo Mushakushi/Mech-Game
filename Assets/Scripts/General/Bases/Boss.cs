@@ -51,13 +51,27 @@ public abstract class Boss : Character
     protected AudioClip knockClip { get; private set; }
     protected List<AudioClip> dialogueClips { get; private set; }
 
+    
+
     // Start is called before the first frame update 
     protected sealed override void OnInitialize()
     {
+        // destroy stand-in boss component, phase manager has
+        // already added the appropriate one for initialization purposes
+        if (GetType() == typeof(UnimplementedBoss))
+        {
+            DestroyImmediate(GetComponent(typeof(UnimplementedBoss))); 
+            return; 
+        }
+
+        this.GetManager().boss = GetComponent(typeof(Boss)) as Boss;
+        Debug.LogError("what"); 
+
         OnInitializeBoss();
         healthBars = maxHealthBars;
         health = maxHealth; // TODO - i'm repeatiing this code to get the refresh working first time
 
+        healthSlider = FindObjectOfType<BossHealthSlider>(); 
         RefreshSlider();
 
         // TODO - standardize naming these so we can add variables 

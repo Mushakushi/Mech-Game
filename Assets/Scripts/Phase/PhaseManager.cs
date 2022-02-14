@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events; 
 using System.Collections.Generic;
 using System.Linq;
+using System; 
 
 /// <summary>
 /// Possible phases of battle 
@@ -65,10 +66,10 @@ public class PhaseManager : MonoBehaviour
     /// <summary>
     /// Initializes this group and gets every phase controller child
     /// </summary>
-    void Start()
+    public void OnStart()
     {
         // Set group index 
-        group = 0;
+        group = BattleGroupManager.phaseManagers.Count() - 1;
 
         ScoreUtil.CreatePlayerScore(group);
 
@@ -91,6 +92,14 @@ public class PhaseManager : MonoBehaviour
                         break; 
                     case "Boss":
                         boss = controller as Boss; 
+                        if (boss)
+                        {
+                            Type type = Type.GetType(BattleGroupManager.level.bossName);
+                            if (type != null)
+                            {
+                                boss.gameObject.AddComponent(type);
+                            }
+                        }
                         break;
                     case "Player":
                         player = controller as Player;
@@ -108,17 +117,27 @@ public class PhaseManager : MonoBehaviour
         // Check for required controllers in scene
         if (!cameraExposer) Debug.LogError("Could not find child virtual camera tagged \"MainCamera\" with a VirtualCameraExposer script!");
         if (!boss) Debug.LogError("Could not find child GameObject tagged \"Boss\" with a Boss component!");
+        boss = null;
         if (!player) Debug.LogError("Could not find child GameObject tagged \"Player\" with a Player component!");
         if (!jario) Debug.LogError("You cannot escape Jario. Please add him to your list of dependents!");
 
         // Add default phase events
-        foreach (DefaultPhaseEvent e in defaultPhaseEvents) AddRuntimePhaseController(e);
+        foreach (DefaultPhaseEvent e in defaultPhaseEvents) AddRuntimePhaseController(e); 
+    }
+
+    // important to call onStart after awake references to not break game!
+    private void Start()
+    {
+        boss = null; 
+        boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
+        controllers.Add(boss);
+        boss.OnStart();
 
         // Start all child phase controller(s)
-        foreach (IPhaseController controller in controllers) controller.OnStart();
+        //foreach (IPhaseController controller in controllers) controller.OnStart(); 
 
         // Start phase
-        EnterPhase(Phase.Intro); 
+        EnterPhase(Phase.Intro);
     }
 
     /// <summary>

@@ -111,4 +111,14 @@ public class MenuEventHandler : MonoBehaviour
     /// </summary>
     /// <param name="scene">The name of the scene</param>
     public void LoadScene(string scene) => StartCoroutine(Scene.Load(scene)); 
+
+    /// <summary>
+    /// Load battle scene with boss name <paramref name="name"/>
+    /// </summary>
+    /// <param name="bossName">Name of the boss to load</param>
+    public void LoadBattleScene(string bossName)
+    {
+        BattleGroupManager.LoadLevelData(bossName); 
+        LoadScene("Battle Scene"); 
+    }
 }

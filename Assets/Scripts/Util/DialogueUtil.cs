@@ -14,7 +14,7 @@ public static class DialogueUtil
     /// <param name="bossName">Name of boss to load dialogue for.</param>
     public static BossDialogueAsset LoadDialogue(string bossName)
     {
-        return FileUtility.LoadFile<BossDialogueAsset>($"Dialogue/{BattleGroupManager.level.name}");
+        return FileUtility.LoadFile<BossDialogueAsset>($"Dialogue/{BattleGroupManager.level.bossName}");
     }
 
     /// <summary>

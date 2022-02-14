@@ -2252,25 +2252,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3974684210249697689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4293559388777329613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9edc6dac905b9894089e506eb0348885, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  animator: {fileID: 5178909433598979754}
-  hitbox: {fileID: 0}
-  hurtbox: {fileID: 0}
-  isHit: 0
-  returnToIdle: 0
-  healthSlider: {fileID: 3974684209669371680}
 --- !u!1 &3974684210262862534
 GameObject:
   m_ObjectHideFlags: 0
@@ -2439,7 +2420,6 @@ GameObject:
   - component: {fileID: 5178909433922507033}
   - component: {fileID: 4372735106346769212}
   - component: {fileID: 8273356603088039770}
-  - component: {fileID: 3974684210249697689}
   m_Layer: 6
   m_Name: Boss
   m_TagString: Boss

@@ -44,7 +44,7 @@ public static class LeaderboardUtil
     /// <returns> Persistent file path to leaderboard file.</returns>
     private static string GetLeaderboardFilePath(Level level)
     {
-        return $"{GetLeaderboardFilesDirectory()}/{level.name.ToLower()}.csv";
+        return $"{GetLeaderboardFilesDirectory()}/{level.bossName.ToLower()}.csv";
     }
 
     /// <summary>

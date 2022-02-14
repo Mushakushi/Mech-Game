@@ -193,13 +193,12 @@ public class Player : Character
     {
         base.OnHurtboxEnter(damage);
         slider.DepleteOneHealth();
-        print(health); 
     }
 
     protected override void OnHealthDeplete()
     {
         print("player defeated");
-        StartCoroutine(Scene.Load("Menu Scene")); 
+        //StartCoroutine(Scene.Load("Menu Scene")); 
     }
 
     private IEnumerator DoAttack()

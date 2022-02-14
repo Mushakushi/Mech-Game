@@ -30,7 +30,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void OnStart()
     {
         //SetGameLang(LANGUAGE.English);
-        InitializeBossDialogue(BattleGroupManager.level.name);
+        InitializeBossDialogue(BattleGroupManager.level.bossName);
     }
 
     /// <summary>

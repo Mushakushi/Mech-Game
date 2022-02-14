@@ -22,11 +22,13 @@ public class BattleGroupManager : MonoBehaviour
 
     void Awake()
     {
+        // delete after done debuging battle scene
+        LoadLevelData("Lobstobotomizer"); 
+
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("PhaseManager"))
             phaseManagers.Add(g.GetComponent<PhaseManager>());
 
-        // call from menu later
-        LoadLevelData("Lobstobotomizer"); 
+        foreach (PhaseManager p in phaseManagers) p.OnStart(); 
 
         // unity serialization
         _phaseManagers = phaseManagers;
@@ -41,9 +43,9 @@ public class BattleGroupManager : MonoBehaviour
     /// Loads Level ScriptableObject data from Scriptable Objects/Level Data/<paramref name="name"/>
     /// </summary>
     /// <param name="name">Name of level data field</param>
-    public void LoadLevelData(string name)
+    public static void LoadLevelData(string name)
     {
-        level = FileUtility.LoadFile<Level>($"Scriptable Objects/Level Data/{name}"); 
+        level = FileUtility.LoadFile<Level>($"Scriptable Objects/Level Data/{name}");
     }
 
     // Wrapper for UnityEvent, allows it to access the static function

@@ -13,7 +13,6 @@ public static class CoroutineUtility
     /// <remarks>Still needs to be wrapped with StartCoroutine</remarks>
     public static IEnumerator WaitForSeconds(float seconds, Action onComplete = null)
     {
-        Debug.Log('y'); 
         yield return new WaitForSeconds(seconds);;
         onComplete?.Invoke();
     }
