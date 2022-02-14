@@ -22,6 +22,7 @@ public class PhaseManager : MonoBehaviour
     public int group { get; private set; }
 
     [Header("Required References")]
+    [ReadOnly] public new Camera camera; 
     [ReadOnly] public VirtualCameraExposer cameraExposer;
     [ReadOnly] public UIShaderOverlay uiShaderOverlay; 
     [ReadOnly] public Boss boss;
@@ -73,6 +74,9 @@ public class PhaseManager : MonoBehaviour
 
         ScoreUtil.CreatePlayerScore(group);
 
+        // Get non phase controller references 
+        camera = gameObject.GetComponentInChildren<Camera>(); 
+
         // Get phase controller(s) attached to this object
         foreach (IPhaseController controller in GetComponents<IPhaseController>()) controllers.Add(controller);
 
@@ -91,18 +95,7 @@ public class PhaseManager : MonoBehaviour
                         cameraExposer = controller as VirtualCameraExposer;
                         break; 
                     case "Boss":
-                        // add boss script to boss 
-                        Type type = Type.GetType(BattleGroupManager.level.bossName);
-                        if (type != null)
-                        {
-                            boss.gameObject.AddComponent(type);
-                        }
-                        controller.gameObject.
-                        boss = controller as Boss;
-                        if (boss)
-                        {
-                            
-                        }
+                        boss = controller as Boss; 
                         break;
                     case "Player":
                         player = controller as Player;
@@ -120,7 +113,6 @@ public class PhaseManager : MonoBehaviour
         // Check for required controllers in scene
         if (!cameraExposer) Debug.LogError("Could not find child virtual camera tagged \"MainCamera\" with a VirtualCameraExposer script!");
         if (!boss) Debug.LogError("Could not find child GameObject tagged \"Boss\" with a Boss component!");
-        boss = null;
         if (!player) Debug.LogError("Could not find child GameObject tagged \"Player\" with a Player component!");
         if (!jario) Debug.LogError("You cannot escape Jario. Please add him to your list of dependents!");
 
@@ -131,13 +123,9 @@ public class PhaseManager : MonoBehaviour
     // important to call onStart after awake references to not break game!
     private void Start()
     {
-        boss = null; 
-        boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
-        controllers.Add(boss);
-        boss.OnStart();
 
         // Start all child phase controller(s)
-        //foreach (IPhaseController controller in controllers) controller.OnStart(); 
+        foreach (IPhaseController controller in controllers) controller.OnStart(); 
 
         // Start phase
         EnterPhase(Phase.Intro);

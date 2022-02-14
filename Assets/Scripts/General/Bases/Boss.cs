@@ -59,6 +59,8 @@ public abstract class Boss : Character
         DisableHitbox();
 
         // why not store all this in a BossData field??????
+        // you could but then you'd have to pass in characterdata/ leave it abstract
+        // i just opted to make everything abstract
 
         OnInitializeBoss();
         healthBars = maxHealthBars;

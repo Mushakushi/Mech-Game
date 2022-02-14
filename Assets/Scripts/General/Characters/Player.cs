@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 
+[RequireComponent(typeof(PlayerInput))]
 public class Player : Character
 {
-
     public override string characterName => "";
     public override float maxHealth => 3; 
     public override float resistance => 1;
@@ -81,6 +81,9 @@ public class Player : Character
     {
         // get player input actions
         controller = new PlayerControls();
+
+        // set player input virtual camera
+        GetComponent<PlayerInput>().camera = this.GetManager().camera;
 
         // sets variable to true when respective input action is performed via delegate
         dodgeLeft = controller.Player.DodgeLeft;

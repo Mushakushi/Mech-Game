@@ -17,14 +17,22 @@ public class Hitbox : MonoBehaviour
     /// <summary>
     /// The Character this Hitbox is attached to.
     /// </summary>
-    private IHitboxOwner hitboxOwner; 
+    private IHitboxOwner hitboxOwner;
 
-    private void Start()
+    public BoxCollider2D boxCollider;
+
+    private void Awake()
     {
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
         if (gameObject.GetComponentInParent<IHitboxOwner>() is IHitboxOwner owner)
             hitboxOwner = owner;
         else
             Debug.LogWarning("Hitbox has no owner. Ignore this if intended.");
+    }
+
+    private void Start()
+    {
+        
     }
 
     /// <summary>

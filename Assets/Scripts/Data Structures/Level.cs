@@ -9,7 +9,7 @@ public class Level : ScriptableObject
     /// Name of the boss in this level
     /// </summary>
     /// <remarks>Used to identify file names</remarks>
-    public new string bossName;
+    public string bossName;
 
     public Level(string name)
     {

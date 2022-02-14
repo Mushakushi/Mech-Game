@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Animator), typeof(BoxCollider2D))]
+[RequireComponent(typeof(Animator), typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
 {
     //[Header("Character Stats")]
@@ -88,7 +88,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
 
         hitbox = GetComponentInChildren<Hitbox>();
         if (!hitbox) Debug.LogError("Script requires hitbox in child!");
-        // disable hitbox?
+        DisableHitbox();
 
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = FileUtility.LoadFile<RuntimeAnimatorController>($"Animation/Animators/{GetType().Name}");
@@ -147,7 +147,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
     /// </summary>
     public void EnableHitbox()
     {
-        hitbox.enabled = true;
+        hitbox.boxCollider.enabled = true;
     }
 
     /// <summary>
@@ -155,7 +155,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
     /// </summary>
     public void DisableHitbox()
     {
-        hitbox.enabled = false;
+        hitbox.boxCollider.enabled = false;
     }
 
     /// <summary>

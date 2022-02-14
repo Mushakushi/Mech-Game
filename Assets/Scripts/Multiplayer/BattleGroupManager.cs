@@ -24,12 +24,13 @@ public class BattleGroupManager : MonoBehaviour
     void Awake()
     {
         // delete after done debuging battle scene
-        LoadLevelData("Lobstobotomizer"); 
+        LoadLevelData("Lobstobotomizer");
 
         // applies level data to scene 
+        OnLoadLevel(); 
 
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("PhaseManager"))
-            phaseManagers.Add(g.GetComponent<PhaseManager>());
+            AddPhaseManager(g.GetComponent<PhaseManager>());
 
         foreach (PhaseManager p in phaseManagers) p.OnStart(); 
 
@@ -37,9 +38,13 @@ public class BattleGroupManager : MonoBehaviour
         _phaseManagers = phaseManagers;
     }
 
-    public void AddPhaseManager(PhaseManager pm)
+    /// <summary>
+    /// Adds PhaseManager <paramref name="manager"/> manager to list of managers in scene
+    /// </summary>
+    /// <param name="manager">The Phase manager</param>
+    public void AddPhaseManager(PhaseManager manager)
     {
-        phaseManagers.Add(pm);
+        phaseManagers.Add(manager);
     }
 
     /// <summary>
@@ -57,11 +62,14 @@ public class BattleGroupManager : MonoBehaviour
     private void OnLoadLevel()
     {
         // add boss script to boss 
-        Type type = Type.GetType(BattleGroupManager.level.bossName);
-        if (type != null)
-        {
-            GameObject.FindGameObjectWithTag("Boss").AddComponent
-        }
+        Type bossType = Type.GetType(level.bossName);
+        if (bossType != null) GameObject.FindGameObjectWithTag("Boss").AddComponent(bossType); 
+
+        // change music 
+
+        // change background 
+
+        // etc...
     }
 
     // Wrapper for UnityEvent, allows it to access the static function
