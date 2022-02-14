@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator), typeof(BoxCollider2D))]
-public abstract class Character : MonoBehaviour, IPhaseController, IHurtable
+public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
 {
     //[Header("Character Stats")]
     // TODO - There is a convoluted way to serialized properties in unity using custom inspector!
@@ -113,7 +113,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHurtable
     /// </summary>
     /// <param name="damage">Damage taken on entrance</param>
     /// aside: should technically be named OnHitboxEnter, but improves readability
-    public virtual void OnHurtboxEnter(float damage)
+    public virtual void OnHitboxEnter(float damage)
     {
         animator.SetTrigger("GetHit");
 
@@ -130,17 +130,19 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHurtable
     /// <summary>
     /// Event that happens when a Hitbox exits this Character's Hurtbox
     /// </summary>
-    public virtual void OnHurtboxExit()
+    public virtual void OnHitboxExit()
     {
         isHit = false;
-        StartCoroutine(DoInvulnFrames(0.05f));
     }
 
-    public IEnumerator DoInvulnFrames(float duration)
+    public virtual void OnEnterHurtbox()
     {
-        DisableHurtbox();
-        yield return new WaitForSeconds(duration);
-        EnableHurtbox();
+
+    }
+
+    public virtual void OnExitHurtbox()
+    {
+
     }
 
     /// <summary>
@@ -265,5 +267,6 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHurtable
     /// Describes what can happen when Character's phase is exited 
     /// </summary>
     protected abstract void PhaseExitBehavior();
+
     #endregion
 }

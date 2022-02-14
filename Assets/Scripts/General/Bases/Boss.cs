@@ -56,6 +56,7 @@ public abstract class Boss : Character
     // Start is called before the first frame update 
     protected sealed override void OnInitialize()
     {
+<<<<<<< Updated upstream
         // destroy stand-in boss component, phase manager has
         // already added the appropriate one for initialization purposes
         if (GetType() == typeof(UnimplementedBoss))
@@ -66,6 +67,11 @@ public abstract class Boss : Character
 
         this.GetManager().boss = GetComponent(typeof(Boss)) as Boss;
         Debug.LogError("what"); 
+=======
+        DisableHitbox();
+
+        // why not store all this in a BossData field??????
+>>>>>>> Stashed changes
 
         OnInitializeBoss();
         healthBars = maxHealthBars;
@@ -113,12 +119,12 @@ public abstract class Boss : Character
     /// Event that happens when Hitbox enters boss Hurtbox
     /// </summary>
     /// <param name="damage">Damage taken on entry</param>
-    public override void OnHurtboxEnter(float damage)
+    public override void OnHitboxEnter(float damage)
     {
         switch (this.GetManagerPhase())
         {
             case Phase.Player:
-                base.OnHurtboxEnter(damage);
+                base.OnHitboxEnter(damage);
                 new ScoreData(timesBossHit: 1).AddToPlayerScore(group);
                 RefreshSlider();
                 AudioPlayer.Play(hurtClip);

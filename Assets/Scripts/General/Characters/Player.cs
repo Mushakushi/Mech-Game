@@ -123,6 +123,7 @@ public class Player : Character
 
     protected override void PhaseEnterBehavior()
     {
+        DisableHurtbox();
         attack.Enable();
         switch (this.GetManagerPhase())
         {
@@ -132,6 +133,8 @@ public class Player : Character
                 animator.SetTrigger("Win"); 
                 break;
             case Phase.Boss:
+                EnableHurtbox();
+                break;
             default:
                 break; 
 
@@ -189,10 +192,16 @@ public class Player : Character
         DisableHitbox();
     }
 
-    public override void OnHurtboxEnter(float damage)
+    public override void OnHitboxEnter(float damage)
     {
-        base.OnHurtboxEnter(damage);
+        base.OnHitboxEnter(damage);
         slider.DepleteOneHealth();
+    }
+
+    public override void OnEnterHurtbox()
+    {
+        DisableHitbox();
+        Debug.LogError("hitbox disabled");
     }
 
     protected override void OnHealthDeplete()

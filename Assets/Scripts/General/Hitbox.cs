@@ -14,18 +14,17 @@ public class Hitbox : MonoBehaviour
     /// </summary>
     [SerializeField] public float damage;
     
-    // this is damaging the player when they hit the boss
     /// <summary>
     /// The Character this Hitbox is attached to.
     /// </summary>
-    //private IHurtable self; 
+    private IHitboxOwner hitboxOwner; 
 
     private void Start()
     {
-        /*if (gameObject.GetComponentInParent<IHurtable>() is IHurtable owner)
-            self = owner;
+        if (gameObject.GetComponentInParent<IHitboxOwner>() is IHitboxOwner owner)
+            hitboxOwner = owner;
         else
-            Debug.LogWarning("Hitbox has no owner. Ignore this if intended.");*/
+            Debug.LogWarning("Hitbox has no owner. Ignore this if intended.");
     }
 
     /// <summary>
@@ -34,16 +33,16 @@ public class Hitbox : MonoBehaviour
     /// <param name="other">Collider2D the GameObject is attached to</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        IHurtable hurtbox = GetIHurtboxOwner(other.gameObject);
+        Character hurtbox = GetCharacter(other.gameObject);
         if (hurtbox != null)
         {
-            hurtbox.OnHurtboxEnter(damage);
+            hurtbox.OnHitboxEnter(damage);
             Debug.LogError($"{transform.parent.name} hit {other.name} for {damage} damage"); 
         }   
         else
             print($"{transform.parent.name} failed to get character script from {other.name}");
-        /*if (self != null)
-            self.OnHurtboxEnter(damage);*/
+        if (hitboxOwner != null)
+            hitboxOwner.OnEnterHurtbox();
     }
 
     /// <summary>
@@ -52,11 +51,11 @@ public class Hitbox : MonoBehaviour
     /// <param name="other">Collider2D the GameObject is attached too</param>
     private void OnTriggerExit2D(Collider2D other)
     {
-        IHurtable hurtbox = GetIHurtboxOwner(other.gameObject);
+        Character hurtbox = GetCharacter(other.gameObject);
         if (hurtbox != null)
-            hurtbox.OnHurtboxExit();
-        /*if (self != null)
-            self.OnHurtboxExit();*/
+            hurtbox.OnHitboxExit();
+        if (hitboxOwner != null)
+            hitboxOwner.OnExitHurtbox();
     }
 
     /// <summary>
@@ -64,10 +63,10 @@ public class Hitbox : MonoBehaviour
     /// </summary>
     /// <param name="other">GameObject script may be attached to</param>
     /// <returns>Character script if found, null otherwise</returns>
-    private IHurtable GetIHurtboxOwner(GameObject other)
+    private Character GetCharacter(GameObject other)
     {
         if (layerMask != (layerMask | 1 << other.layer)) return null;
-        if (other.GetComponent<IHurtable>() is IHurtable o) return o;
+        if (other.GetComponent<Character>() is Character o) return o;
         else return null; 
     }
 }
