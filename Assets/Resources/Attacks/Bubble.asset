@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1dceb019af3c2449d9333e255447aa, type: 3}
   m_Name: Bubble
   m_EditorClassIdentifier: 
+  projectileAnimations: {fileID: 0}
+  attackSpawnDirections:
+    top: 0
+  damage: 0
