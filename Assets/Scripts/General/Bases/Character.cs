@@ -82,25 +82,22 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
 
     public void OnStart()
     {
-        // temp so boss can delete itself..
+        hurtbox = GetComponent<BoxCollider2D>();
+        if (!hurtbox) Debug.LogError("Script requires a Box Collider component!");
+        EnableHurtbox();
+
+        hitbox = GetComponentInChildren<Hitbox>();
+        if (!hitbox) Debug.LogError("Script requires hitbox in child!");
+        // disable hitbox?
+
+        animator = GetComponentInChildren<Animator>();
+        animator.runtimeAnimatorController = FileUtility.LoadFile<RuntimeAnimatorController>($"Animation/Animators/{GetType().Name}");
+
+        // initialize sub classes
         OnInitialize();
 
-        if (this)
-        {
-            hurtbox = GetComponent<BoxCollider2D>();
-            if (!hurtbox) Debug.LogError("Script requires a Box Collider component!");
-            EnableHurtbox();
-
-            hitbox = GetComponentInChildren<Hitbox>();
-            if (!hitbox) Debug.LogError("Script requires hitbox in child!");
-            // disable hitbox?
-
-            animator = GetComponentInChildren<Animator>();
-            animator.runtimeAnimatorController = FileUtility.LoadFile<RuntimeAnimatorController>($"Animation/Animators/{GetType().Name}");
-
-            health = maxHealth;
-            hitbox.damage = damage;
-        }
+        health = maxHealth;
+        hitbox.damage = damage;
     }
 
     /// <summary>

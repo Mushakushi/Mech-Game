@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System; 
 
 public class BattleGroupManager : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class BattleGroupManager : MonoBehaviour
         // delete after done debuging battle scene
         LoadLevelData("Lobstobotomizer"); 
 
+        // applies level data to scene 
+
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("PhaseManager"))
             phaseManagers.Add(g.GetComponent<PhaseManager>());
 
@@ -46,6 +49,19 @@ public class BattleGroupManager : MonoBehaviour
     public static void LoadLevelData(string name)
     {
         level = FileUtility.LoadFile<Level>($"Scriptable Objects/Level Data/{name}");
+    }
+
+    /// <summary>
+    /// Applies level data to scene 
+    /// </summary>
+    private void OnLoadLevel()
+    {
+        // add boss script to boss 
+        Type type = Type.GetType(BattleGroupManager.level.bossName);
+        if (type != null)
+        {
+            GameObject.FindGameObjectWithTag("Boss").AddComponent
+        }
     }
 
     // Wrapper for UnityEvent, allows it to access the static function

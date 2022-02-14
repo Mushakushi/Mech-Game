@@ -56,22 +56,9 @@ public abstract class Boss : Character
     // Start is called before the first frame update 
     protected sealed override void OnInitialize()
     {
-<<<<<<< Updated upstream
-        // destroy stand-in boss component, phase manager has
-        // already added the appropriate one for initialization purposes
-        if (GetType() == typeof(UnimplementedBoss))
-        {
-            DestroyImmediate(GetComponent(typeof(UnimplementedBoss))); 
-            return; 
-        }
-
-        this.GetManager().boss = GetComponent(typeof(Boss)) as Boss;
-        Debug.LogError("what"); 
-=======
         DisableHitbox();
 
         // why not store all this in a BossData field??????
->>>>>>> Stashed changes
 
         OnInitializeBoss();
         healthBars = maxHealthBars;

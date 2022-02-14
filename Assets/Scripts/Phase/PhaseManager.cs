@@ -34,14 +34,14 @@ public class PhaseManager : MonoBehaviour
     public Phase phase { get; private set; }
 
     /// <summary>
-    /// Every phase controller in the scene
+    /// Every phase controller in the scene. Unity Serialization
     /// </summary>
-    [SerializeField] [ReadOnly] private List<IPhaseController> controllers = new List<IPhaseController>();
+    [SerializeField] [ReadOnly] private readonly List<IPhaseController> controllers = new List<IPhaseController>();
 
     /// <summary>
-    /// Active phase controllers. Will recieve calls to start, update, and exit
+    /// Active phase controllers. Will recieve calls to start, update, and exit. Unity Serialization
     /// </summary>
-    [SerializeField] [ReadOnly] private List<IPhaseController> activeControllers = new List<IPhaseController>();
+    [SerializeField] [ReadOnly] private readonly List<IPhaseController> activeControllers = new List<IPhaseController>();
 
     /// <summary>
     /// This snippet allows for the static activeControllers to be serialized in Unity
@@ -61,7 +61,7 @@ public class PhaseManager : MonoBehaviour
     /// <summary>
     /// List of default phase events
     /// </summary>
-    [SerializeField] private List<DefaultPhaseEvent> defaultPhaseEvents = new List<DefaultPhaseEvent>();
+    [SerializeField] private readonly List<DefaultPhaseEvent> defaultPhaseEvents = new List<DefaultPhaseEvent>();
 
     /// <summary>
     /// Initializes this group and gets every phase controller child
@@ -91,14 +91,17 @@ public class PhaseManager : MonoBehaviour
                         cameraExposer = controller as VirtualCameraExposer;
                         break; 
                     case "Boss":
-                        boss = controller as Boss; 
+                        // add boss script to boss 
+                        Type type = Type.GetType(BattleGroupManager.level.bossName);
+                        if (type != null)
+                        {
+                            boss.gameObject.AddComponent(type);
+                        }
+                        controller.gameObject.
+                        boss = controller as Boss;
                         if (boss)
                         {
-                            Type type = Type.GetType(BattleGroupManager.level.bossName);
-                            if (type != null)
-                            {
-                                boss.gameObject.AddComponent(type);
-                            }
+                            
                         }
                         break;
                     case "Player":
