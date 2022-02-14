@@ -2,14 +2,13 @@
 
 ## Current TODO:
 - Create Shoto and John
-- Add options menu
-- Get title screen assets
+- Fix options menu
 
-- load different levels from menu
-- multiplayer input and camera control
-- player health bar
-- leaderboard end screen (actually end battle)
-- sync jario counts with boss shakes
+- Fix loading different levels from menu
+- Multiplayer input and camera control
+- Leaderboard end screen (actually end battle)
+- Sync jario counts with boss shakes
+- Projectiles
 
 ## Looking Foward:
 
