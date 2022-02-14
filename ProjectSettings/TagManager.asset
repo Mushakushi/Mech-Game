@@ -9,6 +9,7 @@ TagManager:
   - Jario
   - PhaseManager
   - UIShaderOverlay
+  - UICanvas
   layers:
   - Default
   - TransparentFX

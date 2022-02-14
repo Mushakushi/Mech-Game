@@ -65,17 +65,24 @@ public class PhaseManager : MonoBehaviour
     [SerializeField] private readonly List<DefaultPhaseEvent> defaultPhaseEvents = new List<DefaultPhaseEvent>();
 
     /// <summary>
+    /// Amount to transform new phase manager
+    /// </summary>
+    private const int width = 1000; 
+
+    /// <summary>
     /// Initializes this group and gets every phase controller child
     /// </summary>
-    public void OnStart()
+    public void Awake()
     {
         // Set group index 
         group = BattleGroupManager.phaseManagers.Count() - 1;
+        transform.position += width * Vector3.right * group; 
 
         ScoreUtil.CreatePlayerScore(group);
 
         // Get non phase controller references 
-        camera = gameObject.GetComponentInChildren<Camera>(); 
+        camera = gameObject.GetComponentInChildren<Camera>();
+        gameObject.GetComponentInChildren<Canvas>().worldCamera = camera; 
 
         // Get phase controller(s) attached to this object
         foreach (IPhaseController controller in GetComponents<IPhaseController>()) controllers.Add(controller);

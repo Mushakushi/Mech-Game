@@ -83,12 +83,12 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
     public void OnStart()
     {
         hurtbox = GetComponent<BoxCollider2D>();
+        if (hurtbox) EnableHurtbox(); 
         if (!hurtbox) Debug.LogError("Script requires a Box Collider component!");
-        EnableHurtbox();
 
         hitbox = GetComponentInChildren<Hitbox>();
-        if (!hitbox) Debug.LogError("Script requires hitbox in child!");
-        DisableHitbox();
+        if (hitbox) DisableHitbox(); 
+        if (!hurtbox) Debug.LogError("Script requires hitbox in child!");
 
         animator = GetComponentInChildren<Animator>();
         animator.runtimeAnimatorController = FileUtility.LoadFile<RuntimeAnimatorController>($"Animation/Animators/{GetType().Name}");
@@ -147,7 +147,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
     /// </summary>
     public void EnableHitbox()
     {
-        hitbox.boxCollider.enabled = true;
+        if (hitbox) hitbox.boxCollider.enabled = true;
     }
 
     /// <summary>
@@ -155,7 +155,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
     /// </summary>
     public void DisableHitbox()
     {
-        hitbox.boxCollider.enabled = false;
+        if (hitbox) hitbox.boxCollider.enabled = false;
     }
 
     /// <summary>

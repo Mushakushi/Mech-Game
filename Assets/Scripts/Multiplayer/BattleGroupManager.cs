@@ -32,10 +32,7 @@ public class BattleGroupManager : MonoBehaviour
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("PhaseManager"))
             AddPhaseManager(g.GetComponent<PhaseManager>());
 
-        foreach (PhaseManager p in phaseManagers) p.OnStart(); 
-
-        // unity serialization
-        _phaseManagers = phaseManagers;
+        //foreach (PhaseManager p in phaseManagers) p.OnStart(); 
     }
 
     /// <summary>
@@ -45,6 +42,9 @@ public class BattleGroupManager : MonoBehaviour
     public void AddPhaseManager(PhaseManager manager)
     {
         phaseManagers.Add(manager);
+
+        // unity serialization
+        _phaseManagers = phaseManagers;
     }
 
     /// <summary>
@@ -61,6 +61,9 @@ public class BattleGroupManager : MonoBehaviour
     /// </summary>
     private void OnLoadLevel()
     {
+        // get rid of old references 
+        phaseManagers.Clear();
+
         // add boss script to boss 
         Type bossType = Type.GetType(level.bossName);
         if (bossType != null) GameObject.FindGameObjectWithTag("Boss").AddComponent(bossType); 
