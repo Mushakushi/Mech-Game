@@ -21,7 +21,6 @@ public class Jario : MonoBehaviour, IPhaseController
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        animator.ResetTrigger("Count"); 
     }
     public void OnStart() { }
 

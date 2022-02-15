@@ -91,10 +91,14 @@ public class PhaseManager : MonoBehaviour
         gameObject.GetComponentInChildren<Canvas>().worldCamera = camera;
 
         // Clear controllers
-        controllers.Clear(); 
+        controllers.Clear();
 
         // Get phase controller(s) attached to this object
-        foreach (IPhaseController controller in GetComponents<IPhaseController>()) controllers.Add(controller);
+        foreach (IPhaseController controller in GetComponents<IPhaseController>())
+        {
+            controller.group = group;
+            controllers.Add(controller);
+        }
 
         // Get all child phase controller(s)
         foreach (Transform child in GetAllChildren(transform))

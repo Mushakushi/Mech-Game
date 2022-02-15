@@ -181,6 +181,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
 
     #region ANIMATION METHODS
 
+
     public void ShakeCharacterStart(float range)
     {
         Vector3 shakePos = transform.position;
@@ -208,13 +209,13 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
         }
     }
 
-    public void ShakeControllerStart(float rumbleSpeed)
+    /*public void ShakeControllerStart(float rumbleSpeed)
     {
         if (Gamepad.current != null)
         {
             Gamepad.current.SetMotorSpeeds(rumbleSpeed, rumbleSpeed);
         }
-    }
+    }*/
 
     public void ShakeControllerStop()
     {

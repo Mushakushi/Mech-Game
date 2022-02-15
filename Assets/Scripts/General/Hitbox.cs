@@ -30,11 +30,6 @@ public class Hitbox : MonoBehaviour
             Debug.LogWarning("Hitbox has no owner. Ignore this if intended.");
     }
 
-    private void Start()
-    {
-        
-    }
-
     /// <summary>
     /// Notifies entering GameObject other (that has a Character contained within the trigger layermask) of entrance
     /// </summary>
