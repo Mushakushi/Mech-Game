@@ -8,4 +8,8 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Bubble
   m_Controller: {fileID: 9100000, guid: f91b829b4448d6846bc356b5b425ac8f, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0897335de23d83e468b6b0292d679b94, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a6f9843d382ab844a9bc3ed8372ad299, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5700620b236a94f4ab59ab4f8b7f06b3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 02d2ea4706c51f340873feb255b31a26, type: 2}

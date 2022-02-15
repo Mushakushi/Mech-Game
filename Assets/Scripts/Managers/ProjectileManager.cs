@@ -36,8 +36,8 @@ public class ProjectileManager : MonoBehaviour
         foreach (Vector3 pos in spawnPositions)
         {
             GameObject newAttack = Instantiate(genericAttack, pos, Quaternion.identity, phaseManager.transform);
-            newAttack.GetComponent<GenericAttack>().SetValues(projectile, attackPattern.destination, 0.1f);
             newAttack.transform.position = pos;
+            newAttack.GetComponent<GenericAttack>().SetValues(projectile, attackPattern.destination, 0.3f);
         }
     }
 

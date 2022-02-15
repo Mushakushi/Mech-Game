@@ -32,6 +32,7 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         hitbox.damage = hitboxSettings.damage;
         hitbox.boxCollider.size = hitboxSettings.size;
         hitbox.boxCollider.offset = hitboxSettings.offset;
+        hitbox.boxCollider.enabled = true;
     }
 
     // Update is called once per frame

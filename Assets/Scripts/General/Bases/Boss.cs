@@ -125,6 +125,12 @@ public abstract class Boss : Character
         }
     }
 
+    public override void OnEnterHurtbox()
+    {
+        DisableHitbox();
+        new ScoreData(damageTaken: 1).AddToPlayerScore(group);
+    }
+
     /// <summary>
     /// Sets the health slider to boss health
     /// </summary>

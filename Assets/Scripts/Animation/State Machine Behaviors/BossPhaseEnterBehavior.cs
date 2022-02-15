@@ -11,8 +11,6 @@ public class BossPhaseEnterBehavior : StateMachineBehaviour
     /// </summary>
     public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
-        animator.SetInteger("SpecialIndex", 1);
-        return; // temp
         if (boss == null)
         {
             boss = animator.gameObject.GetComponent<Boss>();

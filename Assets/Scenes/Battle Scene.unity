@@ -123,6 +123,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &1415421771
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 862815993853222083, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_Name
+      value: Generic Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815993853222094, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862815994427336884, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 16384
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5b96023736e25474a8fbef302e38ca24, type: 3}
 --- !u!1 &1569624558
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,54 +472,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 610531454894037027, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.3880005
-      objectReference: {fileID: 0}
-    - target: {fileID: 610531454894037027, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.541
-      objectReference: {fileID: 0}
-    - target: {fileID: 610531454894037027, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -13
-      objectReference: {fileID: 0}
-    - target: {fileID: 2337805359478864929, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: field of view
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 2337805359478864929, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: far clip plane
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2337805359478864929, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: near clip plane
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2337805359478864929, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: orthographic size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4935518999196640044, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4935518999196640044, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4935518999196640044, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4935518999196640044, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4935518999196640044, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8310995482291983665, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -525,21 +538,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
---- !u!1 &4935518998473841538 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9217661058035230796, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-  m_PrefabInstance: {fileID: 4935518998473841537}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4935518998473841539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4935518998473841538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d71296d8d38be45bc50215dfb4c98d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: 0
