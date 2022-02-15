@@ -23,7 +23,7 @@ public class Jario : MonoBehaviour, IPhaseController
         animator = GetComponent<Animator>();
         animator.ResetTrigger("Count"); 
     }
-    public void OnStart() { print(this.GetManager().group); }
+    public void OnStart() { }
 
     /// <summary>
     /// Jario counts a variable amount of times
