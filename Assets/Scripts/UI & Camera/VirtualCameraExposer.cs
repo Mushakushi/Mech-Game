@@ -21,12 +21,44 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
 
     public int group { get; set; }
 
+    /// <summary>
+    /// Amount to zoom out on player join
+    /// </summary>
+    [SerializeField] private float playerJoinZoomOut;
+
+    /// <summary>
+    /// Amount to offset the offset of follow target y 
+    /// </summary>
+    private float offsetY; 
+
     public Phase activePhase => Phase.All; 
 
     private void Awake()
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
         framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>(); 
+    }
+    public void OnStart()
+    {
+        SetFollowTarget(this.GetManager().boss.transform);
+        ResetFollowTargetOffset();
+    }
+
+    public void OnPhaseEnter()
+    {
+        Phase p = this.GetManagerPhase();
+
+        if (p == Phase.Dialogue_Pre || p == Phase.Dialogue_Post)
+            SetFollowTargetOffsetY(0.25f);
+        else if (p == Phase.Player_Win)
+            SetFollowTarget(this.GetManager().player.transform);
+    }
+
+    public void OnPhaseUpdate() { }
+
+    public void OnPhaseExit()
+    {
+        ResetFollowTargetOffset();
     }
 
     /// <summary>
@@ -46,42 +78,33 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
     private void SetFollowTargetOffset(Vector2 offset) => framingTransposer.m_TrackedObjectOffset = offset;
 
     /// <summary>
-    /// Sets follow target offset y to <paramref name="offset"/>
-    /// </summary>
-    /// <param name="offset">Follow target offset y</param>
-    public void SetFollowTargetOffsetY(float offset) => SetFollowTargetOffset(new Vector2(0, offset));
-
-    /// <summary>
     /// Sets follow target offset x to <paramref name="offset"/>
     /// </summary>
     /// <param name="offset">Follow target offset x</param>
     public void SetFollowTargetOffsetX(float offset) => SetFollowTargetOffset(new Vector2(offset, 0));
 
     /// <summary>
+    /// Sets follow target offset y to <paramref name="offset"/>
+    /// </summary>
+    /// <param name="offset">Follow target offset y</param>
+    public void SetFollowTargetOffsetY(float offset) => SetFollowTargetOffset(new Vector2(0, offset + offsetY));
+
+    /// <summary>
+    /// Sets zoom to <paramref name="zoom"/>
+    /// </summary>
+    public void SetZoom(float zoom) => virtualCamera.m_Lens.OrthographicSize = zoom; 
+
+    /// <summary>
+    /// Offsets follow target offset y 
+    /// </summary>
+    public void SetOffsetY(float offset)
+    {
+        offsetY = offset;
+        SetFollowTargetOffsetY(framingTransposer.m_TrackedObjectOffset.y); 
+    }
+
+    /// <summary>
     /// Sets follow target offset to Vector3.zero
     /// </summary>
-    public void ResetFollowTargetOffset() => SetFollowTargetOffset(Vector2.zero);
-
-    public void OnStart()
-    {
-        SetFollowTarget(this.GetManager().boss.transform);
-        ResetFollowTargetOffset(); 
-    }
-
-    public void OnPhaseEnter()
-    {
-        Phase p = this.GetManagerPhase();
-
-        if (p == Phase.Dialogue_Pre || p == Phase.Dialogue_Post)
-            SetFollowTargetOffsetY(0.25f);
-        else if (p == Phase.Player_Win)
-            SetFollowTarget(this.GetManager().player.transform); 
-    }
-
-    public void OnPhaseUpdate() { }
-
-    public void OnPhaseExit()
-    {
-        ResetFollowTargetOffset(); 
-    }
+    public void ResetFollowTargetOffset() => SetFollowTargetOffset(Vector2.up * offsetY);
 }

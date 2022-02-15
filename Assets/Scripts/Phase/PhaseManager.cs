@@ -62,7 +62,7 @@ public class PhaseManager : MonoBehaviour
     /// <summary>
     /// List of default phase events
     /// </summary>
-    [SerializeField] private readonly List<DefaultPhaseEvent> defaultPhaseEvents = new List<DefaultPhaseEvent>();
+    [SerializeField] private List<DefaultPhaseEvent> defaultPhaseEvents = new List<DefaultPhaseEvent>();
 
     /// <summary>
     /// Amount to transform new phase manager
@@ -140,6 +140,21 @@ public class PhaseManager : MonoBehaviour
 
         // Add default phase events
         foreach (DefaultPhaseEvent e in defaultPhaseEvents) AddRuntimePhaseController(e);
+    }
+
+    /// <summary>
+    /// What happens when a new player joins
+    /// </summary>
+    /// <param name="playersConnected">Count of players connected</param>
+    public void OnPlayerJoined(BattleGroupManager.PlayerConnectionEventArgs e)
+    {
+        // adjust camera for multiple screen 
+        // TODO - doesn't scale right past two players, works otherwise
+        if (e.playersConnected > 1)
+        {
+            cameraExposer.SetZoom((e.playersConnected - 1) * 1.25f);
+            cameraExposer.SetOffsetY((e.playersConnected - 1) * 0.1f);
+        }
     }
 
     // important to call controller.onStart after awake references to not break game!
