@@ -21,6 +21,12 @@ public class PhaseManager : MonoBehaviour
     /// <remarks>Must be unique</remarks>
     public int group { get; private set; }
 
+    /// <summary>
+    /// The name of this battle's group
+    /// </summary>
+    /// <remarks>used for searching</remarks>
+    public new string name; 
+
     [Header("Required References")]
     [ReadOnly] public new Camera camera;
     [ReadOnly] public VirtualCameraExposer cameraExposer;
@@ -69,6 +75,7 @@ public class PhaseManager : MonoBehaviour
     /// Amount to transform new phase manager
     /// </summary>
     private const int width = 10;
+        
 
     /// <summary>
     /// Initializes this group and gets every phase controller child
@@ -139,25 +146,32 @@ public class PhaseManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds this phase manager as a runtime phase manager if not player one, 
-    /// who is not a runtime phase manager
+    /// Adds this phase manager as a runtime phase manager 
     /// </summary>
     public void OnPlayerJoined()
     {
+       
+        // if not player 1 (who is not a runtime phase manager) or already initialized
+        // checking player instance will prevent player 1 from running twice
+        // is awake will prevent instance from running when it's already ran
+        // (bc this is called on every prefab apparently)
         if (PlayerInputManager.instance.playerCount > 1)
         {
-            Debug.LogError($"Player {PlayerInputManager.instance.playerCount} joined."); 
+            foreach (PhaseManager p in BattleGroupManager.phaseManagers)
+                if (p.name == name)
+                    print(p.name + name); 
+            /*Debug.LogError($"Player {PlayerInputManager.instance.playerCount} joined."); 
             BattleGroupManager.AddRuntimePhaseManager(this);
             OnAwake();
             Start();
-            transform.position += width * Vector3.right * group;
+            transform.position += width * Vector3.right * (group + 1);*/
         }
     }
 
     // important to call controller.onStart after awake references to not break game!
     private void Start()
     {
-        // Set first phase. Note: IPhaseController.OnPhaseEnter is called after OnStart...
+        // Set first phase for reference. Note: IPhaseController.OnPhaseEnter is called after OnStart...
         phase = Phase.Intro; 
 
         // Start all child phase controller(s)
@@ -267,6 +281,7 @@ public class PhaseManager : MonoBehaviour
     /// <remarks>Phases only change when this function is called in an IPhaseController</remarks>
     public void EnterPhase(Phase phase)
     {
+        Debug.LogError(name); 
         UnsubscribeAll();
         this.phase = phase;
         foreach (IPhaseController controller in controllers) TrySubscribePhaseController(controller);
