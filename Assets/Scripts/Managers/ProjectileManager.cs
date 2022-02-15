@@ -21,7 +21,7 @@ public class ProjectileManager : MonoBehaviour
         foreach (Vector3 pos in spawnPositions)
         {
             GameObject newAttack = Instantiate(genericAttack, pos, Quaternion.identity);
-            newAttack.GetComponent<GenericAttack>().SetValues(projectile, attackPattern.destination)
+            newAttack.GetComponent<GenericAttack>().SetValues(projectile, attackPattern.destination);
         }
     }
 
