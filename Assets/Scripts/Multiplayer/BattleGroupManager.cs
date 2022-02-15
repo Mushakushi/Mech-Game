@@ -27,25 +27,32 @@ public class BattleGroupManager : MonoBehaviour
         LoadLevelData("Lobstobotomizer");
 
         // applies level data to scene 
-        OnLoadLevel(); 
+        OnLoadLevel();
 
+        // adds all current phaseManagers to managers
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("PhaseManager"))
-            AddPhaseManager(g.GetComponent<PhaseManager>());
+            phaseManagers.Add(g.GetComponent<PhaseManager>()); 
 
-        //foreach (PhaseManager p in phaseManagers) p.OnStart(); 
+        // allows p to get references in awake after this 
+        foreach (PhaseManager p in phaseManagers) p.OnAwake(); 
     }
 
     /// <summary>
     /// Adds PhaseManager <paramref name="manager"/> manager to list of managers in scene
     /// </summary>
     /// <param name="manager">The Phase manager</param>
-    public void AddPhaseManager(PhaseManager manager)
+    public static void AddRuntimePhaseManager(PhaseManager manager)
     {
         phaseManagers.Add(manager);
+    }
 
+    #if UNITY_EDITOR
+    private void Update()
+    {
         // unity serialization
         _phaseManagers = phaseManagers;
     }
+    #endif
 
     /// <summary>
     /// Loads Level ScriptableObject data from Scriptable Objects/Level Data/<paramref name="name"/>

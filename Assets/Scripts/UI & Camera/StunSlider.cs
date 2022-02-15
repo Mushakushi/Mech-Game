@@ -23,14 +23,13 @@ public class StunSlider : MonoBehaviour, IPhaseController
 
     public Phase activePhase => Phase.Player;
 
-    /// <summary>
-    /// Hides the slider
-    /// </summary>
-    public void OnStart()
+    private void Awake()
     {
         slider = GetComponent<Slider>();
-        gameObject.SetActive(false); 
+        gameObject.SetActive(false);
+        OnPhaseEnter();
     }
+    public void OnStart() { }
 
     /// <summary>
     /// Initializes the slider
@@ -40,6 +39,7 @@ public class StunSlider : MonoBehaviour, IPhaseController
         slider.value = 1f;
         gameObject.SetActive(true);
     }
+    
 
     /// <summary>
     /// Counts down to next phase on phase update

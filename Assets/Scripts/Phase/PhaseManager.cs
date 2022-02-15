@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.Events; 
 using System.Collections.Generic;
 using System.Linq;
-using System; 
+using UnityEngine.InputSystem; 
 
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { All, Intro, Boss, Boss_Guard, Boss_Collapse, Player, Player_Win, Dialogue_Pre, Dialogue_Post, PhaseGroup }
+public enum Phase { All, Intro, Boss, Boss_Guard, Boss_Collapse, Player, Player_Win, Dialogue_Pre, Dialogue_Post, Mixed }
 
 /// <summary>
 /// Manages the phase behavior of every child phase controller
@@ -19,15 +18,16 @@ public class PhaseManager : MonoBehaviour
     /// <summary>
     /// The index of this battle's group
     /// </summary>
+    /// <remarks>Must be unique</remarks>
     public int group { get; private set; }
 
     [Header("Required References")]
-    [ReadOnly] public new Camera camera; 
+    [ReadOnly] public new Camera camera;
     [ReadOnly] public VirtualCameraExposer cameraExposer;
-    [ReadOnly] public UIShaderOverlay uiShaderOverlay; 
+    [ReadOnly] public UIShaderOverlay uiShaderOverlay;
     [ReadOnly] public Boss boss;
     [ReadOnly] public Player player;
-    [ReadOnly] public Jario jario;
+    [ReadOnly] public Jario jario; 
 
     /// <summary>
     /// Current phase of battle 
@@ -47,6 +47,7 @@ public class PhaseManager : MonoBehaviour
     /// <summary>
     /// This snippet allows for the static activeControllers to be serialized in Unity
     /// </summary>
+    /// <remarks>Don't bother trying to debug clones in inspector.. doesn't serialize</remarks>
     #if UNITY_EDITOR
     [Space(15f)]
     [Header("Phase")]
@@ -67,22 +68,30 @@ public class PhaseManager : MonoBehaviour
     /// <summary>
     /// Amount to transform new phase manager
     /// </summary>
-    private const int width = 1000; 
+    private const int width = 10;
 
     /// <summary>
     /// Initializes this group and gets every phase controller child
     /// </summary>
-    public void Awake()
+    public void OnAwake()
     {
-        // Set group index 
+        // Set group index, also equal to current player number
         group = BattleGroupManager.phaseManagers.Count() - 1;
-        transform.position += width * Vector3.right * group; 
 
         ScoreUtil.CreatePlayerScore(group);
 
-        // Get non phase controller references 
+        // get and cull camera
+        // culling virtual cameras prevents cinemachine brain from autoblending on add
         camera = gameObject.GetComponentInChildren<Camera>();
-        gameObject.GetComponentInChildren<Canvas>().worldCamera = camera; 
+        camera.cullingMask = ~((1 << 6) | (1 << 7) | (1 << 8) | (1 << 9)); // excludes all (hardcoded) culling layers
+        int cull = group + 6;  // player cull layer starts at 6
+        camera.cullingMask |= 1 << cull;  // include culling layer 
+
+        // set ui camera overlay camera to this camera
+        gameObject.GetComponentInChildren<Canvas>().worldCamera = camera;
+
+        // Clear controllers
+        controllers.Clear(); 
 
         // Get phase controller(s) attached to this object
         foreach (IPhaseController controller in GetComponents<IPhaseController>()) controllers.Add(controller);
@@ -92,6 +101,7 @@ public class PhaseManager : MonoBehaviour
         {
             if (child.GetComponent<IPhaseController>() is IPhaseController controller)
             {
+                controller.group = group; 
                 controllers.Add(controller);
 
                 // Save required controllers
@@ -100,6 +110,7 @@ public class PhaseManager : MonoBehaviour
                 {
                     case "MainCamera":
                         cameraExposer = controller as VirtualCameraExposer;
+                        if (cameraExposer) cameraExposer.gameObject.layer = cull;
                         break; 
                     case "Boss":
                         boss = controller as Boss; 
@@ -124,15 +135,33 @@ public class PhaseManager : MonoBehaviour
         if (!jario) Debug.LogError("You cannot escape Jario. Please add him to your list of dependents!");
 
         // Add default phase events
-        foreach (DefaultPhaseEvent e in defaultPhaseEvents) AddRuntimePhaseController(e); 
+        foreach (DefaultPhaseEvent e in defaultPhaseEvents) AddRuntimePhaseController(e);
     }
 
-    // important to call onStart after awake references to not break game!
+    /// <summary>
+    /// Adds this phase manager as a runtime phase manager if not player one, 
+    /// who is not a runtime phase manager
+    /// </summary>
+    public void OnPlayerJoined()
+    {
+        if (PlayerInputManager.instance.playerCount > 1)
+        {
+            Debug.LogError($"Player {PlayerInputManager.instance.playerCount} joined."); 
+            BattleGroupManager.AddRuntimePhaseManager(this);
+            OnAwake();
+            Start();
+            transform.position += width * Vector3.right * group;
+        }
+    }
+
+    // important to call controller.onStart after awake references to not break game!
     private void Start()
     {
+        // Set first phase. Note: IPhaseController.OnPhaseEnter is called after OnStart...
+        phase = Phase.Intro; 
 
         // Start all child phase controller(s)
-        foreach (IPhaseController controller in controllers) controller.OnStart(); 
+        foreach (IPhaseController controller in controllers) controller.OnStart();
 
         // Start phase
         EnterPhase(Phase.Intro);
@@ -173,33 +202,6 @@ public class PhaseManager : MonoBehaviour
         controller.OnStart();
         TrySubscribePhaseController(controller); 
     }
-
-    /// <summary>
-    /// Enters phase and tries to subscribe each controller to current phase
-    /// </summary>
-    /// <param name="phase">Phase to enter</param>
-    private void EnterPhase(Phase phase)
-    {
-        this.phase = phase;
-        foreach (IPhaseController controller in controllers) TrySubscribePhaseController(controller);
-    }
-
-    /// <summary>
-    /// Adds phase controller to list of active phase controllers if its active phase is equal to the current phase
-    /// </summary>
-    /// <param name="controller">Controller to try to add</param>
-    /// think of this as a private delegate
-    private bool TrySubscribePhaseController(IPhaseController controller)
-    {
-        if (controller.activePhase == phase || controller.activePhase == Phase.All)
-        {
-            activeControllers.Add(controller);
-            controller.OnPhaseEnter();
-            return true; 
-        }
-        return false; 
-    }
-
     /// <summary>
     /// Updates subscribed Phase controllers
     /// </summary>
@@ -227,10 +229,8 @@ public class PhaseManager : MonoBehaviour
     /// Exits the current phase and switches to the next phase according to a predefined map
     /// </summary>
     /// <remarks>Phases only change when this function is called in an IPhaseController</remarks>
-    public void SwitchPhase()
+    public void ExitPhase()
     {
-        UnsubscribeAll(); 
-
         //determines which phase to transition to
         switch (phase)
         {
@@ -252,7 +252,7 @@ public class PhaseManager : MonoBehaviour
             case Phase.Dialogue_Post:
                 EnterPhase(Phase.Player);
                 break;
-            case Phase.PhaseGroup:
+            case Phase.Mixed:
             default:
                 Debug.LogError("Phase switch is invalid!");
                 break; 
@@ -260,13 +260,32 @@ public class PhaseManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Exits the current phase and switches to <paramref name="targetPhase"/> phase, interrupting the current flow
+    /// Exits the current phase and switches to <paramref name="phase"/> phase, interrupting the current flow, 
+    /// subscribing controllers as neccessary
     /// </summary>
+    /// <param name="phase">Phase to enter</param>
     /// <remarks>Phases only change when this function is called in an IPhaseController</remarks>
-    public void SwitchPhase(Phase targetPhase)
+    public void EnterPhase(Phase phase)
     {
-        UnsubscribeAll(); 
-        EnterPhase(targetPhase);
+        UnsubscribeAll();
+        this.phase = phase;
+        foreach (IPhaseController controller in controllers) TrySubscribePhaseController(controller);
+    }
+
+    /// <summary>
+    /// Adds phase controller to list of active phase controllers if its active phase is equal to the current phase
+    /// </summary>
+    /// <param name="controller">Controller to try to add</param>
+    /// think of this as a private delegate
+    private bool TrySubscribePhaseController(IPhaseController controller)
+    {
+        if (controller.activePhase == phase || controller.activePhase == Phase.All)
+        {
+            activeControllers.Add(controller);
+            controller.OnPhaseEnter();
+            return true;
+        }
+        return false;
     }
 
 }

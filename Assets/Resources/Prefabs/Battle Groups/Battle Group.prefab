@@ -63,7 +63,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 6536443784973532246}
   - component: {fileID: 2870686645242363648}
   - component: {fileID: 3594348027806828816}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 32768
   damage: 1
   boxCollider: {fileID: 0}
 --- !u!1 &4803112969051697845
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 6536443784759133157}
   - component: {fileID: 2870686645431566515}
   - component: {fileID: 3594348028028630691}
-  m_Layer: 6
+  m_Layer: 14
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 16384
   damage: 1
   boxCollider: {fileID: 0}
 --- !u!1 &4935518998011231786
@@ -401,7 +401,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -3.332, y: 3.472}
+  m_AnchoredPosition: {x: -3.3320007, y: 3.4720001}
   m_SizeDelta: {x: -6.663, y: -5.943}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4935518999275478427
@@ -692,7 +692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -3.332, y: 3.472}
+  m_AnchoredPosition: {x: -3.3320007, y: 3.4720001}
   m_SizeDelta: {x: -6.663, y: -5.943}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8310995482291983667
@@ -746,7 +746,6 @@ GameObject:
   - component: {fileID: 8310995482300824350}
   - component: {fileID: 8310995482300824337}
   - component: {fileID: 8310995482300824336}
-  - component: {fileID: 8310995482300824339}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: MainCamera
@@ -849,14 +848,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   virtualCamera: {fileID: 0}
   framingTransposer: {fileID: 0}
---- !u!81 &8310995482300824339
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8310995482300824349}
-  m_Enabled: 1
 --- !u!1 &8310995482794804988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,7 +1284,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 2337805359478864929}
   m_PlaneDistance: 1.5
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
@@ -1816,7 +1807,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8310995484038735255}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -54, y: -3, z: 0}
+  m_LocalPosition: {x: 41946, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 610531454894037027}
@@ -1842,12 +1833,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e3858820c24cd419dd3eeb56db1313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  cameraExposer: {fileID: 0}
-  uiShaderOverlay: {fileID: 0}
+  camera: {fileID: 2337805359478864929}
+  cameraExposer: {fileID: 8310995482300824336}
+  uiShaderOverlay: {fileID: 4935518999196640049}
   boss: {fileID: 0}
-  player: {fileID: 0}
-  jario: {fileID: 0}
+  player: {fileID: 3548516831968870913}
+  jario: {fileID: 8310995483771168120}
   _phase: 0
   _controllers: []
   _activeControllers: []
@@ -1866,7 +1857,7 @@ MonoBehaviour:
   textMeshPro: {fileID: 8310995482265134221}
   portrait: {fileID: 8310995483085145117}
   animator: {fileID: 8310995483458548845}
-  loadedDialogue: {fileID: 0}
+  loadedDialogue: {fileID: 11400000, guid: 0271a9f8c60dcd4489d6295511fe373a, type: 2}
 --- !u!1 &8310995484064607402
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,7 +2228,7 @@ GameObject:
   - component: {fileID: 3940264424111115112}
   - component: {fileID: 3548516831968870913}
   - component: {fileID: 9217661057855444990}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2494,7 +2485,7 @@ GameObject:
   - component: {fileID: 261581314235779736}
   - component: {fileID: 8705861636857282749}
   - component: {fileID: 3940264424996631771}
-  m_Layer: 6
+  m_Layer: 14
   m_Name: Boss
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -2735,3 +2726,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9044396456225390576, guid: bf4967176be05bf4f859d2a7ca5057ba, type: 3}
   m_PrefabInstance: {fileID: 4177751423747038428}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4935518999196640049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9044396456225390573, guid: bf4967176be05bf4f859d2a7ca5057ba, type: 3}
+  m_PrefabInstance: {fileID: 4177751423747038428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cdd25289be8c64b8ea5c80cd31fbf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

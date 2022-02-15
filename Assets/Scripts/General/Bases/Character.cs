@@ -91,7 +91,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
         if (!hurtbox) Debug.LogError("Script requires hitbox in child!");
 
         animator = GetComponentInChildren<Animator>();
-        animator.runtimeAnimatorController = FileUtility.LoadFile<RuntimeAnimatorController>($"Animation/Animators/{GetType().Name}");
+        animator.runtimeAnimatorController = FileUtility.LoadFile<RuntimeAnimatorController>($"Animation/Animators/Characters/{GetType().Name}");
 
         // initialize sub classes
         OnInitialize();

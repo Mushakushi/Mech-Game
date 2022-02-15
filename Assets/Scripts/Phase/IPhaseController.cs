@@ -30,7 +30,8 @@ public interface IPhaseController
     void OnStart();
 
     /// <summary>
-    /// What happens when the phase ends 
+    /// What happens when the phase ends. 
+    /// Called after <see cref="OnStart"/>.
     /// </summary>
     void OnPhaseEnter();
 

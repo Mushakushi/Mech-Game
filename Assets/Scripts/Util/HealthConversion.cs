@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// i will probably delete this as it doesn't help sync counts with shakes
+
 public static class HealthConversion 
 {
     /// <summary>

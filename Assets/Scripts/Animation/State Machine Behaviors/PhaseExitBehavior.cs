@@ -14,7 +14,10 @@ public class PhaseExitBehavior : StateMachineBehaviour
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
-        if (animator.gameObject.GetComponent<IPhaseController>() is IPhaseController c) c.ExitPhase();
+        if (animator.gameObject.GetComponent<IPhaseController>() is IPhaseController c)
+        {
+            c.ExitPhase(); 
+        }
     }
 }
 // TODO - Only phasecontrollers should be able to exit phase probably want an extension method for this

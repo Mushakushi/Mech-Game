@@ -36,8 +36,9 @@ public static class PhaseManagerAccess
     /// <param name="controller">The controller</param>
     public static void ExitPhase(this IPhaseController controller)
     {
-        Debug.LogError($"{controller.GetManagerPhase()} phase exited by {controller.gameObject.name}"); 
-        GetManager(controller).SwitchPhase();
+        Debug.LogError($"{controller.GetManagerPhase()} phase exited by {controller.gameObject.name} " +
+            $"in group {controller.group}"); 
+        GetManager(controller).ExitPhase();
     }
 
     /// <summary>
@@ -47,7 +48,7 @@ public static class PhaseManagerAccess
     public static void SwitchPhase(this IPhaseController controller, Phase targetPhase)
     {
         Debug.LogError($"{controller.GetManagerPhase()} phase exited to {targetPhase} phase by {controller.gameObject.name}");
-        GetManager(controller).SwitchPhase(targetPhase);
+        GetManager(controller).EnterPhase(targetPhase);
     }
 
     /// <summary>

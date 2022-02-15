@@ -82,13 +82,16 @@ public class Player : Character
         // get player input actions
         controller = new PlayerControls();
 
-        // set player input virtual camera
-        GetComponent<PlayerInput>().camera = this.GetManager().camera;
-
         // sets variable to true when respective input action is performed via delegate
         dodgeLeft = controller.Player.DodgeLeft;
         dodgeRight = controller.Player.DodgeRight; 
         attack = controller.Player.Attack; 
+    }
+
+    private void Start()
+    {
+        // set player input virtual camera
+        GetComponent<PlayerInput>().camera = this.GetManager().camera;
     }
 
     /// <summary>

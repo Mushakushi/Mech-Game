@@ -8,7 +8,7 @@ public class Jario : MonoBehaviour, IPhaseController
     /// <summary>
     /// Jario's animator
     /// </summary>
-    [SerializeField] private Animator animator;
+    [ReadOnly] [SerializeField] private Animator animator;
 
     /// <summary>
     /// The group this controller belongs to
@@ -18,10 +18,12 @@ public class Jario : MonoBehaviour, IPhaseController
 
     public Phase activePhase => this.GetPhaseFromCollection(new Phase[] { Phase.Intro, Phase.Boss_Collapse }) ;
 
-    public void OnStart()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
+        animator.ResetTrigger("Count"); 
     }
+    public void OnStart() { print(this.GetManager().group); }
 
     /// <summary>
     /// Jario counts a variable amount of times

@@ -17,16 +17,16 @@ TagManager:
   - 
   - Water
   - UI
-  - Player Attack
-  - Boss Attack
+  - P1Cull
+  - P2Cull
+  - P3Cull
+  - P4Cull
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - BossAttack
+  - PlayerAttack
   - 
   - 
   - 
