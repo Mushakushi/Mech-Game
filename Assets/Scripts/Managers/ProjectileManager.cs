@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,12 +5,28 @@ public class ProjectileManager : MonoBehaviour
 {
     private const float dodgeDistance = 0.7f;
     private static PhaseManager phaseManager;
-    private List<AttackPattern> attackPatterns = CreateAttackPatterns();
-    private GameObject genericAttack = (GameObject) Resources.Load("Prefabs/Generic Attack");
+    private List<AttackPattern> attackPatterns;
+    private static Vector2 currentPlayerPos;
+    private static Camera currentCamera;
+    private GameObject genericAttack;
+    public int group;
 
     private void Awake()
     {
-        phaseManager = gameObject.GetComponent<PhaseManager>();
+        
+    }
+
+    private void Start()
+    {
+        genericAttack = (GameObject) Resources.Load("Prefabs/Generic Attack");
+    }
+
+    public void Initialize(int group)
+    {
+        phaseManager = PhaseManagerAccess.GetManager(group);
+        currentPlayerPos = phaseManager.player.transform.position;
+        currentCamera = phaseManager.camera;
+        attackPatterns = CreateAttackPatterns();
     }
 
     public void SpawnProjectile(AttackProjectileAsset projectile)
@@ -20,8 +35,9 @@ public class ProjectileManager : MonoBehaviour
         List<Vector3> spawnPositions = attackPattern.spawnPositions;
         foreach (Vector3 pos in spawnPositions)
         {
-            GameObject newAttack = Instantiate(genericAttack, pos, Quaternion.identity);
-            newAttack.GetComponent<GenericAttack>().SetValues(projectile, attackPattern.destination); 
+            GameObject newAttack = Instantiate(genericAttack, pos, Quaternion.identity, phaseManager.transform);
+            newAttack.GetComponent<GenericAttack>().SetValues(projectile, attackPattern.destination, 0.1f);
+            newAttack.transform.position = pos;
         }
     }
 
@@ -52,11 +68,11 @@ public class ProjectileManager : MonoBehaviour
 
     private static List<AttackPattern> CreateAttackPatterns()
     {
-        Vector3 playerPos = GetPlayerPosition();
+        Vector2 playerPos = currentPlayerPos;
 
-        Vector3 abovePlayer = new Vector3(playerPos.x, 0f, 0f) + GetPosRelCamera(new Vector3(0f, 1.2f));
-        Vector3 leftPlayer = new Vector3(0f, playerPos.y, 0f) + GetPosRelCamera(new Vector3(-1.2f, 0f));
-        Vector3 rightPlayer = new Vector3(0f, playerPos.y, 0f) + GetPosRelCamera(new Vector3(1.2f, 0f));
+        Vector3 abovePlayer = new Vector3(playerPos.x, GetPosRelCamera(new Vector3(0f, 1.2f)).y);
+        Vector3 leftPlayer = new Vector3(GetPosRelCamera(new Vector3(-1.2f, 0f)).x, playerPos.y, 0f);
+        Vector3 rightPlayer = new Vector3(GetPosRelCamera(new Vector3(1.2f, 0f)).x, playerPos.y, 0f);
 
         List<AttackPattern> attackPatterns = new List<AttackPattern>();
 
@@ -72,14 +88,9 @@ public class ProjectileManager : MonoBehaviour
         return attackPatterns;
     }
 
-    private static Vector3 GetPlayerPosition()
-    {
-        return phaseManager.player.gameObject.transform.position;
-    }
-
     private static Vector3 GetPosRelCamera(Vector3 pos)
     {
-        return phaseManager.camera.ViewportToWorldPoint(pos);
+        return currentCamera.ViewportToWorldPoint(pos);
     }
 
     private struct AttackPattern

@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1dceb019af3c2449d9333e255447aa, type: 3}
   m_Name: Bubble
   m_EditorClassIdentifier: 
-  projectileAnimations: {fileID: 0}
-  attackSpawnDirections:
+  animations: {fileID: 22100000, guid: fa9b36752036c27498a22713f929979e, type: 2}
+  spawnDirections:
     top: 0
     sides: 0
   hitboxProperties:
-    sizeX: 0
-    sizeY: 0
-    offsetX: 0
-    offsetY: 0
-  damage: 0
+    damage: 0
+    size: {x: 0, y: 0}
+    offset: {x: 0, y: 0}

@@ -46,6 +46,8 @@ public abstract class Boss : Character
     /// </summary>
     public float accumulatedWeightSum { get; set; }
 
+    public ProjectileManager projectileManager { get; set; }
+
     //[Header("Boss Audio")]
     protected AudioClip hurtClip { get; private set; }
     protected AudioClip knockClip { get; private set; }
@@ -58,10 +60,6 @@ public abstract class Boss : Character
     {
         DisableHitbox();
 
-        // why not store all this in a BossData field??????
-        // you could but then you'd have to pass in characterdata/ leave it abstract
-        // i just opted to make everything abstract
-
         OnInitializeBoss();
         healthBars = maxHealthBars;
         health = maxHealth; // TODO - i'm repeatiing this code to get the refresh working first time
@@ -73,6 +71,9 @@ public abstract class Boss : Character
         hurtClip = FileUtility.LoadFile<AudioClip>($"Audio/Voicelines/{characterName}/snd_ugh");
         knockClip = FileUtility.LoadFile<AudioClip>($"Audio/Voicelines/{characterName}/snd_khan");
         dialogueClips = new List<AudioClip>() { hurtClip, knockClip };
+
+        projectileManager = GetComponent<ProjectileManager>();
+        projectileManager.Initialize(group);
 
         // these are needed to stop the thing from yelling at me. oh well
         accumulatedWeightSum = 0;
@@ -193,7 +194,7 @@ public abstract class Boss : Character
     {
         if (attackAsset is AttackProjectileAsset attack)
         {
-            
+            projectileManager.SpawnProjectile(attack);
         }
     }
 }
