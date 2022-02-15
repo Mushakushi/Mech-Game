@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System; 
+using System;
+using UnityEngine.InputSystem; 
 
 public class BattleGroupManager : MonoBehaviour
 {
@@ -35,6 +36,25 @@ public class BattleGroupManager : MonoBehaviour
 
         // allows p to get references in awake after this 
         foreach (PhaseManager p in phaseManagers) p.OnAwake(); 
+    }
+
+    public void OnPlayerJoined()
+    {
+        // if not player 1 (who is not a runtime phase manager) or already initialized
+        // checking player instance will prevent player 1 from running twice
+        // is awake will prevent instance from running when it's already ran
+        // (bc this is called on every prefab apparently)
+        if (PlayerInputManager.instance.playerCount > 1)
+        {
+            int playerIndex = PlayerInputManager.instance.playerCount - 1; 
+            if (GameObject.FindGameObjectsWithTag("PhaseManager")[playerIndex].GetComponent<PhaseManager>()
+                is PhaseManager p)
+            {
+                Debug.LogError($"Player {PlayerInputManager.instance.playerCount} joined.");
+                AddRuntimePhaseManager(p);
+                p.OnAwake();
+            }
+        }
     }
 
     /// <summary>
