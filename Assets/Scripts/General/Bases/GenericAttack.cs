@@ -6,7 +6,7 @@ using UnityEngine;
 public class GenericAttack : MonoBehaviour, IHitboxOwner
 {
     [SerializeField] private AttackDestination destination;
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 0.1f;
     [SerializeField] private Animator animator;
     [SerializeField] private Hitbox hitbox;
 
@@ -22,10 +22,11 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         
     }
 
-    public void SetValues(AttackProjectileAsset settings, AttackDestination destination)
+    public void SetValues(AttackProjectileAsset settings, AttackDestination destination, float speed)
     {
         animator.runtimeAnimatorController = settings.animations;
         this.destination = destination;
+        this.speed = speed;
 
         HitboxProperties hitboxSettings = settings.hitboxProperties;
         hitbox.damage = hitboxSettings.damage;
