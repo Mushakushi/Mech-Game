@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animations: {fileID: 22100000, guid: fa9b36752036c27498a22713f929979e, type: 2}
   spawnDirections:
-    top: 1
-    sides: 0
+    top: 0
+    sides: 1
   hitboxProperties:
-    damage: 0
-    size: {x: 0, y: 0}
+    damage: 1
+    size: {x: 0.5, y: 0.5}
     offset: {x: 0, y: 0}

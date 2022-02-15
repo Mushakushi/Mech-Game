@@ -40,12 +40,12 @@ public class Hitbox : MonoBehaviour
         if (hurtbox != null)
         {
             hurtbox.OnHitboxEnter(damage);
-            Debug.LogError($"{transform.parent.name} hit {other.name} for {damage} damage"); 
+            Debug.LogError($"{transform.parent.name} hit {other.name} for {damage} damage");
+            if (hitboxOwner != null)
+                hitboxOwner.OnEnterHurtbox();
         }   
         else
             print($"{transform.parent.name} failed to get character script from {other.name}");
-        if (hitboxOwner != null)
-            hitboxOwner.OnEnterHurtbox();
     }
 
     /// <summary>
@@ -56,9 +56,11 @@ public class Hitbox : MonoBehaviour
     {
         Character hurtbox = GetCharacter(other.gameObject);
         if (hurtbox != null)
+        {
             hurtbox.OnHitboxExit();
-        if (hitboxOwner != null)
-            hitboxOwner.OnExitHurtbox();
+            if (hitboxOwner != null)
+                hitboxOwner.OnExitHurtbox();
+        }
     }
 
     /// <summary>

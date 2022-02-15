@@ -63,4 +63,9 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
     {
         
     }
+
+    public void DeleteProjectile()
+    {
+        Destroy(this);
+    }
 }
