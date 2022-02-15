@@ -25,7 +25,7 @@ public class BattleGroupManager : MonoBehaviour
     void Awake()
     {
         // delete after done debuging battle scene
-        //LoadLevelData("Lobstobotomizer");
+        LoadLevelData("Lobstobotomizer");
 
         // applies level data to scene 
         OnLoadLevel();
