@@ -15,4 +15,10 @@ MonoBehaviour:
   projectileAnimations: {fileID: 0}
   attackSpawnDirections:
     top: 0
+    sides: 0
+  hitboxProperties:
+    sizeX: 0
+    sizeY: 0
+    offsetX: 0
+    offsetY: 0
   damage: 0

@@ -11,7 +11,7 @@ public abstract class Boss : Character
     /// <summary>
     /// Active phases of boss
     /// </summary>
-    public override Phase[] activePhases => new Phase[] { Phase.Boss_Guard, Phase.Boss }; 
+    public override Phase[] activePhases => new Phase[] { Phase.Boss_Guard, Phase.Boss };
 
     // TODO - There is a convoluted way to serialized properties in unity using custom inspector!
     [Header("Boss UI")]
@@ -51,7 +51,7 @@ public abstract class Boss : Character
     protected AudioClip knockClip { get; private set; }
     protected List<AudioClip> dialogueClips { get; private set; }
 
-    
+
 
     // Start is called before the first frame update 
     protected sealed override void OnInitialize()
@@ -66,7 +66,7 @@ public abstract class Boss : Character
         healthBars = maxHealthBars;
         health = maxHealth; // TODO - i'm repeatiing this code to get the refresh working first time
 
-        healthSlider = FindObjectOfType<BossHealthSlider>(); 
+        healthSlider = FindObjectOfType<BossHealthSlider>();
         RefreshSlider();
 
         // TODO - standardize naming these so we can add variables 
@@ -103,7 +103,7 @@ public abstract class Boss : Character
     /// Allows children to initialize data without hiding parent's Start
     /// </summary>
     protected abstract void OnInitializeBoss();
-    
+
     /// <summary>
     /// Event that happens when Hitbox enters boss Hurtbox
     /// </summary>
@@ -120,7 +120,7 @@ public abstract class Boss : Character
                 break;
             case Phase.Boss_Guard:
                 animator.SetTrigger("Guard");
-                break; 
+                break;
         }
     }
 
@@ -142,8 +142,8 @@ public abstract class Boss : Character
         this.SwitchPhase(Phase.Boss_Collapse);
         AudioPlayer.Play(knockClip);
         healthBars--;
-        health = maxHealth / (maxHealthBars - healthBars + 1); 
-        
+        health = maxHealth / (maxHealthBars - healthBars + 1);
+
         int shakes = HealthConversion.ConvertBarsToCount(healthBars, maxHealthBars) + 1;
         if (shakes <= 0)
         {
@@ -168,7 +168,7 @@ public abstract class Boss : Character
     /// </summary>
     public virtual void OnHealthDepleteFull()
     {
-        this.SwitchPhase(Phase.Player_Win); 
+        this.SwitchPhase(Phase.Player_Win);
     }
 
     protected override void PhaseEnterBehavior()
@@ -177,30 +177,23 @@ public abstract class Boss : Character
         switch (this.GetManagerPhase())
         {
             case Phase.Boss:
-                animator.SetTrigger("EnterPhase"); 
+                animator.SetTrigger("EnterPhase");
                 break;
             case Phase.Boss_Guard:
-                animator.SetTrigger("ReturnToIdle"); 
-                StartCoroutine(CoroutineUtility.WaitForSeconds(1.25f, () => this.ExitPhase())); 
-                break; 
+                animator.SetTrigger("ReturnToIdle");
+                StartCoroutine(CoroutineUtility.WaitForSeconds(1.25f, () => this.ExitPhase()));
+                break;
         }
     }
 
     protected override void PhaseUpdateBehavior() { }
     protected override void PhaseExitBehavior() { }
 
-    public void CreateOneProjectile(Object attackAsset)
+    public void ProjectileAttack(Object attackAsset)
     {
-
-    }
-
-    public void StartCreateProjectiles(Object attackAsset)
-    {
-
-    }
-
-    public void StopCreateProjectiles()
-    {
-
+        if (attackAsset is AttackProjectileAsset attack)
+        {
+            
+        }
     }
 }

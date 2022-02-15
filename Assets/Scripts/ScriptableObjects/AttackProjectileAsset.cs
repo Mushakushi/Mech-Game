@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "[attack name]", menuName ="Create Attack...")]
+[CreateAssetMenu(fileName = "[attack name]", menuName = "Create Attack...")]
 public class AttackProjectileAsset : ScriptableObject
 {
-    public AnimatorOverrideController projectileAnimations;
-    public AttackDirections attackSpawnDirections;
-    public int damage;
+    public AnimatorOverrideController animations;
+    public AttackDirections spawnDirections;
+    public HitboxProperties hitboxProperties;
+    
 }
 
 [Serializable]
@@ -24,11 +25,10 @@ public struct AttackDirections
     }
 }
 
+[Serializable]
 public struct HitboxProperties
 {
-    [SerializeField] public float sizeX;
-    [SerializeField] public float sizeY;
-
-    [SerializeField] public float offsetX;
-    [SerializeField] public float offsetY;
+    [SerializeField] public int damage;
+    [SerializeField] public Vector2 size;
+    [SerializeField] public Vector2 offset;
 }
