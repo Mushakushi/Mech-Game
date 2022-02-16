@@ -115,7 +115,7 @@ public class BattleGroupManager : MonoBehaviour
     public static void LoadLevelData(string name)
     {
         // get SO
-        level = FileUtility.LoadFile<Level>($"Scriptable Objects/Level Data/{name}");
+        level = FileUtility.LoadFile<Level>($"{FileUtility.levelDataPath}/{name}");
 
         // initialize SO
         level.LoadReferences();

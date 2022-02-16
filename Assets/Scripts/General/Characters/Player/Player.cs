@@ -14,10 +14,6 @@ public class Player : Character
     public override Phase[] activePhases => new Phase[] { Phase.Player, Phase.Boss_Guard, Phase.Boss, Phase.Player_Win };
 
     [Header("Player Controls")]
-    /// <summary>
-    /// Player input 
-    /// </summary>
-    private PlayerInput input;
 
     /// <summary>
     /// Pressed DodgeLeft this frame
@@ -84,9 +80,7 @@ public class Player : Character
 
     private void Awake()
     {
-        input = GetComponent<PlayerInput>();
-
-        input.onActionTriggered += PoolAction;
+        GetComponent<PlayerInput>().onActionTriggered += PoolAction;
     }
 
     private void Start()
@@ -110,6 +104,7 @@ public class Player : Character
 
     protected override void PhaseEnterBehavior()
     {
+        ClearPooledActions(); 
         DisableHurtbox();
         switch (this.GetManagerPhase())
         {

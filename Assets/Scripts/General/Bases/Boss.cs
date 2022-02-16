@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
+using static FileUtility; 
 
 public abstract class Boss : Character
 {
@@ -68,8 +69,8 @@ public abstract class Boss : Character
         RefreshSlider();
 
         // TODO - standardize naming these so we can add variables 
-        hurtClip = FileUtility.LoadFile<AudioClip>($"Audio/Voicelines/{characterName}/snd_ugh");
-        knockClip = FileUtility.LoadFile<AudioClip>($"Audio/Voicelines/{characterName}/snd_khan");
+        hurtClip = LoadFile<AudioClip>($"{voicelinesPath}/{characterName}/snd_ugh");
+        knockClip = LoadFile<AudioClip>($"{voicelinesPath}/{characterName}/snd_khan");
         dialogueClips = new List<AudioClip>() { hurtClip, knockClip };
 
         projectileManager = GetComponent<ProjectileManager>();

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using static FileUtility; 
 
 /// <summary>
 /// Possible phases of battle 
@@ -161,7 +162,7 @@ public class PhaseManager : MonoBehaviour
     // important to call controller.onStart after awake references to not break game!
     private void Start()
     {
-        transform.position += PhaseManager.width * Vector3.right * (group);
+        transform.position += width * Vector3.right * (group);
 
         // Set first phase for reference. Note: IPhaseController.OnPhaseEnter is called after OnStart...
         phase = Phase.Intro; 
@@ -276,7 +277,7 @@ public class PhaseManager : MonoBehaviour
     public void EnterPhase(Phase phase)
     {
         // TEMP, needs a player win event
-        if (phase == Phase.Player_Win) AudioPlayer.PlayBGM(new BGM(FileUtility.LoadFile<AudioClip>("Audio/Music/8bossa"))); 
+        if (phase == Phase.Player_Win) AudioPlayer.PlayBGM(Audio.bossa); 
 
         UnsubscribeAll();
         this.phase = phase;
