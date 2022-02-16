@@ -1172,8 +1172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a493ed19c82d0d84a9cbd55659d9a3d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intro: {fileID: 0}
-  loop: {fileID: 8300000, guid: dc9f9f3e1852b8a46a6097737e63d42c, type: 3}
 --- !u!82 &2121069357
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1291,6 +1289,9 @@ MonoBehaviour:
     firstSelected: {fileID: 1563115242}
   activeLayer: 0
   previousLayer: 0
+  bgm:
+    intro: {fileID: 8300000, guid: dc9f9f3e1852b8a46a6097737e63d42c, type: 3}
+    loop: {fileID: 8300000, guid: dc9f9f3e1852b8a46a6097737e63d42c, type: 3}
 --- !u!4 &2121069359
 Transform:
   m_ObjectHideFlags: 0

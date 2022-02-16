@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Lobstobotomizer
   m_EditorClassIdentifier: 
   bossName: Lobstobotomizer
+  background: {fileID: 0}
+  bgm:
+    intro: {fileID: 8300000, guid: cdf0fdeef4832db469269af62ad382de, type: 3}
+    loop: {fileID: 8300000, guid: ccdd47bc6d692f5418a38d9931ab879f, type: 3}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Slider))]
+[RequireComponent(typeof(Slider), typeof(CanvasGroup))]
 public class StunSlider : MonoBehaviour, IPhaseController
 {
     /// <summary>
@@ -17,6 +17,11 @@ public class StunSlider : MonoBehaviour, IPhaseController
     private Slider slider;
 
     /// <summary>
+    /// Canvas group of this gameObject
+    /// </summary>
+    private CanvasGroup canvasGroup; 
+
+    /// <summary>
     /// How fast the slider counts down 
     /// </summary>
     [SerializeField] [Range(0,1f)] private float speed; 
@@ -25,9 +30,10 @@ public class StunSlider : MonoBehaviour, IPhaseController
 
     private void Awake()
     {
+        canvasGroup = GetComponent<CanvasGroup>(); 
         slider = GetComponent<Slider>();
-        gameObject.SetActive(false);
-        OnPhaseEnter();
+        canvasGroup.alpha = 0; 
+        //OnPhaseEnter();
     }
     public void OnStart() { }
 
@@ -37,7 +43,7 @@ public class StunSlider : MonoBehaviour, IPhaseController
     public void OnPhaseEnter()
     {
         slider.value = 1f;
-        gameObject.SetActive(true);
+        canvasGroup.alpha = 1; 
     }
     
 
@@ -55,6 +61,6 @@ public class StunSlider : MonoBehaviour, IPhaseController
     /// </summary>
     public void OnPhaseExit()
     {
-        gameObject.SetActive(false);
+        canvasGroup.alpha = 0; 
     }
 }

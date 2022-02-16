@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using UnityEngine.InputSystem; 
 
+// TODO - rename this class
 public class BattleGroupManager : MonoBehaviour
 {
     /// <summary>
@@ -14,7 +15,7 @@ public class BattleGroupManager : MonoBehaviour
 
     // serializes phaseManagers in editor
     #if UNITY_EDITOR
-    [SerializeField] [ReadOnly] private List<PhaseManager> _phaseManagers = new List<PhaseManager> { };
+    [ReadOnly] [SerializeField] private List<PhaseManager> _phaseManagers = new List<PhaseManager> { };
     #endif
 
     /// <summary>
@@ -52,13 +53,18 @@ public class BattleGroupManager : MonoBehaviour
         public PlayerConnectionEventArgs(int playersConnected)
         {
             this.playersConnected = playersConnected; 
-        }
+        } 
     }
+
+    /// <summary>
+    /// Called by PlayerInputManager when a new player joins 
+    /// </summary>
     public void OnPlayerJoined()
     {
         PlayerConnectionEventArgs e = new PlayerConnectionEventArgs(
             PlayerInputManager.instance.playerCount
             );
+
         // if not player 1 (who is not a runtime phase manager) or already initialized
         // checking player instance will prevent player 1 from running twice
         // is awake will prevent instance from running when it's already ran
@@ -87,7 +93,12 @@ public class BattleGroupManager : MonoBehaviour
         phaseManagers.Add(manager);
     }
 
-    #if UNITY_EDITOR
+    private void Start()
+    {
+        AudioPlayer.PlayBGM(level.bgm);
+    }
+
+#if UNITY_EDITOR
     private void Update()
     {
         // unity serialization
@@ -101,7 +112,11 @@ public class BattleGroupManager : MonoBehaviour
     /// <param name="name">Name of level data field</param>
     public static void LoadLevelData(string name)
     {
+        // get SO
         level = FileUtility.LoadFile<Level>($"Scriptable Objects/Level Data/{name}");
+
+        // initialize SO
+        level.LoadReferences();
     }
 
     /// <summary>
@@ -109,14 +124,12 @@ public class BattleGroupManager : MonoBehaviour
     /// </summary>
     private void OnLoadLevel()
     {
-        // get rid of old references 
+        // get rid of old static references 
         phaseManagers.Clear();
 
         // add boss script to boss 
         Type bossType = Type.GetType(level.bossName);
-        if (bossType != null) GameObject.FindGameObjectWithTag("Boss").AddComponent(bossType); 
-
-        // change music 
+        if (bossType != null) GameObject.FindGameObjectWithTag("Boss").AddComponent(bossType);
 
         // change background 
 

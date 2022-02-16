@@ -155,6 +155,7 @@ public class PhaseManager : MonoBehaviour
             cameraExposer.SetZoom((e.playersConnected - 1) * 1.25f);
             cameraExposer.SetOffsetY((e.playersConnected - 1) * 0.1f);
         }
+        else cameraExposer.SetZoom(1); // just make sure zoom is initialized right
     }
 
     // important to call controller.onStart after awake references to not break game!
@@ -272,6 +273,9 @@ public class PhaseManager : MonoBehaviour
     /// <remarks>Phases only change when this function is called in an IPhaseController</remarks>
     public void EnterPhase(Phase phase)
     {
+        // TEMP, needs a player win event
+        if (phase == Phase.Player_Win) AudioPlayer.PlayBGM(new BGM(FileUtility.LoadFile<AudioClip>("Audio/Music/8bossa"))); 
+
         UnsubscribeAll();
         this.phase = phase;
         foreach (IPhaseController controller in controllers) TrySubscribePhaseController(controller);

@@ -46,13 +46,26 @@ public class MenuEventHandler : MonoBehaviour
     [SerializeField] [ReadOnly] private int previousLayer;
 
     /// <summary>
+    /// Audio to play
+    /// </summary>
+    [SerializeField] private BGM bgm; 
+
+    /// <summary>
     /// Disables all layers except first layer in layers
     /// </summary>
     /// <remarks>All menus should be enabled by default for now</remarks>
     public void Awake()
     {
-        foreach (MenuLayer layer in layers) ToggleActive(layer.parent);
-        ToggleActive(layers[0].parent);
+        if (layers.Count > 0)
+        {
+            foreach (MenuLayer layer in layers) ToggleActive(layer.parent);
+            ToggleActive(layers[0].parent);
+        }
+    }
+
+    private void Start()
+    {
+        AudioPlayer.PlayBGM(bgm);
     }
 
     /// <summary>

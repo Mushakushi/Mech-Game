@@ -7,10 +7,12 @@ public class Leaderboard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LeaderboardData lob = new Level("Lobstobotomizer").LoadLeaderboard();
-        FillWithEmptyData(lob);
-        LeaderboardData john = new Level("John").LoadLeaderboard();
-        FillWithEmptyData(john);
+        // commented these out bc i changed the level SO
+
+        //LeaderboardData lob = new Level("Lobstobotomizer").LoadLeaderboard();
+        //FillWithEmptyData(lob);
+        //LeaderboardData john = new Level("John").LoadLeaderboard();
+        //FillWithEmptyData(john);
     }
 
     private void FillWithEmptyData(LeaderboardData leaderboard) // test method to ensure that functions work
