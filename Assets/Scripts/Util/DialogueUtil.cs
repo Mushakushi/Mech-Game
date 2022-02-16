@@ -80,6 +80,10 @@ public static class DialogueUtil
         /// Should the line overflow the text box?
         /// </summary>
         public bool overflow;
+        /// <summary>
+        /// Voiceline to play with the dialogueline.
+        /// </summary>
+        public AudioClip voiceline;
 
         /// <summary>
         /// 
@@ -87,11 +91,12 @@ public static class DialogueUtil
         /// <param name="sections">Sections in this line.</param>
         /// <param name="portrait">Name of Character portrait shown when this line is displayed.</param>
         /// <param name="overflow">Should the line overflow the text box?</param>
-        public DialogueLine(List<DialogueSection> sections, Texture2D portrait, bool overflow = false)
+        public DialogueLine(List<DialogueSection> sections, Texture2D portrait, AudioClip voiceline, bool overflow = false)
         {
             portraitOverride = portrait;
             this.overflow = overflow;
             this.sections = sections;
+            this.voiceline = voiceline;
         }
     }
 

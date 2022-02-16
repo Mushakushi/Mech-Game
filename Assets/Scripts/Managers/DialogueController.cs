@@ -95,6 +95,8 @@ public class DialogueController : MonoBehaviour, IPhaseController
 
         yield return new WaitForSecondsRealtime(0.4f); // 0.2s transition to showing dialogue boxes on screen
 
+        if (line.voiceline != null) AudioPlayer.Play(line.voiceline);
+
         foreach (DialogueSection section in line.sections)
         {
             foreach (char letter in section.text)

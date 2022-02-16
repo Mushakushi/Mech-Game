@@ -16,20 +16,25 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
-      - text: Blub blub
+      - text: BRBBLBLBLRBLBLBLB!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
+      voiceline: {fileID: 0}
     - sections:
+      - text: <b>
+        characterDelay: 0
       - text: Unlobstibotted Power!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
+      voiceline: {fileID: 0}
     - sections:
       - text: LOBSTA POWA!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
+      voiceline: {fileID: 0}
   - languageName: TokiPona
     dialogueLines: []
   - languageName: Debug
