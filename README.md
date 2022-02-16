@@ -5,7 +5,6 @@
 - Fix options menu
 
 - Test loading different menus
-- Multiplayer phase control 
 - Multiplayer menu
 - Leaderboard end screen (actually end battle)
 - Sync jario counts with boss shakes
