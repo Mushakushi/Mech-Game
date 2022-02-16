@@ -295,7 +295,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4803112968863419654}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -799,7 +799,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -347.45374, w: -7.774643}
+  m_margin: {x: 0, y: 0, z: 24.145966, w: -7.774643}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1938,7 +1938,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 15, y: 10}
+  m_Size: {x: 15, y: 14.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -2724,7 +2724,7 @@ SpriteRenderer:
   m_SortingLayerID: 343541607
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: -3265472795598615820, guid: aeb1e2fcdef06bb43821d4ff7ff4b481, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 59532074d2b831f428cf3eaa8e55d88c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2745,7 +2745,7 @@ Animator:
   m_GameObject: {fileID: 9217661058035230796}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e034453711374544aa553e199081690f, type: 2}
+  m_Controller: {fileID: 22100000, guid: d9d067e9633903241953a395fc068a56, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

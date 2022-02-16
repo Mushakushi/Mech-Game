@@ -28,7 +28,7 @@ public class BattleGroupManager : MonoBehaviour
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
 
         // delete after done debuging battle scene
-        LoadLevelData("Lobstobotomizer");
+        //LoadLevelData("Lobstobotomizer");
 
         // applies level data to scene 
         OnLoadLevel();
