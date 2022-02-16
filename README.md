@@ -1,22 +1,16 @@
 # Super Battle Machine Boxing
 
 ## Current TODO:
-- Create Shoto and John
-- Fix options menu
-
-- Test loading different menus
-- Multiplayer menu
+- Create Shoto, Joh
+- Finish options menu & multiplayer menu
 - Leaderboard end screen (actually end battle)
 - Sync jario counts with boss shakes
-- Projectiles
 
 ## Looking Foward:
 
-Get people to report bugs
-(how - github issue maybe? something else..?)
-
 Systems Needed:
 - Voice Lines (not hard)
+- One-hit mode/ support for special rules
 
 ## Instructions and Rubrics:
 ![Overview Instructions](https://user-images.githubusercontent.com/60948236/151413129-abf6ce12-e1b7-4707-8e89-00be1c25220a.PNG)
