@@ -58,7 +58,7 @@ public abstract class Boss : Character
     // Start is called before the first frame update 
     protected sealed override void OnInitialize()
     {
-        DisableHitbox();
+        hitbox.SetOwner(this);
 
         OnInitializeBoss();
         healthBars = maxHealthBars;

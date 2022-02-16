@@ -27,7 +27,7 @@ public class Hitbox : MonoBehaviour
         if (gameObject.GetComponentInParent<IHitboxOwner>() is IHitboxOwner owner)
             hitboxOwner = owner;
         else
-            Debug.LogWarning("Hitbox has no owner. Ignore this if intended.");
+            Debug.LogWarning($"Hitbox with parent {transform.parent.name} has no owner. Ignore this if intended.");
     }
 
     /// <summary>
@@ -73,5 +73,10 @@ public class Hitbox : MonoBehaviour
         if (layerMask != (layerMask | 1 << other.layer)) return null;
         if (other.GetComponent<Character>() is Character o) return o;
         else return null; 
+    }
+
+    public void SetOwner(IHitboxOwner newOwner)
+    {
+        hitboxOwner = newOwner;
     }
 }

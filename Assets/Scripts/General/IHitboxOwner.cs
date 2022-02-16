@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-interface IHitboxOwner
+public interface IHitboxOwner
 {
     /// <summary>
     /// Event that happens when this Owner's Hitbox enters a Character's Hurtbox

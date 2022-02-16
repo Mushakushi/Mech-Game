@@ -4,17 +4,14 @@ using UnityEngine;
 public class ProjectileManager : MonoBehaviour
 {
     private const float dodgeDistance = 0.7f;
-    private static PhaseManager phaseManager;
-    private List<AttackPattern> attackPatterns;
-    private static Vector2 currentPlayerPos;
+    private PhaseManager phaseManager;
+    private List<AttackPattern> topAttackPatterns;
+    private List<AttackPattern> sideAttackPatterns;
+    private Vector2 currentPlayerPos;
     private static Camera currentCamera;
     private GameObject genericAttack;
     public int group;
-
-    private void Awake()
-    {
-        
-    }
+    public float speed = 0.7f;
 
     private void Start()
     {
@@ -26,18 +23,17 @@ public class ProjectileManager : MonoBehaviour
         phaseManager = PhaseManagerAccess.GetManager(group);
         currentPlayerPos = phaseManager.player.transform.position;
         currentCamera = phaseManager.camera;
-        attackPatterns = CreateAttackPatterns();
+        CreateAttackPatterns();
     }
 
     public void SpawnProjectile(AttackProjectileAsset projectile)
     {
         AttackPattern attackPattern = ChooseAttackPattern(projectile.spawnDirections);
-        List<Vector3> spawnPositions = attackPattern.spawnPositions;
-        foreach (Vector3 pos in spawnPositions)
+        List<Vector2> spawnPositions = attackPattern.spawnPositions;
+        foreach (Vector2 spawnPos in spawnPositions)
         {
-            GameObject newAttack = Instantiate(genericAttack, pos, Quaternion.identity, phaseManager.transform);
-            newAttack.transform.position = pos;
-            newAttack.GetComponent<GenericAttack>().SetValues(projectile, attackPattern.destination, 0.3f);
+            GameObject newAttack = Instantiate(genericAttack, spawnPos, Quaternion.identity, phaseManager.transform);
+            newAttack.GetComponent<GenericAttack>().SetValues(projectile, spawnPos, attackPattern.destination, speed);
         }
     }
 
@@ -53,52 +49,63 @@ public class ProjectileManager : MonoBehaviour
         // left side
         // right side
 
-        int numAttackPositions = 0;
+        List<AttackPattern> availablePatterns = new List<AttackPattern>();
 
         if (attackDirections.top)
-            numAttackPositions += 4;
+            availablePatterns.AddRange(topAttackPatterns);
         if (attackDirections.sides)
-            numAttackPositions += 2;
+            availablePatterns.AddRange(sideAttackPatterns);
 
-        int chosenPos = (numAttackPositions - Random.Range(0, numAttackPositions - 1));
-        return attackPatterns[chosenPos];
+        if (availablePatterns.Count > 0)
+        {
+            int chosenPattern = Random.Range(0, availablePatterns.Count);
+            return availablePatterns[chosenPattern];
+        }
+        else
+        {
+            throw new System.Exception("No attack types selected!");
+        }
     }
 
     #region ATTACK PATTERNS
 
-    private static List<AttackPattern> CreateAttackPatterns()
+    private void CreateAttackPatterns()
     {
         Vector2 playerPos = currentPlayerPos;
 
-        Vector3 abovePlayer = new Vector3(playerPos.x, GetPosRelCamera(new Vector3(0f, 1.2f)).y);
-        Vector3 leftPlayer = new Vector3(GetPosRelCamera(new Vector3(-1.2f, 0f)).x, playerPos.y, 0f);
-        Vector3 rightPlayer = new Vector3(GetPosRelCamera(new Vector3(1.2f, 0f)).x, playerPos.y, 0f);
+        Vector2 abovePlayer = new Vector2(playerPos.x, GetPosRelCamera(new Vector3(0f, 1.2f)).y);
+        Vector2 leftPlayer = new Vector2(GetPosRelCamera(new Vector3(-0.01f, 0f)).x, playerPos.y);
+        Vector2 rightPlayer = new Vector2(GetPosRelCamera(new Vector3(1.01f, 0f)).x, playerPos.y);
 
-        List<AttackPattern> attackPatterns = new List<AttackPattern>();
+        List<AttackPattern> topPatterns = new List<AttackPattern>();
 
-        attackPatterns.Add(new AttackPattern(new List<Vector3>(), AttackDestination.None));
-        attackPatterns.Add(new AttackPattern(new List<Vector3> { abovePlayer + AttackPos.TopLeft, abovePlayer + AttackPos.TopRight }, AttackDestination.Down));
-        attackPatterns.Add(new AttackPattern(new List<Vector3> { abovePlayer + AttackPos.TopCenter }, AttackDestination.Down));
-        attackPatterns.Add(new AttackPattern(new List<Vector3> { abovePlayer + AttackPos.TopLeft, abovePlayer + AttackPos.TopCenter }, AttackDestination.Down));
-        attackPatterns.Add(new AttackPattern(new List<Vector3> { abovePlayer + AttackPos.TopCenter, abovePlayer + AttackPos.TopRight }, AttackDestination.Down));
+        topPatterns.Add(new AttackPattern(new List<Vector2>(), AttackDestination.None));
+        topPatterns.Add(new AttackPattern(new List<Vector2> { abovePlayer + AttackPos.TopLeft, abovePlayer + AttackPos.TopRight }, AttackDestination.Down));
+        topPatterns.Add(new AttackPattern(new List<Vector2> { abovePlayer + AttackPos.TopCenter }, AttackDestination.Down));
+        topPatterns.Add(new AttackPattern(new List<Vector2> { abovePlayer + AttackPos.TopLeft, abovePlayer + AttackPos.TopCenter }, AttackDestination.Down));
+        topPatterns.Add(new AttackPattern(new List<Vector2> { abovePlayer + AttackPos.TopCenter, abovePlayer + AttackPos.TopRight }, AttackDestination.Down));
 
-        attackPatterns.Add(new AttackPattern(new List<Vector3> { leftPlayer }, AttackDestination.Right));
-        attackPatterns.Add(new AttackPattern(new List<Vector3> { rightPlayer }, AttackDestination.Left));
+        topAttackPatterns = topPatterns;
 
-        return attackPatterns;
+        List<AttackPattern> sidePatterns = new List<AttackPattern>();
+
+        sidePatterns.Add(new AttackPattern(new List<Vector2> { leftPlayer }, AttackDestination.Right));
+        sidePatterns.Add(new AttackPattern(new List<Vector2> { rightPlayer }, AttackDestination.Left));
+
+        sideAttackPatterns = sidePatterns;
     }
 
-    private static Vector3 GetPosRelCamera(Vector3 pos)
+    public static Vector3 GetPosRelCamera(Vector3 pos)
     {
         return currentCamera.ViewportToWorldPoint(pos);
     }
 
     private struct AttackPattern
     {
-        public List<Vector3> spawnPositions;
+        public List<Vector2> spawnPositions;
         public AttackDestination destination;
 
-        public AttackPattern(List<Vector3> spawnPositions, AttackDestination destination)
+        public AttackPattern(List<Vector2> spawnPositions, AttackDestination destination)
         {
             this.spawnPositions = spawnPositions;
             this.destination = destination;
@@ -107,9 +114,9 @@ public class ProjectileManager : MonoBehaviour
 
     private static class AttackPos
     {
-        public static Vector3 TopLeft = new Vector3(-dodgeDistance, 0, 0);
-        public static Vector3 TopCenter = new Vector3(0, 0, 0);
-        public static Vector3 TopRight = new Vector3(dodgeDistance, 0, 0);
+        public static readonly Vector2 TopLeft = new Vector3(-dodgeDistance, 0);
+        public static readonly Vector2 TopCenter = new Vector3(0, 0);
+        public static readonly Vector2 TopRight = new Vector3(dodgeDistance, 0);
     }
 
     #endregion

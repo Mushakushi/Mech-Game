@@ -9,6 +9,7 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
     [SerializeField] private float speed = 0.1f;
     [SerializeField] private Animator animator;
     [SerializeField] private Hitbox hitbox;
+    [SerializeField] private float travelLimit;
 
     private void Awake()
     {
@@ -22,8 +23,12 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         
     }
 
-    public void SetValues(AttackProjectileAsset settings, AttackDestination destination, float speed)
+    public void SetValues(AttackProjectileAsset settings, Vector2 spawnPos, AttackDestination destination, float speed)
     {
+        transform.position = spawnPos;
+
+        travelLimit = GetTravelLimit(spawnPos, destination);
+
         animator.runtimeAnimatorController = settings.animations;
         this.destination = destination;
         this.speed = speed;
@@ -35,6 +40,21 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         hitbox.boxCollider.enabled = true;
     }
 
+    private float GetTravelLimit(Vector2 spawnPos, AttackDestination destination)
+    {
+        switch (destination)
+        {
+            case AttackDestination.Down:
+                return -(spawnPos.y);
+            case AttackDestination.Right:
+                return ProjectileManager.GetPosRelCamera(new Vector2(1.01f, 0f)).x;
+            case AttackDestination.Left:
+                return ProjectileManager.GetPosRelCamera(new Vector2(-0.01f, 0f)).x; // screen space is 0, 1
+            default:
+                return 0;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -42,20 +62,28 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         {
             case AttackDestination.Down:
                 transform.position += ((Vector3.down * speed) / 100);
+                if (transform.position.y >= travelLimit)
+                    DeleteProjectile();
                 break;
             case AttackDestination.Right:
                 transform.position += ((Vector3.right * speed) / 100);
+                if (transform.position.x >= travelLimit)
+                    DeleteProjectile();
                 break;
             case AttackDestination.Left:
                 transform.position += ((Vector3.left * speed) / 100);
+                if (transform.position.x <= travelLimit)
+                    DeleteProjectile();
                 break;
             default:
+                DeleteProjectile();
                 break;
         }
     }
 
     public void OnEnterHurtbox()
     {
+        hitbox.boxCollider.enabled = false;
         animator.SetTrigger("DestroyProjectile");
     }
 
@@ -66,6 +94,6 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
 
     public void DeleteProjectile()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 }
