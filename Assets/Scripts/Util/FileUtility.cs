@@ -6,8 +6,8 @@ using UnityEngine;
 public static class FileUtility
 {
     public static string voicelinesPath => "Audio/Voicelines";
-    public static string levelDataPath => "Scriptable Objects/Level Data";
-    public static string animatorPath => "Animation/Animators";
+    public static string levelDataPath => "Level Data";
+    public static string animatorPath => "Animators";
     public static string dialoguePath => "Dialogue";
     public static string bgmPath => "Audio/Music"; 
 
