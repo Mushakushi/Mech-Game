@@ -36,9 +36,6 @@ public class Level : ScriptableObject
         Texture2D tex = LoadFile<Texture2D>($"Art/{name}/{name}_Background");
         background = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(.5f, .5f));
 
-        bgm = new BGM(
-            LoadFile<AudioClip>($"Audio/Music/{name}_Intro"),
-            LoadFile<AudioClip>($"Audio/Music/{name}_Loop")
-            );
+        bgm = new BGM($"{name}_Intro", $"{name}_Loop");
     }
 }

@@ -45,11 +45,11 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         switch (destination)
         {
             case AttackDestination.Down:
-                return -(spawnPos.y);
+                return ProjectileManager.GetPosRelCamera(Vector2.down * 0.1f).y;
             case AttackDestination.Right:
-                return ProjectileManager.GetPosRelCamera(new Vector2(1.01f, 0f)).x;
+                return ProjectileManager.GetPosRelCamera(Vector2.right * 1.1f).x;
             case AttackDestination.Left:
-                return ProjectileManager.GetPosRelCamera(new Vector2(-0.01f, 0f)).x; // screen space is 0, 1
+                return ProjectileManager.GetPosRelCamera(Vector2.left * 0.1f).x; // screen space is 0, 1
             default:
                 return 0;
         }
@@ -62,7 +62,7 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         {
             case AttackDestination.Down:
                 transform.position += ((Vector3.down * speed) / 100);
-                if (transform.position.y >= travelLimit)
+                if (transform.position.y <= travelLimit)
                     DeleteProjectile();
                 break;
             case AttackDestination.Right:

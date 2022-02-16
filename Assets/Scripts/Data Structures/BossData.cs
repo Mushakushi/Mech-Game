@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Not currently in use 
+
 [System.Serializable]
 public struct BossData 
 {

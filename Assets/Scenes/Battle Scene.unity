@@ -445,6 +445,18 @@ PrefabInstance:
       propertyPath: m_TrackedObjectOffset.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8310995483992504199, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_Size.y
+      value: 14.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310995483992504199, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8310995483992504199, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8310995484038735254, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_RootOrder
       value: 2

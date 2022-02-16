@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "[attack name]", menuName = "Create Attack...")]
+[CreateAssetMenu(fileName = "[attack name]", menuName = "Boss Attack")]
 public class AttackProjectileAsset : ScriptableObject
 {
     public AnimatorOverrideController animations;

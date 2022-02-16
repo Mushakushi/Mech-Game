@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static FileUtility; 
 
 [RequireComponent(typeof(Animator), typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
@@ -91,7 +92,7 @@ public abstract class Character : MonoBehaviour, IPhaseController, IHitboxOwner
         if (!hurtbox) Debug.LogError("Script requires hitbox in child!");
 
         animator = GetComponentInChildren<Animator>();
-        animator.runtimeAnimatorController = FileUtility.LoadFile<RuntimeAnimatorController>($"Animation/Animators/Characters/{GetType().Name}");
+        animator.runtimeAnimatorController = LoadFile<RuntimeAnimatorController>($"{animatorPath}/Characters/{GetType().Name}");
 
         // initialize sub classes
         OnInitialize();

@@ -73,13 +73,12 @@ public class ProjectileManager : MonoBehaviour
     {
         Vector2 playerPos = currentPlayerPos;
 
-        Vector2 abovePlayer = new Vector2(playerPos.x, GetPosRelCamera(new Vector3(0f, 1.2f)).y);
-        Vector2 leftPlayer = new Vector2(GetPosRelCamera(new Vector3(-0.01f, 0f)).x, playerPos.y);
-        Vector2 rightPlayer = new Vector2(GetPosRelCamera(new Vector3(1.01f, 0f)).x, playerPos.y);
+        Vector2 abovePlayer = new Vector2(playerPos.x, GetPosRelCamera(new Vector2(0f, 1.2f)).y);
+        Vector2 leftPlayer = new Vector2(GetPosRelCamera(new Vector2(-0.01f, 0f)).x, playerPos.y);
+        Vector2 rightPlayer = new Vector2(GetPosRelCamera(new Vector2(1.01f, 0f)).x, playerPos.y);
 
         List<AttackPattern> topPatterns = new List<AttackPattern>();
 
-        topPatterns.Add(new AttackPattern(new List<Vector2>(), AttackDestination.None));
         topPatterns.Add(new AttackPattern(new List<Vector2> { abovePlayer + AttackPos.TopLeft, abovePlayer + AttackPos.TopRight }, AttackDestination.Down));
         topPatterns.Add(new AttackPattern(new List<Vector2> { abovePlayer + AttackPos.TopCenter }, AttackDestination.Down));
         topPatterns.Add(new AttackPattern(new List<Vector2> { abovePlayer + AttackPos.TopLeft, abovePlayer + AttackPos.TopCenter }, AttackDestination.Down));
