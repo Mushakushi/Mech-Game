@@ -411,11 +411,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 610531454894037027, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.541
+      value: -3.691
       objectReference: {fileID: 0}
     - target: {fileID: 2337805359478864929, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: orthographic size
-      value: 1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 8310995482291983665, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -427,15 +427,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8310995482300824348, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 8310995482300824351, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.541
+      value: -3.691
       objectReference: {fileID: 0}
     - target: {fileID: 8310995483044253060, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_TrackedObjectOffset.y
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8310995484038735254, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_RootOrder
