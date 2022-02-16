@@ -216,9 +216,11 @@ public class PhaseManager : MonoBehaviour
         foreach (IPhaseController o in activeControllers.ToList()) o.OnPhaseUpdate();
 
         // unity serialization 
+        #if UNITY_EDITOR
         _phase = phase;
         _controllers = controllers.Select(x => x.gameObject).ToList(); 
-        _activeControllers = activeControllers.Select(x => x.gameObject).ToList(); 
+        _activeControllers = activeControllers.Select(x => x.gameObject).ToList();
+        #endif
     }
 
     /// <summary>

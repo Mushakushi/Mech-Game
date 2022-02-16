@@ -61,7 +61,9 @@ public static class DialogueUtil
         {
             this.language = language;
             dialogueLines = new List<DialogueLine>();
+            #if UNITY_EDITOR
             languageName = language.ToString();
+            #endif
         }
     }
 

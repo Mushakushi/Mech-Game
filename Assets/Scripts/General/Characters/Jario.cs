@@ -8,7 +8,8 @@ public class Jario : MonoBehaviour, IPhaseController
     /// <summary>
     /// Jario's animator
     /// </summary>
-    [ReadOnly] [SerializeField] private Animator animator;
+    [ReadOnly]
+    [SerializeField] private Animator animator;
 
     /// <summary>
     /// The group this controller belongs to

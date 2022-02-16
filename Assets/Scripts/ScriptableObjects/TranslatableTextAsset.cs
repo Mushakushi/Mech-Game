@@ -44,6 +44,8 @@ public class TranslationText
     {
         this.language = language;
         this.text = text;
+        #if UNITY_EDITOR
         languageName = language.ToString();
+        #endif
     }
 }

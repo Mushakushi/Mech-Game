@@ -177,23 +177,27 @@ public class Player : Character
     /// </summary>
     public void PoolAction(InputAction.CallbackContext context)
     {
-        switch (context.action.name)
+        if (context.action.triggered)
         {
-            case "Attack":
-                attack = true;
-                break;
-            case "DodgeLeft":
-                dodgeLeft = true; 
-                break;
-            case "DodgeRight":
-                dodgeRight = true; 
-                break;
-            case "DodgeDown":
-                dodgeDown = true;
-                break;
-            default:
-                throw new System.Exception($"Action {context.action.name} is unhandeled!");
+            switch (context.action.name)
+            {
+                case "Attack":
+                    attack = true;
+                    break;
+                case "DodgeLeft":
+                    dodgeLeft = true;
+                    break;
+                case "DodgeRight":
+                    dodgeRight = true;
+                    break;
+                case "DodgeDown":
+                    dodgeDown = true;
+                    break;
+                default:
+                    throw new System.Exception($"Action {context.action.name} is unhandeled!");
+            }
         }
+        
     }
 
     /// <summary>
