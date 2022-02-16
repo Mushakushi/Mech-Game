@@ -100,7 +100,7 @@ public class BattleGroupManager : MonoBehaviour
         AudioPlayer.PlayBGM(level.bgm);
     }
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     private void Update()
     {
         // unity serialization
