@@ -5,12 +5,12 @@ using UnityEngine;
 
 public static class FileUtility
 {
-    public static string voicelinesPath => "Audio/Voicelines";
-    public static string levelDataPath => "Level Data";
-    public static string animatorPath => "Animators";
-    public static string dialoguePath => "Dialogue";
-    public static string bgmPath => "Audio/Music"; 
-
+    public const string voicelinesPath = "Audio/Voicelines";
+    public const string levelDataPath = "Level Data";
+    public const string animatorsPath = "Animators";
+    public const string dialoguePath = "Dialogue";
+    public const string bgmPath = "Audio/Music";
+    public const string prefabsPath = "Prefabs"; 
 
     /// <summary>
     /// Returns file at Resources/<paramref name="filePath"/> of type T

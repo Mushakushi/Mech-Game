@@ -15,7 +15,7 @@ public class ProjectileManager : MonoBehaviour
 
     private void Start()
     {
-        genericAttack = (GameObject) Resources.Load("Prefabs/Generic Attack");
+        genericAttack = FileUtility.LoadFile<GameObject>($"{FileUtility.prefabsPath}/Generic Attack");
     }
 
     public void Initialize(int group)

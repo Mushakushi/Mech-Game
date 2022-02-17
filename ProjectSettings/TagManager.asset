@@ -3,13 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - DialogueTextDisplay
-  - Boss
-  - Jario
-  - PhaseManager
-  - UIShaderOverlay
-  - UICanvas
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -17,16 +11,16 @@ TagManager:
   - 
   - Water
   - UI
-  - P1Cull
-  - P2Cull
-  - P3Cull
-  - P4Cull
   - 
   - 
   - 
   - 
-  - BossAttack
-  - PlayerAttack
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -46,13 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Background
-    uniqueID: 2227243107
-    locked: 0
-  - name: Characters
-    uniqueID: 343541607
-    locked: 0
-  - name: UI
-    uniqueID: 3319543141
     locked: 0
