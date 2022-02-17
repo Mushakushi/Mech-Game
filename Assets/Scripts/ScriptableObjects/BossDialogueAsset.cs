@@ -11,6 +11,7 @@ public class BossDialogueAsset : ScriptableObject
     [SerializeField] public List<TranslatableDialogue> dialogue;
     [SerializeField] public Texture2D defaultPortrait;
 
+#if UNITY_EDITOR
     public BossDialogueAsset()
     {
         dialogue = new List<TranslatableDialogue>();
@@ -19,6 +20,7 @@ public class BossDialogueAsset : ScriptableObject
             dialogue.Add(new TranslatableDialogue(lang));
         }
     }
+#endif
 
     public List<DialogueLine> GetTranslationIn(LANGUAGE lang)
     {

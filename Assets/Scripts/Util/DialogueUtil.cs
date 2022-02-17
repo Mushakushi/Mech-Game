@@ -52,18 +52,14 @@ public static class DialogueUtil
     public struct TranslatableDialogue
     {
         public readonly LANGUAGE language;
-        #if UNITY_EDITOR
         [SerializeField] [ReadOnly] private string languageName;
-        #endif
         [SerializeField] public List<DialogueLine> dialogueLines;
 
         public TranslatableDialogue(LANGUAGE language)
         {
             this.language = language;
             dialogueLines = new List<DialogueLine>();
-            #if UNITY_EDITOR
             languageName = language.ToString();
-            #endif
         }
     }
 

@@ -20,24 +20,14 @@ public static class Scene
         AsyncOperation aop = SceneManager.LoadSceneAsync(name);
 
         // first 90% is loading the scene
-        aop.allowSceneActivation = false; 
+        aop.allowSceneActivation = true; 
 
         // Wait until the asynchronous scene loads
-        while (aop.progress < 0.9f)
+        while (!aop.isDone)
         {
             System.Diagnostics.Debug.WriteLine($"Loading at {aop.progress}");
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
-
-        // Wait until can start already loaded level (this way it's possible to delay the scene load)
-        /*while (false)
-        {
-            // delay loading 
-            yield return null; 
-        }*/
-
-        // Activate scene
-        aop.allowSceneActivation = true;
 
         Debug.LogError("Scene loaded :)");
         System.Diagnostics.Debug.WriteLine("Started succesfully loaded!");
