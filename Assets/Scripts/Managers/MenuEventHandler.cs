@@ -132,6 +132,6 @@ public class MenuEventHandler : MonoBehaviour
     public void LoadBattleScene(string bossName)
     {
         BattleGroupManager.LoadLevelData(bossName); 
-        LoadScene("Battle Scene"); 
+        StartCoroutine(Scene.Load("Battle Scene")); 
     }
 }
