@@ -6,6 +6,7 @@ using System;
 using UnityEngine.InputSystem; 
 
 // TODO - rename this class
+[RequireComponent(typeof(PlayerInputManager))]
 public class BattleGroupManager : MonoBehaviour
 {
     /// <summary>

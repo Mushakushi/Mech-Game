@@ -134,4 +134,10 @@ public class MenuEventHandler : MonoBehaviour
         BattleGroupManager.LoadLevelData(bossName); 
         StartCoroutine(Scene.Load("Battle Scene")); 
     }
+
+    public void SetMultiplayerState(bool isMultiplayerGame)
+    {
+        if (isMultiplayerGame) UnityEngine.InputSystem.PlayerInputManager.instance.EnableJoining();
+        else UnityEngine.InputSystem.PlayerInputManager.instance.DisableJoining(); 
+    }
 }
