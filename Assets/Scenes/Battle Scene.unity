@@ -1055,18 +1055,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1661829079, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 423
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803112968863419654, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803112969051697845, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8310995482291983665, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1129,14 +1117,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8310995484097281695, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9217661057855444991, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9217661058035230796, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 760, y: 456}
+  m_AnchoredPosition: {x: 760, y: 423}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1661829081
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 6536443784973532246}
   - component: {fileID: 2870686645242363648}
   - component: {fileID: 3594348027806828816}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 8192
   damage: 1
   boxCollider: {fileID: 0}
 --- !u!1 &4803112969051697845
@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 6536443784759133157}
   - component: {fileID: 2870686645431566515}
   - component: {fileID: 3594348028028630691}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2404,7 +2404,7 @@ GameObject:
   - component: {fileID: 3940264424111115112}
   - component: {fileID: 3548516831968870913}
   - component: {fileID: 9217661057855444990}
-  m_Layer: 15
+  m_Layer: 13
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
