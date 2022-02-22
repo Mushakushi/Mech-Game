@@ -406,8 +406,8 @@ MonoBehaviour:
   activeLayer: 0
   previousLayer: 0
   bgm:
-    intro: {fileID: 8300000, guid: 90ddbb518044e9a45b98d4735bd942e3, type: 3}
-    loop: {fileID: 8300000, guid: 90ddbb518044e9a45b98d4735bd942e3, type: 3}
+    intro: {fileID: 8300000, guid: 7237e4fd0ad682b4d96d7fd75bff57f2, type: 3}
+    loop: {fileID: 8300000, guid: 7237e4fd0ad682b4d96d7fd75bff57f2, type: 3}
 --- !u!114 &443733040
 MonoBehaviour:
   m_ObjectHideFlags: 0

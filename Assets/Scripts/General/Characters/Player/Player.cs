@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-
+using UnityEngine.InputSystem.Controls;
 
 [RequireComponent(typeof(PlayerInput))]
 public class Player : Character
@@ -176,6 +176,7 @@ public class Player : Character
         {
             switch (context.action.name)
             {
+                case "Tap":
                 case "Attack":
                     attack = true;
                     break;
@@ -192,7 +193,18 @@ public class Player : Character
                     throw new System.Exception($"Action {context.action.name} is unhandeled!");
             }
         }
-        
+        else if (context.action.name == "Swipe")
+        {
+            if (context.control is TouchControl t && t.phase.ReadUnprocessedValue() == UnityEngine.InputSystem.TouchPhase.Moved)
+            {
+                Vector2 delta = t.delta.ReadValue();
+
+                // moving more downwards than upwards
+                if (delta.y > delta.x && delta.y < 0) dodgeDown = true;
+                else if (delta.x < 0) dodgeLeft = true;
+                else if (delta.x > 0) dodgeRight = true; 
+            }
+        }
     }
 
     /// <summary>

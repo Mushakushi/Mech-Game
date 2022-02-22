@@ -14,6 +14,11 @@ public class BattleGroupManager : MonoBehaviour
     /// </summary>
     public static List<PhaseManager> phaseManagers = new List<PhaseManager> { };
 
+    /// <summary>
+    /// Whether or not to allow joining
+    /// </summary>
+    public static bool isMultiplayerGame = false; 
+
     // serializes phaseManagers in editor
     #if UNITY_EDITOR
     [ReadOnly] [SerializeField] private List<PhaseManager> _phaseManagers = new List<PhaseManager> { };
@@ -27,6 +32,11 @@ public class BattleGroupManager : MonoBehaviour
     void Awake()
     {
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
+
+        // enable or disable joining
+        PlayerInputManager inputMangager = GetComponent<PlayerInputManager>(); 
+        if (isMultiplayerGame) inputMangager.EnableJoining();
+        else inputMangager.DisableJoining();
 
         // delete after done debuging battle scene
         //LoadLevelData("Lobstobotomizer");

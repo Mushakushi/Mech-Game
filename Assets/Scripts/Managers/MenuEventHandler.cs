@@ -135,9 +135,10 @@ public class MenuEventHandler : MonoBehaviour
         StartCoroutine(Scene.Load("Battle Scene")); 
     }
 
-    public void SetMultiplayerState(bool isMultiplayerGame)
-    {
-        if (isMultiplayerGame) UnityEngine.InputSystem.PlayerInputManager.instance.EnableJoining();
-        else UnityEngine.InputSystem.PlayerInputManager.instance.DisableJoining(); 
-    }
+    /// <summary>
+    /// Enables multiplyaer if <paramref name="isMultiplayerGame"/> is true, disables otherwise
+    /// </summary>
+    /// <param name="isMultiplayerGame">Whether or not to disable joining</param>
+    /// <remarks>Set this before the battle scene, BattleGroupManager will read this on initiate</remarks>
+    public void SetMultiplayerState(bool isMultiplayerGame) => BattleGroupManager.isMultiplayerGame = isMultiplayerGame;
 }

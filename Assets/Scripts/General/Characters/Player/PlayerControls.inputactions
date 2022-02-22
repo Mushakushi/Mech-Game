@@ -28,6 +28,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Tap",
+                    "type": "Button",
+                    "id": "d301eede-c3f4-4d84-9266-58a7db3628d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Swipe",
+                    "type": "PassThrough",
+                    "id": "bac51081-5fe8-45b5-89bb-bc77ec5677f3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -138,6 +154,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "DodgeRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae5dddb6-32a5-4f02-9e02-9cf2d253f36c",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8fc7085e-cbb3-47f8-bc19-2324ff13ddb2",
+                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "Swipe",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

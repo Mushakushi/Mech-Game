@@ -174,7 +174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &132189297
 Transform:
   m_ObjectHideFlags: 0
@@ -190,7 +190,7 @@ Transform:
   - {fileID: 520663809}
   - {fileID: 1822463619}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &520663808
 GameObject:
@@ -1055,21 +1055,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1661829079, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 423
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803112968863419654, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803112969051697845, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8310995482291983665, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8310995482291983665, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8310995483458549142, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8310995484038735254, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8310995484038735254, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1115,17 +1123,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Group
       objectReference: {fileID: 0}
-    - target: {fileID: 8310995484038735255, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 8310995484097281695, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8310995484097281695, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8310995484097281695, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661057855444991, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217661058035230796, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
@@ -1493,7 +1505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1569624559
 Transform:
   m_ObjectHideFlags: 0
@@ -1618,7 +1630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1822394558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2002,8 +2014,8 @@ RectTransform:
   m_Father: {fileID: 2103006287}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.8}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 901.025, y: -17.985535}
   m_SizeDelta: {x: -1900, y: -24}
   m_Pivot: {x: 0.5, y: 0.5}

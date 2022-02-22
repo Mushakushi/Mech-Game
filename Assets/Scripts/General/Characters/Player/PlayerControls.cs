@@ -41,6 +41,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Tap"",
+                    ""type"": ""Button"",
+                    ""id"": ""d301eede-c3f4-4d84-9266-58a7db3628d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Swipe"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""bac51081-5fe8-45b5-89bb-bc77ec5677f3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -151,6 +167,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DodgeRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae5dddb6-32a5-4f02-9e02-9cf2d253f36c"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""Tap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fc7085e-cbb3-47f8-bc19-2324ff13ddb2"",
+                    ""path"": ""<Touchscreen>/primaryTouch/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""Swipe"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -731,6 +769,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_DodgeLeft = m_Player.FindAction("DodgeLeft", throwIfNotFound: true);
         m_Player_DodgeRight = m_Player.FindAction("DodgeRight", throwIfNotFound: true);
+        m_Player_Tap = m_Player.FindAction("Tap", throwIfNotFound: true);
+        m_Player_Swipe = m_Player.FindAction("Swipe", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -795,6 +835,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_DodgeLeft;
     private readonly InputAction m_Player_DodgeRight;
+    private readonly InputAction m_Player_Tap;
+    private readonly InputAction m_Player_Swipe;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -802,6 +844,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @DodgeLeft => m_Wrapper.m_Player_DodgeLeft;
         public InputAction @DodgeRight => m_Wrapper.m_Player_DodgeRight;
+        public InputAction @Tap => m_Wrapper.m_Player_Tap;
+        public InputAction @Swipe => m_Wrapper.m_Player_Swipe;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -820,6 +864,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @DodgeRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeRight;
                 @DodgeRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeRight;
                 @DodgeRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDodgeRight;
+                @Tap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTap;
+                @Tap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTap;
+                @Tap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTap;
+                @Swipe.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwipe;
+                @Swipe.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwipe;
+                @Swipe.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwipe;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -833,6 +883,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @DodgeRight.started += instance.OnDodgeRight;
                 @DodgeRight.performed += instance.OnDodgeRight;
                 @DodgeRight.canceled += instance.OnDodgeRight;
+                @Tap.started += instance.OnTap;
+                @Tap.performed += instance.OnTap;
+                @Tap.canceled += instance.OnTap;
+                @Swipe.started += instance.OnSwipe;
+                @Swipe.performed += instance.OnSwipe;
+                @Swipe.canceled += instance.OnSwipe;
             }
         }
     }
@@ -992,6 +1048,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnDodgeLeft(InputAction.CallbackContext context);
         void OnDodgeRight(InputAction.CallbackContext context);
+        void OnTap(InputAction.CallbackContext context);
+        void OnSwipe(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
