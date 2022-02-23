@@ -69,7 +69,7 @@ public abstract class Boss : Character
         RefreshSlider();
 
         // TODO - standardize naming these so we can add variables 
-        hurtClip = LoadFile<AudioClip>($"{voicelinesPath}/{characterName}/snd_ugh");
+        hurtClip = LoadFile<AudioClip>($"{voicelinesPath}/{characterName}/Hurt1");
         knockClip = LoadFile<AudioClip>($"{voicelinesPath}/{characterName}/snd_khan");
         dialogueClips = new List<AudioClip>() { hurtClip, knockClip };
 
