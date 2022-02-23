@@ -52,7 +52,7 @@ Shader "Custom/ColorWobble"
 			// fragment shader 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				float offsetX = sin(4 * i.uv.y * _Time) / 4;
+				float offsetX = sin(_Amount * i.uv.y * _Time) / _Amount;
 				i.uv.x += offsetX; 
 				fixed4 col = tex2D(_MainTex, i.uv);
 				col.gb = sin(_Time * 0.1f);

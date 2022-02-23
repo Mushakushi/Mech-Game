@@ -1979,6 +1979,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4246000276774072155, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 7c8d35ae8a580c544b24ffd41d1dbd3c, type: 2}
     - target: {fileID: 5899076710829176376, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2026,6 +2030,18 @@ PrefabInstance:
     - target: {fileID: 7941370151789626288, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_Name
       value: Battle Group
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361774032748728075, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361774032748728075, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361774032748728075, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8493753098842950161, guid: d8168f359f2fd3e45bde6098ee19d10e, type: 3}
       propertyPath: m_AnchorMax.x
