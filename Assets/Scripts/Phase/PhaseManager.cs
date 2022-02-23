@@ -84,7 +84,7 @@ public class PhaseManager : MonoBehaviour
         // get and cull camera
         // culling virtual cameras prevents cinemachine brain from autoblending on add
         camera = gameObject.GetComponentInChildren<Camera>();
-        camera.cullingMask = ~((1 << 6) | (1 << 7) | (1 << 8) | (1 << 9)); // excludes all (hardcoded) culling layers
+        camera.cullingMask = ~((1 << 6) | (1 << 7) | (1 << 8) | (1 << 9)); // excludes all (hardcoded 6-9) culling layers
         int cull = group + 6;  // player cull layer starts at 6
         camera.cullingMask |= 1 << cull;  // include culling layer 
 
@@ -115,6 +115,7 @@ public class PhaseManager : MonoBehaviour
                 {
                     case "MainCamera":
                         cameraExposer = controller as VirtualCameraExposer;
+                        // add camera gameObject to culling layer
                         if (cameraExposer) cameraExposer.gameObject.layer = cull;
                         break; 
                     case "Boss":

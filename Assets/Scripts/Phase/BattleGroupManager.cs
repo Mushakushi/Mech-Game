@@ -87,7 +87,7 @@ public class BattleGroupManager : MonoBehaviour
             if (GameObject.FindGameObjectsWithTag("PhaseManager")[e.playersConnected - 1].GetComponent<PhaseManager>()
                 is PhaseManager p)
             {
-                Debug.LogError($"Player {e.playersConnected} joined.");
+                Debug.Log($"Player {e.playersConnected} joined.");
                 AddRuntimePhaseManager(p);
                 p.OnAwake();
             }
@@ -133,20 +133,19 @@ public class BattleGroupManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Applies level data to scene 
+    /// Applies level data to scene required before OnAwake() is called
     /// </summary>
     private void OnLoadLevel()
     {
         // get rid of old static references 
         phaseManagers.Clear();
 
-        // add boss script to boss 
+        /// <summary>
+        /// Adds boss script to boss based on current level name
+        /// </summary>
         Type bossType = Type.GetType(level.bossName);
         if (bossType != null) GameObject.FindGameObjectWithTag("Boss").AddComponent(bossType);
-
-        // change background 
-
-        // etc...
+        else throw new Exception($"Boss script {level.bossName} does not exist!");
     }
 
     // Wrapper for UnityEvent, allows it to access the static function
