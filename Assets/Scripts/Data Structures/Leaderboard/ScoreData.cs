@@ -19,6 +19,10 @@ public struct ScoreData
     /// </summary>
     public float levelCompleteTime;
     /// <summary>
+    /// Time that it took the player to beat the level.
+    /// </summary>
+    private float timeBonus;
+    /// <summary>
     /// How much damage the player has taken.
     /// </summary>
     public float damageTaken;
@@ -37,6 +41,7 @@ public struct ScoreData
 
 
         fullScore = -1; // TODO - make this actually calculate the full score
+        timeBonus = 0;
     }
 
 
@@ -52,6 +57,20 @@ public struct ScoreData
 
     public void CalculateFullScore()
     {
-        fullScore = 1; // calculation here
+        fullScore = 1; // calculation here 
+        levelCompleteTime = (levelCompleteTime == 0 ? 1 : levelCompleteTime);
+        timeBonus = (float) (10000f - Math.Round(10000f / levelCompleteTime));
+    }
+
+    public List<(string label, string value)> GetDisplayStrings()
+    {
+        CalculateFullScore();
+
+        List<(string, string)> result = new List<(string, string)>();
+
+        result.Add(("Time Bonus:", timeBonus.ToString()));
+        result.Add(("Time Bonus:", timeBonus.ToString()));
+
+        return result;
     }
 }

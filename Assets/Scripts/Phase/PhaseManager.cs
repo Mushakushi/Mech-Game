@@ -6,7 +6,7 @@ using static FileUtility;
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { All, Intro, Boss, Boss_Guard, Boss_Collapse, Player, Player_Win, Dialogue_Pre, Dialogue_Post, Mixed }
+public enum Phase { All, Intro, Boss, Boss_Guard, Boss_Collapse, Player, Player_Win, Dialogue_Pre, Dialogue_Post, Mixed, ScoreScreen }
 
 /// <summary>
 /// Manages the phase behavior of every child phase controller

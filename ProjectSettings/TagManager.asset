@@ -15,10 +15,10 @@ TagManager:
   - 
   - Water
   - UI
-  - P1Cull
-  - P2Cull
-  - P3Cull
-  - P4Cull
+  - P1
+  - P2
+  - 
+  - 
   - 
   - 
   - 
@@ -44,4 +44,25 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1393676389
+    locked: 0
+  - name: Boss
+    uniqueID: 2480920223
+    locked: 0
+  - name: Boss Attacks
+    uniqueID: 462644069
+    locked: 0
+  - name: Jario
+    uniqueID: 2821981147
+    locked: 0
+  - name: Player
+    uniqueID: 558635411
+    locked: 0
+  - name: UI
+    uniqueID: 2936677297
+    locked: 0
+  - name: Scores
+    uniqueID: 673702251
     locked: 0

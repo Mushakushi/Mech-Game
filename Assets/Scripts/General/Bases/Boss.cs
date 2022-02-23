@@ -12,7 +12,7 @@ public abstract class Boss : Character
     /// <summary>
     /// Active phases of boss
     /// </summary>
-    public override Phase[] activePhases => new Phase[] { Phase.Boss_Guard, Phase.Boss };
+    public override Phase[] activePhases => new Phase[] { Phase.Boss_Guard, Phase.Boss, Phase.Player_Win };
 
     // TODO - There is a convoluted way to serialized properties in unity using custom inspector!
     [Header("Boss UI")]
@@ -190,6 +190,9 @@ public abstract class Boss : Character
             case Phase.Boss_Guard:
                 animator.SetTrigger("ReturnToIdle");
                 StartCoroutine(CoroutineUtility.WaitForSeconds(1.25f, () => this.ExitPhase()));
+                break;
+            case Phase.Player_Win:
+                animator.SetBool("KO'd", true);
                 break;
         }
     }
