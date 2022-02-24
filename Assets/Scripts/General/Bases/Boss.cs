@@ -69,8 +69,8 @@ public abstract class Boss : Character
         RefreshSlider();
 
         // TODO - standardize naming these so we can add variables 
-        hurtClip = LoadFile<AudioClip>($"{voicelinesPath}/{GetType()}/snd_ugh");
-        knockClip = LoadFile<AudioClip>($"{voicelinesPath}/{GetType()}/snd_khan");
+        hurtClip = LoadFile<AudioClip>($"{voicelinesPath}/{GetType()}/Hurt1");
+        knockClip = LoadFile<AudioClip>($"{voicelinesPath}/{GetType()}/Hurt2");
         dialogueClips = new List<AudioClip>() { hurtClip, knockClip };
 
         projectileManager = GetComponent<ProjectileManager>();

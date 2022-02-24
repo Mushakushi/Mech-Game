@@ -20,21 +20,25 @@ MonoBehaviour:
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
+      voiceline: {fileID: 8300000, guid: 575c0a7da746ba4459a13163e894113a, type: 3}
     - sections:
       - text: This is your last stop!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
+      voiceline: {fileID: 8300000, guid: de7db60e219bbc74bba6c85922fc5138, type: 3}
     - sections:
       - text: No more stops for you!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
+      voiceline: {fileID: 8300000, guid: 0f81817298968994eaff2b417e4f2a48, type: 3}
     - sections:
       - text: "That\u2019s it, I\u2019m steamin!"
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
+      voiceline: {fileID: 8300000, guid: d2d21c9d24ff91647946ec0390ead1d4, type: 3}
   - languageName: TokiPona
     dialogueLines: []
   - languageName: Debug

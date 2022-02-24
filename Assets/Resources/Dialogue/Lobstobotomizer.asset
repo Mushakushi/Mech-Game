@@ -28,7 +28,7 @@ MonoBehaviour:
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
-      voiceline: {fileID: 8300000, guid: 8712742744020964ca6f07cddac687af, type: 3}
+      voiceline: {fileID: 8300000, guid: f5865ae288287354db1033ce5edee923, type: 3}
     - sections:
       - text: LOBSTA POWA!
         characterDelay: 2
