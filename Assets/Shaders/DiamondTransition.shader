@@ -79,4 +79,5 @@ Shader "Custom/DiamondTransition"
             ENDCG
         }
     }
+	FallBack "Diffuse"
 }

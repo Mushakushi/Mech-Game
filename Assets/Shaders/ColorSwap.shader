@@ -1,18 +1,17 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Custom/ColorWobble"
+Shader "Custom/ColorSwap"
 {
-    Properties
-    {
-        _Color ("Color", Color) = (1,1,1,1)
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
-		_Amount("Wobblocity", Float) = 10
-    }
-    SubShader
-    {
-        Tags { "RenderType"="Opaque" }
-        LOD 100
-		
+	Properties
+	{
+		_MainTex("Albedo (RGB)", 2D) = "white" {}
+		_ReplaceColor("Replace Color", Color) = (1,1,1,1)
+	}
+	SubShader
+	{
+		Tags { "RenderType" = "Opaque" }
+		LOD 100
+
 		Pass
 		{
 			CGPROGRAM
@@ -30,7 +29,7 @@ Shader "Custom/ColorWobble"
 			};
 
 			// input for vertex shader to fragment shader
-			struct v2f 
+			struct v2f
 			{
 				float2 uv : TEXCOORD0;
 				float4 vertex : SV_POSITION; // clip space position
@@ -47,19 +46,25 @@ Shader "Custom/ColorWobble"
 
 			// texture sampled
 			sampler2D _MainTex;
-			float _Amount;
+			fixed4 _ReplaceColor; 
 
 			// fragment shader 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				float offsetX = sin(4 * i.uv.y * _Time) / 4;
-				i.uv.x += offsetX; 
 				fixed4 col = tex2D(_MainTex, i.uv);
-				col.gba = sin(_Time * 0.1f);
+
+				if (col.a == 0) discard;
+
+				// if length (magnitude) delta between two colors is less than value (they are "equal")
+				if (length(abs(_ReplaceColor.rgb - col.rgb)) < 0.1) {
+					col.gba = sin(_Time * 0.1f); // replace this pixel
+				}
+					
+
 				return col;
 			}
 			ENDCG
 		}
-    }
-    FallBack "Diffuse"
+	}
+	FallBack "Diffuse"
 }
