@@ -16,7 +16,19 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
-      - text: Bottle of woa
+      - text: Use W to punch.
+        characterDelay: 2
+      - text: You can only damage the opponent
+        characterDelay: 4
+      - text: when the blue bar is visible.
+        characterDelay: 4
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: Use A and D to dodge when
+        characterDelay: 2
+      - text: opponent attacks to avoid damage.
         characterDelay: 0
       portraitOverride: {fileID: 0}
       overflow: 0
