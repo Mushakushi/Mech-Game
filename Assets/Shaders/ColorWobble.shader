@@ -55,7 +55,7 @@ Shader "Custom/ColorWobble"
 				float offsetX = sin(4 * i.uv.y * _Time) / 4;
 				i.uv.x += offsetX; 
 				fixed4 col = tex2D(_MainTex, i.uv);
-				col.gba = sin(_Time * 0.1f);
+				col.gb = sin(_Time * 0.1f);
 				return col;
 			}
 			ENDCG

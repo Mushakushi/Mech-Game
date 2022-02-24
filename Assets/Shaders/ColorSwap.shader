@@ -57,7 +57,7 @@ Shader "Custom/ColorSwap"
 
 				// if length (magnitude) delta between two colors is less than value (they are "equal")
 				if (length(abs(_ReplaceColor.rgb - col.rgb)) < 0.1) {
-					col.gba = sin(_Time * 0.1f); // replace this pixel
+					col.gb = sin(_Time * 0.1f); // replace this pixel
 				}
 					
 

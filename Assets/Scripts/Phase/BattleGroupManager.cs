@@ -31,6 +31,7 @@ public class BattleGroupManager : MonoBehaviour
 
     void Awake()
     {
+        // set unity random seed
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
 
         // enable or disable joining
