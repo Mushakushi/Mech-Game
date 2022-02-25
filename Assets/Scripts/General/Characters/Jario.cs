@@ -16,6 +16,12 @@ public class Jario : MonoBehaviour, IPhaseController
     /// </summary>
     public int group { get; set; }
 
+    /// <summary>
+    /// Function to execute when jario counts
+    /// </summary>
+    public delegate void JarioCountCallback();
+    public event JarioCountCallback onJarioCount;
+
 
     public Phase activePhase => this.GetPhaseFromCollection(new Phase[] { Phase.Intro, Phase.Boss_Collapse }) ;
 
@@ -31,9 +37,13 @@ public class Jario : MonoBehaviour, IPhaseController
     public void OnPhaseEnter()
     {
         animator.SetTrigger("Count");
-        animator.SetInteger("CountLeft", 
-            HealthConversion.ConvertBarsToCount(this.GetManager().boss.healthBars, this.GetManager().boss.maxHealthBars));
+        animator.SetInteger("CountLeft", this.GetCounts());
     }
+
+    /// <summary>
+    /// Invokes callback(s) on Jario count, called in animator
+    /// </summary>
+    public void Invoke() => onJarioCount?.Invoke(); 
 
     public void OnPhaseUpdate() { }
     public void OnPhaseExit() { }

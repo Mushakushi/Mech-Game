@@ -31,7 +31,7 @@
                 },
                 {
                     "name": "Tap",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "d301eede-c3f4-4d84-9266-58a7db3628d2",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -170,12 +170,34 @@
                 },
                 {
                     "name": "",
+                    "id": "0226fd46-0686-4437-8a16-182b82e5f75f",
+                    "path": "<Touchscreen>/touch*/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8fc7085e-cbb3-47f8-bc19-2324ff13ddb2",
                     "path": "<Touchscreen>/primaryTouch/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch",
                     "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3fc4fa0f-e843-4fa5-bb1b-52aaeb673ed6",
+                    "path": "<Touchscreen>/touch*/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "Tap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

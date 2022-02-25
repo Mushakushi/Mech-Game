@@ -48,7 +48,7 @@ public class Player : Character
     /// <summary>
     /// 
     /// </summary>
-    private float actionDelay;
+    [SerializeField] [Range(0, 0.5f)] private float actionDelay;
 
     /// <summary>
     /// 
@@ -95,7 +95,6 @@ public class Player : Character
     /// <returns>Phases this player belongs to</returns>
     protected override void OnInitialize()
     {
-        actionDelay = 0.5f;
         currentActionType = ACTION_TYPE.None;
         allowQueueAction = true;
         canRunInput = true;

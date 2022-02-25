@@ -50,7 +50,7 @@ Shader "Custom/DiamondTransition"
             // size of diamond in pixels
             uniform float _DiamondSize = 10; 
 
-			// color of texture 
+			// color to return 
 			uniform fixed4 _Color; 
 
             // fragment shader 

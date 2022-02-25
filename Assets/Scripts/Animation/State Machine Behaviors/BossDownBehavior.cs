@@ -6,6 +6,6 @@ public class BossDownBehavior : StateMachineBehaviour
 {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetInteger("ShakesLeft", animator.GetInteger("ShakesLeft") - 1);
+        //animator.SetInteger("ShakesLeft", animator.GetInteger("ShakesLeft") - 1);
     }
 }

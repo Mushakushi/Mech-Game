@@ -54,9 +54,15 @@ public abstract class Boss : Character
     protected AudioClip knockClip { get; private set; }
     protected List<AudioClip> dialogueClips { get; private set; }
 
+    private void Start()
+    {
+        this.GetManager().jario.onJarioCount += () =>
+        {
+            animator.SetInteger("ShakesLeft", animator.GetInteger("ShakesLeft") - 1);
+            animator.SetTrigger("Shake"); 
+        };
+    }
 
-
-    // Start is called before the first frame update 
     protected sealed override void OnInitialize()
     {
         hitbox.SetOwner(this);
@@ -152,7 +158,7 @@ public abstract class Boss : Character
         healthBars--;
         health = maxHealth / (maxHealthBars - healthBars + 1);
 
-        int shakes = HealthConversion.ConvertBarsToCount(healthBars, maxHealthBars) + 1;
+        int shakes = this.GetCounts();
         if (shakes <= 0)
         {
             OnHealthDepleteFull();
