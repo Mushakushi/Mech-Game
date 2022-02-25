@@ -153,7 +153,7 @@ public class PhaseManager : MonoBehaviour
         // TODO - doesn't scale right past two players, works otherwise
         if (e.playersConnected > 1)
         {
-            cameraExposer.SetZoom((e.playersConnected - 1) * 1.25f);
+            cameraExposer.SetZoomOffset((e.playersConnected - 1) * 1.25f);
             cameraExposer.SetOffsetY((e.playersConnected - 1) * 0.1f);
         }
         else cameraExposer.SetZoom(1); // just make sure zoom is initialized right
@@ -288,7 +288,7 @@ public class PhaseManager : MonoBehaviour
     /// Adds phase controller to list of active phase controllers if its active phase is equal to the current phase
     /// </summary>
     /// <param name="controller">Controller to try to add</param>
-    /// think of this as a private delegate
+    /// this approach is more effective because it allows phase controllers to be accessed in a group context
     private bool TrySubscribePhaseController(IPhaseController controller)
     {
         if (controller.activePhase == phase || controller.activePhase == Phase.All)

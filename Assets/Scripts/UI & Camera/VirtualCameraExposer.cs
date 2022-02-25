@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine; 
+using Cinemachine;
+using static CoroutineUtility; 
 
 /// <summary>
 /// Utility IPhaseController that exposes functions to other classes
@@ -19,57 +20,97 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
     /// </summary>
     [SerializeField] [ReadOnly] private CinemachineFramingTransposer framingTransposer;
 
+    /// <summary>
+    /// POV aimer 
+    /// </summary>
+    [SerializeField] [ReadOnly] private CinemachinePOV aim; 
+
     public int group { get; set; }
 
     /// <summary>
-    /// Amount to zoom out on player join
+    /// Default orthographic size
     /// </summary>
-    [SerializeField] private float playerJoinZoomOut;
+    [SerializeField] [Range(1, 2)] private float defaultZoom;
+
+    /// <summary>
+    /// Lerp amount of camera rotation
+    /// </summary>
+    [SerializeField] [Range(0, 0.5f)] private float rotationSpeed; 
 
     /// <summary>
     /// Amount to offset the offset of follow target y 
     /// </summary>
-    private float offsetY; 
+    private float offsetY;
+
+    /// <summary>
+    /// Amount to offset the zoom
+    /// </summary>
+    private float zoomOffset;
 
     public Phase activePhase => Phase.All; 
 
     private void Awake()
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
-        framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>(); 
+        framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        aim = virtualCamera.GetCinemachineComponent<CinemachinePOV>(); 
     }
+
     public void OnStart()
     {
-        SetFollowTarget(this.GetManager().boss.transform);
+        FollowBoss();
+        SetZoomOffset(0); 
+        ResetZoom(); 
         ResetFollowTargetOffset();
     }
 
     public void OnPhaseEnter()
     {
-        Phase p = this.GetManagerPhase();
-
-        if (p == Phase.Dialogue_Pre || p == Phase.Dialogue_Post)
-            SetFollowTargetOffsetY(0.25f);
-        else if (p == Phase.Player_Win)
-            SetFollowTarget(this.GetManager().player.transform);
+        switch(this.GetManagerPhase())
+        {
+            case Phase.Dialogue_Pre:
+            case Phase.Dialogue_Post:
+                SetFollowTargetOffsetY(0.25f);
+                Zoom(-.15f);
+                break;
+            case Phase.Player:
+                SetFollowTargetOffsetY(0.1f);
+                StartCoroutine(SetRotationX(10f, rotationSpeed));
+                break;
+            case Phase.Player_Win:
+                FollowTarget(this.GetManager().player.transform);
+                break;
+        }
     }
 
     public void OnPhaseUpdate() { }
 
     public void OnPhaseExit()
     {
+        switch (this.GetManagerPhase())
+        {
+            case Phase.Dialogue_Pre:
+            case Phase.Dialogue_Post:
+                ResetZoom();
+                break;
+            case Phase.Player:
+                StartCoroutine(ResetRotationX(rotationSpeed));
+                break;
+        }
         ResetFollowTargetOffset();
+        FollowBoss(); 
     }
 
     /// <summary>
     /// Sets follow target to <paramref name="target"/>
     /// </summary>
     /// <param name="target">Follow target transform</param>
-    public void SetFollowTarget(Transform target) => virtualCamera.m_Follow = target;
+    public void FollowTarget(Transform target) => virtualCamera.m_Follow = target;
 
     /// <summary>
     /// Sets follow target to the battle group's boss
     /// </summary>
+    public void FollowBoss() => FollowTarget(this.GetBossTransform());
 
     /// <summary>
     /// Sets follow target offset to <paramref name="offset"/>
@@ -90,21 +131,59 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
     public void SetFollowTargetOffsetY(float offset) => SetFollowTargetOffset(new Vector2(0, offset + offsetY));
 
     /// <summary>
-    /// Sets zoom to <paramref name="zoom"/>
-    /// </summary>
-    public void SetZoom(float zoom) => virtualCamera.m_Lens.OrthographicSize = zoom; 
-
-    /// <summary>
-    /// Offsets follow target offset y 
+    /// Offsets follow target offset y (and applies it)
     /// </summary>
     public void SetOffsetY(float offset)
     {
         offsetY = offset;
-        SetFollowTargetOffsetY(framingTransposer.m_TrackedObjectOffset.y); 
+        SetFollowTargetOffsetY(framingTransposer.m_TrackedObjectOffset.y);
     }
+
+
+    // TODO - lerp these
 
     /// <summary>
     /// Sets follow target offset to Vector3.zero
     /// </summary>
     public void ResetFollowTargetOffset() => SetFollowTargetOffset(Vector2.up * offsetY);
+
+    /// <summary>
+    /// Sets zoom to <paramref name="zoom"/>
+    /// </summary>
+    public void SetZoom(float zoom) => virtualCamera.m_Lens.OrthographicSize = zoom + zoomOffset;
+
+    /// <summary>
+    /// Adds <paramref name="delta"/> to current zoom
+    /// </summary>
+    public void Zoom(float delta) => SetZoom(virtualCamera.m_Lens.OrthographicSize + delta);
+
+    /// <summary>
+    /// Offsets zoom amount (and applies it)
+    /// </summary>
+    public void SetZoomOffset(float offset)
+    {
+        zoomOffset = offset;
+        SetZoom(virtualCamera.m_Lens.OrthographicSize); 
+    }
+
+    /// <summary>
+    /// Sets zoom to default zoom
+    /// </summary>
+    public void ResetZoom() => SetZoom(defaultZoom);
+
+    /// <summary>
+    /// Sets vertical axis aim to rotation progressively
+    /// </summary>
+    /// <param name="rotation">Degrees to rotate along the x axis</param>
+    /// <param name="step">Timestep to linerally interpolate between the two rotations</param>
+    public IEnumerator SetRotationX(float rotation, float step)
+    {
+        yield return Lerp(aim.m_VerticalAxis.Value, rotation, step, (x) => aim.m_VerticalAxis.Value = x);
+    }
+
+    /// <summary>
+    /// Sets rotation across x axis to zero
+    /// </summary>
+    /// <param name="step">Timestep to linerally interpolate between the two rotations</param>
+    public IEnumerator ResetRotationX(float step) => SetRotationX(0, step); 
 }

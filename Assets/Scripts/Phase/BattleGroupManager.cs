@@ -40,7 +40,7 @@ public class BattleGroupManager : MonoBehaviour
         else inputMangager.DisableJoining();
 
         // delete after done debuging battle scene
-        //LoadLevelData("Lobstobotomizer");
+        //LoadLevelData("MrsSandbag");
 
         // applies level data to scene 
         OnLoadLevel();

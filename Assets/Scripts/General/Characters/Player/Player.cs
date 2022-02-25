@@ -167,6 +167,8 @@ public class Player : Character
         ClearPooledActions(); 
     }
 
+    // TODO - Fix mobile controls! you can check the ui input module for help
+
     /// <summary>
     /// Pools input from player input
     /// </summary>

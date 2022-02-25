@@ -737,7 +737,6 @@ GameObject:
   - component: {fileID: 473734869}
   - component: {fileID: 473734874}
   - component: {fileID: 473734873}
-  - component: {fileID: 473734872}
   - component: {fileID: 473734871}
   - component: {fileID: 473734870}
   m_Layer: 5
@@ -801,62 +800,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &473734872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 473734868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 473734873}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 443733039}
-        m_TargetAssemblyTypeName: MenuEventHandler, Assembly-CSharp
-        m_MethodName: LoadBattleScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Lobstobotomizer
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &473734873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,7 +920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 550084847}
   m_Layer: 5
-  m_Name: Boss Root (1)
+  m_Name: Shoto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1015,7 +958,6 @@ GameObject:
   - component: {fileID: 644697829}
   - component: {fileID: 644697834}
   - component: {fileID: 644697833}
-  - component: {fileID: 644697832}
   - component: {fileID: 644697831}
   - component: {fileID: 644697830}
   m_Layer: 5
@@ -1076,62 +1018,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &644697832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 644697828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 644697833}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 443733039}
-        m_TargetAssemblyTypeName: MenuEventHandler, Assembly-CSharp
-        m_MethodName: LoadBattleScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Shoto
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &644697833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,7 +1112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1465599594}
   m_Layer: 5
-  m_Name: Boss Root (3)
+  m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1263,7 +1149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1519007162}
   m_Layer: 5
-  m_Name: Boss Root
+  m_Name: Lobstobotomizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1434,7 +1320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1598588527}
   m_Layer: 5
-  m_Name: Boss Root (2)
+  m_Name: John
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2081,19 +1967,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1837906434}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 443733039}
-        m_TargetAssemblyTypeName: MenuEventHandler, Assembly-CSharp
-        m_MethodName: LoadBattleScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: John
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1837906434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2289,7 +2163,6 @@ GameObject:
   - component: {fileID: 1923598367}
   - component: {fileID: 1923598370}
   - component: {fileID: 1923598369}
-  - component: {fileID: 1923598368}
   - component: {fileID: 1923598371}
   - component: {fileID: 1923598372}
   m_Layer: 5
@@ -2318,62 +2191,6 @@ RectTransform:
   m_AnchoredPosition: {x: 62, y: -166}
   m_SizeDelta: {x: 541.868, y: 632.18}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1923598368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923598366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1923598369}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 443733039}
-        m_TargetAssemblyTypeName: MenuEventHandler, Assembly-CSharp
-        m_MethodName: LoadBattleScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Lobstobotomizer
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1923598369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2455,9 +2272,9 @@ GameObject:
   - component: {fileID: 1935353116}
   - component: {fileID: 1935353121}
   - component: {fileID: 1935353120}
-  - component: {fileID: 1935353119}
   - component: {fileID: 1935353118}
   - component: {fileID: 1935353117}
+  - component: {fileID: 1935353119}
   m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
@@ -2559,7 +2376,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1935353120}
+  m_TargetGraphic: {fileID: 1923598369}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2743,9 +2560,9 @@ GameObject:
   - component: {fileID: 2056025836}
   - component: {fileID: 2056025841}
   - component: {fileID: 2056025840}
-  - component: {fileID: 2056025839}
   - component: {fileID: 2056025838}
   - component: {fileID: 2056025837}
+  - component: {fileID: 2056025839}
   m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
@@ -2847,7 +2664,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2056025840}
+  m_TargetGraphic: {fileID: 644697833}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2860,7 +2677,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Lobstobotomizer
+          m_StringArgument: Shoto
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2056025840
