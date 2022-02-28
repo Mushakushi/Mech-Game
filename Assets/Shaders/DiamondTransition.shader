@@ -1,3 +1,5 @@
+// TODO - scale diamonds with screen size
+
 Shader "Custom/DiamondTransition"
 {
     Properties

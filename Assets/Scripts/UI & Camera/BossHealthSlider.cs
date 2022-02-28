@@ -33,7 +33,7 @@ public class BossHealthSlider : MonoBehaviour
     /// <summary>
     /// Gradient of colors followed from 0 < HP < HPMax for slider value 
     /// </summary>
-    [SerializeField] [ReadOnly] private Gradient gradient; 
+    [SerializeField] private Gradient gradient; 
 
     private void Awake()
     {

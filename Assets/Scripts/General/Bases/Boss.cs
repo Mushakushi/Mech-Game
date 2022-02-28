@@ -56,11 +56,13 @@ public abstract class Boss : Character
 
     private void Start()
     {
-        this.GetManager().jario.onJarioCount += () =>
+        this.GetManager().jario.onJarioCountStart += () =>
         {
             animator.SetInteger("ShakesLeft", animator.GetInteger("ShakesLeft") - 1);
             animator.SetTrigger("Shake"); 
         };
+
+        this.GetManager().jario.onJarioCountStop += () => _ = "";
     }
 
     protected sealed override void OnInitialize()
@@ -151,12 +153,11 @@ public abstract class Boss : Character
     /// </summary>
     protected override void OnHealthDeplete()
     {
-        this.GetUIShaderOverlay().StartFlash();
+        this.GetOverlay().StartFlash();
 
         this.SwitchPhase(Phase.Boss_Collapse);
         AudioPlayer.Play(knockClip);
         healthBars--;
-        health = maxHealth / (maxHealthBars - healthBars + 1);
 
         int shakes = this.GetCounts();
         if (shakes <= 0)
@@ -166,6 +167,7 @@ public abstract class Boss : Character
 
         animator.SetInteger("ShakesLeft", shakes);
         animator.ResetTrigger("GetHit");
+        animator.ResetTrigger("Shake");
         animator.SetTrigger("Collapse");
     }
 
@@ -174,6 +176,7 @@ public abstract class Boss : Character
     /// </summary>
     public virtual void OnRecover()
     {
+        health = maxHealth / (maxHealthBars - healthBars + 1);
         RefreshSlider();
     }
 

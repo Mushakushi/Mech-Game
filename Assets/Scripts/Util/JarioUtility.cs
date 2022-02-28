@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// i will probably delete this as it doesn't help sync counts with shakes
-
 public static class JarioUtility 
 {
     /// <summary>
@@ -15,7 +13,7 @@ public static class JarioUtility
         int current = controller.GetManager().boss.healthBars;
         int maximum = controller.GetManager().boss.maxHealthBars;
 
-        if (current == 0) return -1; // defeated
+        if (current <= 0) return -1; // defeated
         else if (current == 1) return 9; // one left
         else if (current <= maximum / 2) return 8; // less than or equal to half
         else if (current < maximum) return 5; // less than maximum
