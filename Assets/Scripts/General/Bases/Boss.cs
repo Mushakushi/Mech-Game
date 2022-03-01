@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -56,13 +55,14 @@ public abstract class Boss : Character
 
     private void Start()
     {
-        this.GetManager().jario.onJarioCountStart += () =>
+        // this.GetManager().jario.onJarioCountStart += 
+        this.GetManager().jario.onJarioCount += () =>
         {
-            animator.SetInteger("ShakesLeft", animator.GetInteger("ShakesLeft") - 1);
-            animator.SetTrigger("Shake"); 
+            animator.SetTrigger("Shake");
+            animator.SetInteger("ShakesLeft", animator.GetInteger("ShakesLeft") - 1); 
         };
-
-        this.GetManager().jario.onJarioCountStop += () => _ = "";
+        
+        this.GetManager().jario.onJarioCountStop += () => animator.ResetTrigger("Shake");
     }
 
     protected sealed override void OnInitialize()
@@ -164,6 +164,8 @@ public abstract class Boss : Character
         {
             OnHealthDepleteFull();
         }
+        // tell Jario to count
+        else this.GetManager().jario.StartCount();
 
         animator.SetInteger("ShakesLeft", shakes);
         animator.ResetTrigger("GetHit");

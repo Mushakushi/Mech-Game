@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 [Serializable]
-public struct ScoreData
+public class ScoreData
 {
     // TODO - what do we want to store for score display?
     // do we want to store variables that we use to calculate full score? (ie Hitman-style) <- will do some of these for now
@@ -13,13 +13,13 @@ public struct ScoreData
     /// <summary>
     /// Full score achieved by player.
     /// </summary>
-    public int fullScore; // calculate fullScore from below variables
+    public int fullScore = 0; // calculate fullScore from below variables
     /// <summary>
     /// Time that it took the player to beat the level.
     /// </summary>
     public float levelCompleteTime;
     /// <summary>
-    /// Time that it took the player to beat the level.
+    /// Points for complete time.
     /// </summary>
     private float timeBonus;
     /// <summary>
@@ -27,9 +27,17 @@ public struct ScoreData
     /// </summary>
     public float damageTaken;
     /// <summary>
+    /// Points for damage taken.
+    /// </summary>
+    private float damageBonus = 0f;
+    /// <summary>
     /// Times the player has hit the boss.
     /// </summary>
     public int timesBossHit;
+    /// <summary>
+    /// Points for times player hit the boss.
+    /// </summary>
+    private float hitBonus = 0f;
 
 
 
@@ -38,10 +46,6 @@ public struct ScoreData
         this.levelCompleteTime = levelCompleteTime;
         this.damageTaken = damageTaken;
         this.timesBossHit = timesBossHit;
-
-
-        fullScore = -1; // TODO - make this actually calculate the full score
-        timeBonus = 0;
     }
 
 
@@ -57,9 +61,12 @@ public struct ScoreData
 
     public void CalculateFullScore()
     {
-        fullScore = 1; // calculation here 
-        levelCompleteTime = (levelCompleteTime == 0 ? 1 : levelCompleteTime);
-        timeBonus = (float) (10000f - Math.Round(10000f / levelCompleteTime));
+        
+        timeBonus = Math.Max(0f, (float) Math.Ceiling(10000 - (levelCompleteTime < 60 ? 0f : (0.8333f * (levelCompleteTime-60)))));
+        damageBonus = Math.Max(0f, (float) Math.Ceiling(25000 - (5000 * damageTaken)));
+        hitBonus = 
+
+        fullScore = (int) Math.Ceiling(timeBonus + damageBonus + hitBonus); // calculation here 
     }
 
     public List<(string label, string value)> GetDisplayStrings()
@@ -68,8 +75,9 @@ public struct ScoreData
 
         List<(string, string)> result = new List<(string, string)>();
 
-        result.Add(("Time Bonus:", timeBonus.ToString()));
-        result.Add(("Time Bonus:", timeBonus.ToString()));
+        result.Add(("Level Complete Time:", $"{levelCompleteTime:0.00}s"));
+        result.Add(("Damage Taken:", $"{damageTaken}HP"));
+        result.Add(("Boss Hits:", $"{timesBossHit}x"));
 
         return result;
     }

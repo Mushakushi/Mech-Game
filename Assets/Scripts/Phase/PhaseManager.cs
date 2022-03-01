@@ -261,9 +261,12 @@ public class PhaseManager : MonoBehaviour
             case Phase.Dialogue_Post:
                 EnterPhase(Phase.Player);
                 break;
+            case Phase.Boss_Collapse:
+                EnterPhase(Phase.Player);
+                break;
             case Phase.Mixed:
             default:
-                Debug.LogError("Phase switch is invalid!");
+                Debug.LogError("Phase switch is invalid! Phase switch failed.");
                 break; 
         }
     }

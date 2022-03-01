@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4506357574798097598}
   - component: {fileID: 4506357574798097597}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Stat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +243,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 65, y: 0}
-  m_SizeDelta: {x: 350, y: 65}
+  m_SizeDelta: {x: 495.1676, y: 65}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4506357574994156273
 CanvasRenderer:

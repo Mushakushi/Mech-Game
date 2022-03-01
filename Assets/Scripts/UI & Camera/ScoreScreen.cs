@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Globalization;
+using System;
 
 [RequireComponent(typeof(Scrollbar))]
 public class ScoreScreen : MonoBehaviour
@@ -22,13 +23,13 @@ public class ScoreScreen : MonoBehaviour
 
     private void Start()
     {
-        SetScoreValues(new ScoreData(1000f, 10.5f, 1));
+        SetScoreValues(new ScoreData(78.52f, 2f, 1));
     }
 
-    public void SetScoreValues(ScoreData data) // everything in here sucks
+    public void SetScoreValues(ScoreData data) // it sucks less now but still sucks
     {
         score = data;
-        float panelPos = 0; 
+        float panelPos = -120; 
         foreach (var display in data.GetDisplayStrings())
         {
             GameObject newPanel = Instantiate(panel, panels.transform);
@@ -48,6 +49,6 @@ public class ScoreScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        panelsTransform.anchoredPosition = new Vector2(0f, 975f + (-500f * (1 - scrollbar.value)));
+        panelsTransform.anchoredPosition = new Vector2(0f, 975f + (-500f * (1 - Math.Max(0f, scrollbar.value))));
     }
 }
