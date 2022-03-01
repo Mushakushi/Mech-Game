@@ -6,6 +6,6 @@ public class BossDownBehavior : StateMachineBehaviour
 {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //idk
+        // possibly not neccessary anymore
     }
 }
