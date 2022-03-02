@@ -230,7 +230,7 @@ public class Player : Character
     {
         base.OnHitboxEnter(damage);
         slider.DepleteOneHealth();
-        new ScoreData(damageTaken: damage).AddToPlayerScore(group);
+        new ScoreData(damageTaken: (int) damage).AddToPlayerScore(group);
     }
 
     public override void OnEnterHurtbox()

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7192d29d58f5e0141b2b42bcf3fafd13, type: 3}
-  m_Name: Start Game Button
+  m_Name: ScoreWin
   m_EditorClassIdentifier: 
   languages:
   - languageName: English
-    text: Start Game
+    text: You Won!
   - languageName: TokiPona
-    text: o open
+    text: sina ken utala wawa!
   - languageName: Debug
-    text: start_game
+    text: win_text

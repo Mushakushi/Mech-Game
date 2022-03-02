@@ -124,11 +124,12 @@ public abstract class Boss : Character
         {
             case Phase.Player:
                 base.OnHitboxEnter(damage);
-                new ScoreData(timesBossHit: 1).AddToPlayerScore(group);
+                new ScoreData(timesHitBoss: 1).AddToPlayerScore(group);
                 RefreshSlider();
                 AudioPlayer.Play(hurtClip);
                 break;
             case Phase.Boss_Guard:
+                new ScoreData(timesBossBlocked: 1).AddToPlayerScore(group);
                 animator.SetTrigger("Guard");
                 break;
         }
