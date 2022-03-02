@@ -457,8 +457,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: 3284177300772993768, guid: 6fa596c44d7c83f4899baa3352adf791, type: 3}
       propertyPath: gradient.atime1
       value: 65535
@@ -567,6 +565,4 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 1
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
-    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fa596c44d7c83f4899baa3352adf791, type: 3}
