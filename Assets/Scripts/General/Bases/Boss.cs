@@ -155,9 +155,9 @@ public abstract class Boss : Character
     {
         this.GetOverlay().StartFlash();
 
+        healthBars--;
         this.SwitchPhase(Phase.Boss_Collapse);
         AudioPlayer.Play(knockClip);
-        healthBars--;
 
         int shakes = this.GetCounts();
         if (shakes <= 0)

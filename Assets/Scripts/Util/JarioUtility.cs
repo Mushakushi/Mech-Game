@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO - move this over to jario, give jario a  public variable everyone will read!
+
 public static class JarioUtility 
 {
     /// <summary>
@@ -14,7 +16,7 @@ public static class JarioUtility
         int maximum = controller.GetManager().boss.maxHealthBars;
 
         if (current <= 0) return -1; // defeated
-        else if (current == 1) return 9; // one left
+        else if (current < maximum / 4) return 9; // one left
         else if (current <= maximum / 2) return 8; // less than or equal to half
         else if (current < maximum) return 5; // less than maximum
         else return 3; // current >= maximum

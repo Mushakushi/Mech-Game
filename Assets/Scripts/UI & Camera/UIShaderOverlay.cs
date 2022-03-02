@@ -10,21 +10,47 @@ using UnityEngine.UI;
 public class UIShaderOverlay : MonoBehaviour, IPhaseController
 {
     /// <summary>
-    /// Speed of transition
+    /// Material being used 
     /// </summary>
-    [SerializeField] [Range(0.0025f,0.01f)] private float speed; 
+    [SerializeField] [ReadOnly] private  Material uiShaderMaterial;
 
-    private Material material;
+    /// <summary>
+    /// Represents a material with variable _Color and shader
+    /// </summary>
+    [System.Serializable]
+    private struct UIMaterial 
+    {
+        /// <summary>
+        /// Shader 
+        /// </summary>
+        public Shader shader;
+
+        /// <summary>
+        /// Color to use as _Color param on shader
+        /// </summary>
+        public Color color; 
+
+        public UIMaterial(Shader shader, Color color)
+        {
+            this.shader = shader;
+            this.color = color; 
+        }
+    }
 
     /// <summary>
     /// Diamond transition shader
     /// </summary>
-    [SerializeField] private Shader diamondTransition;
+    [SerializeField] private UIMaterial diamondTransition;
+
+    /// <summary>
+    /// Speed of transition
+    /// </summary>
+    [SerializeField] [Range(0.0025f, 0.01f)] private float speed;
 
     /// <summary>
     /// Default unity shader
     /// </summary>
-    [SerializeField] private Shader defaultShader; 
+    [SerializeField] private UIMaterial defaultMaterial; 
 
     public int group { get; set; }
 
@@ -32,16 +58,17 @@ public class UIShaderOverlay : MonoBehaviour, IPhaseController
 
     private void Awake()
     {
-        material = GetComponent<Image>().material;
-        material.shader = defaultShader; 
+        uiShaderMaterial = GetComponent<Image>().material;
+        ApplyUIMaterial(defaultMaterial);
     }
 
     public void OnStart() { }
 
     public void OnPhaseEnter()
     {
-        material.shader = diamondTransition;
-        material.SetFloat("_Progress", 0);
+        ApplyUIMaterial(diamondTransition);
+        uiShaderMaterial.EnableKeyword("_Progress");
+        uiShaderMaterial.SetFloat("_Progress", 0);
         StartCoroutine(Fade(FadeDirection.Out)); 
     }
 
@@ -51,7 +78,7 @@ public class UIShaderOverlay : MonoBehaviour, IPhaseController
     private enum FadeDirection { In, Out }
     private IEnumerator Fade(FadeDirection direction)
     {
-        float progress = material.GetFloat("_Progress"); 
+        float progress = uiShaderMaterial.GetFloat("_Progress");
 
         // progress slider
         switch (direction)
@@ -59,7 +86,7 @@ public class UIShaderOverlay : MonoBehaviour, IPhaseController
             case FadeDirection.In:
                 while (progress >= 0)
                 {
-                    material.SetFloat("_Progress", progress);
+                    uiShaderMaterial.SetFloat("_Progress", progress);
                     progress -= speed;
                     yield return null;
                 }
@@ -67,7 +94,7 @@ public class UIShaderOverlay : MonoBehaviour, IPhaseController
             case FadeDirection.Out:
                 while (progress < 1)
                 {
-                    material.SetFloat("_Progress", progress);
+                    uiShaderMaterial.SetFloat("_Progress", progress);
                     progress += speed;
                     yield return null;
                 }
@@ -80,7 +107,7 @@ public class UIShaderOverlay : MonoBehaviour, IPhaseController
     /// </summary>
     public void StartFlash()
     {
-        material.shader = defaultShader;
+        ApplyUIMaterial(defaultMaterial);
         StartCoroutine(Flash());
     }
 
@@ -94,7 +121,7 @@ public class UIShaderOverlay : MonoBehaviour, IPhaseController
             SetAlpha(100);
             for (int j = 0; j < 25; j++)
             {
-                SetAlpha(material.color.a - 4);
+                SetAlpha(uiShaderMaterial.color.a - 4);
                 yield return null;
             }
             yield return new WaitForSecondsRealtime(0.1f); 
@@ -107,9 +134,19 @@ public class UIShaderOverlay : MonoBehaviour, IPhaseController
     /// <param name="alpha">Value to set material alpha to</param>
     private void SetAlpha(float alpha)
     {
-        Color color = material.color;
+        Color color = uiShaderMaterial.color;
         color.a = alpha;
-        material.color = color;
+        uiShaderMaterial.color = color;
+    }
+
+    /// <summary>
+    /// Applies uimaterial to this object's material
+    /// </summary>
+    /// <param name="material">The UIMaterial to be applied to this material</param>
+    private void ApplyUIMaterial(UIMaterial material)
+    {
+        uiShaderMaterial.shader = material.shader;
+        uiShaderMaterial.color = material.color;
     }
 
     public void OnPhaseUpdate() { }

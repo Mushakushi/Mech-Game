@@ -24,6 +24,7 @@ public class CountText : MonoBehaviour, IPhaseController
         text = GetComponent<TextMeshProUGUI>();
     }
 
+    // subs to jario events
     public void OnStart()
     {
         gameObject.SetActive(false); 
