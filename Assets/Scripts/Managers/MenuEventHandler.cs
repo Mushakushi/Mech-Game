@@ -58,8 +58,8 @@ public class MenuEventHandler : MonoBehaviour
     {
         if (layers.Count > 0)
         {
-            foreach (MenuLayer layer in layers) ToggleActive(layer.parent);
-            ToggleActive(layers[0].parent);
+            foreach (MenuLayer layer in layers) SetActive(layer.parent, false);
+            SetActive(layers[0].parent, true); // could also toggle active, but doesn't matter..
         }
     }
 
@@ -91,6 +91,25 @@ public class MenuEventHandler : MonoBehaviour
     }
 
     /// <summary>
+    /// Opens layer at index <paramref name="index"/>
+    /// </summary>
+    /// <param name="index">Name of the layer to open</param>
+    public void OpenLayer(int index)
+    {
+        // disable currently (soon to be previously) active layer
+        ToggleActive(layers[activeLayer].parent);
+
+        // open player
+        if (index < 0 || index > layers.Count) Debug.LogError($"Layer at index {index} could not be found!"); 
+        else SetActiveLayer(index);
+    }
+
+    /// <summary>
+    /// Opens previous layer, closes current layer
+    /// </summary>
+    public void CloseLayer() => OpenLayer(previousLayer); 
+
+    /// <summary>
     /// Sets MenuLayer at index <paramref name="index"/> to active
     /// </summary>
     /// <param name="index">Index of MenuLayer layer in layers</param>
@@ -109,14 +128,25 @@ public class MenuEventHandler : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets gameObject parent <paramref name="parent"/> and all children's activeSelf to <paramref name="value"/>
+    /// </summary>
+    /// <param name="parent">Parent of children</param>
+    private void SetActive(GameObject parent, bool value)
+    {
+        parent.SetActive(value);
+        foreach (RectTransform child in parent.GetComponent<RectTransform>())
+            child.gameObject.SetActive(value);
+    }
+
+    /// <summary>
     /// Toggles gameObject parent <paramref name="parent"/> and all children's activeSelf
     /// </summary>
     /// <param name="parent">Parent of children</param>
     private void ToggleActive(GameObject parent)
     {
         parent.SetActive(!parent.activeSelf); 
-        foreach (RectTransform child in parent.GetComponent<RectTransform>())
-            child.gameObject.SetActive(!child.gameObject.activeSelf); 
+            foreach (RectTransform child in parent.GetComponent<RectTransform>())
+                child.gameObject.SetActive(!child.gameObject.activeSelf); 
     }
 
     /// <summary>
