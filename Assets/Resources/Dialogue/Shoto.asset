@@ -37,8 +37,21 @@ MonoBehaviour:
       overflow: 0
       voiceline: {fileID: 0}
     - sections:
+      - text: Now, this is my journey to becoming the strongest hero.
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
       - text: Filler, after filler, after filler, after draining filler, weaker,
           yet stronger, was I still.
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: "It wasn\u2019t until the day of Power came, that my true potential
+          was fully realized.  "
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
@@ -51,8 +64,28 @@ MonoBehaviour:
       overflow: 0
       voiceline: {fileID: 0}
     - sections:
+      - text: ' Is it not because we both have the dearest things to protect?  '
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
       - text: 'We are the same. You, seeking a triumphant victory; I, a strength
           for vengeance. '
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: "Do you not get it? You and I are the same. \u2026? That\u2019s the
+          same THING! "
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: 'Your zeal is built on the empty promise of self-sufficiency, and I,
+          in due course, will shatter it.  '
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0

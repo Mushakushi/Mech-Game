@@ -16,7 +16,7 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
-      - text: BRBBLBLBLRBLBLBLB!
+      - text: BRBBLBLBLRBLBLBLB! (Let's rumble!)
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
@@ -24,13 +24,13 @@ MonoBehaviour:
     - sections:
       - text: <b>
         characterDelay: 0
-      - text: Unlobstibotted Power!
+      - text: Blrbllbblb (Unlobstibotted Power!)
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
       voiceline: {fileID: 8300000, guid: 8712742744020964ca6f07cddac687af, type: 3}
     - sections:
-      - text: LOBSTA POWA!
+      - text: BLBBLAABLA (LOBSTA POWA!)
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
