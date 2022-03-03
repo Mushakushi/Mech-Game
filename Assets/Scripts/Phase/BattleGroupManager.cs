@@ -34,13 +34,13 @@ public class BattleGroupManager : MonoBehaviour
         // set unity random seed
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
 
-        // enable or disable joining
+        // enable or disable joining    
         PlayerInputManager inputMangager = GetComponent<PlayerInputManager>(); 
         if (isMultiplayerGame) inputMangager.EnableJoining();
         else inputMangager.DisableJoining();
 
         // delete after done debuging battle scene
-        LoadLevelData("MrsSandbag");
+        //LoadLevelData("MrsSandbag");
 
         // applies level data to scene 
         OnLoadLevel();

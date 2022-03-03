@@ -153,10 +153,9 @@ public class PhaseManager : MonoBehaviour
         // TODO - doesn't scale right past two players, works otherwise
         if (e.playersConnected > 1)
         {
-            cameraExposer.SetZoomOffset((e.playersConnected - 1) * 1.25f);
+            StartCoroutine(cameraExposer.SetZoomOffset((e.playersConnected - 1) * 1.25f, 1));
             cameraExposer.SetOffsetY((e.playersConnected - 1) * 0.1f);
         }
-        else cameraExposer.SetZoom(1); // just make sure zoom is initialized right
     }
 
     // important to call controller.onStart after awake references to not break game!

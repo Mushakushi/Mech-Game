@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using Object = UnityEngine.Object;
 using static FileUtility; 
 
@@ -19,6 +19,11 @@ public abstract class Boss : Character
     /// Slider UI Component in scene that this object controls
     /// </summary>
     [SerializeField] private BossHealthSlider healthSlider;
+
+    /// <summary>
+    /// Text component that displays how hard this boss has gotten combo'ed
+    /// </summary>
+    [SerializeField] private TMP_Text comboText;
 
     //[Header("Boss Data")]
     /// <summary>
@@ -53,30 +58,27 @@ public abstract class Boss : Character
     protected AudioClip knockClip { get; private set; }
     protected List<AudioClip> dialogueClips { get; private set; }
 
-    private void Start()
+    protected sealed override void OnInitialize()
     {
         // this.GetManager().jario.onJarioCountStart += 
         this.GetManager().jario.onJarioCount += () =>
         {
             animator.SetTrigger("Shake");
-            animator.SetInteger("ShakesLeft", animator.GetInteger("ShakesLeft") - 1); 
+            animator.SetInteger("ShakesLeft", animator.GetInteger("ShakesLeft") - 1);
         };
-        
-        this.GetManager().jario.onJarioCountStop += () => animator.ResetTrigger("Shake");
-    }
 
-    protected sealed override void OnInitialize()
-    {
+        this.GetManager().jario.onJarioCountStop += () => animator.ResetTrigger("Shake");
+
         hitbox.SetOwner(this);
 
         OnInitializeBoss();
         healthBars = maxHealthBars;
         health = maxHealth; // TODO - i'm repeatiing this code to get the refresh working first time
 
+        comboText = GameObject.Find("Combo Text").GetComponent<TextMeshProUGUI>(); // TODO - workaround this mess
         healthSlider = FindObjectOfType<BossHealthSlider>();
         RefreshSlider();
 
-        // TODO - standardize naming these so we can add variables 
         hurtClip = LoadFile<AudioClip>($"{voicelinesPath}/{GetType()}/Hurt1");
         knockClip = LoadFile<AudioClip>($"{voicelinesPath}/{GetType()}/Hurt2");
         dialogueClips = new List<AudioClip>() { hurtClip, knockClip };
@@ -125,8 +127,9 @@ public abstract class Boss : Character
             case Phase.Player:
                 base.OnHitboxEnter(damage);
                 new ScoreData(timesHitBoss: 1).AddToPlayerScore(group);
-                RefreshSlider();
                 AudioPlayer.Play(hurtClip);
+                comboText.text = (Convert.ToInt32(comboText.text) + 1).ToString();
+                RefreshSlider();
                 break;
             case Phase.Boss_Guard:
                 new ScoreData(timesBossBlocked: 1).AddToPlayerScore(group);
@@ -198,6 +201,7 @@ public abstract class Boss : Character
         {
             case Phase.Boss:
                 animator.SetTrigger("EnterPhase");
+                comboText.text = "0";
                 break;
             case Phase.Boss_Guard:
                 animator.SetTrigger("ReturnToIdle");

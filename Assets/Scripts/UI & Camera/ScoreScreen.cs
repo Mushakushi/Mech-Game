@@ -15,8 +15,8 @@ public class ScoreScreen : MonoBehaviour
     [Space]
     [SerializeField] private RectTransform scoresTransform;
     [SerializeField] private GameObject partObject;
-    [Space]
 #if UNITY_EDITOR
+    [Space]
     [SerializeField] private ScoreData score;
 #endif
 

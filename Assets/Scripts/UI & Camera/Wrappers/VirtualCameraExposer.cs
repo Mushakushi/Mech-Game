@@ -33,9 +33,14 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
     [SerializeField] [Range(1, 2)] private float defaultZoom;
 
     /// <summary>
+    /// Lerp amount of camera zoom
+    /// </summary>
+    [SerializeField] [Range(0, 0.5f)] private float zoomSpeed;
+
+    /// <summary>
     /// Lerp amount of camera rotation
     /// </summary>
-    [SerializeField] [Range(0, 0.5f)] private float rotationSpeed; 
+    [SerializeField] [Range(0, 0.5f)] private float rotationSpeed;
 
     /// <summary>
     /// Amount to offset the offset of follow target y 
@@ -59,8 +64,8 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
     public void OnStart()
     {
         FollowBoss();
-        SetZoomOffset(0); 
-        ResetZoom(); 
+        StartCoroutine(SetZoomOffset(0, 1)); 
+        StartCoroutine(ResetZoom(1)); 
         ResetFollowTargetOffset();
     }
 
@@ -71,7 +76,7 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
             case Phase.Dialogue_Pre:
             case Phase.Dialogue_Post:
                 SetFollowTargetOffsetY(0.25f);
-                Zoom(-.15f);
+                StartCoroutine(Zoom(-.15f, zoomSpeed));
                 break;
             case Phase.Player:
                 SetFollowTargetOffsetY(0.1f);
@@ -91,7 +96,7 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
         {
             case Phase.Dialogue_Pre:
             case Phase.Dialogue_Post:
-                ResetZoom();
+                StartCoroutine(ResetZoom(zoomSpeed));
                 break;
             case Phase.Player:
                 StartCoroutine(ResetRotationX(rotationSpeed));
@@ -139,9 +144,6 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
         SetFollowTargetOffsetY(framingTransposer.m_TrackedObjectOffset.y);
     }
 
-
-    // TODO - lerp these
-
     /// <summary>
     /// Sets follow target offset to Vector3.zero
     /// </summary>
@@ -150,32 +152,40 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
     /// <summary>
     /// Sets zoom to <paramref name="zoom"/>
     /// </summary>
-    public void SetZoom(float zoom) => virtualCamera.m_Lens.OrthographicSize = zoom + zoomOffset;
+    /// <param name="step">Step to linerally interpolate between the two rotations</param>
+    public IEnumerator SetZoom(float zoom, float step)
+    {
+        yield return Lerp(virtualCamera.m_Lens.OrthographicSize, zoom + zoomOffset, step, (x) => virtualCamera.m_Lens.OrthographicSize = x);
+    }
+
 
     /// <summary>
     /// Adds <paramref name="delta"/> to current zoom
     /// </summary>
-    public void Zoom(float delta) => SetZoom(virtualCamera.m_Lens.OrthographicSize + delta);
+    /// <param name="step">Step to linerally interpolate between the two rotations</param>
+    public IEnumerator Zoom(float delta, float step) => SetZoom(virtualCamera.m_Lens.OrthographicSize + delta, step);
 
     /// <summary>
     /// Offsets zoom amount (and applies it)
     /// </summary>
-    public void SetZoomOffset(float offset)
+    /// <param name="step">Step to linerally interpolate between the two rotations</param>
+    public IEnumerator SetZoomOffset(float offset, float step)
     {
         zoomOffset = offset;
-        SetZoom(virtualCamera.m_Lens.OrthographicSize); 
+        yield return SetZoom(virtualCamera.m_Lens.OrthographicSize, step); 
     }
 
     /// <summary>
     /// Sets zoom to default zoom
     /// </summary>
-    public void ResetZoom() => SetZoom(defaultZoom);
+    /// <param name="step">Step to linerally interpolate between the two rotations</param>
+    public IEnumerator ResetZoom(float step) => SetZoom(defaultZoom, step);
 
     /// <summary>
     /// Sets vertical axis aim to rotation progressively
     /// </summary>
     /// <param name="rotation">Degrees to rotate along the x axis</param>
-    /// <param name="step">Timestep to linerally interpolate between the two rotations</param>
+    /// <param name="step">Step to linerally interpolate between the two rotations</param>
     public IEnumerator SetRotationX(float rotation, float step)
     {
         yield return Lerp(aim.m_VerticalAxis.Value, rotation, step, (x) => aim.m_VerticalAxis.Value = x);
@@ -184,6 +194,6 @@ public class VirtualCameraExposer : MonoBehaviour, IPhaseController
     /// <summary>
     /// Sets rotation across x axis to zero
     /// </summary>
-    /// <param name="step">Timestep to linerally interpolate between the two rotations</param>
+    /// <param name="step">Step to linerally interpolate between the two rotations</param>
     public IEnumerator ResetRotationX(float step) => SetRotationX(0, step); 
 }
