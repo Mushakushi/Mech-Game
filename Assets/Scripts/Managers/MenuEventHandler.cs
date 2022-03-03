@@ -65,7 +65,7 @@ public class MenuEventHandler : MonoBehaviour
 
     private void Start()
     {
-        AudioPlayer.PlayBGM(bgm);
+        if (bgm != null) AudioPlayer.PlayBGM(bgm);
     }
 
     /// <summary>

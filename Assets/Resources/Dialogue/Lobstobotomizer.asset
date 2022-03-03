@@ -22,8 +22,6 @@ MonoBehaviour:
       overflow: 0
       voiceline: {fileID: 8300000, guid: 48184d75a92b2dc40a4278dee2639145, type: 3}
     - sections:
-      - text: <b>
-        characterDelay: 0
       - text: Unlobstibotted Power!
         characterDelay: 2
       portraitOverride: {fileID: 0}

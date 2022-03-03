@@ -51,7 +51,7 @@ public class TimerClock : MonoBehaviour, IPhaseController
                 StartTimer();
                 break;
             case Phase.Player_Win:
-                new ScoreData(levelCompleteTime: (float) StopTimer().TotalMilliseconds).AddToPlayerScore(group);
+                new ScoreData(levelCompleteTime: (float) (StopTimer().TotalMilliseconds / 1000f)).AddToPlayerScore(group);
                 break;
         }
     }

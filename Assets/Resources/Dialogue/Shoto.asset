@@ -78,5 +78,11 @@ MonoBehaviour:
   - languageName: TokiPona
     dialogueLines: []
   - languageName: Debug
-    dialogueLines: []
+    dialogueLines:
+    - sections:
+      - text: LUL
+        characterDelay: 0
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
   defaultPortrait: {fileID: 2800000, guid: 2981f4655b9644f458c50cc1484b3f93, type: 3}

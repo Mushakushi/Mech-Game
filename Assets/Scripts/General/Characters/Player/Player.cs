@@ -111,6 +111,7 @@ public class Player : Character
                 break;
             case Phase.Player_Win:
                 animator.SetTrigger("Win");
+                StartCoroutine(CoroutineUtility.WaitForSeconds(2.25f, () => this.ExitPhase()));
                 break;
             case Phase.Boss:
                 EnableHurtbox();
