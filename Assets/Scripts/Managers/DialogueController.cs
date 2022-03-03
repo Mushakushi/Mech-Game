@@ -32,8 +32,6 @@ public class DialogueController : MonoBehaviour, IPhaseController
     {
         //SetGameLang(LANGUAGE.English);
         InitializeBossDialogue(BattleGroupManager.level.bossName);  
-        
-
     }
 
     /// <summary>
@@ -43,7 +41,6 @@ public class DialogueController : MonoBehaviour, IPhaseController
     {
         //Debug.LogError($" line display attempt (stage {dialogueStage})");
         DisplayNextLine();
-        
     }
 
     public void OnPhaseUpdate() { }
@@ -65,11 +62,9 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void DisplayNextLine()
     {
         DialogueLine line = loadedDialogue.GetDialogueLine(dialogueStage);
-        maxDialogueStages = loadedDialogue.GetAllDialogueLines().Count - 1;
+        maxDialogueStages = loadedDialogue.GetAllDialogueLines().Count;
         if (dialogueStage < maxDialogueStages)
             dialogueStage++;
-        else
-            dialogueStage--;
         StartCoroutine(DisplayNextLineCoroutine(line));
     }
 
@@ -118,11 +113,17 @@ public class DialogueController : MonoBehaviour, IPhaseController
         this.ExitPhase();
     }
 
-    public int retrieveDialogueStage()
+    public int GetDialogueStage()
     {
         return dialogueStage;
     }
-    public int retrieveMaxDialogueStages()
+
+    public int GetRemainingLines()
+    {
+        return maxDialogueStages - dialogueStage;
+    }
+
+    public int GetMaxDialogueStages()
     {
         return maxDialogueStages;
     }

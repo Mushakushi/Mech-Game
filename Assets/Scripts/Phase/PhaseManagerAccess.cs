@@ -61,5 +61,10 @@ public static class PhaseManagerAccess
     /// <summary>
     /// Get UIShaderOverlay associated with this <paramref name="controller"/>'s group
     /// </summary>
-    public static UIShaderOverlay GetOverlay(this IPhaseController controller) => GetManager(controller).uiShaderOverlay; 
+    public static UIShaderOverlay GetOverlay(this IPhaseController controller) => GetManager(controller).uiShaderOverlay;
+
+    /// <summary>
+    /// Get DialogueController associated with this <paramref name="controller"/>'s group
+    /// </summary>
+    public static DialogueController GetDialogueController(this IPhaseController controller) => GetManager(controller).dialogueController;
 }

@@ -23,11 +23,13 @@ public class PhaseManager : MonoBehaviour
 
     [Header("Required References")]
     [ReadOnly] public new Camera camera;
+    [ReadOnly] public DialogueController dialogueController;
     [ReadOnly] public VirtualCameraExposer cameraExposer;
     [ReadOnly] public UIShaderOverlay uiShaderOverlay;
     [ReadOnly] public Boss boss;
     [ReadOnly] public Player player;
-    [ReadOnly] public Jario jario; 
+    [ReadOnly] public Jario jario;
+    
 
     /// <summary>
     /// Current phase of battle 
@@ -99,6 +101,10 @@ public class PhaseManager : MonoBehaviour
         {
             controller.group = group;
             controllers.Add(controller);
+            if (controller.GetType() == typeof(DialogueController))
+            {
+                dialogueController = controller as DialogueController;
+            }
         }
 
         // Get all child phase controller(s)
