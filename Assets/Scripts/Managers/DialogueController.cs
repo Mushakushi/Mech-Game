@@ -9,7 +9,7 @@ using static DialogueUtil;
 public class DialogueController : MonoBehaviour, IPhaseController
 {
     private int dialogueStage = 0;
-    private int maxDialogueStages;
+    private int maxDialogueStage;
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private RawImage portrait;
     [SerializeField] private Animator animator;
@@ -54,6 +54,7 @@ public class DialogueController : MonoBehaviour, IPhaseController
     {
         dialogueStage = 0;
         loadedDialogue = LoadDialogue(fileName);
+        maxDialogueStage = loadedDialogue.GetAllDialogueLines().Count-1;
     }
 
     /// <summary>
@@ -62,8 +63,8 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void DisplayNextLine()
     {
         DialogueLine line = loadedDialogue.GetDialogueLine(dialogueStage);
-        maxDialogueStages = loadedDialogue.GetAllDialogueLines().Count;
-        if (dialogueStage < maxDialogueStages)
+        
+        if (dialogueStage < maxDialogueStage)
             dialogueStage++;
         StartCoroutine(DisplayNextLineCoroutine(line));
     }
@@ -120,11 +121,11 @@ public class DialogueController : MonoBehaviour, IPhaseController
 
     public int GetRemainingLines()
     {
-        return maxDialogueStages - dialogueStage;
+        return maxDialogueStage - dialogueStage;
     }
 
     public int GetMaxDialogueStages()
     {
-        return maxDialogueStages;
+        return maxDialogueStage;
     }
 }

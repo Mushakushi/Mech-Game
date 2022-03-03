@@ -6,7 +6,7 @@ using TMPro;
 using System.Globalization;
 using System;
 
-public class ScoreScreen : MonoBehaviour
+public class ScoreScreen : MonoBehaviour, IPhaseController
 {
     [SerializeField] private Scrollbar scrollbar;
     [Space]
@@ -15,37 +15,36 @@ public class ScoreScreen : MonoBehaviour
     [Space]
     [SerializeField] private RectTransform scoresTransform;
     [SerializeField] private GameObject partObject;
-#if UNITY_EDITOR
+    [SerializeField] private GameObject sumObject;
+
+    public int group { get; set; }
+    public Phase activePhase => this.GetPhaseFromCollection(new List<Phase> { Phase.ScoreScreen });
+
+    #if UNITY_EDITOR
     [Space]
     [SerializeField] private ScoreData score;
-#endif
-
-    void Awake()
-    {
-    }
-
-    private void Start()
-    {
-        DisplayScoreData(new ScoreData(78.52f, 2, 18, 5));
-    }
+    #endif
 
     public void DisplayScoreData(ScoreData data)
     {
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         score = data;
-#endif
+        #endif
         DisplayScore(data);
     }
 
     private void DisplayScore(ScoreData data) // it sucks less now but still sucks
     {
         List<(string, string)> displayStrings = data.GetDisplayStrings();
+        List<(string, string)> fullScore = data.GetFullScore();
+
         int halfCount = (displayStrings.Count / 2); // if 4:
         List<(string, string)> stats = displayStrings.GetRange(0, halfCount);
         List<(string, string)> scores = displayStrings.GetRange(halfCount, halfCount);
-        DisplayParts(stats, panelObject, panelsTransform, -120f, -180f);
-        float linePos = DisplayParts(scores, partObject, scoresTransform, 200f, -130f) - 90f;
 
+        DisplayParts(stats, panelObject, panelsTransform, -120f, -180f);
+        float linePos = DisplayParts(scores, partObject, scoresTransform, 200f, -130f) - 160f;
+        DisplayParts(fullScore, sumObject, scoresTransform, linePos, 0f);
     }
 
     private float DisplayParts(List<(string label, string value)> displayStrings, GameObject partObject, Transform parent, float startPos, float spacing)
@@ -64,12 +63,32 @@ public class ScoreScreen : MonoBehaviour
             value.text = display.value;
         }
 
-        return startPos;
+        return startPos - spacing;
     }
 
     // Update is called once per frame
     void Update()
     {
         panelsTransform.anchoredPosition = new Vector2(0f, 975f + (-500f * (1 - Math.Max(0f, scrollbar.value))));
+    }
+
+    public void OnStart()
+    {
+
+    }
+
+    public void OnPhaseEnter()
+    {
+        DisplayScoreData(ScoreUtil.GetPlayerScoreData(group));
+    }
+
+    public void OnPhaseUpdate()
+    {
+
+    }
+
+    public void OnPhaseExit()
+    {
+
     }
 }

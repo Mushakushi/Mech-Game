@@ -40,7 +40,8 @@ public class BattleGroupManager : MonoBehaviour
         else inputMangager.DisableJoining();
 
         // delete after done debuging battle scene
-        //LoadLevelData("MrsSandbag");
+        LoadLevelData("Shoto");
+        TranslatableTextManager.SetGameLang(LANGUAGE.Debug);
 
         // applies level data to scene 
         OnLoadLevel();

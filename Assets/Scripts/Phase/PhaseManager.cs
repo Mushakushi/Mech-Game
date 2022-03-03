@@ -6,7 +6,7 @@ using static FileUtility;
 /// <summary>
 /// Possible phases of battle 
 /// </summary>
-public enum Phase { All, Intro, Boss, Boss_Guard, Boss_Collapse, Player, Player_Win, Dialogue_Pre, Dialogue_Post, Mixed, None, ScoreScreen }
+public enum Phase { All, Intro, Boss, Boss_Guard, Boss_Collapse, Player, Player_Win, Dialogue_Pre, Dialogue_Post, Mixed, ScoreScreen, None }
 
 /// <summary>
 /// Manages the phase behavior of every child phase controller
@@ -268,6 +268,9 @@ public class PhaseManager : MonoBehaviour
                 break;
             case Phase.Boss_Collapse:
                 EnterPhase(Phase.Player);
+                break;
+            case Phase.Player_Win:
+                EnterPhase(Phase.ScoreScreen);
                 break;
             case Phase.None:
             case Phase.Mixed:

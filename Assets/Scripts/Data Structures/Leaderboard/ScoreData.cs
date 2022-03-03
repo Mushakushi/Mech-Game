@@ -84,7 +84,7 @@ public class ScoreData
 
         List<(string, string)> result = new List<(string, string)>();
 
-        result.Add(("Level Complete Time:", $"{levelCompleteTime:0.00}s"));
+        result.Add(("Level Complete Time:", $"{levelCompleteTime:0.000}s"));
         result.Add(("HP Remaining:", $"{3-damageTaken}HP"));
         result.Add(("Punches Landed:", $"{timesHitBoss}x"));
         result.Add(("Punches Blocked:", $"{timesBossBlocked}x"));
@@ -97,8 +97,8 @@ public class ScoreData
         return result;
     }
 
-    public (string label, string value) GetFullScore()
+    public List<(string label, string value)> GetFullScore()
     {
-        return ("Full Score", $"{levelCompleteTime}");
+        return new List<(string label, string value)> { ("Full Score", $"{fullScore}") };
     }
 }
