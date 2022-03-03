@@ -16,6 +16,6 @@ public class Shoto : Boss
     protected override void PhaseEnterBehavior()
     {
         base.PhaseEnterBehavior();
-        if (this.GetManagerPhase() == Phase.Player /*&& hasn't reached the last*/) this.SwitchPhase(Phase.Boss);
+        if (this.GetManagerPhase() == Phase.Player && /*DialogueController.retrieveDialogueStage() != DialogueController.retrieveMaxDialogueStages()*/) this.SwitchPhase(Phase.Boss);
     }
 }

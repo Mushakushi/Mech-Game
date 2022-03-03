@@ -9,6 +9,7 @@ using static DialogueUtil;
 public class DialogueController : MonoBehaviour, IPhaseController
 {
     private int dialogueStage = 0;
+    private int maxDialogueStages;
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private RawImage portrait;
     [SerializeField] private Animator animator;
@@ -30,7 +31,9 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void OnStart()
     {
         //SetGameLang(LANGUAGE.English);
-        InitializeBossDialogue(BattleGroupManager.level.bossName);
+        InitializeBossDialogue(BattleGroupManager.level.bossName);  
+        
+
     }
 
     /// <summary>
@@ -62,7 +65,8 @@ public class DialogueController : MonoBehaviour, IPhaseController
     public void DisplayNextLine()
     {
         DialogueLine line = loadedDialogue.GetDialogueLine(dialogueStage);
-        if (dialogueStage < loadedDialogue.GetAllDialogueLines().Count - 1)
+        maxDialogueStages = loadedDialogue.GetAllDialogueLines().Count - 1;
+        if (dialogueStage < maxDialogueStages)
             dialogueStage++;
         else
             dialogueStage--;
@@ -112,5 +116,14 @@ public class DialogueController : MonoBehaviour, IPhaseController
 
         // Exit phase here? Animator open/close is one of the default phase events
         this.ExitPhase();
+    }
+
+    public int retrieveDialogueStage()
+    {
+        return dialogueStage;
+    }
+    public int retrieveMaxDialogueStages()
+    {
+        return maxDialogueStages;
     }
 }
