@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Can be used in the animator to do a event on complete
 /// </summary>
-public class UIEvent : MonoBehaviour
+public class SimpleEventHandler : MonoBehaviour
 {
     public UnityEvent @event = new UnityEvent();
 

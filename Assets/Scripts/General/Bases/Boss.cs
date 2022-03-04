@@ -75,7 +75,10 @@ public abstract class Boss : Character
         healthBars = maxHealthBars;
         health = maxHealth; // TODO - i'm repeatiing this code to get the refresh working first time
 
-        comboText = GameObject.Find("Combo Text").GetComponent<TextMeshProUGUI>(); // TODO - workaround this mess
+        // TODO - workaround this mess, shouldn't need to disable in default phase event when manual joining is implemented!
+        comboText = GameObject.Find("Combo Text").GetComponent<TextMeshProUGUI>();
+        comboText.gameObject.SetActive(false); // case in point
+
         healthSlider = FindObjectOfType<BossHealthSlider>();
         RefreshSlider();
 

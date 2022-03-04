@@ -24,6 +24,11 @@ public class BattleGroupManager : MonoBehaviour
     /// </summary>
     public static Level level;
 
+    /// <summary>
+    /// Prefab to spawn in unity
+    /// </summary>
+    [SerializeField] private GameObject playerPrefab;
+
     void Awake()
     {
         // set unity random seed
@@ -31,7 +36,12 @@ public class BattleGroupManager : MonoBehaviour
 
         // enable or disable joining    
         PlayerInputManager inputMangager = GetComponent<PlayerInputManager>(); 
-        if (GlobalSettings.isMultiplayerGame) inputMangager.EnableJoining();
+        if (GlobalSettings.isMultiplayerGame)
+        {
+            inputMangager.EnableJoining();
+            // join player
+            if (PlayerInputManager.instance.playerCount > 0) PlayerInput.Instantiate(playerPrefab); 
+        }
         else inputMangager.DisableJoining();
 
         // delete after done debuging battle scene

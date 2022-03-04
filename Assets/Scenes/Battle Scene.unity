@@ -177,9 +177,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1822394559}
   - component: {fileID: 1822394558}
+  - component: {fileID: 1822394562}
   - component: {fileID: 1822394561}
   - component: {fileID: 1822394560}
-  - component: {fileID: 1822394562}
   - component: {fileID: 1822394563}
   m_Layer: 0
   m_Name: Battle Group Manager
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _phaseManagers: []
+  playerPrefab: {fileID: 6828912245171415651}
 --- !u!4 &1822394559
 Transform:
   m_ObjectHideFlags: 0
@@ -336,9 +337,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 0
-  m_MaxPlayerCount: 4
+  m_MaxPlayerCount: 2
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -368,7 +369,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 6828912245171415651}
   m_SplitScreen: 1
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -457,5 +458,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7135057715352588426, guid: 6fa596c44d7c83f4899baa3352adf791, type: 3}
+      propertyPath: m_Name
+      value: Punch Count
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fa596c44d7c83f4899baa3352adf791, type: 3}
+--- !u!1 &6828912245171415651 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3284177300747416542, guid: 6fa596c44d7c83f4899baa3352adf791, type: 3}
+  m_PrefabInstance: {fileID: 6828912245171415650}
+  m_PrefabAsset: {fileID: 0}

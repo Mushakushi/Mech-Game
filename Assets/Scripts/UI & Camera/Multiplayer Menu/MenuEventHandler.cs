@@ -1,8 +1,8 @@
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems; 
-
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class MenuEventHandler : MonoBehaviour
 {
@@ -56,12 +56,18 @@ public class MenuEventHandler : MonoBehaviour
     [SerializeField] private TMP_Text progressText;
 
     /// <summary>
+    /// Text to display errors
+    /// </summary>
+    [SerializeField] private TMP_Text errorText;
+
+    /// <summary>
     /// Disables all layers except first layer in layers
     /// </summary>
     /// <remarks>All menus should be enabled by default for now</remarks>
     public void Awake()
     {
         if (progressText) progressText.gameObject.SetActive(false);
+        if (progressText) errorText.gameObject.SetActive(false);
         if (layers.Count > 0)
         {
             foreach (MenuLayer layer in layers) SetActive(layer.parent, false);
@@ -167,7 +173,16 @@ public class MenuEventHandler : MonoBehaviour
     /// <param name="bossName">Name of the boss to load</param>
     public void LoadBattleScene(string bossName)
     {
-        if (!progressText) return; 
+        if (!progressText || !errorText) return;
+        if (GlobalSettings.isMultiplayerGame && PlayerInputManager.instance.playerCount == 0)
+        {
+            // TODO - make this a function!
+            errorText.text = "CONNECT PLAYER 2!";
+            errorText.gameObject.SetActive(true);
+            StartCoroutine(CoroutineUtility.WaitForSeconds(0.5f, () => errorText.gameObject.SetActive(false)));
+            print(PlayerInputManager.instance.playerCount);
+            return; 
+        }
         BattleGroupManager.LoadLevelData(bossName);
         progressText.gameObject.SetActive(true);
         StartCoroutine(Scene.Load("Battle Scene", (x) => progressText.text = $"Loading...({x*100}%)")); 
