@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 343541607
-  m_SortingLayer: 2
+  m_SortingLayerID: 462644069
+  m_SortingLayer: 3
   m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -120,6 +120,7 @@ MonoBehaviour:
   speed: 0
   animator: {fileID: 0}
   hitbox: {fileID: 0}
+  travelLimit: 0
 --- !u!1 &862815994427336886
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +193,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 8192
   damage: 1
   boxCollider: {fileID: 0}

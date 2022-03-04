@@ -17,13 +17,13 @@ public static class LeaderboardUtil
     /// Load the leaderboard for <paramref name="level"/> from file.
     /// </summary>
     /// <param name="level">Level of the leaderboard to load.</param>
-    public static LeaderboardData LoadLeaderboard(this Level level)
+    public static LeaderboardData LoadLeaderboard(string name)
     {
-        string assetPath = GetLeaderboardFilePath(level);
+        string assetPath = GetLeaderboardFilePath(name);
         try
         {
             List<string> leaderboardFromFile = File.ReadAllLines(assetPath).ToList();
-            return DeserializeLeaderboard(leaderboardFromFile, level);
+            return DeserializeLeaderboard(leaderboardFromFile, name);
         }
         catch
         {
@@ -33,7 +33,7 @@ public static class LeaderboardUtil
                 Directory.CreateDirectory(GetLeaderboardFilesDirectory());
             }
             File.Create($"{assetPath}").Dispose();
-            return new LeaderboardData(new List<LeaderboardEntryData>(), level);
+            return new LeaderboardData(new List<LeaderboardEntryData>(), name);
         }
     }
 
@@ -42,9 +42,9 @@ public static class LeaderboardUtil
     /// </summary>
     /// <param name="level">Level the leaderboard is for.</param>
     /// <returns> Persistent file path to leaderboard file.</returns>
-    private static string GetLeaderboardFilePath(Level level)
+    private static string GetLeaderboardFilePath(string name)
     {
-        return $"{GetLeaderboardFilesDirectory()}/{level.bossName.ToLower()}.csv";
+        return $"{GetLeaderboardFilesDirectory()}/{name.ToLower()}.csv";
     }
 
     /// <summary>
@@ -60,9 +60,9 @@ public static class LeaderboardUtil
     /// Structure leaderboard data from .csv file text.
     /// </summary>
     /// <param name="textFromFile">Full text from .csv file.</param>
-    /// <param name="level">Level this leaderboard is for.</param>
+    /// <param name="name">Level this leaderboard is for.</param>
     /// <returns>Data in form of LeaderboardData.</returns>
-    private static LeaderboardData DeserializeLeaderboard(List<string> textFromFile, Level level)
+    private static LeaderboardData DeserializeLeaderboard(List<string> textFromFile, string name)
     {
         List<LeaderboardEntryData> entriesData = new List<LeaderboardEntryData>();
 
@@ -76,7 +76,7 @@ public static class LeaderboardUtil
             entriesData.Add(new LeaderboardEntryData(entryDataText[0], DeserializeScore(scoreDataText))); // probably fine to hardcode here
         }
 
-        return new LeaderboardData(entriesData, level);
+        return new LeaderboardData(entriesData, name);
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public static class LeaderboardUtil
     /// <param name="leaderboard">Leaderboard to save to file.</param>
     public static void SaveToFile(this LeaderboardData leaderboard)
     {
-        string assetPath = GetLeaderboardFilePath(leaderboard.level);
+        string assetPath = GetLeaderboardFilePath(leaderboard.bossName);
         using (StreamWriter sw = new StreamWriter($"{assetPath}"))
         {
             foreach (LeaderboardEntryData entry in leaderboard.entries)
@@ -152,6 +152,7 @@ public static class LeaderboardUtil
     /// <returns>True if successful, False if not.</returns>
     public static bool TryAdd(this LeaderboardData leaderboard, LeaderboardEntryData newEntry)
     {
+        newEntry.scoreData.CalculateFullScore();
         if (leaderboard.entries.Count == 0)
         {
             leaderboard.entries.Add(newEntry);
@@ -166,7 +167,7 @@ public static class LeaderboardUtil
             {
                 leaderboard.entries.Insert(i, newEntry);
 
-                if (leaderboard.entries.Count >= leaderboardMaxSize)
+                if (leaderboard.entries.Count > leaderboardMaxSize)
                 {
                     leaderboard.entries.RemoveAt(leaderboardMaxSize);
                 }

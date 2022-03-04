@@ -9,6 +9,7 @@ using System;
 public class ScoreScreen : MonoBehaviour, IPhaseController
 {
     [SerializeField] private Scrollbar scrollbar;
+    [SerializeField] private TMP_InputField nameInput;
     [Space]
     [SerializeField] private RectTransform panelsTransform;
     [SerializeField] private GameObject panelObject;
@@ -20,16 +21,12 @@ public class ScoreScreen : MonoBehaviour, IPhaseController
     public int group { get; set; }
     public Phase activePhase => this.GetPhaseFromCollection(new List<Phase> { Phase.ScoreScreen });
 
-    #if UNITY_EDITOR
     [Space]
     [SerializeField] private ScoreData score;
-    #endif
 
     public void DisplayScoreData(ScoreData data)
     {
-        #if UNITY_EDITOR
         score = data;
-        #endif
         DisplayScore(data);
     }
 
@@ -64,6 +61,12 @@ public class ScoreScreen : MonoBehaviour, IPhaseController
         }
 
         return startPos - spacing;
+    }
+
+    public void TryAddInputToLeaderboard()
+    {
+        LeaderboardData board = LeaderboardUtil.LoadLeaderboard(BattleGroupManager.level.bossName);
+        board.TryAdd(new LeaderboardEntryData(nameInput.text, score));
     }
 
     // Update is called once per frame

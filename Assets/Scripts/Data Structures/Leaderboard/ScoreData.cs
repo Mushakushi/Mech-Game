@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 [Serializable]
 public class ScoreData
 {
-    // TODO - what do we want to store for score display?
-    // do we want to store variables that we use to calculate full score? (ie Hitman-style) <- will do some of these for now
-
     /// <summary>
     /// Full score achieved by player.
     /// </summary>

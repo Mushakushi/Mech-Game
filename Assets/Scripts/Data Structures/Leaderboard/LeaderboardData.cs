@@ -13,11 +13,17 @@ public struct LeaderboardData
     /// <summary>
     /// The level this leaderboard is for.
     /// </summary>
-    public Level level;
+    public string bossName;
 
-    public LeaderboardData(List<LeaderboardEntryData> entries, Level level)
+    public LeaderboardData(string bossName)
+    {
+        entries = new List<LeaderboardEntryData>();
+        this.bossName = bossName;
+    }
+
+    public LeaderboardData(List<LeaderboardEntryData> entries, string bossName)
     {
         this.entries = entries;
-        this.level = level;
+        this.bossName = bossName;
     }
 }
