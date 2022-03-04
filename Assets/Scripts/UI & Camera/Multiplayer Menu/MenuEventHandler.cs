@@ -61,7 +61,7 @@ public class MenuEventHandler : MonoBehaviour
     /// <remarks>All menus should be enabled by default for now</remarks>
     public void Awake()
     {
-        progressText.gameObject.SetActive(false);
+        if (progressText) progressText.gameObject.SetActive(false);
         if (layers.Count > 0)
         {
             foreach (MenuLayer layer in layers) SetActive(layer.parent, false);
@@ -71,7 +71,7 @@ public class MenuEventHandler : MonoBehaviour
 
     private void Start()
     {
-        if (bgm != null) AudioPlayer.PlayBGM(bgm);
+        if (bgm.intro && bgm.loop) AudioPlayer.PlayBGM(bgm);
     }
 
     /// <summary>
