@@ -1,4 +1,4 @@
-using System.Collections;
+using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems; 
@@ -48,7 +48,12 @@ public class MenuEventHandler : MonoBehaviour
     /// <summary>
     /// Audio to play
     /// </summary>
-    [SerializeField] private BGM bgm; 
+    [SerializeField] private BGM bgm;
+
+    /// <summary>
+    /// Text to display loading progress
+    /// </summary>
+    [SerializeField] private TMP_Text progressText;
 
     /// <summary>
     /// Disables all layers except first layer in layers
@@ -56,6 +61,7 @@ public class MenuEventHandler : MonoBehaviour
     /// <remarks>All menus should be enabled by default for now</remarks>
     public void Awake()
     {
+        progressText.gameObject.SetActive(false);
         if (layers.Count > 0)
         {
             foreach (MenuLayer layer in layers) SetActive(layer.parent, false);
@@ -161,8 +167,10 @@ public class MenuEventHandler : MonoBehaviour
     /// <param name="bossName">Name of the boss to load</param>
     public void LoadBattleScene(string bossName)
     {
-        BattleGroupManager.LoadLevelData(bossName); 
-        StartCoroutine(Scene.Load("Battle Scene")); 
+        if (!progressText) return; 
+        BattleGroupManager.LoadLevelData(bossName);
+        progressText.gameObject.SetActive(true);
+        StartCoroutine(Scene.Load("Battle Scene", (x) => progressText.text = $"Loading...({x*100}%)")); 
     }
 
     /// <summary>
