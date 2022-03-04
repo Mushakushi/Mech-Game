@@ -7,8 +7,13 @@ using TMPro;
 public class TimerClock : MonoBehaviour, IPhaseController
 {
     private TextMeshProUGUI textbox;
-    [SerializeField] private DateTime startTime = DateTime.MinValue;
-    private TimeSpan endTime = TimeSpan.Zero;
+    //[SerializeField] private DateTime startTime = DateTime.MinValue;
+    //private TimeSpan endTime = TimeSpan.Zero;
+
+    /// <summary>
+    /// In-game time passed
+    /// </summary>
+    [SerializeField] private float time;
 
     public int group { get; set; }
 
@@ -22,20 +27,22 @@ public class TimerClock : MonoBehaviour, IPhaseController
 
     public void StartTimer()
     {
-        startTime = DateTime.Now;
+        //startTime = DateTime.Now;
     }
 
     public TimeSpan StopTimer()
     {
-        endTime = (DateTime.Now - startTime);
-        return endTime;
+        //endTime = (DateTime.Now - startTime);
+        //return endTime;
+        return new TimeSpan();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (endTime == TimeSpan.Zero)
-            textbox.text = (DateTime.Now - startTime).ToString(@"mm\:ss\.f");
+        //if (endTime == TimeSpan.Zero)
+        //    textbox.text = (DateTime.Now - startTime).ToString(@"mm\:ss\.f");
+        textbox.text = TimeSpan.FromSeconds(Time.timeAsDouble).ToString(@"mm\:ss\.f");
     }
 
     public void OnStart()
@@ -51,7 +58,7 @@ public class TimerClock : MonoBehaviour, IPhaseController
                 StartTimer();
                 break;
             case Phase.Player_Win:
-                new ScoreData(levelCompleteTime: (float) (StopTimer().TotalMilliseconds / 1000f)).AddToPlayerScore(group);
+                new ScoreData(levelCompleteTime: Time.time).AddToPlayerScore(group);
                 break;
         }
     }

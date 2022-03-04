@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
 // TODO - rename this class
 [RequireComponent(typeof(PlayerInputManager))]
@@ -36,7 +36,7 @@ public class BattleGroupManager : MonoBehaviour
 
         // delete after done debuging battle scene
         //LoadLevelData("Shoto");
-        TranslatableTextManager.SetGameLang(LANGUAGE.Debug);
+        TranslatableTextManager.SetGameLang(LANGUAGE.English);
 
         // applies level data to scene 
         OnLoadLevel();

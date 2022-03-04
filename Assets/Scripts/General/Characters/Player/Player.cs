@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerInput))]
 public class Player : Character
@@ -78,6 +79,18 @@ public class Player : Character
     [Header("UI")]
     [SerializeField] private PlayerHealthSlider slider;
 
+    /// <summary>
+    /// What happens on pause
+    /// </summary>
+    [Header("OnPause()")]
+    [SerializeField] private UnityEvent onPause = new UnityEvent();
+
+    /// <summary>
+    /// What happens on unpause
+    /// </summary>
+    [Header("OnUnpause()")]
+    [SerializeField] private UnityEvent onUnpause = new UnityEvent();
+
     private void Awake()
     {
         GetComponent<PlayerInput>().onActionTriggered += PoolAction;
@@ -118,7 +131,6 @@ public class Player : Character
                 break;
             default:
                 break;
-
         }
     }
 
@@ -191,10 +203,16 @@ public class Player : Character
                 case "DodgeDown":
                     dodgeDown = true;
                     break;
+                case "Pause":
+                    if (Time.timeScale == 0) UnPause();
+                    else if (this.GetManagerPhase() != Phase.Player_Win) Pause();
+                    break;
                 default:
                     throw new System.Exception($"Action {context.action.name} is unhandeled!");
             }
         }
+
+        // TODO - Why doesn't this work
         else if (context.action.name == "Swipe")
         {
             if (context.control is TouchControl t && t.phase.ReadUnprocessedValue() == UnityEngine.InputSystem.TouchPhase.Moved)
@@ -208,6 +226,25 @@ public class Player : Character
             }
         }
     }
+
+    /// <summary>
+    /// Sets the timescale to zero
+    /// </summary>
+    private void Pause()
+    {
+        Time.timeScale = 0;
+        onPause.Invoke();
+    }
+
+    /// <summary>
+    /// Sets the timescale to one
+    /// </summary>
+    private void UnPause()
+    {
+        Time.timeScale = 1;
+        onUnpause.Invoke();
+    }
+
 
     /// <summary>
     /// Clears pooled input

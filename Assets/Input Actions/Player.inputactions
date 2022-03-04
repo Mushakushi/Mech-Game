@@ -1,5 +1,5 @@
 {
-    "name": "PlayerControls",
+    "name": "Player",
     "maps": [
         {
             "name": "Player",
@@ -42,6 +42,14 @@
                     "type": "PassThrough",
                     "id": "bac51081-5fe8-45b5-89bb-bc77ec5677f3",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "d01d49b7-d9d7-4fc9-8da3-a1ac755e1103",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -198,6 +206,28 @@
                     "processors": "",
                     "groups": "Touch",
                     "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4cdf0aa0-6a65-4465-abc1-24dec63542c3",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d05840fa-436c-4fa0-af1f-817aaa4cf5a4",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
