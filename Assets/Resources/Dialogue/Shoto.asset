@@ -17,7 +17,7 @@ MonoBehaviour:
     dialogueLines:
     - sections:
       - text: I was desperately searching for those wild Joto herbs since they were
-          the only aid for my ligma-stricken grandmother.
+          the only aid for my diseased grandmother.
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0

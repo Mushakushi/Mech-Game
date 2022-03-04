@@ -1011,12 +1011,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 272928096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 1935353115}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+  m_PlayerRoot: {fileID: 0}
 --- !u!4 &272928099
 Transform:
   m_ObjectHideFlags: 0
@@ -1118,7 +1119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &327471342
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1802,7 +1803,7 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: 2
   m_AllowJoining: 0
-  m_JoinBehavior: 2
+  m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1812,15 +1813,31 @@ MonoBehaviour:
   m_JoinAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Join
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 
+      m_Id: 82fc90aa-cbae-4fc7-b438-be1d22bd8afa
       m_Processors: 
       m_Interactions: 
-      m_SingletonActionBindings: []
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: d52c0009-4c20-4516-bc67-e7ca0461e018
+        m_Path: <Gamepad>/start
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: c743e670-6f01-4a95-a7da-d5cd42f55c5d
+        m_Path: <Keyboard>/anyKey
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 1382225999}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -5691,7 +5708,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382225999}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b18a78fecd4ac984895121e5383835ad, type: 2}
   m_CullingMode: 0
@@ -6094,7 +6111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1451937889
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11427,7 +11444,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1382226003, guid: e3fc967d901aaad418fc046d289d9f52, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1382226003, guid: e3fc967d901aaad418fc046d289d9f52, type: 3}
       propertyPath: magnitude
@@ -11451,7 +11468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160235727636151663, guid: e3fc967d901aaad418fc046d289d9f52, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1160235727636151664, guid: e3fc967d901aaad418fc046d289d9f52, type: 3}
       propertyPath: m_Pivot.x
@@ -11519,11 +11536,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160235727636151664, guid: e3fc967d901aaad418fc046d289d9f52, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 492
+      value: 1330
       objectReference: {fileID: 0}
     - target: {fileID: 1160235727636151664, guid: e3fc967d901aaad418fc046d289d9f52, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -272
+      value: -440
       objectReference: {fileID: 0}
     - target: {fileID: 1160235727636151664, guid: e3fc967d901aaad418fc046d289d9f52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

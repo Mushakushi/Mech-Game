@@ -79,8 +79,7 @@ public abstract class Boss : Character
         comboText = GameObject.Find("Combo Text").GetComponent<TextMeshProUGUI>();
         comboText.gameObject.SetActive(false); // case in point
 
-        healthSlider = FindObjectOfType<BossHealthSlider>();
-        RefreshSlider();
+        //healthSlider = FindObjectOfType<BossHealthSlider>();
 
         hurtClip = LoadFile<AudioClip>($"{voicelinesPath}/{GetType()}/Hurt1");
         knockClip = LoadFile<AudioClip>($"{voicelinesPath}/{GetType()}/Hurt2");
@@ -132,7 +131,6 @@ public abstract class Boss : Character
                 new ScoreData(timesHitBoss: 1).AddToPlayerScore(group);
                 AudioPlayer.Play(hurtClip);
                 comboText.text = (Convert.ToInt32(comboText.text) + 1).ToString();
-                RefreshSlider();
                 break;
             case Phase.Boss_Guard:
                 new ScoreData(timesBossBlocked: 1).AddToPlayerScore(group);
@@ -145,14 +143,6 @@ public abstract class Boss : Character
     {
         DisableHitbox();
         new ScoreData(damageTaken: 1).AddToPlayerScore(group);
-    }
-
-    /// <summary>
-    /// Sets the health slider to boss health
-    /// </summary>
-    private void RefreshSlider()
-    {
-        healthSlider.SetValue(health / maxHealth);
     }
 
     /// <summary>
@@ -186,7 +176,6 @@ public abstract class Boss : Character
     public virtual void OnRecover()
     {
         health = maxHealth / (maxHealthBars - healthBars + 1);
-        RefreshSlider();
     }
 
     /// <summary>

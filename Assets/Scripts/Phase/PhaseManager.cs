@@ -19,7 +19,7 @@ public class PhaseManager : MonoBehaviour
     /// The index of this battle's group
     /// </summary>
     /// <remarks>Must be unique</remarks>
-    public int group { get; private set; }
+    public int group { get; set; }
 
     [Header("Required References")]
     [ReadOnly] public new Camera camera;
@@ -78,9 +78,6 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     public void OnAwake()
     {
-        // Set group index, also equal to current player number
-        group = BattleGroupManager.phaseManagers.Count() - 1;
-
         ScoreUtil.CreatePlayerScore(group);
 
         // get and cull camera
@@ -101,10 +98,7 @@ public class PhaseManager : MonoBehaviour
         {
             controller.group = group;
             controllers.Add(controller);
-            if (controller.GetType() == typeof(DialogueController))
-            {
-                dialogueController = controller as DialogueController;
-            }
+            if (controller is DialogueController d) dialogueController = d;
         }
 
         // Get all child phase controller(s)
@@ -140,8 +134,9 @@ public class PhaseManager : MonoBehaviour
         }
 
         // Check for required controllers in scene
+        string detail = $"in group {group}"; 
         if (!cameraExposer) Debug.LogError("Could not find child virtual camera tagged \"MainCamera\" with a VirtualCameraExposer script!");
-        if (!boss) Debug.LogError("Could not find child GameObject tagged \"Boss\" with a Boss component!");
+        if (!boss) Debug.LogError($"Could not find child GameObject tagged \"Boss\" with a Boss component {detail}!");
         if (!player) Debug.LogError("Could not find child GameObject tagged \"Player\" with a Player component!");
         if (!jario) Debug.LogError("You cannot escape Jario. Please add him to your list of dependents!");
 
@@ -167,6 +162,7 @@ public class PhaseManager : MonoBehaviour
     // important to call controller.onStart after awake references to not break game!
     private void Start()
     {
+        // move controller
         transform.position += width * Vector3.right * (group);
 
         // Set first phase for reference. Note: IPhaseController.OnPhaseEnter is called after OnStart...

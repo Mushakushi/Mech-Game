@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class MenuEventHandler : MonoBehaviour
 {
@@ -60,14 +61,13 @@ public class MenuEventHandler : MonoBehaviour
     /// </summary>
     [SerializeField] private TMP_Text errorText;
 
-    /// <summary>
-    /// Disables all layers except first layer in layers
-    /// </summary>
-    /// <remarks>All menus should be enabled by default for now</remarks>
     public void Awake()
     {
+        // check text 
         if (progressText) progressText.gameObject.SetActive(false);
         if (progressText) errorText.gameObject.SetActive(false);
+
+        // Disables all layers except first layer in layers
         if (layers.Count > 0)
         {
             foreach (MenuLayer layer in layers) SetActive(layer.parent, false);
@@ -77,6 +77,7 @@ public class MenuEventHandler : MonoBehaviour
 
     private void Start()
     {
+        GlobalSettings.EnforceJoiningState();
         if (bgm.intro && bgm.loop) AudioPlayer.PlayBGM(bgm);
     }
 
@@ -173,19 +174,30 @@ public class MenuEventHandler : MonoBehaviour
     /// <param name="bossName">Name of the boss to load</param>
     public void LoadBattleScene(string bossName)
     {
-        if (!progressText || !errorText) return;
-        if (GlobalSettings.isMultiplayerGame && PlayerInputManager.instance.playerCount == 0)
+        if (!progressText) return;
+        if (GlobalSettings.isMultiplayerGame && PlayerInputManager.instance.playerCount <= 1)
         {
-            // TODO - make this a function!
-            errorText.text = "CONNECT PLAYER 2!";
-            errorText.gameObject.SetActive(true);
-            StartCoroutine(CoroutineUtility.WaitForSeconds(0.5f, () => errorText.gameObject.SetActive(false)));
-            print(PlayerInputManager.instance.playerCount);
+            ShowError("CONNECT PLAYER 2!");
             return; 
         }
         BattleGroupManager.LoadLevelData(bossName);
         progressText.gameObject.SetActive(true);
         StartCoroutine(Scene.Load("Battle Scene", (x) => progressText.text = $"Loading...({x*100}%)")); 
+    }
+
+    /// <summary>
+    /// Displays error message <paramref name="message"/> as tmp text
+    /// </summary>
+    /// <param name="message">Text to display</param>
+    private void ShowError(string message)
+    {
+        if (errorText)
+        {
+            errorText.text = message;
+            errorText.gameObject.SetActive(true);
+            StartCoroutine(CoroutineUtility.WaitForSeconds(0.5f, () => errorText.gameObject.SetActive(false)));
+        }
+        else Debug.LogError("Error text is not assigned! Please assign it in the editor.");
     }
 
     /// <summary>

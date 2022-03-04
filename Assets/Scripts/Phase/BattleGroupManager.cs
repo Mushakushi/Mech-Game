@@ -35,18 +35,15 @@ public class BattleGroupManager : MonoBehaviour
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
 
         // enable or disable joining    
-        PlayerInputManager inputMangager = GetComponent<PlayerInputManager>(); 
-        if (GlobalSettings.isMultiplayerGame)
-        {
-            inputMangager.EnableJoining();
-            // join player
-            if (PlayerInputManager.instance.playerCount > 0) PlayerInput.Instantiate(playerPrefab); 
-        }
-        else inputMangager.DisableJoining();
+        GlobalSettings.EnforceJoiningState();
+        if (GlobalSettings.isMultiplayerGame) PlayerInput.Instantiate(playerPrefab);
 
         // delete after done debuging battle scene
-        //LoadLevelData("Shoto");
+        //LoadLevelData("Lobstobotomizer");
         TranslatableTextManager.SetGameLang(LANGUAGE.English);
+
+        // get rid of old static references 
+        phaseManagers.Clear();
 
         // applies level data to scene 
         OnLoadLevel();
@@ -55,8 +52,19 @@ public class BattleGroupManager : MonoBehaviour
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("PhaseManager"))
             phaseManagers.Add(g.GetComponent<PhaseManager>()); 
 
-        // allows p to get references in awake after this 
-        foreach (PhaseManager p in phaseManagers) p.OnAwake();
+        // allows phase manager to get references on awake after this 
+        foreach (PhaseManager p in phaseManagers)
+        {
+            p.OnAwake();
+        }
+
+        for (int i = 0; i < phaseManagers.Count(); i++)
+        {
+            // set group of phase Manager TODO - how to make this immutable?
+            phaseManagers[i].group = i; 
+            phaseManagers[i].OnAwake();
+        }
+            
     }
 
     /// <summary>
@@ -85,20 +93,22 @@ public class BattleGroupManager : MonoBehaviour
             PlayerInputManager.instance.playerCount
             );
 
+        // below was neccessary when automatically adding players,starting from player one:
+
         // if not player 1 (who is not a runtime phase manager) or already initialized
         // checking player instance will prevent player 1 from running twice
         // is awake will prevent instance from running when it's already ran
         // (bc this is called on every prefab apparently)
-        if (PlayerInputManager.instance.playerCount > 1)
-        {
-            if (GameObject.FindGameObjectsWithTag("PhaseManager")[e.playersConnected - 1].GetComponent<PhaseManager>()
-                is PhaseManager p)
-            {
-                Debug.LogError($"Player {e.playersConnected} joined.");
-                AddRuntimePhaseManager(p);
-                p.OnAwake();
-            }
-        }
+        //if (PlayerInputManager.instance.playerCount > 1)
+        //{
+        //    if (GameObject.FindGameObjectsWithTag("PhaseManager")[e.playersConnected - 1].GetComponent<PhaseManager>()
+        //        is PhaseManager p)
+        //    {
+        //        Debug.LogError($"Player {e.playersConnected} joined.");
+        //        AddRuntimePhaseManager(p);
+        //        //p.OnAwake();
+        //    }
+        //}
 
         // notify each phaseManager of join
         foreach (PhaseManager p in phaseManagers) p.OnPlayerJoined(e); 
@@ -144,14 +154,13 @@ public class BattleGroupManager : MonoBehaviour
     /// </summary>
     private void OnLoadLevel()
     {
-        // get rid of old static references 
-        phaseManagers.Clear();
-
         // add boss script to boss 
         Type bossType = Type.GetType(level.bossName);
-        if (bossType != null) GameObject.FindGameObjectWithTag("Boss").AddComponent(bossType);
-
-        // change background 
+        if (bossType != null)
+        {
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Boss"))
+                g.AddComponent(bossType);
+        }
 
         // etc...
     }

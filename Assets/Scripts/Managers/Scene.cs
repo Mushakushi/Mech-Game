@@ -29,7 +29,7 @@ public static class Scene
     public static IEnumerator Load(string name, Action<float> progress)
     {
         //System.Diagnostics.Debug.WriteLine("Started scene load"); 
-        Debug.Log($"Start scene {name} load");
+        Debug.Log($"Starting {name} scene load");
         AsyncOperation op = SceneManager.LoadSceneAsync(name);
 
         // first 90% is loading the scene

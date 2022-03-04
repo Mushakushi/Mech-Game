@@ -2043,6 +2043,7 @@ MonoBehaviour:
     intro: {fileID: 8300000, guid: a380bd77489eb784db6a7347e8dbd509, type: 3}
     loop: {fileID: 8300000, guid: a94916a459d0b6b4bbde137383e5e10c, type: 3}
   progressText: {fileID: 0}
+  errorText: {fileID: 0}
 --- !u!4 &2121069359
 Transform:
   m_ObjectHideFlags: 0
