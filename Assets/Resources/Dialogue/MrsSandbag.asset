@@ -16,20 +16,28 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
-      - text: Use W to punch.
+      - text: Welcome to Super Battle Machine Boxing!
         characterDelay: 2
-      - text: ' You can only damage the opponent'
-        characterDelay: 4
-      - text: ' when the blue bar is visible.'
-        characterDelay: 4
       portraitOverride: {fileID: 0}
       overflow: 0
       voiceline: {fileID: 0}
     - sections:
-      - text: Use A and D to dodge when
+      - text: Use the W key to punch. Only punch when the blue bar is visible.  Your
+          opponent will block it otherwise.
         characterDelay: 2
-      - text: ' opponent attacks to avoid damage.'
-        characterDelay: 0
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: Use the A and D keys to dodge your opponent's attacks. You are limited
+          to taking 3 hits.
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: You now know all you need to fight them.
+        characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
       voiceline: {fileID: 0}

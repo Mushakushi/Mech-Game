@@ -7,12 +7,25 @@ public class MrsSandbag : Boss
     public override string characterName => "Mrs. Sandbag";
     public override float maxHealth => 100;
     public override float resistance => 0;
-    public override Phase[] activePhases => base.activePhases;
+    public override Phase[] activePhases => new Phase[] { Phase.Player, Phase.Boss_Guard, Phase.Boss, Phase.Player_Win };
 
     public override int maxHealthBars => 3;
     public override List<float> specialWeights => new List<float> { 100 };
 
     protected override void OnInitializeBoss() { }
+    protected override void PhaseEnterBehavior()
+    {
+        base.PhaseEnterBehavior();
+        if (this.GetManagerPhase() == Phase.Player && this.GetDialogueController().GetDialogueStage() == 1)
+        {
+            this.SwitchPhase(Phase.Boss);
+        }
+        
+        if (this.GetManagerPhase() == Phase.Player && this.GetDialogueController().GetRemainingLines() == 0)
+        {
+                this.SwitchPhase(Phase.Player_Win);
+        }
+    }
 
     /// <summary>
     /// Mrs sandbag is immortal
