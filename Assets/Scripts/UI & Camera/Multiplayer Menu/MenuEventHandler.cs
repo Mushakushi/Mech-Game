@@ -206,4 +206,10 @@ public class MenuEventHandler : MonoBehaviour
     /// <param name="isMultiplayerGame">Whether or not to disable joining</param>
     /// <remarks>Set this before the battle scene, BattleGroupManager will read this on initiate</remarks>
     public void SetMultiplayerState(bool isMultiplayerGame) => GlobalSettings.isMultiplayerGame = isMultiplayerGame;
+
+    /// <summary>
+    /// Enables one-hit mode if <paramref name="isOneHitMode"/> is true, disables otherwise
+    /// </summary>
+    /// <param name="isOneHitMode">Whether or not to disable one-hit mode</param>
+    public void SetOneHitMode(bool isOneHitMode) => GlobalSettings.SetOneHitMode(isOneHitMode);
 }

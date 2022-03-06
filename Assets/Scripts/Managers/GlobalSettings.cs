@@ -8,7 +8,12 @@ public static class GlobalSettings
     /// <summary>
     /// Whether or not to allow joining
     /// </summary>
-    public static bool isMultiplayerGame = false;
+    public static bool isMultiplayerGame;
+
+    /// <summary>
+    /// Whether or not one-hit mode is enabled
+    /// </summary>
+    public static bool isOneHitMode { get; private set; }
 
     /// <summary>
     /// Enable or disables joining based on <see cref="isMultiplayerGame"/>
@@ -23,4 +28,9 @@ public static class GlobalSettings
         if (isMultiplayerGame) PlayerInputManager.instance?.EnableJoining();
         else PlayerInputManager.instance?.DisableJoining();
     }
+
+    /// <summary>
+    /// Sets the status of one hit mode
+    /// </summary>
+    public static void SetOneHitMode(bool isEnabled) => isOneHitMode = isEnabled;
 }

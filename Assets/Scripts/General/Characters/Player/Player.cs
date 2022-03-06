@@ -10,7 +10,7 @@ using UnityEngine.Events;
 public class Player : Character
 {
     public override string characterName => "";
-    public override float maxHealth => 3;
+    public override float maxHealth => GlobalSettings.isOneHitMode ? 1 : 3;
     public override float resistance => 1;
     public override Phase[] activePhases => new Phase[] { Phase.Player, Phase.Boss_Guard, Phase.Boss, Phase.Player_Win };
 
@@ -108,6 +108,8 @@ public class Player : Character
     /// <returns>Phases this player belongs to</returns>
     protected override void OnInitialize()
     {
+        UnPause(); // just in case pause set carried over
+        if (maxHealth == 1) slider.SetOneHealth();
         currentActionType = ACTION_TYPE.None;
         allowQueueAction = true;
         canRunInput = true;

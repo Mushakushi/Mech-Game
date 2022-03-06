@@ -37,4 +37,6 @@ public class AudioPlayer : MonoBehaviour
     /// </summary>
     /// <remarks>(e.g. a sound effect)</remarks>
     public static void Play(AudioClip audio) => source.PlayOneShot(audio); 
+
+    // TODO - add low pass filter option when paused 
 }

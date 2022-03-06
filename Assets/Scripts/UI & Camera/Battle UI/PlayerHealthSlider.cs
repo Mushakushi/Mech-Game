@@ -22,4 +22,12 @@ public class PlayerHealthSlider : MonoBehaviour
     {
         animator.SetTrigger("GetHit"); 
     }
+
+    /// <summary>
+    /// Sets health to 1
+    /// </summary>
+    public void SetOneHealth()
+    {
+        animator.SetTrigger("OneHitMode");
+    }
 }
