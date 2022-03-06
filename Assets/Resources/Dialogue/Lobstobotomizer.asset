@@ -20,19 +20,19 @@ MonoBehaviour:
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
-      voiceline: {fileID: 8300000, guid: 48184d75a92b2dc40a4278dee2639145, type: 3}
+      voiceline: {fileID: 0}
     - sections:
       - text: Unlobstibotted Power!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
-      voiceline: {fileID: 8300000, guid: 8712742744020964ca6f07cddac687af, type: 3}
+      voiceline: {fileID: 0}
     - sections:
       - text: LOBSTA POWA!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
-      voiceline: {fileID: 8300000, guid: 0d6e32674cd947b4a850024421c33044, type: 3}
+      voiceline: {fileID: 0}
   - languageName: TokiPona
     dialogueLines: []
   - languageName: Debug

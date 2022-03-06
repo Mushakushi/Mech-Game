@@ -235,6 +235,7 @@ public class Player : Character
     private void Pause()
     {
         Time.timeScale = 0;
+        AudioPlayer.AddEffect(SoundEffect.LowPass);
         onPause.Invoke();
     }
 
@@ -244,6 +245,7 @@ public class Player : Character
     private void UnPause()
     {
         Time.timeScale = 1;
+        AudioPlayer.RemoveEffect(SoundEffect.LowPass);
         onUnpause.Invoke();
     }
 
@@ -271,6 +273,13 @@ public class Player : Character
         base.OnHitboxEnter(damage);
         slider.DepleteOneHealth();
         new ScoreData(damageTaken: (int) damage).AddToPlayerScore(group);
+
+        // impact
+        if (health != 0)
+        {
+            Time.timeScale = 0;
+            StartCoroutine(CoroutineUtility.WaitForSecondsRealtime(1f, () => { Time.timeScale = 1; print(Time.timeScale); }));
+        }
     }
 
     public override void OnEnterHurtbox()
@@ -282,7 +291,11 @@ public class Player : Character
     protected override void OnHealthDeplete()
     {
         print("player defeated");
-        //StartCoroutine(Scene.Load("Menu Scene")); 
+        Time.timeScale = 0.25f; 
+        StartCoroutine(CoroutineUtility.WaitForSecondsRealtime(1f, () => {
+            Time.timeScale = 1;
+            StartCoroutine(Scene.Load("Menu Scene"));
+        }));
     }
 
     private IEnumerator DoAttack()

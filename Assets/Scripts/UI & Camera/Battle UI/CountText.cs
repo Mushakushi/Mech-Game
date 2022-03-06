@@ -8,7 +8,7 @@ public class CountText : MonoBehaviour, IPhaseController
 {
     public int group { get; set; }
 
-    public Phase activePhase => Phase.Mixed;
+    public Phase activePhase => Phase.None;
 
     /// <summary>
     /// Text attached to this gameObject

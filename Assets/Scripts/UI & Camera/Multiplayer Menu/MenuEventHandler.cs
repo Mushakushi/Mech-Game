@@ -177,7 +177,7 @@ public class MenuEventHandler : MonoBehaviour
         if (!progressText) return;
         if (GlobalSettings.isMultiplayerGame && PlayerInputManager.instance.playerCount <= 1)
         {
-            ShowError("CONNECT PLAYER 2!");
+            ShowError("CONNECT PLAYER 2 with start!");
             return; 
         }
         BattleGroupManager.LoadLevelData(bossName);
