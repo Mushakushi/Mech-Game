@@ -64,7 +64,7 @@ MonoBehaviour:
       overflow: 0
       voiceline: {fileID: 0}
     - sections:
-      - text: ' Is it not because we both have the dearest things to protect?  '
+      - text: 'Is it not because we both have the dearest things to protect?  '
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0

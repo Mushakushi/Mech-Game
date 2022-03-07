@@ -63,9 +63,9 @@ public class ScoreScreen : MonoBehaviour, IPhaseController
         return startPos - spacing;
     }
 
-    public void TryAddInputToLeaderboard()
+    public void TryAddInputToLeaderboard(GameObject boss)
     {
-        LeaderboardData board = LeaderboardUtil.LoadLeaderboard(BattleGroupManager.level.bossName);
+        LeaderboardData board = LeaderboardUtil.LoadLeaderboard(boss.GetComponent<Boss>().characterName);
         board.TryAdd(new LeaderboardEntryData(nameInput.text, score));
     }
 

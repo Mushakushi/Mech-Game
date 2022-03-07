@@ -33,7 +33,9 @@ public static class LeaderboardUtil
                 Directory.CreateDirectory(GetLeaderboardFilesDirectory());
             }
             File.Create($"{assetPath}").Dispose();
-            return new LeaderboardData(new List<LeaderboardEntryData>(), name);
+            LeaderboardData newData = new LeaderboardData(CreateEmptyLeaderboard(), name);
+            newData.SaveToFile();
+            return newData;
         }
     }
 
@@ -141,6 +143,16 @@ public static class LeaderboardUtil
         }
 
         return serializedData;
+    }
+
+    private static List<LeaderboardEntryData> CreateEmptyLeaderboard()
+    {
+        List<LeaderboardEntryData> output = new List<LeaderboardEntryData>();
+        for (int i = 0; i < leaderboardMaxSize; i++)
+        {
+            output.Add(new LeaderboardEntryData("YOUR NAME HERE!", new ScoreData(float.MaxValue, 3, 0, 0)));
+        }
+        return output;
     }
 
 

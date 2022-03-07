@@ -7,13 +7,10 @@ using TMPro;
 public class TimerClock : MonoBehaviour, IPhaseController
 {
     private TextMeshProUGUI textbox;
-    //[SerializeField] private DateTime startTime = DateTime.MinValue;
-    //private TimeSpan endTime = TimeSpan.Zero;
-
-    /// <summary>
-    /// In-game time passed
-    /// </summary>
-    [SerializeField] private float time;
+    [SerializeField] private DateTime startTime = DateTime.MinValue;
+    private TimeSpan endTime = TimeSpan.Zero;
+    private TimeSpan pauseSpan = TimeSpan.Zero;
+    private DateTime pauseStart;
 
     public int group { get; set; }
 
@@ -27,38 +24,46 @@ public class TimerClock : MonoBehaviour, IPhaseController
 
     public void StartTimer()
     {
-        //startTime = DateTime.Now;
+        startTime = DateTime.Now;
     }
 
     public TimeSpan StopTimer()
     {
-        //endTime = (DateTime.Now - startTime);
-        //return endTime;
-        return new TimeSpan();
+        endTime = (DateTime.Now - startTime) - pauseSpan;
+        return endTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (endTime == TimeSpan.Zero)
-        //    textbox.text = (DateTime.Now - startTime).ToString(@"mm\:ss\.f");
-        textbox.text = TimeSpan.FromSeconds(Time.timeAsDouble).ToString(@"mm\:ss\.f");
+        if (Time.timeScale == 0)
+        {
+            if (pauseStart == DateTime.MinValue)
+                pauseStart = DateTime.Now;
+        }
+        else
+        {
+            if (pauseStart != DateTime.MinValue)
+            {
+                pauseSpan += DateTime.Now - pauseStart;
+                pauseStart = DateTime.MinValue;
+            }
+            if (endTime == TimeSpan.Zero)
+                textbox.text = ((DateTime.Now - startTime) - pauseSpan).ToString(@"mm\:ss\.f");
+        }
     }
 
     public void OnStart()
     {
-
+        StartTimer();
     }
 
     public void OnPhaseEnter()
     {
         switch (this.GetManagerPhase())
         {
-            case Phase.Intro:
-                StartTimer();
-                break;
-            case Phase.Player_Win:
-                new ScoreData(levelCompleteTime: Time.time).AddToPlayerScore(group);
+            case Phase.Player_Win: // DO NOT CHANGE!!!
+                new ScoreData(levelCompleteTime: (float) StopTimer().TotalMilliseconds / 1000f).AddToPlayerScore(group);
                 break;
         }
     }
@@ -69,5 +74,11 @@ public class TimerClock : MonoBehaviour, IPhaseController
 
     public void OnPhaseExit()
     {
+        switch (this.GetManagerPhase())
+        {
+            case Phase.Intro:
+                StartTimer();
+                break;
+        }
     }
 }

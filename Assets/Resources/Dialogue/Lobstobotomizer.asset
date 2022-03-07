@@ -16,7 +16,11 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
-      - text: BRBBLBLBLRBLBLBLB!
+      - text: Burb-burblblublurb!!!
+        characterDelay: 2
+      - text: <br>
+        characterDelay: 0
+      - text: (You're gonna get clobbered!!!)
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
