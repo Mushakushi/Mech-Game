@@ -16,6 +16,7 @@ public class Shoto : Boss
     protected override void PhaseEnterBehavior()
     {
         base.PhaseEnterBehavior();
+        // skip player phase until final line of dialogue
         if (this.GetManagerPhase() == Phase.Player && this.GetDialogueController().GetRemainingLines() != 0)
         {
             this.SwitchPhase(Phase.Boss);

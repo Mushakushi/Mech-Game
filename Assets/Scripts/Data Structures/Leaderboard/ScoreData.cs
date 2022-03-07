@@ -65,6 +65,9 @@ public class ScoreData
         return data;
     }
 
+    /// <summary>
+    /// Calculate score bonus values and the full score based on stats
+    /// </summary>
     public void CalculateFullScore()
     {
         timeBonus = Math.Max(0f, (float) Math.Ceiling(10000 - (levelCompleteTime < 60 ? 0f : (0.8333f * (levelCompleteTime-60)))));
@@ -75,6 +78,11 @@ public class ScoreData
         fullScore = (int) Math.Ceiling(timeBonus + damageBonus + hitBonus + blockPenalty); // calculation here 
     }
 
+    /// <summary>
+    /// Get a list of string tuples containing titles and values. 
+    /// First half of the list is the stats, second half is the bonus scores
+    /// </summary>
+    /// <returns></returns>
     public List<(string label, string value)> GetDisplayStrings()
     {
         CalculateFullScore();
@@ -94,6 +102,10 @@ public class ScoreData
         return result;
     }
 
+    /// <summary>
+    /// Get a list of string tuples containing only the full score and its value
+    /// </summary>
+    /// <returns></returns>
     public List<(string label, string value)> GetFullScore()
     {
         return new List<(string label, string value)> { ("Full Score", $"{fullScore}") };

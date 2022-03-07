@@ -23,6 +23,13 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         
     }
 
+    /// <summary>
+    /// Set the values of this projectile. Should be run immediately after creation
+    /// </summary>
+    /// <param name="settings">Settings from AttackProjectileAsset scriptable object</param>
+    /// <param name="spawnPos">Spawn position of the projectile</param>
+    /// <param name="destination">Directional destination of projectile</param>
+    /// <param name="speed">Speed of the projectile</param>
     public void SetValues(AttackProjectileAsset settings, Vector2 spawnPos, AttackDestination destination, float speed)
     {
         transform.position = spawnPos;
@@ -40,6 +47,12 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         hitbox.boxCollider.enabled = true;
     }
 
+    /// <summary>
+    /// Get the location where the projectile should destroy itself
+    /// </summary>
+    /// <param name="spawnPos">Location this projectile spawned in</param>
+    /// <param name="destination">Directional destination of attack</param>
+    /// <returns></returns>
     private float GetTravelLimit(Vector2 spawnPos, AttackDestination destination)
     {
         switch (destination)

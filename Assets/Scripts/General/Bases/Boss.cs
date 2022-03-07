@@ -88,16 +88,13 @@ public abstract class Boss : Character
         projectileManager = GetComponent<ProjectileManager>();
         projectileManager.Initialize(group);
 
-        // these are needed to stop the thing from yelling at me. oh well
-        accumulatedWeightSum = 0;
-        accumulatedWeights = null;
         Accumulate(specialWeights);
     }
 
     /// <summary>
-    /// 
+    /// Create and store a list of accumulated weights and their sum
     /// </summary>
-    /// <param name="weights"></param>
+    /// <param name="weights">List of unaccumulated weights</param>
     private void Accumulate(List<float> weights)
     {
         List<float> result = new List<float>();
@@ -209,6 +206,10 @@ public abstract class Boss : Character
         comboText.text = "0";
     }
 
+    /// <summary>
+    /// Used within the animator as an animation event create AttackProjectile objects
+    /// </summary>
+    /// <param name="attackAsset">Should be a AttackProjectileAsset. Must be an Object for the animator</param>
     public void ProjectileAttack(Object attackAsset)
     {
         if (attackAsset is AttackProjectileAsset attack)

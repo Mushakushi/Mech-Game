@@ -11,8 +11,7 @@ public class BossPhaseEnterBehavior : StateMachineBehaviour
     /// </summary>
     public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
-        //animator.SetInteger("SpecialIndex", 1);
-        //return; // temp
+        // Get boss's weights
         if (boss == null)
         {
             boss = animator.gameObject.GetComponent<Boss>();
@@ -20,6 +19,7 @@ public class BossPhaseEnterBehavior : StateMachineBehaviour
         List<float> accumulatedWeights = boss.accumulatedWeights;
         float accumulatedWeightSum = boss.accumulatedWeightSum;
 
+        // choose a random attack based on weight list
         double rand = Random.Range(0, accumulatedWeightSum);
         for (int i = 0; i < accumulatedWeights.Count; i++)
         {

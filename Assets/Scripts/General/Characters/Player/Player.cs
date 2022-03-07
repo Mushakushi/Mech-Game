@@ -293,6 +293,7 @@ public class Player : Character
     {
         print("player defeated");
         Time.timeScale = 0.25f; 
+        // return to menu scene
         StartCoroutine(CoroutineUtility.WaitForSecondsRealtime(1f, () => {
             Time.timeScale = 1;
             StartCoroutine(Scene.Load("Menu Scene"));
