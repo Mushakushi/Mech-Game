@@ -16,6 +16,23 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
+      - text: Another warrior.  You won't stand a chance against me.
+        characterDelay: 2
+      - text: <br>
+        characterDelay: 0
+      - text: 'I have partaken this journey many times. '
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: As I young child, my will has been tested.  My resolve will not fail
+          to you.
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
       - text: I was desperately searching for those wild Joto herbs since they were
           the only aid for my diseased grandmother.
         characterDelay: 2
