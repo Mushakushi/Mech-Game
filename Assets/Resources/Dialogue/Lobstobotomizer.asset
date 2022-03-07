@@ -16,6 +16,16 @@ MonoBehaviour:
   - languageName: English
     dialogueLines:
     - sections:
+      - text: Blurbblurblrlblrlb Blurbblrublrlbbbrlb
+        characterDelay: 2
+      - text: <br>
+        characterDelay: 0
+      - text: (Another newbie, time to teach a lesson.)
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
       - text: Burb-burblblublurb!!!
         characterDelay: 2
       - text: <br>
@@ -26,13 +36,51 @@ MonoBehaviour:
       overflow: 0
       voiceline: {fileID: 0}
     - sections:
-      - text: Unlobstibotted Power!
+      - text: BlbblblblrbBRLb BlrbBlb!!!
+        characterDelay: 2
+      - text: <br>
+        characterDelay: 0
+      - text: (Unlobstibotted Power!!!)
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
       voiceline: {fileID: 0}
     - sections:
-      - text: LOBSTA POWA!
+      - text: Blburb Blrb!!!
+        characterDelay: 2
+      - text: <br>
+        characterDelay: 0
+      - text: (LOBSTA POWA!!!)
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: Blurblblrlb Blurbblrublrlb
+        characterDelay: 2
+      - text: <br>
+        characterDelay: 0
+      - text: (Crumble before the might of the Lobster!!!)
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: Blurblblrlb Blurbblrublrlb Blblblblblurblblb
+        characterDelay: 2
+      - text: <br>
+        characterDelay: 0
+      - text: (You have lasted longer than I have expected.)
+        characterDelay: 2
+      portraitOverride: {fileID: 0}
+      overflow: 0
+      voiceline: {fileID: 0}
+    - sections:
+      - text: Blurblblrlb BLRBLBLbrb BlblblblbBLURBLB
+        characterDelay: 2
+      - text: <br>
+        characterDelay: 0
+      - text: (You are fading!  SUBMIT TO MY MIGHT!!!)
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
