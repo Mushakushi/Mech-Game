@@ -11325,10 +11325,12 @@ MonoBehaviour:
     Mushakushi
 
 
-    VOICE
+    Dialogue
+
+    Mushakushi
 
     Alex
-    Jones (change?)'
+    Jones'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: df2291e3566a5304cb0384181f0f3de3, type: 2}
   m_sharedMaterial: {fileID: -3191135358269886048, guid: df2291e3566a5304cb0384181f0f3de3, type: 2}
