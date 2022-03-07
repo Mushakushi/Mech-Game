@@ -48,14 +48,13 @@ public class TimerClock : MonoBehaviour, IPhaseController
                 pauseSpan += DateTime.Now - pauseStart;
                 pauseStart = DateTime.MinValue;
             }
-            if (endTime == TimeSpan.Zero)
+            if (endTime == TimeSpan.Zero && startTime != DateTime.MinValue)
                 textbox.text = ((DateTime.Now - startTime) - pauseSpan).ToString(@"mm\:ss\.f");
         }
     }
 
     public void OnStart()
     {
-        StartTimer();
     }
 
     public void OnPhaseEnter()

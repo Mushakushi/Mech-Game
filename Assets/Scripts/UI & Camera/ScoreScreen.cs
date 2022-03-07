@@ -67,6 +67,7 @@ public class ScoreScreen : MonoBehaviour, IPhaseController
     {
         LeaderboardData board = LeaderboardUtil.LoadLeaderboard(boss.GetComponent<Boss>().characterName);
         board.TryAdd(new LeaderboardEntryData(nameInput.text, score));
+        ScoreUtil.ResetPlayerScores();
     }
 
     // Update is called once per frame

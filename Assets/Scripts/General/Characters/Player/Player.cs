@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.Events;
+using TMPro;
 
 [RequireComponent(typeof(PlayerInput))]
 public class Player : Character
@@ -295,6 +296,7 @@ public class Player : Character
         StartCoroutine(CoroutineUtility.WaitForSecondsRealtime(1f, () => {
             Time.timeScale = 1;
             StartCoroutine(Scene.Load("Menu Scene"));
+            ScoreUtil.ResetPlayerScores();
         }));
     }
 

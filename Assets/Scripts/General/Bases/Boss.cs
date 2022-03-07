@@ -77,7 +77,7 @@ public abstract class Boss : Character
 
         // TODO - workaround this mess, shouldn't need to disable in default phase event when manual joining is implemented!
         comboText = GameObject.Find("Combo Text").GetComponent<TextMeshProUGUI>();
-        comboText.gameObject.SetActive(false); // case in point
+        //comboText.gameObject.SetActive(false); // case in point
 
         //healthSlider = FindObjectOfType<BossHealthSlider>();
 
@@ -142,7 +142,6 @@ public abstract class Boss : Character
     public override void OnEnterHurtbox()
     {
         DisableHitbox();
-        new ScoreData(damageTaken: 1).AddToPlayerScore(group);
     }
 
     /// <summary>
@@ -206,7 +205,9 @@ public abstract class Boss : Character
     }
 
     protected override void PhaseUpdateBehavior() { }
-    protected override void PhaseExitBehavior() { }
+    protected override void PhaseExitBehavior() {
+        comboText.text = "0";
+    }
 
     public void ProjectileAttack(Object attackAsset)
     {

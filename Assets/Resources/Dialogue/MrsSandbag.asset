@@ -25,6 +25,8 @@ MonoBehaviour:
       - text: Use the W key to punch. Only punch when the blue bar is visible.  Your
           opponent will block it otherwise.
         characterDelay: 2
+      - text: '  '
+        characterDelay: 100
       portraitOverride: {fileID: 0}
       overflow: 0
       voiceline: {fileID: 0}
@@ -32,6 +34,8 @@ MonoBehaviour:
       - text: Use the A and D keys to dodge your opponent's attacks. You are limited
           to taking 3 hits.
         characterDelay: 2
+      - text: '  '
+        characterDelay: 100
       portraitOverride: {fileID: 0}
       overflow: 0
       voiceline: {fileID: 0}

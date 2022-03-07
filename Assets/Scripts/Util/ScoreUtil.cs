@@ -34,6 +34,11 @@ public static class ScoreUtil
         return playerScores;
     }
 
+    public static void ResetPlayerScores()
+    {
+        playerScores = new List<PlayerScore>();
+    }
+
     private static int GetIndex(int groupNumber)
     {
         for (int i = 0; i < playerScores.Count; i++)
