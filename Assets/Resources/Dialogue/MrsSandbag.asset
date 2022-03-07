@@ -36,7 +36,7 @@ MonoBehaviour:
       overflow: 0
       voiceline: {fileID: 0}
     - sections:
-      - text: You now know all you need to fight them.
+      - text: And, that's everything you need to know to be a lean, mean battle machine!
         characterDelay: 2
       portraitOverride: {fileID: 0}
       overflow: 0
