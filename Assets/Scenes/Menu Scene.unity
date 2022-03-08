@@ -1718,6 +1718,7 @@ GameObject:
   - component: {fileID: 443733040}
   - component: {fileID: 443733043}
   - component: {fileID: 443733041}
+  - component: {fileID: 443733044}
   m_Layer: 0
   m_Name: Menu Parent
   m_TagString: Untagged
@@ -1970,6 +1971,18 @@ AudioLowPassFilter:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &443733044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443733037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7a4e55425c6424c8273aa4d87c587c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &473734868
 GameObject:
   m_ObjectHideFlags: 0
