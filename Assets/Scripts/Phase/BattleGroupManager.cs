@@ -40,7 +40,7 @@ public class BattleGroupManager : MonoBehaviour
         if (GlobalSettings.isMultiplayerGame) PlayerInput.Instantiate(playerPrefab);
 
         // delete after done debuging battle scene
-        //LoadLevelData("MrsSandbag");
+        LoadLevelData("Shoto");
         TranslatableTextManager.SetGameLang(LANGUAGE.English);
 
         // get rid of old static references 

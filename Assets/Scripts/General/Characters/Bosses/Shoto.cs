@@ -12,7 +12,7 @@ public class Shoto : Boss
     public override List<float> specialWeights => new List<float> { 75, 25 };
 
     protected override void OnInitializeBoss() {
-        projectileManager.speed = 1.15f;
+        projectileManager.speed = 0.7f;
     }
 
     protected override void PhaseEnterBehavior()
