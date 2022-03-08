@@ -9,7 +9,9 @@ public class Lobstobotomizer : Boss
     public override Phase[] activePhases => base.activePhases;
 
     public override int maxHealthBars => 3; 
-    public override List<float> specialWeights => new List<float> { 33, 33, 33 };
+    public override List<float> specialWeights => new List<float> { 50, 50};
 
-    protected override void OnInitializeBoss() { }
+    protected override void OnInitializeBoss() {
+        projectileManager.speed = 250f;
+    }
 }

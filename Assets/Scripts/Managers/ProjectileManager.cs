@@ -11,7 +11,7 @@ public class ProjectileManager : MonoBehaviour
     private static Camera currentCamera;
     private GameObject genericAttack;
     public int group;
-    public float speed = 0.7f;
+    public float speed = 700f;
 
     private void Start()
     {

@@ -74,17 +74,17 @@ public class GenericAttack : MonoBehaviour, IHitboxOwner
         switch (destination)
         {
             case AttackDestination.Down:
-                transform.position += ((Vector3.down * speed) / 100);
+                transform.position += ((Vector3.down * speed * Time.deltaTime) / 100);
                 if (transform.position.y <= travelLimit)
                     DeleteProjectile();
                 break;
             case AttackDestination.Right:
-                transform.position += ((Vector3.right * speed) / 100);
+                transform.position += ((Vector3.right * speed * Time.deltaTime) / 100);
                 if (transform.position.x >= travelLimit)
                     DeleteProjectile();
                 break;
             case AttackDestination.Left:
-                transform.position += ((Vector3.left * speed) / 100);
+                transform.position += ((Vector3.left * speed * Time.deltaTime) / 100);
                 if (transform.position.x <= travelLimit)
                     DeleteProjectile();
                 break;

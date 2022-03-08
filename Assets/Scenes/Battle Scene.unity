@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1407,7 +1407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -27.100006}
+  m_AnchoredPosition: {x: 0, y: -27.099976}
   m_SizeDelta: {x: -487.75, y: -341.3897}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1292679074
@@ -2432,11 +2432,15 @@ PrefabInstance:
     - target: {fileID: 6729637131873230033, guid: 6fa596c44d7c83f4899baa3352adf791, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: d9d067e9633903241953a395fc068a56, type: 2}
+      objectReference: {fileID: 22100000, guid: 43291e2bc94af36499f3c1be6a062b37, type: 2}
     - target: {fileID: 7978700122685065918, guid: 6fa596c44d7c83f4899baa3352adf791, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1822394565}
+    - target: {fileID: 8069314475725788232, guid: 6fa596c44d7c83f4899baa3352adf791, type: 3}
+      propertyPath: actionDelay
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8069314475725788232, guid: 6fa596c44d7c83f4899baa3352adf791, type: 3}
       propertyPath: onPause.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

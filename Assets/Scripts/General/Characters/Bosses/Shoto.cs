@@ -9,10 +9,10 @@ public class Shoto : Boss
     public override Phase[] activePhases => new Phase[] { Phase.Player, Phase.Boss_Guard, Phase.Boss, Phase.Player_Win };
 
     public override int maxHealthBars => 1; 
-    public override List<float> specialWeights => new List<float> { 75, 25 };
+    public override List<float> specialWeights => new List<float> { 25, 75 };
 
     protected override void OnInitializeBoss() {
-        projectileManager.speed = 0.7f;
+        projectileManager.speed = 300f;
     }
 
     protected override void PhaseEnterBehavior()
