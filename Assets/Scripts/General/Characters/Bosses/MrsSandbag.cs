@@ -21,6 +21,11 @@ public class MrsSandbag : Boss
         {
             this.SwitchPhase(Phase.Boss);
         }
+
+        if (this.GetManagerPhase() == Phase.Player && this.GetDialogueController().GetRemainingLines() == 0)
+        {
+            this.SwitchPhase(Phase.Player_Win);
+        }
     }
 
     /// <summary>
