@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1dceb019af3c2449d9333e255447aa, type: 3}
   m_Name: Shoto Words
   m_EditorClassIdentifier: 
-  animations: {fileID: 0}
+  animations: {fileID: 22100000, guid: 326d41b37dbff36458d7811e11bd2dc5, type: 2}
   spawnDirections:
     top: 1
     sides: 0
   hitboxProperties:
     damage: 1
-    size: {x: 0, y: 0}
+    size: {x: 0.5, y: 0.5}
     offset: {x: 0, y: 0}

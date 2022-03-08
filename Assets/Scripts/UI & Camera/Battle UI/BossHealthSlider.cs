@@ -66,8 +66,7 @@ public class BossHealthSlider : MonoBehaviour, IPhaseController
             animator.SetTrigger("Shake");
             whiteEffect.anchorMax = new Vector2(slider.value, 1);
             slider.value = value;
-            StartCoroutine(CoroutineUtility.WaitForSeconds(0.1f,
-                () => StartCoroutine(DoWhiteEffect(value, 0.002f))));
+            this.WaitForSeconds(0.1f, () => StartCoroutine(DoWhiteEffect(value, 0.002f)));
         }
     } 
 

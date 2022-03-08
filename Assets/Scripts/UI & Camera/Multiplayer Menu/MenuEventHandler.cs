@@ -198,7 +198,7 @@ public class MenuEventHandler : MonoBehaviour
         {
             errorText.text = message;
             errorText.gameObject.SetActive(true);
-            StartCoroutine(CoroutineUtility.WaitForSeconds(0.5f, () => errorText.gameObject.SetActive(false)));
+            this.WaitForSeconds(0.5f, () => errorText.gameObject.SetActive(false));
         }
         else Debug.LogError("Error text is not assigned! Please assign it in the editor.");
     }

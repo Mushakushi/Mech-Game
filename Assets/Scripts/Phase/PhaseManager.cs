@@ -85,7 +85,9 @@ public class PhaseManager : MonoBehaviour
         camera = gameObject.GetComponentInChildren<Camera>();
         camera.cullingMask = ~((1 << 6) | (1 << 7) | (1 << 8) | (1 << 9)); // excludes all (hardcoded) culling layers
         int cull = group + 6;  // player cull layer starts at 6
-        camera.cullingMask |= 1 << cull;  // include culling layer 
+        camera.cullingMask |= 1 << cull;  // include culling layer
+       
+
 
         // set ui camera overlay camera to this camera
         gameObject.GetComponentInChildren<Canvas>().worldCamera = camera;
@@ -284,7 +286,6 @@ public class PhaseManager : MonoBehaviour
     /// <remarks>Phases only change when this function is called in an IPhaseController</remarks>
     public void EnterPhase(Phase phase)
     {
-        // TEMP, needs a player win event
         if (phase == Phase.Player_Win) AudioPlayer.PlayBGM(Audio.bossa); 
 
         UnsubscribeAll();

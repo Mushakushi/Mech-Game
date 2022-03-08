@@ -20,11 +20,6 @@ public abstract class Boss : Character
     /// </summary>
     [SerializeField] private BossHealthSlider healthSlider;
 
-    /// <summary>
-    /// Text component that displays how hard this boss has gotten combo'ed
-    /// </summary>
-    [SerializeField] private TMP_Text comboText;
-
     //[Header("Boss Data")]
     /// <summary>
     /// Amount of times health bar must be depleted to be defeated
@@ -71,13 +66,8 @@ public abstract class Boss : Character
 
         hitbox.SetOwner(this);
 
-        OnInitializeBoss();
         healthBars = maxHealthBars;
         health = maxHealth; // TODO - i'm repeatiing this code to get the refresh working first time
-
-        // TODO - workaround this mess, shouldn't need to disable in default phase event when manual joining is implemented!
-        comboText = GameObject.Find("Combo Text").GetComponent<TextMeshProUGUI>();
-        //comboText.gameObject.SetActive(false); // case in point
 
         //healthSlider = FindObjectOfType<BossHealthSlider>();
 
@@ -89,6 +79,8 @@ public abstract class Boss : Character
         projectileManager.Initialize(group);
 
         Accumulate(specialWeights);
+
+        OnInitializeBoss();
     }
 
     /// <summary>
@@ -127,7 +119,6 @@ public abstract class Boss : Character
                 base.OnHitboxEnter(damage);
                 new ScoreData(timesHitBoss: 1).AddToPlayerScore(group);
                 AudioPlayer.Play(hurtClip);
-                comboText.text = (Convert.ToInt32(comboText.text) + 1).ToString();
                 break;
             case Phase.Boss_Guard:
                 new ScoreData(timesBossBlocked: 1).AddToPlayerScore(group);
@@ -189,11 +180,10 @@ public abstract class Boss : Character
         {
             case Phase.Boss:
                 animator.SetTrigger("EnterPhase");
-                comboText.text = "0";
                 break;
             case Phase.Boss_Guard:
                 animator.SetTrigger("ReturnToIdle");
-                StartCoroutine(CoroutineUtility.WaitForSeconds(1.25f, () => this.ExitPhase()));
+                this.WaitForSeconds(1.25f, () => this.ExitPhase());
                 break;
             case Phase.Player_Win:
                 animator.SetBool("KO'd", true);
@@ -202,9 +192,8 @@ public abstract class Boss : Character
     }
 
     protected override void PhaseUpdateBehavior() { }
-    protected override void PhaseExitBehavior() {
-        comboText.text = "0";
-    }
+
+    protected override void PhaseExitBehavior() { }
 
     /// <summary>
     /// Used within the animator as an animation event create AttackProjectile objects

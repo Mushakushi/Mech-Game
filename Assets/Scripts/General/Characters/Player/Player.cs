@@ -98,6 +98,12 @@ public class Player : Character
     [Header("OnHealthDeplete()")]
     [SerializeField] private UnityEvent onHealthDeplete = new UnityEvent();
 
+    /// <summary>
+    /// What happens when the player punches
+    /// </summary>
+    [Header("OnHealthDeplete()")]
+    [SerializeField] public UnityEvent onHitboxEnter = new UnityEvent();
+
     private void Awake()
     {
         GetComponent<PlayerInput>().onActionTriggered += PoolAction;
@@ -133,7 +139,7 @@ public class Player : Character
                 break;
             case Phase.Player_Win:
                 animator.SetTrigger("Win");
-                StartCoroutine(CoroutineUtility.WaitForSeconds(2.25f, () => this.ExitPhase()));
+                this.WaitForSeconds(2.25f, () => this.ExitPhase());
                 break;
             case Phase.Boss:
                 EnableHurtbox();
@@ -182,7 +188,7 @@ public class Player : Character
                 StartCoroutine(queuedAction);
                 queuedAction = null;
                 canRunInput = false;
-                StartCoroutine(CoroutineUtility.WaitForSeconds(actionDelay, () => canRunInput = true));
+                this.WaitForSeconds(actionDelay, () => canRunInput = true);
             }
         }
         ClearPooledActions(); 
@@ -304,7 +310,7 @@ public class Player : Character
         // invoke event
         onHealthDeplete?.Invoke();
 
-        // stop scene after ...
+        // stop scene after ... seconds
         StartCoroutine(CoroutineUtility.WaitForSecondsRealtime(0.5f, () => {
             Time.timeScale = 0;
         }));
@@ -314,6 +320,7 @@ public class Player : Character
     {
         DisableHitbox();
         Debug.LogError("hitbox disabled");
+        onHitboxEnter?.Invoke();
     }
 
     private IEnumerator DoAttack()

@@ -29,22 +29,22 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.1
-        value: {x: -0.7, y: -4.509, z: -4}
-        inSlope: {x: -3.0416756, y: 0, z: 0}
-        outSlope: {x: -3.0416756, y: 0, z: 0}
+        value: {x: -0.8441816, y: -4.509, z: -4}
+        inSlope: {x: -1.5346763, y: 0, z: 0}
+        outSlope: {x: -1.5346763, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
-        inWeight: {x: 0.39758298, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.06553187, y: 0.33333334, z: 0.33333334}
+        inWeight: {x: 0.83425415, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.13720073, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.7
-        value: {x: -0.7, y: -4.509, z: -4}
-        inSlope: {x: 2.968658, y: 0, z: 0}
-        outSlope: {x: 2.968658, y: 0, z: 0}
+        value: {x: -0.9096482, y: -4.509, z: -4}
+        inSlope: {x: 1.295649, y: 0, z: 0}
+        outSlope: {x: 1.295649, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
-        inWeight: {x: 0.012259981, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.2961606, y: 0.33333334, z: 0.33333334}
+        inWeight: {x: 0.15285453, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.35359088, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.9
         value: {x: -0.3400002, y: -4.509, z: -4}
@@ -126,22 +126,22 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.1
-        value: -0.7
-        inSlope: -3.0416756
-        outSlope: -3.0416756
+        value: -0.8441816
+        inSlope: -1.5346763
+        outSlope: -1.5346763
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.39758298
-        outWeight: 0.06553187
+        inWeight: 0.83425415
+        outWeight: 0.13720073
       - serializedVersion: 3
         time: 0.7
-        value: -0.7
-        inSlope: 2.968658
-        outSlope: 2.968658
+        value: -0.9096482
+        inSlope: 1.295649
+        outSlope: 1.295649
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.012259981
-        outWeight: 0.2961606
+        inWeight: 0.15285453
+        outWeight: 0.35359088
       - serializedVersion: 3
         time: 0.9
         value: -0.3400002
@@ -261,7 +261,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.1
+  - time: 0.2
     functionName: EnableHurtbox
     data: 
     objectReferenceParameter: {fileID: 0}

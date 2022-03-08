@@ -31,11 +31,11 @@ public class CountText : MonoBehaviour, IPhaseController
 
         this.GetManager().jario.onJarioCountStart += () => {
             gameObject.SetActive(true);
-            text.text = (this.GetCounts() + 1).ToString();
+            text.text = "0";
         };
 
         this.GetManager().jario.onJarioCount += () => {
-            text.text = (Convert.ToInt32(text.text) - 1).ToString();
+            text.text = (Convert.ToInt32(text.text) + 1).ToString();
         };
 
         this.GetManager().jario.onJarioCountStop += () => gameObject.SetActive(false);

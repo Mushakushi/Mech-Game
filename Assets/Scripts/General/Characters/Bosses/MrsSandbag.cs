@@ -21,11 +21,6 @@ public class MrsSandbag : Boss
         {
             this.SwitchPhase(Phase.Boss);
         }
-        // return to menu after last line
-        if (this.GetManagerPhase() == Phase.Player && this.GetDialogueController().GetRemainingLines() == 0)
-        {
-            StartCoroutine(Scene.Load("Menu Scene"));
-        }
     }
 
     /// <summary>
