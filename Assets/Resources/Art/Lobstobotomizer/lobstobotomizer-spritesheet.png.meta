@@ -40,76 +40,85 @@ TextureImporter:
     second: lobstobotomizer-special1
   - first:
       213: -3265472795598615820
-    second: idle1
+    second: lobstobotomizer-spritesheet_0
   - first:
       213: -456654038670731076
-    second: idle2
+    second: lobstobotomizer-spritesheet_1
   - first:
       213: 8637831639505068044
-    second: idle3
+    second: lobstobotomizer-spritesheet_2
   - first:
       213: 4338507439385668228
-    second: idle4
+    second: lobstobotomizer-spritesheet_3
   - first:
       213: 6158178497244815597
-    second: guard
+    second: lobstobotomizer-spritesheet_4
   - first:
       213: 537980586309687904
-    second: stun1
+    second: lobstobotomizer-spritesheet_5
   - first:
       213: 8039544591042241022
-    second: stun2
+    second: lobstobotomizer-spritesheet_6
   - first:
       213: -7288163971016153681
-    second: fall1
+    second: lobstobotomizer-spritesheet_7
   - first:
       213: 7395500367441735279
-    second: fall2
+    second: lobstobotomizer-spritesheet_8
   - first:
       213: -702030905675903309
-    second: collapse1
+    second: lobstobotomizer-spritesheet_9
   - first:
       213: -7272225692312216833
-    second: collapse2
+    second: lobstobotomizer-spritesheet_10
   - first:
       213: -5939780023212052959
-    second: collapse3
+    second: lobstobotomizer-spritesheet_11
   - first:
       213: 1049267423303680347
-    second: collapse4
+    second: lobstobotomizer-spritesheet_12
   - first:
       213: 8316147607823393269
-    second: punch1
+    second: lobstobotomizer-spritesheet_13
   - first:
       213: 2358613885762089833
-    second: punch2
+    second: lobstobotomizer-spritesheet_14
   - first:
       213: 6885685454390753180
-    second: punch3
+    second: lobstobotomizer-spritesheet_15
   - first:
       213: 8972762767401758850
-    second: punch4
+    second: lobstobotomizer-spritesheet_16
   - first:
       213: 237646418468912122
-    second: spin1
+    second: lobstobotomizer-spritesheet_17
   - first:
       213: 631559941114873348
-    second: spin2
+    second: lobstobotomizer-spritesheet_18
   - first:
       213: 2358674641200318580
-    second: spin3
+    second: lobstobotomizer-spritesheet_19
   - first:
       213: 8364157961135724321
-    second: spit1
+    second: lobstobotomizer-spritesheet_20
   - first:
       213: -3321839985907423155
-    second: spit2
+    second: lobstobotomizer-spritesheet_21
   - first:
       213: -8153560351658505311
-    second: spit3
+    second: lobstobotomizer-spritesheet_22
   - first:
       213: -1273521750854000269
-    second: spit4
+    second: lobstobotomizer-spritesheet_23
+  - first:
+      213: 7354493779991994365
+    second: lobstobotomizer-spritesheet_24
+  - first:
+      213: 6886871901188138517
+    second: lobstobotomizer-spritesheet_25
+  - first:
+      213: 1088835792813893318
+    second: lobstobotomizer-spritesheet_26
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -199,15 +208,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle1
+      name: lobstobotomizer-spritesheet_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 256
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -220,7 +229,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle2
+      name: lobstobotomizer-spritesheet_1
       rect:
         serializedVersion: 2
         x: 64
@@ -228,7 +237,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -241,7 +250,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle3
+      name: lobstobotomizer-spritesheet_2
       rect:
         serializedVersion: 2
         x: 128
@@ -249,7 +258,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -262,7 +271,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle4
+      name: lobstobotomizer-spritesheet_3
       rect:
         serializedVersion: 2
         x: 192
@@ -270,7 +279,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -283,7 +292,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: guard
+      name: lobstobotomizer-spritesheet_4
       rect:
         serializedVersion: 2
         x: 256
@@ -291,7 +300,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -304,15 +313,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stun1
+      name: lobstobotomizer-spritesheet_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
+        x: 320
+        y: 256
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -325,15 +334,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stun2
+      name: lobstobotomizer-spritesheet_6
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 192
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -346,15 +355,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fall1
+      name: lobstobotomizer-spritesheet_7
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 192
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -367,15 +376,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fall2
+      name: lobstobotomizer-spritesheet_8
       rect:
         serializedVersion: 2
-        x: 192
+        x: 128
         y: 192
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -388,15 +397,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collapse1
+      name: lobstobotomizer-spritesheet_9
       rect:
         serializedVersion: 2
-        x: 256
+        x: 192
         y: 192
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -409,15 +418,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collapse2
+      name: lobstobotomizer-spritesheet_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 256
+        y: 192
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -430,15 +439,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collapse3
+      name: lobstobotomizer-spritesheet_11
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 320
+        y: 192
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -451,15 +460,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: collapse4
+      name: lobstobotomizer-spritesheet_12
       rect:
         serializedVersion: 2
-        x: 128
+        x: 0
         y: 128
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -472,15 +481,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch1
+      name: lobstobotomizer-spritesheet_13
       rect:
         serializedVersion: 2
-        x: 192
+        x: 64
         y: 128
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -493,15 +502,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch2
+      name: lobstobotomizer-spritesheet_14
       rect:
         serializedVersion: 2
-        x: 256
+        x: 128
         y: 128
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -514,15 +523,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch3
+      name: lobstobotomizer-spritesheet_15
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 192
+        y: 128
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -535,15 +544,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch4
+      name: lobstobotomizer-spritesheet_16
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 256
+        y: 128
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -556,15 +565,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spin1
+      name: lobstobotomizer-spritesheet_17
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
+        x: 320
+        y: 128
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -577,15 +586,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spin2
+      name: lobstobotomizer-spritesheet_18
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 64
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -598,15 +607,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spin3
+      name: lobstobotomizer-spritesheet_19
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 64
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -619,15 +628,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spit1
+      name: lobstobotomizer-spritesheet_20
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 128
+        y: 64
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -640,15 +649,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spit2
+      name: lobstobotomizer-spritesheet_21
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 192
+        y: 64
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -661,15 +670,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spit3
+      name: lobstobotomizer-spritesheet_22
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 256
+        y: 64
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -682,15 +691,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spit4
+      name: lobstobotomizer-spritesheet_23
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
+        x: 320
+        y: 64
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -698,6 +707,69 @@ TextureImporter:
       bones: []
       spriteID: 3712d9a07ba835ee0800000000000000
       internalID: -1273521750854000269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lobstobotomizer-spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dff1e3b8029601660800000000000000
+      internalID: 7354493779991994365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lobstobotomizer-spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51620f38185139f50800000000000000
+      internalID: 6886871901188138517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lobstobotomizer-spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c6276972625c1f00800000000000000
+      internalID: 1088835792813893318
       vertices: []
       indices: 
       edges: []

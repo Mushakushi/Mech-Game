@@ -63,6 +63,9 @@ public class MenuEventHandler : MonoBehaviour
 
     public void Awake()
     {
+        // check timescale
+        if (Time.timeScale != 1) Time.timeScale = 1;
+
         // check text 
         if (progressText) progressText.gameObject.SetActive(false);
         if (progressText) errorText.gameObject.SetActive(false);

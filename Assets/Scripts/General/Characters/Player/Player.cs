@@ -92,6 +92,12 @@ public class Player : Character
     [Header("OnUnpause()")]
     [SerializeField] private UnityEvent onUnpause = new UnityEvent();
 
+    /// <summary>
+    /// What happens on death (tko)
+    /// </summary>
+    [Header("OnHealthDeplete()")]
+    [SerializeField] private UnityEvent onHealthDeplete = new UnityEvent();
+
     private void Awake()
     {
         GetComponent<PlayerInput>().onActionTriggered += PoolAction;
@@ -193,6 +199,7 @@ public class Player : Character
         {
             switch (context.action.name)
             {
+                // TODO - fix mobile tap
                 case "Tap":
                 case "Attack":
                     attack = true;
@@ -208,14 +215,15 @@ public class Player : Character
                     break;
                 case "Pause":
                     if (Time.timeScale == 0) UnPause();
-                    else if (this.GetManagerPhase() != Phase.Player_Win) Pause();
+                    // can't pause when game is won or lost
+                    else if (this.GetManagerPhase() != Phase.Player_Win || health != 0) Pause();
                     break;
                 default:
                     throw new System.Exception($"Action {context.action.name} is unhandeled!");
             }
         }
 
-        // TODO - Why doesn't this work
+        // TODO - fix mobile swipe
         else if (context.action.name == "Swipe")
         {
             if (context.control is TouchControl t && t.phase.ReadUnprocessedValue() == UnityEngine.InputSystem.TouchPhase.Moved)
@@ -269,6 +277,7 @@ public class Player : Character
         DisableHitbox();
     }
 
+    // pauses a few frames, takes damage, and subtracts that from score
     public override void OnHitboxEnter(float damage)
     {
         base.OnHitboxEnter(damage);
@@ -283,22 +292,28 @@ public class Player : Character
         }
     }
 
+    /// <summary>
+    /// What happens when the player loses all their hp
+    /// </summary>
+    protected override void OnHealthDeplete()
+    {
+        // slow sceen and reset score
+        Time.timeScale = 0.25f;
+        ScoreUtil.ResetPlayerScores();
+
+        // invoke event
+        onHealthDeplete?.Invoke();
+
+        // stop scene after ...
+        StartCoroutine(CoroutineUtility.WaitForSecondsRealtime(0.5f, () => {
+            Time.timeScale = 0;
+        }));
+    }
+
     public override void OnEnterHurtbox()
     {
         DisableHitbox();
         Debug.LogError("hitbox disabled");
-    }
-
-    protected override void OnHealthDeplete()
-    {
-        print("player defeated");
-        Time.timeScale = 0.25f; 
-        // return to menu scene
-        StartCoroutine(CoroutineUtility.WaitForSecondsRealtime(1f, () => {
-            Time.timeScale = 1;
-            StartCoroutine(Scene.Load("Menu Scene"));
-            ScoreUtil.ResetPlayerScores();
-        }));
     }
 
     private IEnumerator DoAttack()

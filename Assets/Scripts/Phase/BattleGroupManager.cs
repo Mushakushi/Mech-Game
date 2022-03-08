@@ -27,6 +27,7 @@ public class BattleGroupManager : MonoBehaviour
     /// <summary>
     /// Prefab to spawn in unity
     /// </summary>
+    /// <remarks>Set in inspector</remarks>
     [SerializeField] private GameObject playerPrefab;
 
     void Awake()
