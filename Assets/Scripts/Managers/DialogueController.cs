@@ -116,16 +116,26 @@ public class DialogueController : MonoBehaviour, IPhaseController
         this.ExitPhase();
     }
 
+    /// <summary>
+    /// Retrieves dialogue index
+    /// </summary>
+    /// <returns></returns>
     public int GetDialogueStage()
     {
         return dialogueStage;
     }
-
+    /// <summary>
+    /// Retrieves remaining lines based on dialogue stage and max dialogue stages
+    /// </summary>
+    /// <returns></returns>
     public int GetRemainingLines()
     {
         return maxDialogueStage - dialogueStage;
     }
-
+    ///<summary>
+    ///Retrieves maximum dialogue stage
+    ///</summary>
+    
     public int GetMaxDialogueStages()
     {
         return maxDialogueStage;

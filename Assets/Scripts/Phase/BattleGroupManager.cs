@@ -94,23 +94,6 @@ public class BattleGroupManager : MonoBehaviour
             PlayerInputManager.instance.playerCount
             );
 
-        // below was neccessary when automatically adding players,starting from player one:
-
-        // if not player 1 (who is not a runtime phase manager) or already initialized
-        // checking player instance will prevent player 1 from running twice
-        // is awake will prevent instance from running when it's already ran
-        // (bc this is called on every prefab apparently)
-        //if (PlayerInputManager.instance.playerCount > 1)
-        //{
-        //    if (GameObject.FindGameObjectsWithTag("PhaseManager")[e.playersConnected - 1].GetComponent<PhaseManager>()
-        //        is PhaseManager p)
-        //    {
-        //        Debug.LogError($"Player {e.playersConnected} joined.");
-        //        AddRuntimePhaseManager(p);
-        //        //p.OnAwake();
-        //    }
-        //}
-
         // notify each phaseManager of join
         foreach (PhaseManager p in phaseManagers) p.OnPlayerJoined(e); 
     }
@@ -123,7 +106,7 @@ public class BattleGroupManager : MonoBehaviour
     {
         phaseManagers.Add(manager);
     }
-
+    
     private void Start()
     {
         AudioPlayer.PlayBGM(level.bgm);

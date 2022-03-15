@@ -25,7 +25,10 @@ public class ProjectileManager : MonoBehaviour
         currentCamera = phaseManager.camera;
         CreateAttackPatterns();
     }
-
+    /// <summary>
+    /// Creates projectile based on AttackProjectileAsset values
+    /// </summary>
+    /// <param name="projectile"></param>
     public void SpawnProjectile(AttackProjectileAsset projectile)
     {
         AttackPattern attackPattern = ChooseAttackPattern(projectile.spawnDirections);
@@ -36,8 +39,12 @@ public class ProjectileManager : MonoBehaviour
             newAttack.GetComponent<GenericAttack>().SetValues(projectile, spawnPos, attackPattern.destination, speed);
         }
     }
-
-    private AttackPattern ChooseAttackPattern(AttackDirections attackDirections) // none of this is a good way to do this i bet
+    /// <summary>
+    /// Sets pattern of projectiles
+    /// </summary>
+    /// <param name="attackDirections"></param>
+    /// <returns></returns>
+    private AttackPattern ChooseAttackPattern(AttackDirections attackDirections)
     {
         // possible attack positions:
         // 
