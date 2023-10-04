@@ -1,15 +1,13 @@
 # Super Battle Machine Boxing
-https://mushakushi.itch.io/superbmb?secret=UyNP67DUSzsEBfn47IPuXlYu4jc
+![Super Battle Machine Boxing](https://github.com/Mushakushi/Mech-Game/assets/60948236/f3e839ef-f94a-4c1b-a757-90e06a44a391)
 
-## Current TODO:
-- Create Shoto, Joh
-- Finish options menu & multiplayer menu
-- Sync jario counts with boss shakes
+Battle your way through two bosses AND a sandbag in this new take on punch-out! 
 
-## Looking Foward:
+Super Battle Machine Boxing is a up to two player boxing game, featuring two quirky bosses, flashy visual, catchy music, and gameplay that'll keep you hooked! That was a boxing pun, by the way. 
 
-Systems Needed:
-- Voice Lines (not hard)
+This game was developed in three months by a small group of high school software development students. We hope you enjoy what we've put together!
+
+[Play Here!](https://mushakushi.itch.io/superbmb)
 
 ## Instructions and Rubrics:
 ![Overview Instructions](https://user-images.githubusercontent.com/60948236/151413129-abf6ce12-e1b7-4707-8e89-00be1c25220a.PNG)
